@@ -1,0 +1,19 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource>
+    <file>Source/Icon_Close.png</file>
+    <file>Source/Icon_Delete.png</file>
+    <file>Source/Icon_Help.png</file>
+    <file>Source/Icon_Minimize.png</file>
+    <file>Source/Icon_Proccess.png</file>
+    <file>Source/Icon_Upload.png</file>
+    <file>Source/KWE.ico</file>
+    <file>Source/KWESTE.png</file>
+    <file>Source/LOGO_KREI_3.ico</file>
+    <file>Source/LOGO_KREI.png</file>
+    <file>Source/logo_krei2.png</file>
+    <file>Source/LOGO_KWE.png</file>
+    <file>Source/LOGO_KWRB.png</file>
+    <file>Source/LOGOKREI.png</file>
+    <file>Source/comprobado.png</file>
+</qresource>
+</RCC>

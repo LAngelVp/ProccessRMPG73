@@ -1,0 +1,5 @@
+# ARCHIVOS IGNORADOS POR GIT
+/App/dist
+/App/build
+/App/Proyecto
+/App/Index.spec
