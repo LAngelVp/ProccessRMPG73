@@ -1,6 +1,6 @@
 #########################
 # DESARROLLADOR
-# LUIS ANGEL VALLEJO PEREZ
+# RMPG - LUIS ANGEL VALLEJO PEREZ
 #########################
 import os
 import pandas as pd
@@ -35,4 +35,4 @@ class SalidasVale(Variables):
         columnas_bol=df_format1.select_dtypes(include=bool).columns.tolist()
         df_format1[columnas_bol] = df_format1[columnas_bol].astype(str)
         
-        df_format1.to_excel(os.path.join(Variables().ruta_procesados,f'SV_KWRB_SRD_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+        df_format1.to_excel(os.path.join(Variables().ruta_procesados,f'KWRB_SalidasEnVale_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)

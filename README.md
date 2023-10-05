@@ -16,3 +16,13 @@ Tambien se le puede crear una imagen de logo, solo colocando a nivel de raiz una
 pyrcc5 resources.qrc -o resources.py
 EntornoVirtual\Scripts\activate
 pyinstaller --onefile --name "ProcesadorSDR" --icon="LKW.ico" --windowed "Index.py"
+
+Para poder hacer una ventana con bordes redondeados, debemos de hacer lo siguiente:
+    Debemos de importar la libreria:
+    from PyQt5.QtCore import Qt
+    
+    1.- La ventana le debemos de quitar la barra superior en donde aparecen los botones de manipulacion por defecto, colocando el siguiente codigo:
+    self.setAttribute(Qt.WA_TranslucentBackground)
+
+    2.- Posteriormente a eso, debemos de darle un border-radius al widget principal que contendra todos los controles de la ventana y estipulando que la ventana principal se vea totalmente transparente con el siguiente codigo:
+    self.setAttribute(Qt.WA_TranslucentBackground)

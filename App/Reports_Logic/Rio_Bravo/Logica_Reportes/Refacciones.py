@@ -1,6 +1,6 @@
 #########################
 # DESARROLLADOR
-# LUIS ANGEL VALLEJO PEREZ
+# RMPG - LUIS ANGEL VALLEJO PEREZ
 #########################
 import os
 import pandas as pd
@@ -166,4 +166,4 @@ class Refacciones(Variables):
         # # Guardar el libro de Excel
         # wb.save(os.path.join(Variables().ruta_procesados,f'REF_KWRB_SRD{Variables().fechaPath}.xlsx')
         # NOTE GUARDAMOS
-        DF_RefaccionesCompleto.to_excel(os.path.join(Variables().ruta_procesados,f'REFAC_KWRB_SRD_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+        DF_RefaccionesCompleto.to_excel(os.path.join(Variables().ruta_procesados,f'KWRB_Refacciones_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)

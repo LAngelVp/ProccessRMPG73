@@ -1,6 +1,6 @@
 #########################
 # DESARROLLADOR
-# LUIS ANGEL VALLEJO PEREZ
+# RMPG - LUIS ANGEL VALLEJO PEREZ
 #########################
 #importamos librerias
 import os
@@ -289,4 +289,4 @@ class PagosClientes(Variables):
         DataFrameConObjetivo.columns = DataFrameConObjetivo.columns.str.replace('_', ' ')
         
 
-        DataFrameConObjetivo.to_excel(os.path.join(Variables().ruta_procesados,f'PAGOS_KWRB_SRD_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+        DataFrameConObjetivo.to_excel(os.path.join(Variables().ruta_procesados,f'KWRB_PagoClientes_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)

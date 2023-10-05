@@ -1,6 +1,6 @@
 #########################
 # DESARROLLADOR
-# LUIS ANGEL VALLEJO PEREZ
+# RMPG - LUIS ANGEL VALLEJO PEREZ
 #########################
 import os
 import pandas as pd
@@ -43,7 +43,7 @@ class SeguimientoCoresKWESTE(Variables):
         df_SeguimientoCores[columnas_bol] = df_SeguimientoCores[columnas_bol].astype(str)
         df_SeguimientoCores['Antigüedad'] = pd.to_numeric(df_SeguimientoCores['Antigüedad'].dt.days, downcast='integer')
 
-        df_SeguimientoCores.to_excel(os.path.join(Variables().ruta_procesados,f'SeguimientoCores_KWESTE_SDR_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+        df_SeguimientoCores.to_excel(os.path.join(Variables().ruta_procesados,f'KWESTE_SeguimientoCores_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
 
     def EstadoFactura(self, row):
         if pd.notna(row["FechaFactura"]):

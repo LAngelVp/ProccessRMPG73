@@ -7,18 +7,23 @@ import os
 import pandas as pd
 from datetime import *
 from .Variables.ContenedorVariables import Variables
-class Compras(Variables):
-    def Compras_Detallado_KWRB(self):
+# clase del reporte a realizar
+class ComprasKWESTE(Variables):
+    def __init__(self):
+        super().__init__()
         # obtenemos la ruta del documento.
         # leemos el archivo.
-        path = os.path.join(Variables().ruta_Trabajo,'CDR.xlsx')
+        path = os.path.join(Variables().ruta_Trabajo,'CDE.xlsx')
         df = pd.read_excel(path, sheet_name='Hoja2')
         df = df.replace(to_replace=';', value='-', regex=True)
+
         # copiamos el data original.
         df2 = df.copy()
+        
         # cambiamos el nombre de las columnas con las que
         # vamos a realizar las operaciones.
         df2.rename(columns={ 'Fecha Docto.': 'FD', 'Fecha Captura':'FC'}, inplace=True)
+
         # insertamos la columna del dia actual.
         # dentro de la funcion, en el valor, le estamos diciendo a python que inserte la variable de fecha,
         # pero formateada en dia,mes, año.
@@ -65,6 +70,10 @@ class Compras(Variables):
                 df2['Antigüedad'] = df2['Antigüedad'].replace(column,0)
             else:
                 pass
+
+        # creamos la columna de Mes al final del documento
+        df2["Mes"] = df2["FD"].apply(lambda x:Variables().nombre_mes_base_columna(x))
+
         # devolvemos al nombre original.
         df2.rename(columns={ 'FD':'Fecha Docto.', 'FC':'Fecha Captura'}, inplace=True)
 
@@ -80,8 +89,9 @@ class Compras(Variables):
                     pass
             else:
                 pass
+
         df2.drop(['Folio','Hoy'], axis=1, inplace=True)
         columnas_bol=df2.select_dtypes(include=bool).columns.tolist()
         df2[columnas_bol] = df2[columnas_bol].astype(str)
-
-        df2.to_excel(os.path.join(Variables().ruta_procesados,f'KWRB_ComprasDetallado_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+    
+        df2.to_excel(os.path.join(Variables().ruta_procesados,f'KWESTE_ComprasDetallado_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)

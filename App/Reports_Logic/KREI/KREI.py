@@ -1,6 +1,6 @@
 #########################
 # DESARROLLADOR
-# LUIS ANGEL VALLEJO PEREZ
+# RMPG - LUIS ANGEL VALLEJO PEREZ
 #########################
 # APARTADO DE KREI
 from .Logica_Reportes.KREI_OrdenesKW import *

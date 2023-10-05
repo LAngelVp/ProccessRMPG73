@@ -1,6 +1,6 @@
 #########################
 # DESARROLLADOR
-# LUIS ANGEL VALLEJO PEREZ
+# RMPG - LUIS ANGEL VALLEJO PEREZ
 #########################
 import os
 import pandas as pd
@@ -36,7 +36,7 @@ class InventarioKWESTEKREI(Variables):
             except:
                 pass
 
-        df2.to_excel(os.path.join(Variables().ruta_procesados,f'InvCost_KWESTE_KREI_SDR_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+        df2.to_excel(os.path.join(Variables().ruta_procesados,f'KREI_InventarioCosteado_KWESTE_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
     
     def InventarioKWSUR_KREI(self):
         #obtenemos el archivo
@@ -68,4 +68,7 @@ class InventarioKWESTEKREI(Variables):
             except:
                 pass
             
-        df2.to_excel(os.path.join(Variables().ruta_procesados,f'InvCost_KWSUR_KREI_SDR_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+        # columna del mes actual
+        df2["Mes"] = Variables().nombre_mes_actual_abreviado()
+
+        df2.to_excel(os.path.join(Variables().ruta_procesados,f'KREI_InventarioCosteado_KWSUR_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)

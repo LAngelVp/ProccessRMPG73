@@ -1,6 +1,6 @@
 #########################
 # DESARROLLADOR
-# LUIS ANGEL VALLEJO PEREZ
+# RMPG - LUIS ANGEL VALLEJO PEREZ
 #########################
 import sys
 import os
@@ -367,7 +367,8 @@ class trabajohilo(QThread, Variables):
             "SCE.xlsx" : KENWORTHdelESTE().SeguimientoCoresKWESTE,
             "OSE.xlsx" : KENWORTHdelESTE().OrdenesDeServicioKWESTE,
             "TEE.xlsx" : KENWORTHdelESTE().TrabajosPorEstadoKWESTE,
-            "PCE.xlsx" : KENWORTHdelESTE().PagosClientesKWESTE
+            "PCE.xlsx" : KENWORTHdelESTE().PagosClientesKWESTE,
+            "CDE.xlsx" : KENWORTHdelESTE().ComprasDetallado
         }
         #-----------------------------------------------
         while True:

@@ -1,3 +1,7 @@
+#########################
+# DESARROLLADOR
+# RMPG - LUIS ANGEL VALLEJO PEREZ
+#########################
 import os
 import pandas as pd
 import json
@@ -118,6 +122,6 @@ class PagosClientesKWESTE(Variables):
 
         df_completo["Area"] = "Pago Clientes"
 
-        df_completo.to_excel(os.path.join(Variables().ruta_procesados,f'PagosClientes_KWESTE_SDR_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+        df_completo.to_excel(os.path.join(Variables().ruta_procesados,f'KWESTE_PagosClientes_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
 
         #df1.to_excel(os.path.join(Variables().ruta_procesados,f'PagosClientes_KWESTE_SDR_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)

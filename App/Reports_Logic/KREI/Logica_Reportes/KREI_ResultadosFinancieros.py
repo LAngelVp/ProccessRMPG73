@@ -1,6 +1,6 @@
 #########################
 # DESARROLLADOR
-# LUIS ANGEL VALLEJO PEREZ
+# RMPG - LUIS ANGEL VALLEJO PEREZ
 #########################
 import os
 import pandas as pd
@@ -123,7 +123,7 @@ class ResultadosFinancierosKREI(Variables):
 
         financiero.columns = financiero.columns.str.replace("_", " ")
 
-        financiero.to_excel(os.path.join(Variables().ruta_procesados,f'ResulFinanciero_KREI_ESTE_SRD_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+        financiero.to_excel(os.path.join(Variables().ruta_procesados,f'KREI_ResultadosFinancieros_KWESTE_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
 
 
     def ReporteFinancieroKWSUR_KREI(self, PATH):
@@ -205,7 +205,7 @@ class ResultadosFinancierosKREI(Variables):
 
         financiero.columns = financiero.columns.str.replace("_", " ")
 
-        financiero.to_excel(os.path.join(Variables().ruta_procesados,f'ResulFinanciero_KREI_SUR_SRD_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+        financiero.to_excel(os.path.join(Variables().ruta_procesados,f'KREI_ResultadosFinancieros_KWSUR_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
 
 
     def obtenerDepartamento(self,valor):

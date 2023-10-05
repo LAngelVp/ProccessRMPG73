@@ -1,9 +1,7 @@
 #########################
 # DESARROLLADOR
-# LUIS ANGEL VALLEJO PEREZ
+# RMPG - LUIS ANGEL VALLEJO PEREZ
 #########################
-
-
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 

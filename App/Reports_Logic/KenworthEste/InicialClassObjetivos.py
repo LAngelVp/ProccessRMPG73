@@ -1,3 +1,7 @@
+#########################
+# DESARROLLADOR
+# RMPG - LUIS ANGEL VALLEJO PEREZ
+#########################
 import sys
 import os
 import json

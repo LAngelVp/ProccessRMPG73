@@ -1,6 +1,6 @@
 #########################
 # DESARROLLADOR
-# LUIS ANGEL VALLEJO PEREZ
+# RMPG - LUIS ANGEL VALLEJO PEREZ
 #########################
 # importamos librerias
 import os
@@ -66,4 +66,4 @@ class BackOrder(Variables):
             else:
                 pass
 
-        df_resta_fechas.to_excel(os.path.join(Variables().ruta_procesados,f'BO_KWRB_SRD_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+        df_resta_fechas.to_excel(os.path.join(Variables().ruta_procesados,f'KWRB_BackOrder_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)

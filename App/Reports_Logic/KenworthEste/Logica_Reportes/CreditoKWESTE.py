@@ -1,6 +1,6 @@
 #########################
 # DESARROLLADOR
-# LUIS ANGEL VALLEJO PEREZ
+# RMPG - LUIS ANGEL VALLEJO PEREZ
 #########################
 import os
 import pandas as pd
@@ -68,4 +68,4 @@ class CreditoNormalKWESTE(Variables):
         df2[columnas_bol] = df2[columnas_bol].astype(str)
 
         # exportamos el documento
-        df2.to_excel(os.path.join(Variables().ruta_procesados,f'CREDITO_KWESTE_KREI_SDR_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+        df2.to_excel(os.path.join(Variables().ruta_procesados,f'KWESTE_Credito_KREI_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)

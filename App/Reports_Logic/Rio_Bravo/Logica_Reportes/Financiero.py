@@ -1,6 +1,6 @@
 #########################
 # DESARROLLADOR
-# LUIS ANGEL VALLEJO PEREZ
+# RMPG - LUIS ANGEL VALLEJO PEREZ
 #########################
 import os
 import pandas as pd
@@ -129,7 +129,7 @@ class ResultadosFinancieros(Variables):
 
         # GUARDAMOS EL ARCHIVO
         print(4)
-        financiero.to_excel(os.path.join(Variables().ruta_procesados,f'Financiero_KWRB_SRD_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+        financiero.to_excel(os.path.join(Variables().ruta_procesados,f'KWRB_ResultadosFinancieros_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
         
 
         

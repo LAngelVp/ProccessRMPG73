@@ -1,6 +1,6 @@
 #########################
 # DESARROLLADOR
-# LUIS ANGEL VALLEJO PEREZ
+# RMPG - LUIS ANGEL VALLEJO PEREZ
 #########################
 import os
 import pandas as pd
@@ -41,4 +41,4 @@ class InventarioUnidades(Variables):
         columnas_bol=df1.select_dtypes(include=bool).columns.tolist()
         df1[columnas_bol] = df1[columnas_bol].astype(str)
         df1.columns = df1.columns.str.replace("_", " ")
-        df1.to_excel(os.path.join(Variables().ruta_procesados,f'IU_KWRB_SRD_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+        df1.to_excel(os.path.join(Variables().ruta_procesados,f'KWRB_InventarioDeUnidades_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)

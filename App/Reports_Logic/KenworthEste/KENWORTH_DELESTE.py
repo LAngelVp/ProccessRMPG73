@@ -1,6 +1,6 @@
 #########################
 # DESARROLLADOR
-# LUIS ANGEL VALLEJO PEREZ
+# RMPG - LUIS ANGEL VALLEJO PEREZ
 #########################
 # esta clase sera intermediaria entre el front con el back.
 from .Logica_Reportes.CreditoKWESTE import *
@@ -11,6 +11,7 @@ from .Logica_Reportes.CoresKWESTE import *
 from .Logica_Reportes.OrdenesServicioKWESTE import *
 from .Logica_Reportes.TrabajosPorEstadoKWESTE import *
 from .Logica_Reportes.PagosClientesKWESTE import *
+from .Logica_Reportes.ComprasKWESTE import *
 #-----------------------------------
 
 #CLASE
@@ -47,3 +48,7 @@ class KENWORTHdelESTE():
     # PAGOS CLIENTES
     def PagosClientesKWESTE(self):
         PagosClientesKWESTE()
+
+    # COMPRAS DETALLADO
+    def ComprasDetallado(self):
+        ComprasKWESTE()

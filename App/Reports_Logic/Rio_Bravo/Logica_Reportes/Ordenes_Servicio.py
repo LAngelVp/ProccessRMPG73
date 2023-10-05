@@ -1,6 +1,6 @@
 #########################
 # DESARROLLADOR
-# LUIS ANGEL VALLEJO PEREZ
+# RMPG - LUIS ANGEL VALLEJO PEREZ
 #########################
 from decimal import Decimal
 from openpyxl import Workbook
@@ -99,4 +99,4 @@ class OrdenesServicio(Variables):
 
 
         # # Guardar el libro de Excel
-        df_clasificadoPorTiposervicio.to_excel(os.path.join(Variables().ruta_procesados,f'OS_KWRB_SRD_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+        df_clasificadoPorTiposervicio.to_excel(os.path.join(Variables().ruta_procesados,f'KWRB_OrdenesDeServicio_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)

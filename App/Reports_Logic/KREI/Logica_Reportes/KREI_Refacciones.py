@@ -1,6 +1,6 @@
 #########################
 # DESARROLLADOR
-# LUIS ANGEL VALLEJO PEREZ
+# RMPG - LUIS ANGEL VALLEJO PEREZ
 #########################
 import os
 import pandas as pd
@@ -33,7 +33,7 @@ class RefaccionesKWESTEKREI(Variables):
         columnas_bol=df_nuevo.select_dtypes(include=bool).columns.tolist()
         df_nuevo[columnas_bol] = df_nuevo[columnas_bol].astype(str)
 
-        df_nuevo.to_excel(os.path.join(Variables().ruta_procesados,f'REFACC_KWESTE_KREI_SDR_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+        df_nuevo.to_excel(os.path.join(Variables().ruta_procesados,f'KREI_Refacciones_KWESTE_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
     def RefaccionesKWSUR_KREI(self):
         path = os.path.join(Variables().ruta_Trabajo,'RSKREI.xlsx')
         # NOTE Leer el archivo
@@ -61,4 +61,4 @@ class RefaccionesKWESTEKREI(Variables):
         columnas_bol=df_nuevo.select_dtypes(include=bool).columns.tolist()
         df_nuevo[columnas_bol] = df_nuevo[columnas_bol].astype(str)
 
-        df_nuevo.to_excel(os.path.join(Variables().ruta_procesados,f'REFACC_KWSUR_KREI_SDR_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+        df_nuevo.to_excel(os.path.join(Variables().ruta_procesados,f'KREI_Refacciones_KWSUR_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)

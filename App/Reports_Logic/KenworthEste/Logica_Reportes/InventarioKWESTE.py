@@ -1,6 +1,6 @@
 #########################
 # DESARROLLADOR
-# LUIS ANGEL VALLEJO PEREZ
+# RMPG - LUIS ANGEL VALLEJO PEREZ
 #########################
 import os
 import pandas as pd
@@ -81,7 +81,7 @@ class InventarioKWESTE(Variables):
         #mandar el dataframe a una variable.
         df_inventarioCosteado = df2.copy()
         #exportamos el dataframe del inventario costeado.
-        df_inventarioCosteado.to_excel(os.path.join(Variables().ruta_procesados,f'InvCost_KWESTE_SDR_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+        df_inventarioCosteado.to_excel(os.path.join(Variables().ruta_procesados,f'KWESTE_InventarioCosteado_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
 
         #--------------------------------------------------------------
         # INVENTARIO COSTEADO POR DIA
@@ -135,4 +135,4 @@ class InventarioKWESTE(Variables):
         df_inventarioCosteadoxDia["Fecha_Dias"] = pd.to_datetime(df_inventarioCosteadoxDia["Fecha_Dias"], errors="coerce")
         df_inventarioCosteadoxDia["Fecha_Dias"] = df_inventarioCosteadoxDia["Fecha_Dias"].dt.strftime("%m/%d/%Y")
 
-        df_inventarioCosteadoxDia.to_excel(os.path.join(Variables().ruta_procesados,f'InvCostD_KWESTE_SDR_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+        df_inventarioCosteadoxDia.to_excel(os.path.join(Variables().ruta_procesados,f'KWESTE_InventarioCosteadoPorDia_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)

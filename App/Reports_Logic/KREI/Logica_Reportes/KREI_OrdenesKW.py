@@ -1,6 +1,6 @@
 #########################
 # DESARROLLADOR
-# LUIS ANGEL VALLEJO PEREZ
+# RMPG - LUIS ANGEL VALLEJO PEREZ
 #########################
 import os
 import pandas as pd
@@ -64,7 +64,7 @@ class  OrdenesServicioKWESTEKREI(Variables):
         columnas_bol=dfKWESTE.select_dtypes(include=bool).columns.tolist()
         dfKWESTE[columnas_bol] = dfKWESTE[columnas_bol].astype(str)
 
-        dfKWESTE.to_excel(os.path.join(Variables().ruta_procesados,f'OS_KWESTE_KREI_SDR_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+        dfKWESTE.to_excel(os.path.join(Variables().ruta_procesados,f'KREI_OrdenesDeServicio_KWESTE_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
     
     def OrdenesKWSUR_KREI(self):
         path = os.path.join(Variables().ruta_Trabajo,'OSSKREI.xlsx')
@@ -121,4 +121,4 @@ class  OrdenesServicioKWESTEKREI(Variables):
         columnas_bol=dfKWSUR.select_dtypes(include=bool).columns.tolist()
         dfKWSUR[columnas_bol] = dfKWSUR[columnas_bol].astype(str)
 
-        dfKWSUR.to_excel(os.path.join(Variables().ruta_procesados,f'OS_KWSUR_KREI_SDR_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+        dfKWSUR.to_excel(os.path.join(Variables().ruta_procesados,f'KREI_OrdenesDeServicio_KWSUR_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)

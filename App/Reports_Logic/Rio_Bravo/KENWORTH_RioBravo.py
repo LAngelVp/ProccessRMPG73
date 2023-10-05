@@ -1,6 +1,6 @@
 #########################
 # DESARROLLADOR
-# LUIS ANGEL VALLEJO PEREZ
+# RMPG - LUIS ANGEL VALLEJO PEREZ
 #########################
 #--------------------
 # CLASE INTERMEDIARIA ENTRE EL FRONT Y EL BACK PANDAS

@@ -1,6 +1,6 @@
 #########################
 # DESARROLLADOR
-# LUIS ANGEL VALLEJO PEREZ
+# RMPG - LUIS ANGEL VALLEJO PEREZ
 #########################
 import os
 from datetime import *
@@ -23,11 +23,7 @@ class Variables():
     ruta_errores = os.path.join(ruta_Kenworth_DelEste, documentos_Errores_KWESTE)
     ruta_exitosos = os.path.join(ruta_Kenworth_DelEste, documentos_Procesados_KWESTE)
     ruta_documentos = os.path.join(ruta_Kenworth_DelEste, "Documentos")
-    
-    # RT = f'{directirio_raiz}{carpeta_documentos_trabajos}{separador}{documentos_Trabajos_kwrb}' #NOTE Ruta de la carpeta en donde se almacenaran los reportes que se van a trabajar.
-    # RO = f'{directirio_raiz}{carpeta_documentos_originales}{separador}{documentos_originales_kwrb}' #NOTE Lugar donde se van a mandar los documentos originales.
-    # RE = f'{directirio_raiz}{carpeta_documentos_errores}{separador}{documentos_Errores_kwrb}'   #NOTE Ruta de la carpeta donde se almacenaran los reportes con errores de nombre.
-    # RP = f'{directirio_raiz}{carpeta_documentos_Procesados}{separador}{documentos_Procesados_kwrb}' #NOTE Ruta de la carpeta donde se almacenaran los reportes realizados con exito.
+
     #--------------------------------
     #NOTE Reemplazamos las diagonales de las rutas, con la finalidad que cualquier sistema operativo pueda ejecutar el software.
     ruta_carpeta_KWESTE = ruta_Kenworth_DelEste.replace('\\','/')
@@ -60,6 +56,15 @@ class Variables():
         mes_actual = datetime.now().month
         mes_actual_nombre = calendar.month_name[mes_actual].capitalize()
         return mes_actual_nombre
+    
+    def nombre_mes_actual_abreviado(self):
+        mes_actual = datetime.now()
+        mes_abreviado = mes_actual.strftime(f'%b-%Y').replace(".","")
+        return mes_abreviado
+    
     def fechaHoy(self):
         fecha = datetime.now()
         return fecha
+    def nombre_mes_base_columna(self, valor):
+        mes = calendar.month_name[valor.month].capitalize()
+        return mes

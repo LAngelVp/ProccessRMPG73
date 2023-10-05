@@ -1,6 +1,6 @@
 #########################
 # DESARROLLADOR
-# LUIS ANGEL VALLEJO PEREZ
+# RMPG - LUIS ANGEL VALLEJO PEREZ
 #########################
 import os
 import pandas as pd
@@ -51,4 +51,4 @@ class Credito(Variables):
         columnas_bol=df_complete.select_dtypes(include=bool).columns.tolist()
         df_complete[columnas_bol] = df_complete[columnas_bol].astype(str)
         
-        df_complete.to_excel(os.path.join(Variables().ruta_procesados,f'CREDITO_KWRB_SRD_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+        df_complete.to_excel(os.path.join(Variables().ruta_procesados,f'KWRB_Credito_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)

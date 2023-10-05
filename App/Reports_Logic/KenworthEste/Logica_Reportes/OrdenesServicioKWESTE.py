@@ -1,6 +1,6 @@
 #########################
 # DESARROLLADOR
-# LUIS ANGEL VALLEJO PEREZ
+# RMPG - LUIS ANGEL VALLEJO PEREZ
 #########################
 import os
 import pandas as pd
@@ -128,7 +128,7 @@ class OrdenesDeServicioKWESTE(Variables):
         columnas_bol=Completo.select_dtypes(include=bool).columns.tolist()
         Completo[columnas_bol] = Completo[columnas_bol].astype(str)
 
-        Completo.to_excel(os.path.join(Variables().ruta_procesados,f'OrdServicio_KWESTE_SRD_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+        Completo.to_excel(os.path.join(Variables().ruta_procesados,f'KWESTE_OrdenesDeServicio_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
 
     # CREAMOS LA FUNCION PARA LAS CLASIFICACIONES POR NUMERO DE ORDEN
     def FiltroPorNumeroOrden(self, row):

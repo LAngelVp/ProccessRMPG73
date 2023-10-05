@@ -1,6 +1,6 @@
 #########################
 # DESARROLLADOR
-# LUIS ANGEL VALLEJO PEREZ
+# RMPG - LUIS ANGEL VALLEJO PEREZ
 #########################
 import os
 import pandas as pd
@@ -33,7 +33,7 @@ class CreditoKWESTEKREI(Variables):
         df2[columnas_bol] = df2[columnas_bol].astype(str)
 
         # exportamos el documento
-        df2.to_excel(os.path.join(Variables().ruta_procesados,f'CREDITO_KWESTE_KREI_SDR_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+        df2.to_excel(os.path.join(Variables().ruta_procesados,f'KREI_Credito_KWESTE_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
 
 
     def CreditoKWSUR_KREI(self):
@@ -59,9 +59,12 @@ class CreditoKWESTEKREI(Variables):
                     df2[i] = df2[i].dt.strftime("%d/%m/%Y")
                 except:
                     pass
+        
+        # columna del mes actual
+        df2["Mes"] = Variables().nombre_mes_actual_abreviado()
 
         columnas_bol=df2.select_dtypes(include=bool).columns.tolist()
         df2[columnas_bol] = df2[columnas_bol].astype(str)
 
         # exportamos el documento
-        df2.to_excel(os.path.join(Variables().ruta_procesados,f'CREDITO_KWSUR_KREI_SDR_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+        df2.to_excel(os.path.join(Variables().ruta_procesados,f'KREI_Credito_KWSUR_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)

@@ -1,6 +1,6 @@
 #########################
 # DESARROLLADOR
-# LUIS ANGEL VALLEJO PEREZ
+# RMPG - LUIS ANGEL VALLEJO PEREZ
 #########################
 import os
 import pandas as pd
@@ -54,7 +54,7 @@ class ServicioDetalladoKWESTEKREI(Variables):
         columnas_bol=df.select_dtypes(include=bool).columns.tolist()
         df[columnas_bol] = df[columnas_bol].astype(str)
 
-        df.to_excel(os.path.join(Variables().ruta_procesados,f'SERV_KWESTE_KREI_SDR_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+        df.to_excel(os.path.join(Variables().ruta_procesados,f'SERV_KWESTE_KREI_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
     def ServicioDetalladoKWSUR_KREI(self):
         path = os.path.join(Variables().ruta_Trabajo,"SDSKREI.xlsx")
         df = pd.read_excel(path, sheet_name='Hoja2')
@@ -104,4 +104,4 @@ class ServicioDetalladoKWESTEKREI(Variables):
         columnas_bol=df.select_dtypes(include=bool).columns.tolist()
         df[columnas_bol] = df[columnas_bol].astype(str)
 
-        df.to_excel(os.path.join(Variables().ruta_procesados,f'SERV_KWSUR_KREI_SDR_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+        df.to_excel(os.path.join(Variables().ruta_procesados,f'SERV_KWSUR_KREI_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)

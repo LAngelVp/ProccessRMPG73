@@ -1,6 +1,6 @@
 #########################
 # DESARROLLADOR
-# LUIS ANGEL VALLEJO PEREZ
+# RMPG - LUIS ANGEL VALLEJO PEREZ
 #########################
 import os
 import pandas as pd
@@ -85,7 +85,7 @@ class InventarioCosteado(Variables):
         df_inventarioCosteado[columnas_bol] = df_inventarioCosteado[columnas_bol].astype(str)
 
         #exportamos el dataframe del inventario costeado.
-        df_inventarioCosteado.to_excel(os.path.join(Variables().ruta_procesados,f'IC_KWRB_SRD_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+        df_inventarioCosteado.to_excel(os.path.join(Variables().ruta_procesados,f'KWRB_InventarioCosteado_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
 
         #--------------------------------------------------------------
         # INVENTARIO COSTEADO POR DIA
@@ -133,4 +133,4 @@ class InventarioCosteado(Variables):
         columnas_bol=df_inventarioCosteadoxDia.select_dtypes(include=bool).columns.tolist()
         df_inventarioCosteadoxDia[columnas_bol] = df_inventarioCosteadoxDia[columnas_bol].astype(str)
 
-        df_inventarioCosteadoxDia.to_excel(os.path.join(Variables().ruta_procesados,f'ICD_KWRB_SRD_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+        df_inventarioCosteadoxDia.to_excel(os.path.join(Variables().ruta_procesados,f'KWRB_InventarioCosteadoPorDia_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
