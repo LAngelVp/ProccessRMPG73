@@ -12,21 +12,21 @@ class Variables():
     separador = os.sep
     carpeta_documentos_trabajos = 'SDR_Documentos_Kenworth_DelEste'
     # carpetas personales de Kenworth Rio Bravo
-    documentos_Trabajos_KWESTE = "Trabajos"
-    documentos_originales_KWESTE = "Original"
-    documentos_Errores_KWESTE = "Errores"
-    documentos_Procesados_KWESTE = "Exitosos"
+    documentos_Trabajos = "Trabajos"
+    documentos_originales = "Original"
+    documentos_Errores = "Errores"
+    documentos_Procesados = "Exitosos"
     directorio_raiz = os.path.expanduser(f'~{separador}') #NOTE Obtenemos la ruta raiz del sistema, con raiz en el usuario.
-    ruta_Kenworth_DelEste = os.path.join(directorio_raiz, carpeta_documentos_trabajos)
-    ruta_Trabajos = os.path.join(ruta_Kenworth_DelEste, documentos_Trabajos_KWESTE)
-    ruta_original = os.path.join(ruta_Kenworth_DelEste, documentos_originales_KWESTE)
-    ruta_errores = os.path.join(ruta_Kenworth_DelEste, documentos_Errores_KWESTE)
-    ruta_exitosos = os.path.join(ruta_Kenworth_DelEste, documentos_Procesados_KWESTE)
-    ruta_documentos = os.path.join(ruta_Kenworth_DelEste, "Documentos")
+    ruta_Kenworth = os.path.join(directorio_raiz, carpeta_documentos_trabajos)
+    ruta_Trabajos = os.path.join(ruta_Kenworth, documentos_Trabajos)
+    ruta_original = os.path.join(ruta_Kenworth, documentos_originales)
+    ruta_errores = os.path.join(ruta_Kenworth, documentos_Errores)
+    ruta_exitosos = os.path.join(ruta_Kenworth, documentos_Procesados)
+    ruta_documentos = os.path.join(ruta_Kenworth, "Documentos")
 
     #--------------------------------
     #NOTE Reemplazamos las diagonales de las rutas, con la finalidad que cualquier sistema operativo pueda ejecutar el software.
-    ruta_carpeta_KWESTE = ruta_Kenworth_DelEste.replace('\\','/')
+    ruta_carpeta = ruta_Kenworth.replace('\\','/')
     ruta_Trabajo = ruta_Trabajos.replace('\\','/')
     ruta_origina = ruta_original.replace('\\', '/')
     ruta_error = ruta_errores.replace('\\','/')
