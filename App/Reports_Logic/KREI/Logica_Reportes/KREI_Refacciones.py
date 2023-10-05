@@ -15,6 +15,9 @@ class RefaccionesKWESTEKREI(Variables):
         df.drop(['% Margen', 'Meta Ventas Por Vendedor', 'Meta Margen Por Vendedor', 'Meta Cantidad Por Vendedor', 'Meta Ventas Por Sucursal', 'Meta Margen Por Sucursal', 'Meta Cantidad Por Sucursal', '% Comisión Por Margen', '% Comisión Por Ventas', 'Comisión Por Margen', 'Comisión Por Ventas', 'EsBonificacion', 'IdUsuario', 'IdPaquete', 'Paquete', 'Descripción Paquete', 'Cantidad Paquete', 'Subtotal Paquete', 'Potencial Total', 'Tipo de Cambio del día', 'OCCliente', '% Margen Sin Descuento'], axis=1, inplace=True)
         # NOTE SELECCIONAMOS LAS COLUMNAS CON LAS CUALES TRABAJAR
         df_nuevo = df[df.columns[0:93]].copy()
+
+        df_nuevo.insert(0,"Concesionario","KW ESTE", allow_duplicates=False)
+
         for i in df_nuevo:
             if ("fecha" in i.lower()):
                 try:
@@ -40,6 +43,9 @@ class RefaccionesKWESTEKREI(Variables):
         df.drop(['% Margen', 'Meta Ventas Por Vendedor', 'Meta Margen Por Vendedor', 'Meta Cantidad Por Vendedor', 'Meta Ventas Por Sucursal', 'Meta Margen Por Sucursal', 'Meta Cantidad Por Sucursal', '% Comisión Por Margen', '% Comisión Por Ventas', 'Comisión Por Margen', 'Comisión Por Ventas', 'EsBonificacion', 'IdUsuario', 'IdPaquete', 'Paquete', 'Descripción Paquete', 'Cantidad Paquete', 'Subtotal Paquete', 'Potencial Total', 'Tipo de Cambio del día', 'OCCliente', '% Margen Sin Descuento'], axis=1, inplace=True)
         # NOTE SELECCIONAMOS LAS COLUMNAS CON LAS CUALES TRABAJAR
         df_nuevo = df[df.columns[0:93]].copy()
+
+        df_nuevo.insert(0,"Concesionario","KW SUR", allow_duplicates=False)
+
         for i in df_nuevo:
             if ("fecha" in i.lower()):
                 try:

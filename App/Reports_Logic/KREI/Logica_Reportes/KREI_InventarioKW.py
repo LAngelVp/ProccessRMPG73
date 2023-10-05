@@ -15,6 +15,9 @@ class InventarioKWESTEKREI(Variables):
         df = df.replace(to_replace=";", value="-", regex=True)
         #obtener solo las celdas que vamos a trabajar.
         df2 = df[df.columns[0:33]].copy()
+
+        df2.insert(0,"Concesionario","KW ESTE", allow_duplicates=False)
+
         for column_title in df2:
             if ("Fecha" in column_title):
                 try:
@@ -44,6 +47,9 @@ class InventarioKWESTEKREI(Variables):
         df = df.replace(to_replace=";", value="-", regex=True)
         #obtener solo las celdas que vamos a trabajar.
         df2 = df[df.columns[0:33]].copy()
+
+        df2.insert(0,"Concesionario","KW ESTE", allow_duplicates=False)
+
         for column_title in df2:
             if ("Fecha" in column_title):
                 try:

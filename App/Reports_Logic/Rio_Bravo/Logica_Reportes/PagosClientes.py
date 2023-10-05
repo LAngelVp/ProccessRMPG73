@@ -242,6 +242,8 @@ class PagosClientes(Variables):
                 self.objetivos[nombre_columna] = ['0']
             elif (df_notacargo_clasificado[nombre_columna].dtypes == "float64"):
                 self.objetivos[nombre_columna] = ['0.0']
+            elif (nombre_columna == "Mes"):
+                self.objetivos[nombre_columna] = Variables().nombre_mes()
             elif (nombre_columna == "Fecha_Pago") or (nombre_columna == "Fecha_Movimiento"):
                 self.objetivos[nombre_columna] = [fechainsertar]
             else:

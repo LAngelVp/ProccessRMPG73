@@ -58,6 +58,8 @@ class  OrdenesServicioKWESTEKREI(Variables):
 
         # egresamos el titulo de las columnas a su formato original
         dfKWESTE.columns = dfKWESTE.columns.str.replace("_", " ")
+        
+        dfKWESTE.insert(0,"Concesionario","KW ESTE", allow_duplicates=False)
 
         columnas_bol=dfKWESTE.select_dtypes(include=bool).columns.tolist()
         dfKWESTE[columnas_bol] = dfKWESTE[columnas_bol].astype(str)
@@ -113,6 +115,8 @@ class  OrdenesServicioKWESTEKREI(Variables):
 
         # egresamos el titulo de las columnas a su formato original
         dfKWSUR.columns = dfKWSUR.columns.str.replace("_", " ")
+
+        dfKWSUR.insert(0,"Concesionario","KW SUR", allow_duplicates=False)
 
         columnas_bol=dfKWSUR.select_dtypes(include=bool).columns.tolist()
         dfKWSUR[columnas_bol] = dfKWSUR[columnas_bol].astype(str)

@@ -53,6 +53,8 @@ class PagosClientesKWESTE(Variables):
                 self.objetivos[nombre_columna] = ['0']
             elif (df[nombre_columna].dtypes == "float64"):
                 self.objetivos[nombre_columna] = ['0.0']
+            elif (nombre_columna == "Mes"):
+                self.objetivos[nombre_columna] = Variables().nombre_mes()
             elif (df[nombre_columna].dtypes == "datetime64[ns]") and (nombre_columna == "Fecha_Pago") or (nombre_columna == "Fecha_Movimiento"):
                 self.objetivos[nombre_columna] = [fechainsertar]
             else:
@@ -119,4 +121,3 @@ class PagosClientesKWESTE(Variables):
         df_completo.to_excel(os.path.join(Variables().ruta_procesados,f'PagosClientes_KWESTE_SDR_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
 
         #df1.to_excel(os.path.join(Variables().ruta_procesados,f'PagosClientes_KWESTE_SDR_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
-   

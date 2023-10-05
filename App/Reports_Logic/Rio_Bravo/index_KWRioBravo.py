@@ -16,6 +16,7 @@ from webbrowser import *
 from .Logica_Reportes.Variables.ContenedorVariables import Variables
 from .KENWORTH_RioBravo import *
 from .InicialClassObjetivos import *
+from .UI.V_FECHA_MOVI import *
 from .UI.V_KWRB import *
 import subprocess
 class KenworthRioBravo(QMainWindow, Variables):
@@ -45,6 +46,7 @@ class KenworthRioBravo(QMainWindow, Variables):
 
         # MENU DE OPCIONES
         self.ventanaRioBravo.actionObjetivos_Mensuales.triggered.connect(self.ObjetivosPagoClientes)
+        self.ventanaRioBravo.actionFechaMovimiento.triggered.connect(self.Fecha_movimiento)
         #--------------------
         # Señales del hilo
         self.Hilo.signal.connect(self.mensajeTrabajoTerminado)
@@ -60,7 +62,11 @@ class KenworthRioBravo(QMainWindow, Variables):
     def ObjetivosPagoClientes(self):
         self.ventana_obj = ClassPrincipalObjPagos()
         self.ventana_obj.show()
-        # pass
+        
+    def Fecha_movimiento(self):
+        self.ventana_fecha_movimiento = FechaMovimiento()
+        self.ventana_fecha_movimiento.show()
+
 #-------------------------------------------------------
     def inicialHilo(self):
         if self.Hilo.isRunning():
@@ -120,7 +126,6 @@ class KenworthRioBravo(QMainWindow, Variables):
             textoVacio =""
             self.nombreArchivoTrabajando(textoVacio)
 #-------------------------------------------------
-
 
     def mensajeArchivoErroneo(self, mensaje):
         msgE = QMessageBox()
