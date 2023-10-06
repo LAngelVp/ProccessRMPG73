@@ -11,15 +11,11 @@ from .Variables.ContenedorVariables import Variables
 class Refacciones(Variables):
     def RefaccionesKWRB(self):
         path = os.path.join(Variables().ruta_Trabajo,'RR.xlsx')
-       
-        # NOTE Leer el archivo
+
         df = pd.read_excel(path, sheet_name='Hoja2')
         df = df.replace(to_replace=';', value='-', regex=True)
-        # NOTE  ELIMINAMOS LAS COLUMNAS NECESARIAS
+        
         df.drop(['% Margen', 'Meta Ventas Por Vendedor', 'Meta Margen Por Vendedor', 'Meta Cantidad Por Vendedor', 'Meta Ventas Por Sucursal', 'Meta Margen Por Sucursal', 'Meta Cantidad Por Sucursal', '% Comisión Por Margen', '% Comisión Por Ventas', 'Comisión Por Margen', 'Comisión Por Ventas', 'EsBonificacion', 'IdUsuario', 'IdPaquete', 'Paquete', 'Descripción Paquete', 'Cantidad Paquete', 'Subtotal Paquete', 'Potencial Total', 'Tipo de Cambio del día', 'OCCliente', '% Margen Sin Descuento'], axis=1, inplace=True)
-
-
-        # NOTE SELECCIONAMOS LAS COLUMNAS CON LAS CUALES TRABAJAR
 
         df_nuevo = df[df.columns[0:93]].copy()
 
@@ -32,21 +28,20 @@ class Refacciones(Variables):
         df_REFACCIONESServ = df_nuevo[RefaccionesS].copy()
 
 
-        # NOTE CLASIFICACION "REFACCIONES MOSTRADOR"
+        # note CLASIFICACION "REFACCIONES MOSTRADOR"
         #### FILTRAMOS POR SUCURSALES PARA PONER SU CLASIFICACION.
-        # Sucursal                   Departamento Venta            Depa
-        # REYNOSA	                  | Mostrado Reynosa           | Mostrador
-        # NUEVO LAREDO (AEROPUERTO) |	Mostrador NL Aeropuerto	   | Mostrador
-        # TRP NUEVO LAREDO          | Mostrador TRP Nuevo Laredo | Mostrador
-        # TRP REYNOSA	              | Mostrador TRP Reynosa	   | Mostrador
-        # PIEDRAS NEGRAS	          | Mostrador Piedras Negras   | Mostrador
-        # MATAMOROS	              | Mostrador Matamoros        | Mostrador
-        # VALLE HERMOSO	          | Mostrador Valle Hermoso    | Mostrador
-        # TRP NAVA	              | Mostrador TRP Nava         | Mostrador
-        # NUEVO LAREDO (MATRIZ)	  | Mostrador NL Matriz        | Mostrador
-        # POZA RICA	              | Mostrador Poza Rica        | Mostrador
-        # TRP ACUÑA	              | Mostrador TRP Acuña        | Mostrador
-        # ![image.png](attachment:image.png)
+        # Sucursal                      Departamento Venta              Depa
+        # REYNOSA	                    | Mostrado Reynosa              | Mostrador
+        # NUEVO LAREDO (AEROPUERTO)     | Mostrador NL Aeropuerto	    | Mostrador
+        # TRP NUEVO LAREDO              | Mostrador TRP Nuevo Laredo    | Mostrador
+        # TRP REYNOSA	                | Mostrador TRP Reynosa	        | Mostrador
+        # PIEDRAS NEGRAS	            | Mostrador Piedras Negras      | Mostrador
+        # MATAMOROS	                    | Mostrador Matamoros           | Mostrador
+        # VALLE HERMOSO	                | Mostrador Valle Hermoso       | Mostrador
+        # TRP NAVA	                    | Mostrador TRP Nava            | Mostrador
+        # NUEVO LAREDO (MATRIZ)	        | Mostrador NL Matriz           | Mostrador
+        # POZA RICA	                    | Mostrador Poza Rica           | Mostrador
+        # TRP ACUÑA	                    | Mostrador TRP Acuña           | Mostrador
 
         ReynosaM_Depas = df_REFACCIONESMost['Sucursal'] == 'REYNOSA'
         Reynosa = df_REFACCIONESMost[ReynosaM_Depas].copy()
@@ -105,19 +100,18 @@ class Refacciones(Variables):
         TRPACUÑA['Depa'] = 'Mostrador'
 
 
-        # NOTE CONCATENAMOS TODOS LOS FILTROS DE "REFACCIONES MOSTRADOR"
+        # comment CONCATENAMOS TODOS LOS FILTROS DE "REFACCIONES MOSTRADOR"
         DF_RMOSTRADOR = pd.concat([Reynosa, NuevoLaredo_Aero, NLaredo_TRP, trpReynosa, PiedrasNegras, Matamoros_Depas, ValleHermoso, TRPNAVA, NuevoLaredoM, POZARICA, TRPACUÑA], join = "inner")
 
 
-        # FIXME CLASIFICACION "REFACCIONES SERVICIO"
+        # note CLASIFICACION "REFACCIONES SERVICIO"
 
-        # Sucursal    	           Departamento Venta         Depa
-        # REYNOSA	                   |Servicio Reynosa	       |Servicio
-        # PIEDRAS NEGRAS	           |Servicio Piedras Negras	   |Servicio
-        # NUEVO LAREDO (AEROPUERTO)  |Servicio NL Aeropuerto	   |Servicio
-        # MATAMOROS	               |Servicio Matamoros	       |Servicio
-        # NUEVO LAREDO (MATRIZ)	   |Servicio NL Matriz	       |Servicio
-        # ![image.png](attachment:image.png)
+        # Sucursal    	            Departamento Venta         Depa
+        # REYNOSA	                |Servicio Reynosa	       |Servicio
+        # PIEDRAS NEGRAS	        |Servicio Piedras Negras   |Servicio
+        # NUEVO LAREDO (AEROPUERTO) |Servicio NL Aeropuerto	   |Servicio
+        # MATAMOROS	                |Servicio Matamoros	       |Servicio
+        # NUEVO LAREDO (MATRIZ)	    |Servicio NL Matriz	       |Servicio
 
         REYNOSA_serv = df_REFACCIONESServ['Sucursal'] == 'REYNOSA'
         REYNOSAserv = df_REFACCIONESServ[REYNOSA_serv].copy()
@@ -155,15 +149,5 @@ class Refacciones(Variables):
         
         columnas_bol=DF_RefaccionesCompleto.select_dtypes(include=bool).columns.tolist()
         DF_RefaccionesCompleto[columnas_bol] = DF_RefaccionesCompleto[columnas_bol].astype(str)
-        
-        # wb = Workbook()
-        # ws = wb.active
 
-        # # Cargar los datos del DataFrame en el libro de Excel
-        # for row in dataframe_to_rows(DF_RefaccionesCompleto, index=False, header=True):
-        #     ws.append(row)
-
-        # # Guardar el libro de Excel
-        # wb.save(os.path.join(Variables().ruta_procesados,f'REF_KWRB_SRD{Variables().fechaPath}.xlsx')
-        # NOTE GUARDAMOS
         DF_RefaccionesCompleto.to_excel(os.path.join(Variables().ruta_procesados,f'KWRB_Refacciones_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
