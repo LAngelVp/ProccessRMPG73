@@ -29,6 +29,10 @@ class CreditoKWESTEKREI(Variables):
                     df2[i] = df2[i].dt.strftime("%d/%m/%Y")
                 except:
                     pass
+
+        # columna del mes actual
+        df2["Mes"] = Variables().nombre_mes_actual_abreviado()
+        
         columnas_bol=df2.select_dtypes(include=bool).columns.tolist()
         df2[columnas_bol] = df2[columnas_bol].astype(str)
 

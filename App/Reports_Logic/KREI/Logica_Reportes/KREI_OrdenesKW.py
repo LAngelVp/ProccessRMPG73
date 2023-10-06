@@ -56,6 +56,10 @@ class  OrdenesServicioKWESTEKREI(Variables):
         dfKWESTE['Total OS Pde Fact'] = pd.to_numeric(dfKWESTE['Total OS Pde Fact'], errors='coerce').fillna(0)
         dfKWESTE = dfKWESTE.rename(columns={'sub' : 'Subtotal_Ref_Sin_Facturar'})
 
+        ultima_columna = dfKWESTE.columns.get_loc("TipoUnidad")
+        
+        dfKWESTE = dfKWESTE.iloc[:,:ultima_columna + 1]
+
         # egresamos el titulo de las columnas a su formato original
         dfKWESTE.columns = dfKWESTE.columns.str.replace("_", " ")
         
@@ -112,6 +116,10 @@ class  OrdenesServicioKWESTEKREI(Variables):
         dfKWSUR.insert(loc=24, column = 'Total OS Pde Fact', value = dfKWSUR[['MO', 'CM', 'TOT', 'sub']].fillna(0).sum(axis=1), allow_duplicates = False)
         dfKWSUR['Total OS Pde Fact'] = pd.to_numeric(dfKWSUR['Total OS Pde Fact'], errors='coerce').fillna(0)
         dfKWSUR = dfKWSUR.rename(columns={'sub' : 'Subtotal_Ref_Sin_Facturar'})
+
+        ultima_columna = dfKWSUR.columns.get_loc("TipoUnidad")
+        
+        dfKWSUR = dfKWSUR.iloc[:,:ultima_columna + 1]
 
         # egresamos el titulo de las columnas a su formato original
         dfKWSUR.columns = dfKWSUR.columns.str.replace("_", " ")

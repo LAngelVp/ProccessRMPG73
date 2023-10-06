@@ -36,6 +36,12 @@ class InventarioKWESTEKREI(Variables):
             except:
                 pass
 
+        # columna del mes actual
+        df2["Mes"] = Variables().nombre_mes_actual_abreviado()
+
+        columnas_bol=df2.select_dtypes(include=bool).columns.tolist()
+        df2[columnas_bol] = df2[columnas_bol].astype(str)
+
         df2.to_excel(os.path.join(Variables().ruta_procesados,f'KREI_InventarioCosteado_KWESTE_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
     
     def InventarioKWSUR_KREI(self):
@@ -48,7 +54,7 @@ class InventarioKWESTEKREI(Variables):
         #obtener solo las celdas que vamos a trabajar.
         df2 = df[df.columns[0:33]].copy()
 
-        df2.insert(0,"Concesionario","KW ESTE", allow_duplicates=False)
+        df2.insert(0,"Concesionario","KW SUR", allow_duplicates=False)
 
         for column_title in df2:
             if ("Fecha" in column_title):
@@ -70,5 +76,8 @@ class InventarioKWESTEKREI(Variables):
             
         # columna del mes actual
         df2["Mes"] = Variables().nombre_mes_actual_abreviado()
+
+        columnas_bol=df2.select_dtypes(include=bool).columns.tolist()
+        df2[columnas_bol] = df2[columnas_bol].astype(str)
 
         df2.to_excel(os.path.join(Variables().ruta_procesados,f'KREI_InventarioCosteado_KWSUR_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)

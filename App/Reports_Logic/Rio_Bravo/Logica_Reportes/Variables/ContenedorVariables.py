@@ -59,7 +59,7 @@ class Variables():
     
     def nombre_mes_actual_abreviado(self):
         mes_actual = datetime.now()
-        mes_abreviado = mes_actual.strftime(f'%b-%Y').replace(".","")
+        mes_abreviado = mes_actual.strftime(f'%b-%y').replace(".","")
         return mes_abreviado
     
     def fechaHoy(self):

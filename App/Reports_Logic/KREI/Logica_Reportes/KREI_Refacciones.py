@@ -30,6 +30,7 @@ class RefaccionesKWESTEKREI(Variables):
                     df_nuevo[i] = df_nuevo[i].dt.strftime("%d/%m/%Y")
                 except:
                     pass
+        
         columnas_bol=df_nuevo.select_dtypes(include=bool).columns.tolist()
         df_nuevo[columnas_bol] = df_nuevo[columnas_bol].astype(str)
 
