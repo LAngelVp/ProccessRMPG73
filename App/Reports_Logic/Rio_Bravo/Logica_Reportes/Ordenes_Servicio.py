@@ -93,9 +93,14 @@ class OrdenesServicio(Variables):
                     pass
             else:
                 pass
+        
             
         columnas_bol=df_clasificadoPorTiposervicio.select_dtypes(include=bool).columns.tolist()
         df_clasificadoPorTiposervicio[columnas_bol] = df_clasificadoPorTiposervicio[columnas_bol].astype(str)
+
+        ultima_columna = df_clasificadoPorTiposervicio.columns.get_loc("Estado Orden Global")
+        
+        df_clasificadoPorTiposervicio = df_clasificadoPorTiposervicio.iloc[:,:ultima_columna + 1]
 
 
         # # Guardar el libro de Excel

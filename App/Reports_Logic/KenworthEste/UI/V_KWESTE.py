@@ -7,7 +7,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
-        MainWindow.setObjectName("MainWindow")
+        MainWindow.setObjectName("Kenworth del Este")
         MainWindow.resize(800, 500)
         MainWindow.setMinimumSize(QtCore.QSize(800, 500))
         MainWindow.setMaximumSize(QtCore.QSize(800, 500))
@@ -372,27 +372,27 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.btnMinimizar.setToolTip(_translate("MainWindow", "Minimizar"))
-        self.btnCerrar.setToolTip(_translate("MainWindow", "Cerrar"))
-        self.lblTextoEnCola_2.setText(_translate("MainWindow", "Trabajos En Espera"))
-        self.lblTextoProcesado_2.setText(_translate("MainWindow", "Trabajos Realizados"))
-        self.btnSubir.setToolTip(_translate("MainWindow", "<html><head/><body><p>Selecciona un archivo .xlsx</p></body></html>"))
-        self.btnSubir.setText(_translate("MainWindow", "Subir"))
-        self.btnEliminar.setToolTip(_translate("MainWindow", "<html><head/><body><p>Elimina los archivos procesados</p></body></html>"))
-        self.btnEliminar.setText(_translate("MainWindow", "Eliminar"))
-        self.btnComenzar.setToolTip(_translate("MainWindow", "<html><head/><body><p>Comenzar el proceso</p></body></html>"))
-        self.btnComenzar.setText(_translate("MainWindow", "Comenzar"))
-        self.btn_Procesados.setToolTip(_translate("MainWindow", "<html><head/><body><p>Ruta de archivos procesados</p></body></html>"))
-        self.btn_Procesados.setText(_translate("MainWindow", "Procesados"))
-        self.btn_Originales.setToolTip(_translate("MainWindow", "<html><head/><body><p>Ruta de archivos originales</p></body></html>"))
-        self.btn_Originales.setText(_translate("MainWindow", "Originales"))
-        self.btn_Errores.setToolTip(_translate("MainWindow", "<html><head/><body><p>Ruta de archivos erroneos</p></body></html>"))
-        self.btn_Errores.setText(_translate("MainWindow", "Erroneos"))
-        self.menuOpciones.setTitle(_translate("MainWindow", "OPCIONES"))
-        self.menuPagosClientes.setTitle(_translate("MainWindow", "PagosClientes"))
-        self.actionObjetivos_Mensuales.setText(_translate("MainWindow", "Objetivos Mensuales"))
-        self.actionFechaMovimiento.setText(_translate("MainWindow", "FechaMovimiento"))
+        MainWindow.setWindowTitle(_translate("Kenworth del Este", "Kenworth del Este"))
+        self.btnMinimizar.setToolTip(_translate("Kenworth del Este", "Minimizar"))
+        self.btnCerrar.setToolTip(_translate("Kenworth del Este", "Cerrar"))
+        self.lblTextoEnCola_2.setText(_translate("Kenworth del Este", "Trabajos En Espera"))
+        self.lblTextoProcesado_2.setText(_translate("Kenworth del Este", "Trabajos Realizados"))
+        self.btnSubir.setToolTip(_translate("Kenworth del Este", "<html><head/><body><p>Selecciona un archivo .xlsx</p></body></html>"))
+        self.btnSubir.setText(_translate("Kenworth del Este", "Subir"))
+        self.btnEliminar.setToolTip(_translate("Kenworth del Este", "<html><head/><body><p>Elimina los archivos procesados</p></body></html>"))
+        self.btnEliminar.setText(_translate("Kenworth del Este", "Eliminar"))
+        self.btnComenzar.setToolTip(_translate("Kenworth del Este", "<html><head/><body><p>Comenzar el proceso</p></body></html>"))
+        self.btnComenzar.setText(_translate("Kenworth del Este", "Comenzar"))
+        self.btn_Procesados.setToolTip(_translate("Kenworth del Este", "<html><head/><body><p>Ruta de archivos procesados</p></body></html>"))
+        self.btn_Procesados.setText(_translate("Kenworth del Este", "Procesados"))
+        self.btn_Originales.setToolTip(_translate("Kenworth del Este", "<html><head/><body><p>Ruta de archivos originales</p></body></html>"))
+        self.btn_Originales.setText(_translate("Kenworth del Este", "Originales"))
+        self.btn_Errores.setToolTip(_translate("Kenworth del Este", "<html><head/><body><p>Ruta de archivos erroneos</p></body></html>"))
+        self.btn_Errores.setText(_translate("Kenworth del Este", "Erroneos"))
+        self.menuOpciones.setTitle(_translate("Kenworth del Este", "OPCIONES"))
+        self.menuPagosClientes.setTitle(_translate("Kenworth del Este", "PagosClientes"))
+        self.actionObjetivos_Mensuales.setText(_translate("Kenworth del Este", "Objetivos Mensuales"))
+        self.actionFechaMovimiento.setText(_translate("Kenworth del Este", "FechaMovimiento"))
 
 
 if __name__ == "__main__":

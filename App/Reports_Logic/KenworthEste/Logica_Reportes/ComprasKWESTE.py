@@ -28,7 +28,7 @@ class ComprasKWESTE(Variables):
         # dentro de la funcion, en el valor, le estamos diciendo a python que inserte la variable de fecha,
         # pero formateada en dia,mes, año.
         df2.insert(
-            loc = 6,
+            loc = 5,
             column = "Hoy",
             value = Variables().fechaInsertar,
             allow_duplicates = False
@@ -40,7 +40,7 @@ class ComprasKWESTE(Variables):
         # insertamos la columna de antigüedad, con la resta del 
         # fecha factura - fecha documento.
         df2.insert(
-            loc = 7,
+            loc = 6,
             column = 'Antigüedad',
             value = df2['FC'] - df2['FD'],
             allow_duplicates = False
@@ -48,7 +48,7 @@ class ComprasKWESTE(Variables):
         # insertamos la columna de "Antigüedad Factura", con la resta,
         # fecha actual - fecha documento
         df2.insert(
-            loc = 8,
+            loc = 7,
             column = 'Antigüedad Fact',
             value = df2['Hoy'] - df2['FD'],
             allow_duplicates = False
