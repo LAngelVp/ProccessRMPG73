@@ -16,7 +16,7 @@ from webbrowser import *
 from .Logica_Reportes.Variables.ContenedorVariables import Variables
 from .KENWORTH_RioBravo import *
 from .InicialClassObjetivos import *
-from .UI.V_FECHA_MOVI import *
+from .V_FECHA_MOVI import *
 from .UI.V_KWRB import *
 import subprocess
 class KenworthRioBravo(QMainWindow, Variables):
