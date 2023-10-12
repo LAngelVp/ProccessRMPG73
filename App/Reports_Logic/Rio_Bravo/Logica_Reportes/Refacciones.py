@@ -146,6 +146,11 @@ class Refacciones(Variables):
         DF_RSERVICIO = pd.concat([REYNOSAserv, PIEDRAS_NEGRASserv, NUEVOLAREDOAeroserv, MATAMOROSserv, NUEVOLAREDOMserv, POZARICA], join = "inner")
 
         DF_RefaccionesCompleto = pd.concat([DF_RMOSTRADOR, DF_RSERVICIO], join = "inner")
+        #-------
+        # note creamos la clasificacion de la columna de Area
+        DF_RefaccionesCompleto.loc[(DF_RefaccionesCompleto["Depa"] == "Mostrador"), "Area"] = "Refacc Mostrador"
+        DF_RefaccionesCompleto.loc[(DF_RefaccionesCompleto["Depa"] == "Servicio"), "Area"] = "Refacc Servicio"
+        #-------------
         
         columnas_bol=DF_RefaccionesCompleto.select_dtypes(include=bool).columns.tolist()
         DF_RefaccionesCompleto[columnas_bol] = DF_RefaccionesCompleto[columnas_bol].astype(str)

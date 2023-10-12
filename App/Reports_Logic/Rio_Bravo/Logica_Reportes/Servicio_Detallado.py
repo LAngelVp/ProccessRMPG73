@@ -220,6 +220,12 @@ class ServioDetallado(Variables):
             value = 'UN-' + df_Final['U'].map(str).str.split('.').str[0],
             allow_duplicates = False
         )
+        #------------
+        #note creamos la clasificacion de la columna de area
+        df_Final["Dias Laborales"] = "" # primero la columa de "dias laborales"
+        df_Final.loc[(df_Final["DepaVenta"] == "Taller Movil"), "Area"] = "MO Taller Movil"
+        df_Final.loc[(df_Final["DepaVenta"] == "Servicio"), "Area"] = "MO Servicio"
+        # ----------------
         # NOTE ELIMINAMOS LAS COLUMNAS QUE NO SE OCUPAN
         df_Final.drop(['Hora Docto.','NO','U','Fecha Cancelación','Categoría','Id. Paquete','Paquete','Descripción Paquete','Cantidad Paquete','Saldo'], axis=1, inplace=True)
         
