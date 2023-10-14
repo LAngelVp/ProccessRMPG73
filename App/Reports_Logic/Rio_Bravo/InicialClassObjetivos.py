@@ -27,6 +27,7 @@ class ClassPrincipalObjPagos(QMainWindow, Variables):
         self.UI.btn_Aceptar.clicked.connect(self.ComprobarCheck)
         self.mostrar_Sucursales()
         self.UI.CB_Sucursales.activated.connect(self.seleccionarSucursal)
+
 #_--------------------------------------------    
 # COMPROBAMOS LA EXISTENCIA DEL DOCUMENTO.
     def comprobarSiExisteJsonPagos(self, ruta):
@@ -34,12 +35,16 @@ class ClassPrincipalObjPagos(QMainWindow, Variables):
             pass
         else: 
             self.crearDocumento(ruta) # SI NO EXISTE
+
+
 #---------------------------------------------
 # CREAMOS EL DOCUMENTO.
     def crearDocumento(self, ruta):
         datos_nuevos = []
         with open(ruta, "w") as docu:
             json.dump(datos_nuevos, docu, indent=4)
+
+
 #-------------------------------------------
 # COMPROBAMOS QUE ESTE SELECCIONADO UN RADIO BOTON PARA REALIZAR LAS ACCIONES
     def ComprobarCheck(self):
@@ -51,6 +56,8 @@ class ClassPrincipalObjPagos(QMainWindow, Variables):
             self.EliminarObjeto()
         else:
             QMessageBox.information(self, "Advertencia", "Ningún botón de opción está marcado.")
+
+
 #--------------------------------------------
 # AGREGAR
     def AgregarObjeto(self):
@@ -62,6 +69,8 @@ class ClassPrincipalObjPagos(QMainWindow, Variables):
         else:
             QMessageBox.information(self, "Advertencia", "El objetivo debe de ser numerico.")
         self.mostrar_Sucursales()
+
+
 #--------------------------------------------
 # MODIFICAR
 
@@ -71,6 +80,8 @@ class ClassPrincipalObjPagos(QMainWindow, Variables):
         for obj in sucursal:
             nom_sucursal = obj["Sucursal"]
             self.UI.CB_Sucursales.addItem(nom_sucursal)
+
+
 #-------------------------------------------
 # MODIFICAR SUCURSALES
 
@@ -113,6 +124,8 @@ class ClassPrincipalObjPagos(QMainWindow, Variables):
             if (nombre_s == elemento):
                 self.UI.LE_Sucursal.setText(nombre_s)
                 self.UI.LE_Objetivo.setText(obj_s)
+
+                
 #-------------------------------------------
 # FUNCIONES DE ABRIR Y ESCRIBIR EL DOCUMENTO
 #_------------------------------------------
