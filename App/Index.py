@@ -11,9 +11,12 @@ from PyQt5.QtCore import QPropertyAnimation, Qt
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QIcon, QPixmap, QMouseEvent
 from VPrincipal import *
+# comment importamos concesionarios
 from Reports_Logic.Rio_Bravo.index_KWRioBravo import *
 from Reports_Logic.KenworthEste.indexKWESTE import *
 from Reports_Logic.KREI.indexKREI import *
+from Reports_Logic.Kenworth_Sonora.Home_Kenworth_Sonora import *
+#------------
 from Reports_Logic.Rio_Bravo.KENWORTH_RioBravo import KENWORTH_Rio_Bravo
 from datetime import *
 import webbrowser
@@ -29,6 +32,7 @@ class my_app(QMainWindow, Variables):
         self.ui.btnKWRB.clicked.connect(self.VentanaRioBravo)
         self.ui.btnKWESTE.clicked.connect(self.VentanaKWESTE)
         self.ui.btnKWKREI.clicked.connect(self.VentanaKREI)
+        self.ui.btnKWS.clicked.connect(self.VentanaSonora)
 
 #-------------------------------------------------
     def VentanaRioBravo(self):
@@ -42,6 +46,10 @@ class my_app(QMainWindow, Variables):
     def VentanaKREI(self):
         self.VentanaKWKREI = KenworthKREI()
         self.VentanaKWKREI.show() 
+#-------------------------------------------------
+    def VentanaSonora(self):
+        self.VentanaKWSonora = Home_KenworthSonora()
+        self.VentanaKWSonora.show() 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     window = my_app()

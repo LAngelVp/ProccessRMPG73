@@ -204,13 +204,13 @@ background-color: transparent;
         <widget class="QWidget" name="WBotonesSalida" native="true">
          <property name="minimumSize">
           <size>
-           <width>110</width>
+           <width>75</width>
            <height>0</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>110</width>
+           <width>75</width>
            <height>16777215</height>
           </size>
          </property>
@@ -278,13 +278,13 @@ background-color: transparent;
       <property name="minimumSize">
        <size>
         <width>0</width>
-        <height>350</height>
+        <height>280</height>
        </size>
       </property>
       <property name="maximumSize">
        <size>
         <width>16777215</width>
-        <height>350</height>
+        <height>280</height>
        </size>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_6">

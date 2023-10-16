@@ -207,13 +207,13 @@ background-color: transparent;
         <widget class="QWidget" name="WBotonesSalida" native="true">
          <property name="minimumSize">
           <size>
-           <width>110</width>
+           <width>75</width>
            <height>0</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>110</width>
+           <width>75</width>
            <height>16777215</height>
           </size>
          </property>
@@ -808,6 +808,12 @@ background-color: transparent;
      <string>OPCIONES</string>
     </property>
     <widget class="QMenu" name="menuPagosClientes">
+     <property name="font">
+      <font>
+       <family>Arial</family>
+       <pointsize>8</pointsize>
+      </font>
+     </property>
      <property name="title">
       <string>PagosClientes</string>
      </property>

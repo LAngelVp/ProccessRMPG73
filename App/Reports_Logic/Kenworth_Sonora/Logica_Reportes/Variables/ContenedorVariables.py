@@ -12,7 +12,7 @@ locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
 class Variables():
     def __init__(self):
         self.separador = os.sep
-        self.carpeta_documentos_trabajos = 'SDR_Documentos_Kenworth_RioBravo'
+        self.carpeta_documentos_trabajos = 'SDR_Documentos_Kenworth_DelEste'
         # carpetas personales de Kenworth Rio Bravo
         self.documentos_Trabajos = "Trabajos"
         self.documentos_originales = "Original"
@@ -36,6 +36,7 @@ class Variables():
         self.ruta_procesados = self.ruta_exitosos.replace('\\','/')
         self.ruta_deapoyo = self.ruta_documentos.replace('\\','/')
         self.route_file_date_movement  = self.route_file_date.replace('\\','/')
+        
         #________________________________________________
 
         self.pdf = 'https://onedrive.live.com/?cid=C903C3E707BD874A&id=C903C3E707BD874A%21220&parId=root&o=OneUp' #NOTE Direccion en donde se encuentra el archivo de apoyo
@@ -62,13 +63,17 @@ class Variables():
         return mes_actual_nombre
     
     def nombre_mes_actual_abreviado(self):
-        mes_actual = datetime.now()
+        mes_actual = self.date_movement_config_document()
         mes_abreviado = mes_actual.strftime(f'%b-%y').replace(".","")
         return mes_abreviado
+    
     
     def fechaHoy(self):
         fecha = datetime.now()
         return fecha
+    def nombre_mes_base_columna(self, valor):
+        mes = calendar.month_name[valor.month].capitalize()
+        return mes
     
     def date_movement_config_document(self):
         document = pd.read_json(self.route_file_date)

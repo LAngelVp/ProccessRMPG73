@@ -6,10 +6,10 @@
 import sys
 import os
 import shutil
+from resources import *
 import threading
 import typing
 from PyQt5.QtWidgets import QWidget
-from resources import *
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QIcon, QPixmap, QMouseEvent
@@ -218,6 +218,8 @@ class KenworthKREI(QMainWindow, QDialog, Variables):
                 os.makedirs(f'{Variables().ruta_error}')
             elif not os.path.isdir(f'{Variables().ruta_procesados}'):
                 os.makedirs(f'{Variables().ruta_procesados}')
+            elif not os.path.isdir(f'{Variables().ruta_documentos}'):
+                os.makedirs(f'{Variables().ruta_documentos}')
             else:
                 pass
     # cerrar la ventana

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Ventan_KWSonora</class>
- <widget class="QMainWindow" name="Ventan_KWSonora">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -83,11 +83,62 @@ background-color: transparent;
 }</string>
   </property>
   <widget class="QWidget" name="WPrincipal">
+   <property name="minimumSize">
+    <size>
+     <width>800</width>
+     <height>500</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>800</width>
+     <height>500</height>
+    </size>
+   </property>
+   <widget class="QWidget" name="WCuerpo" native="true">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>67</y>
+      <width>800</width>
+      <height>280</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>0</width>
+      <height>280</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>16777215</width>
+      <height>280</height>
+     </size>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <property name="spacing">
+      <number>0</number>
+     </property>
+     <property name="leftMargin">
+      <number>0</number>
+     </property>
+     <property name="topMargin">
+      <number>0</number>
+     </property>
+     <property name="rightMargin">
+      <number>0</number>
+     </property>
+     <property name="bottomMargin">
+      <number>0</number>
+     </property>
+    </layout>
+   </widget>
    <widget class="QWidget" name="WPie" native="true">
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>400</y>
+      <y>370</y>
       <width>800</width>
       <height>100</height>
      </rect>
@@ -104,7 +155,7 @@ background-color: transparent;
       <height>100</height>
      </size>
     </property>
-    <layout class="QHBoxLayout" name="horizontalLayout_7">
+    <layout class="QHBoxLayout" name="horizontalLayout_4">
      <property name="spacing">
       <number>0</number>
      </property>
@@ -158,7 +209,7 @@ background-color: transparent;
             <height>50</height>
            </size>
           </property>
-          <layout class="QHBoxLayout" name="horizontalLayout_8">
+          <layout class="QHBoxLayout" name="horizontalLayout_5">
            <property name="spacing">
             <number>5</number>
            </property>
@@ -251,7 +302,7 @@ background-color: transparent;
         </item>
         <item>
          <widget class="QWidget" name="WBotonesRutas" native="true">
-          <layout class="QHBoxLayout" name="horizontalLayout_9">
+          <layout class="QHBoxLayout" name="horizontalLayout_6">
            <property name="spacing">
             <number>5</number>
            </property>
@@ -340,7 +391,7 @@ background-color: transparent;
      </item>
      <item>
       <widget class="QWidget" name="WTextoProceso" native="true">
-       <layout class="QVBoxLayout" name="verticalLayout_7">
+       <layout class="QVBoxLayout" name="verticalLayout_5">
         <property name="spacing">
          <number>5</number>
         </property>
@@ -409,7 +460,7 @@ background-color: transparent;
          <height>60</height>
         </size>
        </property>
-       <layout class="QVBoxLayout" name="verticalLayout_8">
+       <layout class="QVBoxLayout" name="verticalLayout_7">
         <item>
          <widget class="QPushButton" name="btnAyuda">
           <property name="maximumSize">
@@ -482,123 +533,6 @@ background-color: transparent;
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="WCuerpo" native="true">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>50</y>
-      <width>800</width>
-      <height>350</height>
-     </rect>
-    </property>
-    <property name="minimumSize">
-     <size>
-      <width>0</width>
-      <height>350</height>
-     </size>
-    </property>
-    <property name="maximumSize">
-     <size>
-      <width>16777215</width>
-      <height>350</height>
-     </size>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout_6">
-     <property name="spacing">
-      <number>0</number>
-     </property>
-     <property name="leftMargin">
-      <number>0</number>
-     </property>
-     <property name="topMargin">
-      <number>0</number>
-     </property>
-     <property name="rightMargin">
-      <number>0</number>
-     </property>
-     <property name="bottomMargin">
-      <number>0</number>
-     </property>
-     <item>
-      <widget class="QWidget" name="WTablaIzquierda" native="true">
-       <layout class="QVBoxLayout" name="verticalLayout_4">
-        <item>
-         <widget class="QLabel" name="lblTextoEnCola">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>20</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>16777215</width>
-            <height>20</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <family>Cambria Math</family>
-            <pointsize>14</pointsize>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>Trabajos En Espera</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QTableWidget" name="TWCola"/>
-        </item>
-       </layout>
-      </widget>
-     </item>
-     <item>
-      <widget class="QWidget" name="WTablaDerecha" native="true">
-       <layout class="QVBoxLayout" name="verticalLayout_5">
-        <item>
-         <widget class="QLabel" name="lblTextoProcesado">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>20</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>16777215</width>
-            <height>20</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <family>Cambria Math</family>
-            <pointsize>14</pointsize>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>Trabajos Realizados</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QTableWidget" name="TWProcesado"/>
-        </item>
-       </layout>
-      </widget>
-     </item>
-    </layout>
-   </widget>
    <widget class="QWidget" name="WCabecera" native="true">
     <property name="geometry">
      <rect>
@@ -650,7 +584,7 @@ background-color: transparent;
          <height>16777215</height>
         </size>
        </property>
-       <layout class="QVBoxLayout" name="verticalLayout_9">
+       <layout class="QVBoxLayout" name="verticalLayout_2">
         <property name="spacing">
          <number>0</number>
         </property>
@@ -658,119 +592,267 @@ background-color: transparent;
          <number>0</number>
         </property>
         <property name="topMargin">
-         <number>5</number>
+         <number>0</number>
         </property>
         <property name="rightMargin">
          <number>0</number>
         </property>
         <property name="bottomMargin">
-         <number>5</number>
+         <number>0</number>
         </property>
-        <item>
-         <widget class="QLabel" name="lblLogoKWSONORA">
-          <property name="text">
-           <string/>
-          </property>
-          <property name="pixmap">
-           <pixmap>../../../../../Downloads/KWSONORA (1).png</pixmap>
-          </property>
-          <property name="scaledContents">
-           <bool>true</bool>
-          </property>
-          <property name="wordWrap">
-           <bool>false</bool>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </item>
-     <item>
-      <spacer name="horizontalSpacer">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>476</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QWidget" name="WBotonesSalida" native="true">
-       <property name="minimumSize">
-        <size>
-         <width>110</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>110</width>
-         <height>16777215</height>
-        </size>
-       </property>
-       <layout class="QHBoxLayout" name="horizontalLayout_10">
-        <property name="rightMargin">
-         <number>5</number>
-        </property>
-        <item>
-         <widget class="QPushButton" name="btnMinimizar">
-          <property name="cursor">
-           <cursorShape>PointingHandCursor</cursorShape>
-          </property>
-          <property name="toolTip">
-           <string>Minimizar</string>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-          <property name="icon">
-           <iconset>
-            <normaloff>../Source/Icon_Minimize.png</normaloff>../Source/Icon_Minimize.png</iconset>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>30</width>
-            <height>30</height>
-           </size>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="btnCerrar">
-          <property name="cursor">
-           <cursorShape>PointingHandCursor</cursorShape>
-          </property>
-          <property name="mouseTracking">
-           <bool>false</bool>
-          </property>
-          <property name="toolTip">
-           <string>Cerrar</string>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-          <property name="icon">
-           <iconset>
-            <normaloff>../Source/Icon_Close.png</normaloff>../Source/Icon_Close.png</iconset>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>30</width>
-            <height>30</height>
-           </size>
-          </property>
-         </widget>
-        </item>
        </layout>
       </widget>
      </item>
     </layout>
    </widget>
+   <widget class="QLabel" name="lblLogoKWS">
+    <property name="geometry">
+     <rect>
+      <x>5</x>
+      <y>6</y>
+      <width>200</width>
+      <height>50</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>../Source/Logo_KWSonora.png</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QWidget" name="WBotonesSalida" native="true">
+    <property name="geometry">
+     <rect>
+      <x>725</x>
+      <y>6</y>
+      <width>75</width>
+      <height>50</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>75</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>75</width>
+      <height>16777215</height>
+     </size>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <property name="rightMargin">
+      <number>5</number>
+     </property>
+     <item>
+      <widget class="QPushButton" name="btnMinimizar">
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="toolTip">
+        <string>Minimizar</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>../Source/Icon_Minimize.png</normaloff>../Source/Icon_Minimize.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>30</width>
+         <height>30</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnCerrar">
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="mouseTracking">
+        <bool>false</bool>
+       </property>
+       <property name="toolTip">
+        <string>Cerrar</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset>
+         <normaloff>../Source/Icon_Close.png</normaloff>../Source/Icon_Close.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>30</width>
+         <height>30</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="WTablaIzquierda" native="true">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>73</y>
+      <width>400</width>
+      <height>280</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_3">
+     <item>
+      <widget class="QLabel" name="lblTextoEnCola">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>20</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>20</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>Cambria Math</family>
+         <pointsize>14</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Trabajos En Espera</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QTableWidget" name="TWCola"/>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="WTablaDerecha" native="true">
+    <property name="geometry">
+     <rect>
+      <x>400</x>
+      <y>73</y>
+      <width>400</width>
+      <height>280</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_4">
+     <item>
+      <widget class="QLabel" name="lblTextoProcesado">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>20</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>20</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>Cambria Math</family>
+         <pointsize>14</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Trabajos Realizados</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QTableWidget" name="TWProcesado"/>
+     </item>
+    </layout>
+   </widget>
   </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>8</pointsize>
+    </font>
+   </property>
+   <widget class="QMenu" name="menuOPCIONES">
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>8</pointsize>
+     </font>
+    </property>
+    <property name="title">
+     <string>OPCIONES</string>
+    </property>
+    <widget class="QMenu" name="menuPagoClientes">
+     <property name="font">
+      <font>
+       <family>Arial</family>
+       <pointsize>8</pointsize>
+      </font>
+     </property>
+     <property name="title">
+      <string>Pago Clientes</string>
+     </property>
+     <addaction name="actionObjetivos_Mensuales"/>
+    </widget>
+    <addaction name="menuPagoClientes"/>
+    <addaction name="actionFechaMovimiento"/>
+   </widget>
+   <addaction name="menuOPCIONES"/>
+  </widget>
+  <action name="actionObjetivos_Mensuales">
+   <property name="text">
+    <string>Objetivos Mensuales</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+    </font>
+   </property>
+  </action>
+  <action name="actionFechaMovimiento">
+   <property name="text">
+    <string>Fecha Movimiento</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+    </font>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

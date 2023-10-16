@@ -9,7 +9,7 @@ from PyQt5.QtGui import QIcon, QPixmap, QMouseEvent
 from .UI.V_AgregarObjetivos import *
 from PyQt5.QtWidgets import *
 from PyQt5 import *
-from resources import *
+from Reports_Logic.Rio_Bravo.resources import *
 from .Logica_Reportes.Variables.ContenedorVariables import Variables
  
 class ClassPrincipalObjPagos(QMainWindow, Variables):
