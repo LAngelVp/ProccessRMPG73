@@ -1,7 +1,9 @@
 import os
 import sys
+from resources import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import QDate
+from PyQt5.QtGui import QIcon
 from .UI.fecha import *
 from .Creacion_JSON_FechaMovimiento import *
 from .Logica_Reportes.Variables.ContenedorVariables import Variables
@@ -11,6 +13,7 @@ class Home_DateMovement(QWidget, Variables):
         super(Home_DateMovement,self).__init__()
         self.ui = Ui_Form_FechaMovimiento()
         self.ui.setupUi(self)
+        self.setWindowIcon(QIcon(":/Source/LOGO_KREI_3.ico"))
         
 
         # comment Colocamos la fecha actual a la caja de Fecha

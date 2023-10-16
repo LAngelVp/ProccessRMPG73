@@ -1,6 +1,6 @@
 pyrcc5 resources.qrc -o resources.py
 EntornoVirtual\Scripts\activate
-pyinstaller --onefile --name "ProcesadorSDR" --icon="LKW.ico" --windowed "Index.py"
+pyinstaller --onefile --name "ProcesadorRMPG" --icon="LKW.ico" --windowed "Index.py"
 
 comando para convertir un archivo de ui -> py:
 pyuic5 -x Comenzar.ui -o Comenzar.py

@@ -6,7 +6,7 @@ import sys
 import os
 import json
 from PyQt5.QtGui import QIcon, QPixmap, QMouseEvent
-from Reports_Logic.Rio_Bravo.resources import *
+from resources import *
 from .UI.V_AgregarObjetivos import *
 from PyQt5.QtWidgets import *
 from PyQt5 import *
