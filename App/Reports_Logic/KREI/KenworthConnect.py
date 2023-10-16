@@ -11,7 +11,7 @@ from .Logica_Reportes.KREI_ServicioDetallado import *
 from .Logica_Reportes.KREI_ResultadosFinancieros import *
 #-------------------------------------------
 #CLASE
-class KENWORTHKREI():
+class KenworthConnect():
 #------------------------------------------------------
 # APARTADO DE KREI---------------------------------------
 #-----------------

@@ -16,7 +16,7 @@ from .Logica_Reportes.InventarioUnidades import *
 #-----------------------------------
 
 #CLASE
-class KENWORTHdelESTE():
+class KenworthConnect():
     # este sera el apartado en donde se colocaran las funciones que conectaran al back.
     def CreditoNormalKWESTE(self):
         CreditoNormalKWESTE().Credito_Normal_KWESTE()

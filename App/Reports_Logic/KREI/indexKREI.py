@@ -17,7 +17,7 @@ from PyQt5.QtCore import Qt, QThread, pyqtSignal, pyqtSlot
 from webbrowser import *
 from .Logica_Reportes.Variables.ContenedorVariables import Variables
 from .Inicio_FechaMovimiento import *
-from .KREI import *
+from .KenworthConnect import *
 from .UI.V_KREI import *
 import subprocess
 #----------------------------------------
@@ -358,18 +358,18 @@ class trabajohilo(QThread, Variables):
         #---------------------------------------
         # diccionario de los archivos.
         diccionario_archivos = {
-            "OSEKREI.xlsx" : KENWORTHKREI().OrdenesServicioKREIKWESTE,
-            "OSSKREI.xlsx" : KENWORTHKREI().OrdenesServicioKREIKWSUR,
-            "CEKREI.xlsx" : KENWORTHKREI().CreditoKREIKWESTE,
-            "CSKREI.xlsx" : KENWORTHKREI().CreditoKREIKWSUR,
-            "ICEKREI.xlsx" : KENWORTHKREI().InventarioKREIKWESTE,
-            "ICSKREI.xlsx" :KENWORTHKREI().InventarioKREIKWSUR,
-            "REKREI.xlsx" : KENWORTHKREI().RefaccionesKREIKWESTE,
-            "RSKREI.xlsx" : KENWORTHKREI().RefaccionesKREIKWSUR,
-            "SDEKREI.xlsx" : KENWORTHKREI().ServicioDetalladoKREIKWESTE,
-            "SDSKREI.xlsx" : KENWORTHKREI().ServicioDetalladoKREIKWSUR,
-            "RFEKREI.xlsx" : KENWORTHKREI().ResultadosFinancierosKREI,
-            "RFSKREI.xlsx" : KENWORTHKREI().ResultadosFinancierosKREI
+            "OSEKREI.xlsx" : KenworthConnect().OrdenesServicioKREIKWESTE,
+            "OSSKREI.xlsx" : KenworthConnect().OrdenesServicioKREIKWSUR,
+            "CEKREI.xlsx" : KenworthConnect().CreditoKREIKWESTE,
+            "CSKREI.xlsx" : KenworthConnect().CreditoKREIKWSUR,
+            "ICEKREI.xlsx" : KenworthConnect().InventarioKREIKWESTE,
+            "ICSKREI.xlsx" :KenworthConnect().InventarioKREIKWSUR,
+            "REKREI.xlsx" : KenworthConnect().RefaccionesKREIKWESTE,
+            "RSKREI.xlsx" : KenworthConnect().RefaccionesKREIKWSUR,
+            "SDEKREI.xlsx" : KenworthConnect().ServicioDetalladoKREIKWESTE,
+            "SDSKREI.xlsx" : KenworthConnect().ServicioDetalladoKREIKWSUR,
+            "RFEKREI.xlsx" : KenworthConnect().ResultadosFinancierosKREI,
+            "RFSKREI.xlsx" : KenworthConnect().ResultadosFinancierosKREI
 
         }
         #-----------------------------------------------

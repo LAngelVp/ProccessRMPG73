@@ -14,7 +14,7 @@ from PyQt5.QtCore import Qt, QThread, pyqtSignal, pyqtSlot
 from webbrowser import *
 from .Logica_Reportes.Variables.ContenedorVariables import Variables
 from .Inicio_FechaMovimiento import *
-from .KENWORTH_DELESTE import *
+from .KenworthConnect import *
 from .InicialClassObjetivos import *
 from .UI.V_KWESTE import *
 import subprocess
@@ -366,16 +366,16 @@ class trabajohilo(QThread, Variables):
         #---------------------------------------
         # diccionario de los archivos.
         diccionario_archivos = {
-            "CE.xlsx" : KENWORTHdelESTE().CreditoNormalKWESTE,
-            "ICE.xlsx" : KENWORTHdelESTE().InventarioKWESTE,
-            "BOE.xlsx" : KENWORTHdelESTE().BackOrderKWESTE,
-            "SVE.xlsx" : KENWORTHdelESTE().SalidasenValeKWESTE,
-            "SCE.xlsx" : KENWORTHdelESTE().SeguimientoCoresKWESTE,
-            "OSE.xlsx" : KENWORTHdelESTE().OrdenesDeServicioKWESTE,
-            "TEE.xlsx" : KENWORTHdelESTE().TrabajosPorEstadoKWESTE,
-            "PCE.xlsx" : KENWORTHdelESTE().PagosClientesKWESTE,
-            "CDE.xlsx" : KENWORTHdelESTE().ComprasDetallado,
-            "IUE.xlsx" : KENWORTHdelESTE().ComprasDetallado
+            "CE.xlsx" : KenworthConnect().CreditoNormalKWESTE,
+            "ICE.xlsx" : KenworthConnect().InventarioKWESTE,
+            "BOE.xlsx" : KenworthConnect().BackOrderKWESTE,
+            "SVE.xlsx" : KenworthConnect().SalidasenValeKWESTE,
+            "SCE.xlsx" : KenworthConnect().SeguimientoCoresKWESTE,
+            "OSE.xlsx" : KenworthConnect().OrdenesDeServicioKWESTE,
+            "TEE.xlsx" : KenworthConnect().TrabajosPorEstadoKWESTE,
+            "PCE.xlsx" : KenworthConnect().PagosClientesKWESTE,
+            "CDE.xlsx" : KenworthConnect().ComprasDetallado,
+            "IUE.xlsx" : KenworthConnect().ComprasDetallado
         }
         #-----------------------------------------------
         while True:

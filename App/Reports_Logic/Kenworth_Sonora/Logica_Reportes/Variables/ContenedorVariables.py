@@ -12,7 +12,7 @@ locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
 class Variables():
     def __init__(self):
         self.separador = os.sep
-        self.carpeta_documentos_trabajos = 'SDR_Documentos_Kenworth_DelEste'
+        self.carpeta_documentos_trabajos = 'SDR_Documentos_Kenworth_Sonora'
         # carpetas personales de Kenworth Rio Bravo
         self.documentos_Trabajos = "Trabajos"
         self.documentos_originales = "Original"

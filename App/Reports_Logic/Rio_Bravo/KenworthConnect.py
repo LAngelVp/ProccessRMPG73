@@ -23,7 +23,7 @@ from .Logica_Reportes.InventarioUnidades import InventarioUnidades
 from .Logica_Reportes.Financiero import ResultadosFinancieros
 #___________________________________________________
 
-class KENWORTH_Rio_Bravo():
+class KenworthConnect():
 #--------------------------------
 # SALIDAS EN VALE
     def SalidasEnVale_KWRB(self):

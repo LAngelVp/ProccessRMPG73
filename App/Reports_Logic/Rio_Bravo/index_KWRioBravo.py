@@ -15,7 +15,7 @@ from datetime import *
 from webbrowser import *
 from .Logica_Reportes.Variables.ContenedorVariables import Variables
 from .Inicio_FechaMovimiento import *
-from .KENWORTH_RioBravo import *
+from .KenworthConnect import *
 from .InicialClassObjetivos import *
 from .UI.V_KWRB import *
 import subprocess
@@ -359,18 +359,18 @@ class trabajohilo(QThread, Variables):
         #---------------------------------------
         # diccionario de los archivos.
         diccionario_archivos = {
-            "SVR.xlsx" : KENWORTH_Rio_Bravo().SalidasEnVale_KWRB,
-            "RR.xlsx" : KENWORTH_Rio_Bravo().Refacciones_KWRB,
-            "OSR.xlsx" : KENWORTH_Rio_Bravo().OrdenesServicio_KWRB,
-            "SDR.xlsx" : KENWORTH_Rio_Bravo().ServicioDetallado_KWRB,
-            "BOR.xlsx" : KENWORTH_Rio_Bravo().BackOrder_KWRB,
-            "CDR.xlsx" : KENWORTH_Rio_Bravo().ComprasDetallado_KWRB,
-            "CR.xlsx" : KENWORTH_Rio_Bravo().Credito_KWRB,
-            "TER.xlsx" : KENWORTH_Rio_Bravo().TrabajosPorEstado_KWRB,
-            "PCR.xlsx" : KENWORTH_Rio_Bravo().PagosClientes_KWRB,
-            "ICR.xlsx" :KENWORTH_Rio_Bravo().InventarioCosteado_KWRB,
-            "IUR.xlsx" : KENWORTH_Rio_Bravo().InventarioUnidades_KWRB,
-            "RFR.xlsx" : KENWORTH_Rio_Bravo().ResultadosFinancieros_KWRB,
+            "SVR.xlsx" : KenworthConnect().SalidasEnVale_KWRB,
+            "RR.xlsx" : KenworthConnect().Refacciones_KWRB,
+            "OSR.xlsx" : KenworthConnect().OrdenesServicio_KWRB,
+            "SDR.xlsx" : KenworthConnect().ServicioDetallado_KWRB,
+            "BOR.xlsx" : KenworthConnect().BackOrder_KWRB,
+            "CDR.xlsx" : KenworthConnect().ComprasDetallado_KWRB,
+            "CR.xlsx" : KenworthConnect().Credito_KWRB,
+            "TER.xlsx" : KenworthConnect().TrabajosPorEstado_KWRB,
+            "PCR.xlsx" : KenworthConnect().PagosClientes_KWRB,
+            "ICR.xlsx" :KenworthConnect().InventarioCosteado_KWRB,
+            "IUR.xlsx" : KenworthConnect().InventarioUnidades_KWRB,
+            "RFR.xlsx" : KenworthConnect().ResultadosFinancieros_KWRB,
         }
         #-----------------------------------------------
         while True:
