@@ -37,7 +37,7 @@ class PagosClientes(Variables):
         df1.insert(
             loc=4,
             column='Fecha_Movimiento',
-            value=Variables().fechaInsertar,
+            value=Variables().date_movement_config_document(),
             allow_duplicates=False
             )
 

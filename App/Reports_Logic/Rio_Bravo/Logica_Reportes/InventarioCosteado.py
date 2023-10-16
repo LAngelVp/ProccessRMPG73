@@ -130,6 +130,9 @@ class InventarioCosteado(Variables):
         df_inventarioCosteadoxDia["Fecha_Dias"] = pd.to_datetime(df_inventarioCosteadoxDia["Fecha_Dias"], errors="coerce")
         df_inventarioCosteadoxDia["Fecha_Dias"] = df_inventarioCosteadoxDia["Fecha_Dias"].dt.strftime("%m/%d/%Y")
 
+        #comment creamos la columna de mes
+        df_inventarioCosteadoxDia["Mes"] = Variables().nombre_mes_actual_abreviado()
+
         columnas_bol=df_inventarioCosteadoxDia.select_dtypes(include=bool).columns.tolist()
         df_inventarioCosteadoxDia[columnas_bol] = df_inventarioCosteadoxDia[columnas_bol].astype(str)
 

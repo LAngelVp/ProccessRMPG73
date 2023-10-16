@@ -104,7 +104,7 @@ class ResultadosFinancieros(Variables):
         financiero["Modelo"] = col_modelo
 
 
-        financiero["Fecha"] = Variables().fecha_hoy.replace(day=1)
+        financiero["Fecha"] = Variables().date_movement_config_document().replace(day=1)
         financiero["Ciudad"] = "Pendiente"
         financiero["Estado"] = "Pendiente"
 

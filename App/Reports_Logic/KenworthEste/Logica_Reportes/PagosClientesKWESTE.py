@@ -37,7 +37,7 @@ class PagosClientesKWESTE(Variables):
         df.insert(
             loc=4,
             column='Fecha_Movimiento',
-            value=Variables().fechaHoy(),
+            value=Variables().date_movement_config_document(),
             allow_duplicates=True
         )
         df.insert(

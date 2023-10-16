@@ -6,46 +6,50 @@ import os
 from datetime import *
 from webbrowser import *
 import calendar
+import pandas as pd
 import locale
 locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
 class Variables():
-    separador = os.sep
-    carpeta_documentos_trabajos = 'SDR_Documentos_Kenworth_RioBravo'
-    # carpetas personales de Kenworth Rio Bravo
-    documentos_Trabajos = "Trabajos"
-    documentos_originales = "Original"
-    documentos_Errores = "Errores"
-    documentos_Procesados = "Exitosos"
-    directorio_raiz = os.path.expanduser(f'~{separador}') #NOTE Obtenemos la ruta raiz del sistema, con raiz en el usuario.
-    ruta_Kenworth = os.path.join(directorio_raiz, carpeta_documentos_trabajos)
-    ruta_Trabajos = os.path.join(ruta_Kenworth, documentos_Trabajos)
-    ruta_original = os.path.join(ruta_Kenworth, documentos_originales)
-    ruta_errores = os.path.join(ruta_Kenworth, documentos_Errores)
-    ruta_exitosos = os.path.join(ruta_Kenworth, documentos_Procesados)
-    ruta_documentos = os.path.join(ruta_Kenworth, "Documentos")
+    def __init__(self):
+        self.separador = os.sep
+        self.carpeta_documentos_trabajos = 'SDR_Documentos_Kenworth_RioBravo'
+        # carpetas personales de Kenworth Rio Bravo
+        self.documentos_Trabajos = "Trabajos"
+        self.documentos_originales = "Original"
+        self.documentos_Errores = "Errores"
+        self.documentos_Procesados = "Exitosos"
+        self.directorio_raiz = os.path.expanduser(f'~{self.separador}') #NOTE Obtenemos la ruta raiz del sistema, con raiz en el usuario.
+        self.ruta_Kenworth = os.path.join(self.directorio_raiz, self.carpeta_documentos_trabajos)
+        self.ruta_Trabajos = os.path.join(self.ruta_Kenworth, self.documentos_Trabajos)
+        self.ruta_original = os.path.join(self.ruta_Kenworth, self.documentos_originales)
+        self.ruta_errores = os.path.join(self.ruta_Kenworth, self.documentos_Errores)
+        self.ruta_exitosos = os.path.join(self.ruta_Kenworth, self.documentos_Procesados)
+        self.ruta_documentos = os.path.join(self.ruta_Kenworth, "Documentos")
+        route_file_date = os.path.join(self.ruta_documentos, "Config_Document.json")
 
-    #--------------------------------
-    #NOTE Reemplazamos las diagonales de las rutas, con la finalidad que cualquier sistema operativo pueda ejecutar el software.
-    ruta_carpeta = ruta_Kenworth.replace('\\','/')
-    ruta_Trabajo = ruta_Trabajos.replace('\\','/')
-    ruta_origina = ruta_original.replace('\\', '/')
-    ruta_error = ruta_errores.replace('\\','/')
-    ruta_procesados = ruta_exitosos.replace('\\','/')
-    ruta_deapoyo = ruta_documentos.replace('\\','/')
-    #________________________________________________
+        #--------------------------------
+        #NOTE Reemplazamos las diagonales de las rutas, con la finalidad que cualquier sistema operativo pueda ejecutar el software.
+        self.ruta_carpeta = self.ruta_Kenworth.replace('\\','/')
+        self.ruta_Trabajo = self.ruta_Trabajos.replace('\\','/')
+        self.ruta_origina = self.ruta_original.replace('\\', '/')
+        self.ruta_error = self.ruta_errores.replace('\\','/')
+        self.ruta_procesados = self.ruta_exitosos.replace('\\','/')
+        self.ruta_deapoyo = self.ruta_documentos.replace('\\','/')
+        self.route_file_date_movement  = self.ruta_documentos.replace('\\','/')
+        #________________________________________________
 
-    pdf = 'https://onedrive.live.com/?cid=C903C3E707BD874A&id=C903C3E707BD874A%21220&parId=root&o=OneUp' #NOTE Direccion en donde se encuentra el archivo de apoyo
+        self.pdf = 'https://onedrive.live.com/?cid=C903C3E707BD874A&id=C903C3E707BD874A%21220&parId=root&o=OneUp' #NOTE Direccion en donde se encuentra el archivo de apoyo
 
-    #________________________________________________
-    #NOTE VARIABLES PARA PROCESOS CON LA FECHA.
+        #________________________________________________
+        #NOTE VARIABLES PARA PROCESOS CON LA FECHA.
 
-    # Fecha para insertar en columnas.
-    # NOTE Obtenemos la fecha de hoy
-    fecha_hoy = datetime.now()
-    # NOTE Damos a formato de fecha en python
-    FechaHoy = f'{fecha_hoy.day}/{fecha_hoy.month}/{fecha_hoy.year}'
-    # NOTE Damos a formato de fecha para pandas
-    fechaInsertar = datetime.strptime(FechaHoy, "%d/%m/%Y")
+        # Fecha para insertar en columnas.
+        # NOTE Obtenemos la fecha de hoy
+        self.fecha_hoy = datetime.now()
+        # NOTE Damos a formato de fecha en python
+        self.FechaHoy = f'{self.fecha_hoy.day}/{self.fecha_hoy.month}/{self.fecha_hoy.year}'
+        # NOTE Damos a formato de fecha para pandas
+        self.fechaInsertar = datetime.strptime(self.FechaHoy, "%d/%m/%Y")
 
     def FechaExternsionGuardar(self):
         datoAdicional = datetime.now()
@@ -53,7 +57,7 @@ class Variables():
         return fechaPath
     
     def nombre_mes(self):
-        mes_actual = datetime.now().month
+        mes_actual = self.date_movement_config_document().month
         mes_actual_nombre = calendar.month_name[mes_actual].capitalize()
         return mes_actual_nombre
     
@@ -65,3 +69,8 @@ class Variables():
     def fechaHoy(self):
         fecha = datetime.now()
         return fecha
+    
+    def date_movement_config_document(self):
+        document = pd.read_json(self.route_file_date)
+        date_movement = pd.to_datetime(document.loc[0,"Date_Movement"]) 
+        return date_movement

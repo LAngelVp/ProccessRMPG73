@@ -14,12 +14,12 @@ from PyQt5.QtGui import QIcon, QPixmap, QMouseEvent
 from datetime import *
 from webbrowser import *
 from .Logica_Reportes.Variables.ContenedorVariables import Variables
+from .Inicio_FechaMovimiento import *
 from .KENWORTH_RioBravo import *
 from .InicialClassObjetivos import *
-#from .Logica_Reportes.Variables.V_FECHA_MOVI import *
 from .UI.V_KWRB import *
 import subprocess
-class KenworthRioBravo(QMainWindow, Variables):
+class KenworthRioBravo(QMainWindow, Variables, ):
     def __init__(self):
         super(KenworthRioBravo, self).__init__()
         self.Creacion_Carpetas()
@@ -46,7 +46,7 @@ class KenworthRioBravo(QMainWindow, Variables):
 
         # MENU DE OPCIONES
         self.ventanaRioBravo.actionObjetivos_Mensuales.triggered.connect(self.ObjetivosPagoClientes)
-        self.ventanaRioBravo.actionFechaMovimiento.triggered.connect(self.Fecha_movimiento)
+        self.ventanaRioBravo.actionFechaMovimiento.triggered.connect(self.FechaMovimiento)
         #--------------------
         # Señales del hilo
         self.Hilo.signal.connect(self.mensajeTrabajoTerminado)
@@ -55,7 +55,7 @@ class KenworthRioBravo(QMainWindow, Variables):
         self.Hilo.signalShowTrabajos.connect(self.Show_Data_Trabajos)
         self.Hilo.signalShowProcesados.connect(self.Show_Data_Procesado)
 
-        
+        #Home_DateMovement()
         self.Show_Data_Trabajos()
         self.Show_Data_Procesado()
 
@@ -63,9 +63,9 @@ class KenworthRioBravo(QMainWindow, Variables):
         self.ventana_obj = ClassPrincipalObjPagos()
         self.ventana_obj.show()
         
-    def Fecha_movimiento(self):
-        self.ventana_fecha_movimiento = FechaMovimiento()
-        self.ventana_fecha_movimiento.show()
+    def FechaMovimiento(self):
+        self.ventana_obj = Home_DateMovement()
+        self.ventana_obj.show()
 
 #-------------------------------------------------------
     def inicialHilo(self):
@@ -315,10 +315,6 @@ class KenworthRioBravo(QMainWindow, Variables):
             elemento.setFlags(QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled)  # Bloqueamos la edición
             elemento.setForeground(QtGui.QColor(0, 0, 0))
             self.ventanaRioBravo.TWCola.setItem(fila, 0, elemento)
-            # font = QtGui.QFont()
-            # font.setPointSize(30)  # Establece el tamaño de la letra a 14 puntos
-            # elemento.setFont(font)
-        # self.ventanaRioBravo.TWCola.setColumnWidth(0, 415)
         header = self.ventanaRioBravo.TWCola.horizontalHeader()
         header.setSectionResizeMode(0, QtWidgets.QHeaderView.Stretch)
 
@@ -334,10 +330,6 @@ class KenworthRioBravo(QMainWindow, Variables):
                 elemento.setFlags(QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled)  # Bloqueamos la edición
                 elemento.setForeground(QtGui.QColor(0, 0, 0))
                 self.ventanaRioBravo.TWProcesado.setItem(fila, 0, elemento)
-                # font = QtGui.QFont()
-                # font.setPointSize(30)  # Establece el tamaño de la letra a 14 puntos
-                # elemento.setFont(font)
-            # self.ventanaRioBravo.TWProcesado.setColumnWidth(0, 415)
             header = self.ventanaRioBravo.TWProcesado.horizontalHeader()
             header.setSectionResizeMode(0, QtWidgets.QHeaderView.Stretch)
 #--------------------------------------------------

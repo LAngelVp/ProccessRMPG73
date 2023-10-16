@@ -779,6 +779,45 @@ background-color: transparent;
     </item>
    </layout>
   </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>8</pointsize>
+    </font>
+   </property>
+   <widget class="QMenu" name="menuOPCIONES">
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>8</pointsize>
+     </font>
+    </property>
+    <property name="title">
+     <string>OPCIONES</string>
+    </property>
+    <addaction name="actionFechaMovimiento"/>
+   </widget>
+   <addaction name="menuOPCIONES"/>
+  </widget>
+  <action name="actionFechaMovimiento">
+   <property name="text">
+    <string>FechaMovimiento</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+    </font>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

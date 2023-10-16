@@ -16,6 +16,7 @@ from PyQt5.QtGui import QIcon, QPixmap, QMouseEvent
 from PyQt5.QtCore import Qt, QThread, pyqtSignal, pyqtSlot
 from webbrowser import *
 from .Logica_Reportes.Variables.ContenedorVariables import Variables
+from .Inicio_FechaMovimiento import *
 from .KREI import *
 from .UI.V_KREI import *
 import subprocess
@@ -62,6 +63,8 @@ class KenworthKREI(QMainWindow, QDialog, Variables):
         self.Ventana.btn_Originales.clicked.connect(self.abrir_ruta_originales)
         self.Ventana.btn_Procesados.clicked.connect(self.abrir_ruta_procesados)
 
+        self.Ventana.actionFechaMovimiento.triggered.connect(self.FechaMovimiento)
+
         # señales del hilo
         self.Hilo.signal.connect(self.mensajeTrabajoTerminado)
         self.Hilo.signalDocumentosErroneos.connect(self.mensajeArchivoErroneo)
@@ -70,9 +73,13 @@ class KenworthKREI(QMainWindow, QDialog, Variables):
         self.Hilo.signalShowProcesados.connect(self.Show_Data_Procesado)
         
 
-        
+        Home_DateMovement()
         self.Show_Data_Trabajos()
         self.Show_Data_Procesado()
+
+    def FechaMovimiento(self):
+        self.ventana_obj = Home_DateMovement()
+        self.ventana_obj.show()
 
     def abrir_ruta_errores(self):
         options = QFileDialog.Options()

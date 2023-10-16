@@ -13,6 +13,7 @@ from PyQt5.QtGui import QIcon, QPixmap, QMouseEvent
 from PyQt5.QtCore import Qt, QThread, pyqtSignal, pyqtSlot
 from webbrowser import *
 from .Logica_Reportes.Variables.ContenedorVariables import Variables
+from .Inicio_FechaMovimiento import *
 from .KENWORTH_DELESTE import *
 from .InicialClassObjetivos import *
 from .UI.V_KWESTE import *
@@ -61,6 +62,7 @@ class VentanaKWESTE(QMainWindow, QDialog, Variables):
 
         # MENU DE OPCIONES
         self.ventKWESTE.actionObjetivos_Mensuales.triggered.connect(self.ObjetivosPagoClientes)
+        self.ventKWESTE.actionFechaMovimiento.triggered.connect(self.FechaMovimiento)
 
         # señales del hilo
         self.Hilo.signal.connect(self.mensajeTrabajoTerminado)
@@ -70,13 +72,17 @@ class VentanaKWESTE(QMainWindow, QDialog, Variables):
         self.Hilo.signalShowProcesados.connect(self.Show_Data_Procesado)
         
 
-        
+        Home_DateMovement()
         self.Show_Data_Trabajos()
         self.Show_Data_Procesado()
 
         
     def ObjetivosPagoClientes(self):
         self.ventana_obj = ClassPrincipalObjPagos()
+        self.ventana_obj.show()
+
+    def FechaMovimiento(self):
+        self.ventana_obj = Home_DateMovement()
         self.ventana_obj.show()
 
     def abrir_ruta_errores(self):

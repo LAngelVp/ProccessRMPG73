@@ -181,7 +181,7 @@ class ResultadosFinancierosKREI(Variables):
             allow_duplicates = True
         )
 
-        Fecha = Variables().fecha_hoy
+        Fecha = Variables().date_movement_config_document()
 
         financiero.insert(
             loc = 26,

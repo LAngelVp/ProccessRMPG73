@@ -131,6 +131,11 @@ class InventarioKWESTE(Variables):
         #mandamos a llamar a la clasificacion por Almacen.
         df_inventarioCosteadoxDia["ClasSF"] = df_inventarioCosteadoxDia.apply(lambda fila:ClasSF_Almacen(fila["Almacén"], fila["ClasSF"]),axis=1)
 
+        #creamoa la columna de marca
+        df_inventarioCosteadoxDia["Marca"] = ""
+        #creamos la del mes
+        df_inventarioCosteadoxDia["Mes"] = Variables().nombre_mes_actual_abreviado()
+
         #convertir la fecha a formato "dia/mes/año"
         df_inventarioCosteadoxDia["Fecha_Dias"] = pd.to_datetime(df_inventarioCosteadoxDia["Fecha_Dias"], errors="coerce")
         df_inventarioCosteadoxDia["Fecha_Dias"] = df_inventarioCosteadoxDia["Fecha_Dias"].dt.strftime("%m/%d/%Y")

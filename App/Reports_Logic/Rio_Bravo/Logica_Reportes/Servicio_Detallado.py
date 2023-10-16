@@ -194,7 +194,7 @@ class ServioDetallado(Variables):
         df_Final.insert(
                 loc = 10,
                 column = 'Fecha Movimiento',
-                value = Variables().fechaInsertar,
+                value = Variables().date_movement_config_document(),
                 allow_duplicates = False
             )
 
