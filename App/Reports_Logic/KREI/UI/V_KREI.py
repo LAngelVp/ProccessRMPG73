@@ -13,7 +13,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
-        MainWindow.setObjectName("MainWindow")
+        MainWindow.setObjectName("Union KREI")
         MainWindow.resize(800, 500)
         MainWindow.setMinimumSize(QtCore.QSize(800, 500))
         MainWindow.setMaximumSize(QtCore.QSize(800, 500))
@@ -371,25 +371,25 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.btnMinimizar.setToolTip(_translate("MainWindow", "Minimizar"))
-        self.btnCerrar.setToolTip(_translate("MainWindow", "Cerrar"))
-        self.lblTextoEnCola.setText(_translate("MainWindow", "Trabajos En Espera"))
-        self.lblTextoProcesado.setText(_translate("MainWindow", "Trabajos Realizados"))
-        self.btnSubir.setToolTip(_translate("MainWindow", "<html><head/><body><p>Selecciona un archivo .xlsx</p></body></html>"))
-        self.btnSubir.setText(_translate("MainWindow", "Subir"))
-        self.btnEliminar.setToolTip(_translate("MainWindow", "<html><head/><body><p>Elimina los archivos procesados</p></body></html>"))
-        self.btnEliminar.setText(_translate("MainWindow", "Eliminar"))
-        self.btnComenzar.setToolTip(_translate("MainWindow", "<html><head/><body><p>Comenzar el proceso</p></body></html>"))
-        self.btnComenzar.setText(_translate("MainWindow", "Comenzar"))
-        self.btn_Procesados.setToolTip(_translate("MainWindow", "<html><head/><body><p>Ruta de archivos procesados</p></body></html>"))
-        self.btn_Procesados.setText(_translate("MainWindow", "Procesados"))
-        self.btn_Originales.setToolTip(_translate("MainWindow", "<html><head/><body><p>Ruta de archivos originales</p></body></html>"))
-        self.btn_Originales.setText(_translate("MainWindow", "Originales"))
-        self.btn_Errores.setToolTip(_translate("MainWindow", "<html><head/><body><p>Ruta de archivos erroneos</p></body></html>"))
-        self.btn_Errores.setText(_translate("MainWindow", "Erroneos"))
-        self.menuOPCIONES.setTitle(_translate("MainWindow", "OPCIONES"))
-        self.actionFechaMovimiento.setText(_translate("MainWindow", "FechaMovimiento"))
+        MainWindow.setWindowTitle(_translate("Union KREI", "Union KREI"))
+        self.btnMinimizar.setToolTip(_translate("Union KREI", "Minimizar"))
+        self.btnCerrar.setToolTip(_translate("Union KREI", "Cerrar"))
+        self.lblTextoEnCola.setText(_translate("Union KREI", "Trabajos En Espera"))
+        self.lblTextoProcesado.setText(_translate("Union KREI", "Trabajos Realizados"))
+        self.btnSubir.setToolTip(_translate("Union KREI", "<html><head/><body><p>Selecciona un archivo .xlsx</p></body></html>"))
+        self.btnSubir.setText(_translate("Union KREI", "Subir"))
+        self.btnEliminar.setToolTip(_translate("Union KREI", "<html><head/><body><p>Elimina los archivos procesados</p></body></html>"))
+        self.btnEliminar.setText(_translate("Union KREI", "Eliminar"))
+        self.btnComenzar.setToolTip(_translate("Union KREI", "<html><head/><body><p>Comenzar el proceso</p></body></html>"))
+        self.btnComenzar.setText(_translate("Union KREI", "Comenzar"))
+        self.btn_Procesados.setToolTip(_translate("Union KREI", "<html><head/><body><p>Ruta de archivos procesados</p></body></html>"))
+        self.btn_Procesados.setText(_translate("Union KREI", "Procesados"))
+        self.btn_Originales.setToolTip(_translate("Union KREI", "<html><head/><body><p>Ruta de archivos originales</p></body></html>"))
+        self.btn_Originales.setText(_translate("Union KREI", "Originales"))
+        self.btn_Errores.setToolTip(_translate("Union KREI", "<html><head/><body><p>Ruta de archivos erroneos</p></body></html>"))
+        self.btn_Errores.setText(_translate("Union KREI", "Erroneos"))
+        self.menuOPCIONES.setTitle(_translate("Union KREI", "OPCIONES"))
+        self.actionFechaMovimiento.setText(_translate("Union KREI", "FechaMovimiento"))
 
 
 if __name__ == "__main__":
