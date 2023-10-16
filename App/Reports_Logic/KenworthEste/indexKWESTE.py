@@ -374,7 +374,8 @@ class trabajohilo(QThread, Variables):
             "OSE.xlsx" : KENWORTHdelESTE().OrdenesDeServicioKWESTE,
             "TEE.xlsx" : KENWORTHdelESTE().TrabajosPorEstadoKWESTE,
             "PCE.xlsx" : KENWORTHdelESTE().PagosClientesKWESTE,
-            "CDE.xlsx" : KENWORTHdelESTE().ComprasDetallado
+            "CDE.xlsx" : KENWORTHdelESTE().ComprasDetallado,
+            "IUE.xlsx" : KENWORTHdelESTE().ComprasDetallado
         }
         #-----------------------------------------------
         while True:

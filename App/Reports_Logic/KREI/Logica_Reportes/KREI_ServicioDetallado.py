@@ -54,7 +54,7 @@ class ServicioDetalladoKWESTEKREI(Variables):
         columnas_bol=df.select_dtypes(include=bool).columns.tolist()
         df[columnas_bol] = df[columnas_bol].astype(str)
 
-        df.to_excel(os.path.join(Variables().ruta_procesados,f'SKREI_ServicioDetallado_ESTE_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+        df.to_excel(os.path.join(Variables().ruta_procesados,f'KREI_ServicioDetallado_ESTE_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
     def ServicioDetalladoKWSUR_KREI(self):
         path = os.path.join(Variables().ruta_Trabajo,"SDSKREI.xlsx")
         df = pd.read_excel(path, sheet_name='Hoja2')

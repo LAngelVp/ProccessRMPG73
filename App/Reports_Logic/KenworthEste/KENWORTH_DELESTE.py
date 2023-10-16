@@ -12,6 +12,7 @@ from .Logica_Reportes.OrdenesServicioKWESTE import *
 from .Logica_Reportes.TrabajosPorEstadoKWESTE import *
 from .Logica_Reportes.PagosClientesKWESTE import *
 from .Logica_Reportes.ComprasKWESTE import *
+from .Logica_Reportes.InventarioUnidades import *
 #-----------------------------------
 
 #CLASE
@@ -52,3 +53,7 @@ class KENWORTHdelESTE():
     # COMPRAS DETALLADO
     def ComprasDetallado(self):
         ComprasKWESTE()
+
+    # INVENTARIO DE UNIDADES
+    def InventrioDeUnidades(self):
+        InventarioUnidades()

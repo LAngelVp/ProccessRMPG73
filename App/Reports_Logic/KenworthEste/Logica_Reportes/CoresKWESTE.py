@@ -21,7 +21,7 @@ class SeguimientoCoresKWESTE(Variables):
         columna_FechaRecEnSucProcCores = df_SeguimientoCores.pop("FechaRecEnSucProcCores")
         df_SeguimientoCores.insert(6, "FechaRecEnSucProcCores", columna_FechaRecEnSucProcCores)
 
-        df_SeguimientoCores.insert(7,"Fecha Hoy", Variables().fecha_hoy, allow_duplicates=False)
+        df_SeguimientoCores.insert(7,"Fecha Hoy", Variables().date_movement_config_document(), allow_duplicates=False)
 
         Antiguedad = df_SeguimientoCores.apply(self.OperacionAntiguedad, axis = 1)
 
