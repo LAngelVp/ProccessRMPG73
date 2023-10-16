@@ -85,9 +85,9 @@ class ResultadosFinancieros(Variables):
         def obtenerDepartamento(valor):
             currentYear = datetime.now().year
             if (valor < currentYear):
-                return "UNIDADES SEMINUEVAS"
+                return "Unidades Seminuevas"
             else:
-                return "UNIDADES NUEVAS"
+                return "Unidades Nuevas"
         departamento = financiero["Modelo"].apply(lambda x: obtenerDepartamento(x))
 
         financiero.insert(
