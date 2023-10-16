@@ -6,6 +6,8 @@ from PyQt5.QtCore import Qt, QThread, pyqtSignal, pyqtSlot
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QIcon, QPixmap, QMouseEvent
 from .UI.V_KWSonora import *
+from .InicialClassObjetivos import *
+from .Inicio_FechaMovimiento import *
 from webbrowser import *
 import subprocess
 from .Logica_Reportes.Variables.ContenedorVariables import Variables
@@ -61,17 +63,17 @@ class Home_KenworthSonora(QMainWindow, Variables):
         self.Hilo.signalShowTrabajos.connect(self.Show_Data_Trabajos)
         self.Hilo.signalShowProcesados.connect(self.Show_Data_Procesado)
 
-
+        Home_DateMovement()
+        self.Show_Data_Trabajos()
+        self.Show_Data_Procesado()
 
     def ObjetivosPagoClientes(self):
-        pass
-        # self.ventana_obj = ClassPrincipalObjPagos()
-        # self.ventana_obj.show()
+        self.ventana_obj = ClassPrincipalObjPagos()
+        self.ventana_obj.show()
 
     def FechaMovimiento(self):
-        pass
-        # self.ventana_obj = Home_DateMovement()
-        # self.ventana_obj.show()
+        self.ventana_obj = Home_DateMovement()
+        self.ventana_obj.show()
 
     def abrir_ruta_errores(self):
 

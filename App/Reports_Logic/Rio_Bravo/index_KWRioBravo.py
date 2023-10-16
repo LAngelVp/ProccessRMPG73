@@ -55,7 +55,7 @@ class KenworthRioBravo(QMainWindow, Variables, ):
         self.Hilo.signalShowTrabajos.connect(self.Show_Data_Trabajos)
         self.Hilo.signalShowProcesados.connect(self.Show_Data_Procesado)
 
-        #Home_DateMovement()
+        Home_DateMovement()
         self.Show_Data_Trabajos()
         self.Show_Data_Procesado()
 
