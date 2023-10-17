@@ -375,7 +375,7 @@ class trabajohilo(QThread, Variables):
             "TEE.xlsx" : KenworthConnect().TrabajosPorEstadoKWESTE,
             "PCE.xlsx" : KenworthConnect().PagosClientesKWESTE,
             "CDE.xlsx" : KenworthConnect().ComprasDetallado,
-            "IUE.xlsx" : KenworthConnect().ComprasDetallado
+            "IUE.xlsx" : KenworthConnect().InventrioDeUnidades
         }
         #-----------------------------------------------
         while True:

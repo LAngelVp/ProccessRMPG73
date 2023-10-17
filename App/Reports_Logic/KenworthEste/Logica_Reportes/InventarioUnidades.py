@@ -9,6 +9,7 @@ from .Variables.ContenedorVariables import Variables
 class InventarioUnidades(Variables):
     def __init__(self):
         super().__init__()
+        print ("llegamos")
         path = os.path.join(Variables().ruta_Trabajo,'IUE.xlsx')
         df = pd.read_excel(path, sheet_name="Hoja2")
         df1 = df.copy()
@@ -40,7 +41,7 @@ class InventarioUnidades(Variables):
         df1.columns = df1.columns.str.replace("_", " ")
         df1.to_excel(os.path.join(Variables().ruta_procesados,f'KWESTE_InventarioDeUnidades_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
     
-    def ClasificacionTipoInv(valor):
+    def ClasificacionTipoInv(self, valor):
             if (valor == "Factura"):
                 return "Propia"
             else:
