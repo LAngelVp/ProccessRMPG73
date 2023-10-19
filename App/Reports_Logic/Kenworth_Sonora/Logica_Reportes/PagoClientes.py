@@ -97,8 +97,8 @@ class PagosDeClientes(Variables):
         DataFrameConObjetivo[columnas_bol] = DataFrameConObjetivo[columnas_bol].astype(str)
 
         DataFrameConObjetivo.columns = DataFrameConObjetivo.columns.str.replace(' ', '_')
-        df_completo = DataFrameConObjetivo.query("~(Tipo_Docto == ['Factura de Egreso', 'Facturas de Activo Fijo'])")
-
+        # df_completo = DataFrameConObjetivo.query("~(Tipo_Docto == ['Factura de Egreso', 'Facturas de Activo Fijo'])")
+        df_completo = DataFrameConObjetivo().copy()
         
         if os.path.exists(self.ruta):
             try:
@@ -122,6 +122,4 @@ class PagosDeClientes(Variables):
 
         df_completo["Area"] = "Pago Clientes"
 
-        df_completo.to_excel(os.path.join(Variables().ruta_procesados,f'KWESTE_PagosClientes_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
-
-        #df1.to_excel(os.path.join(Variables().ruta_procesados,f'PagosClientes_KWESTE_SDR_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+        df_completo.to_excel(os.path.join(Variables().ruta_procesados,f'KWSonora_PagosClientes_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)

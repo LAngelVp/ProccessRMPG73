@@ -356,7 +356,18 @@ class trabajohilo(QThread, Variables):
         #---------------------------------------
         # diccionario de los archivos.
         diccionario_archivos = {
-            # "CE.xlsx" : KenworthConnect().CreditoNormalKWESTE
+            "CS.xlsx" : KenworthConnect().Credito,
+            "SVS.xlsx" : KenworthConnect().SalidaEnVale,
+            "RS.xlsx" : KenworthConnect().Refacciones,
+            "PCS.xlsx" : KenworthConnect().PagoDeClientes,
+            "ICS.xlsx" : KenworthConnect().InventarioCosteadoAndInventarioPorDia,
+            "OS.xlsx" : KenworthConnect().OrdenesDeServicio,
+            "TES.xlsx" : KenworthConnect().TrabajosPorEstado,
+            "IUS.xlsx" : KenworthConnect().InventarioDeUnidades,
+            "RFS.xlsx" : KenworthConnect().ResultadosFinancieros,
+            "CDS.xlsx" : KenworthConnect().Compras,
+            "BOS.xlsx" : KenworthConnect().BackOrder,
+            "SDS.xlsx" : KenworthConnect().ServicioDetallado
         }
         #-----------------------------------------------
         while True:

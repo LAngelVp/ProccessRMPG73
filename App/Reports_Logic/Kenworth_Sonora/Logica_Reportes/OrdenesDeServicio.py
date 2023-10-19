@@ -86,5 +86,5 @@ class OrdenesDeServicio(Variables):
         columnas_bol=claficicacion_tipo_servicio.select_dtypes(include=bool).columns.tolist()
         claficicacion_tipo_servicio[columnas_bol] = claficicacion_tipo_servicio[columnas_bol].astype(str)
 
-        claficicacion_tipo_servicio.to_excel(os.path.join(Variables().ruta_procesados,f'KWESTE_OrdenesDeServicio_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+        claficicacion_tipo_servicio.to_excel(os.path.join(Variables().ruta_procesados,f'KWSonora_OrdenesDeServicio_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
 OrdenesDeServicio()

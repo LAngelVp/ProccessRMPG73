@@ -12,6 +12,9 @@ from .Logica_Reportes.InventarioUnidades import *
 from .Logica_Reportes.TrabajosPorEstado import *
 from .Logica_Reportes.OrdenesDeServicio import *
 from .Logica_Reportes.InventarioCosteadoAndDia import *
+from .Logica_Reportes.PagoClientes import *
+from .Logica_Reportes.Refacciones import *
+from .Logica_Reportes.ServicioDetallado import *
 #-----------------------------------
 
 #CLASE
@@ -46,3 +49,12 @@ class KenworthConnect():
 
     def InventarioCosteadoAndInventarioPorDia(self):
         InventarioCosteado()
+
+    def PagoDeClientes(self):
+        PagosDeClientes()
+
+    def Refacciones(self):
+        Refacciones()
+
+    def ServicioDetallado(self):
+        ServicioDetallado()
