@@ -101,7 +101,7 @@ class InventarioKWESTE(Variables):
                 return "Inventario"
             elif (valor_TipoDocumento.lower() == "requisiciones"):
                 return "Requisiciones"
-            elif (valor_TipoDocumento.lower() == "salidas en Vale"):
+            elif (valor_TipoDocumento.lower() == "salidas en vale"):
                 return "Salidas en Vale"
             elif ((valor_TipoDocumento.lower() == "traspaso de entrada") | (valor_TipoDocumento.lower() == "traspaso de salida")):
                 return "Traspaso"
