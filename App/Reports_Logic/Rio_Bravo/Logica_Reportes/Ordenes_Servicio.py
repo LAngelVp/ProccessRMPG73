@@ -104,5 +104,5 @@ class OrdenesServicio(Variables):
 
 
         # # Guardar el libro de Excel
-        df_clasificadoPorTiposervicio.to_csv(os.path.join(Variables().ruta_procesados,f'KWRB_OrdenesDeServicio_RMPG_{Variables().FechaExternsionGuardar()}.csv'), index=False, encoding="utf-8")
+        df_clasificadoPorTiposervicio.to_excel(os.path.join(Variables().ruta_procesados,f'KWRB_OrdenesDeServicio_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
         # df_clasificadoPorTiposervicio.to_csv(f'C:/SalesForce/Analytics KWRB/KWRB_OrdenesServicio/KWRB_OrdenesDeServicio_RMPG_{Variables().FechaExternsionGuardar()}.csv', index=False, encoding="utf-8")
