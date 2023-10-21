@@ -361,7 +361,7 @@ class trabajohilo(QThread, Variables):
             "RS.xlsx" : KenworthConnect().Refacciones,
             "PCS.xlsx" : KenworthConnect().PagoDeClientes,
             "ICS.xlsx" : KenworthConnect().InventarioCosteadoAndInventarioPorDia,
-            "OS.xlsx" : KenworthConnect().OrdenesDeServicio,
+            "OSS.xlsx" : KenworthConnect().OrdenesDeServicio,
             "TES.xlsx" : KenworthConnect().TrabajosPorEstado,
             "IUS.xlsx" : KenworthConnect().InventarioDeUnidades,
             "RFS.xlsx" : KenworthConnect().ResultadosFinancieros,

@@ -9,7 +9,7 @@ import os
 import pandas as pd
 from datetime import *
 import numpy as np
-from Variables.ContenedorVariables import Variables
+from .Variables.ContenedorVariables import Variables
 class OrdenesDeServicio(Variables):
     def __init__(self):
         super().__init__()
@@ -87,4 +87,3 @@ class OrdenesDeServicio(Variables):
         claficicacion_tipo_servicio[columnas_bol] = claficicacion_tipo_servicio[columnas_bol].astype(str)
 
         claficicacion_tipo_servicio.to_excel(os.path.join(Variables().ruta_procesados,f'KWSonora_OrdenesDeServicio_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
-OrdenesDeServicio()

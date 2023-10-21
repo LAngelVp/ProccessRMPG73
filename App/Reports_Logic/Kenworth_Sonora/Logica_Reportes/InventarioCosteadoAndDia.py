@@ -5,7 +5,7 @@
 import os
 import pandas as pd
 from datetime import *
-from Variables.ContenedorVariables import Variables
+from .Variables.ContenedorVariables import Variables
 class InventarioCosteado(Variables):
     def __init__(self):
         super().__init__()
