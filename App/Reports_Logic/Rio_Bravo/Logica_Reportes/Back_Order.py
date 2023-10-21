@@ -25,7 +25,7 @@ class BackOrder(Variables):
             value = 'BO' + df2['num'].map(str),
             allow_duplicates = True
         )
-        df2['FechaHoy'] = Variables().fechaInsertar
+        df2['FechaHoy'] = Variables().date_movement_config_document()
         for column_title in df2:
             if ('Fecha' in column_title):
                 try:

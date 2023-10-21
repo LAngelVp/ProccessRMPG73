@@ -9,7 +9,7 @@ from .Variables.ContenedorVariables import Variables
 class ServicioDetallado(Variables):
     def __init__(self):
         super().__init__()
-        array_columns = ['ObjRefacc','ObjUBTRef','ObjMO', 'ObjUTBMO','Clasificacion Cliente']
+        # array_columns = ['ObjRefacc','ObjUBTRef','ObjMO', 'ObjUTBMO','Clasificacion Cliente']
         array_columns2 = ['DepaVenta', 'Depa']
         array_Garantia = ["KENWORTH MEXICANA", "PACCAR PARTS MEXICO", "DISTRIBUIDORA MEGAMAK"]
         array_PLM = ["PACCAR FINANCIAL MEXICO", "PACLEASE MEXICANA"]
@@ -32,24 +32,26 @@ class ServicioDetallado(Variables):
             allow_duplicates=True
         )
 
-        x = 3
-        for i in array_columns:
-            if (x <= 6):
-                df.insert(
-                    loc = x,
-                    column = i,
-                    value = 0,
-                    allow_duplicates = False
-                )
-            else:
-                df.insert(
-                    loc = x,
-                    column = i,
-                    value = 'CLIENTES GENERALES',
-                    allow_duplicates = False
-                )
-            x = x+1
-        y = 24
+        df.insert(3,"Clasificacion Cliente","CLIENTES GENERALES",allow_duplicates=False)
+
+        # x = 3
+        # for i in array_columns:
+        #     if (x <= 6):
+        #         df.insert(
+        #             loc = x,
+        #             column = i,
+        #             value = 0,
+        #             allow_duplicates = False
+        #         )
+        #     else:
+        #         df.insert(
+        #             loc = x,
+        #             column = i,
+        #             value = 'CLIENTES GENERALES',
+        #             allow_duplicates = False
+        #         )
+        #     x = x+1
+        y = 20
         for i in array_columns2:
             df.insert(
                 loc = y,

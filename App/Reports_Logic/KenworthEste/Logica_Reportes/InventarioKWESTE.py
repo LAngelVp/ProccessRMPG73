@@ -20,7 +20,7 @@ class InventarioKWESTE(Variables):
         #obtener solo las celdas que vamos a trabajar.
         df2 = df[df.columns[0:33]].copy()
         #insertar la columna de fecha actual, con el fin de sacar la antiguedad.
-        df2.insert(loc=28,column="Fecha_Hoy",value=Variables().fechaInsertar, allow_duplicates=False)
+        df2.insert(loc=28,column="Fecha_Hoy",value=Variables().date_movement_config_document(), allow_duplicates=False)
         #iterar en las cabeceras del dataframe para obtener las columnas de fecha.
         for column_title in df2:
             if ("Fecha" in column_title):
@@ -92,20 +92,20 @@ class InventarioKWESTE(Variables):
         df_inventarioCosteadoxDia["Fecha Entrada"] = pd.to_datetime(df_inventarioCosteadoxDia["Fecha Entrada"], errors="coerce")
         df_inventarioCosteadoxDia["Fecha Entrada"] = df_inventarioCosteadoxDia["Fecha Entrada"].dt.strftime("%d/%m/%Y")
         df_inventarioCosteadoxDia.drop(["Antigüedad","ClasDias"],axis=1,inplace=True)
-        df_inventarioCosteadoxDia["Fecha_Dias"] = Variables().fechaInsertar
+        df_inventarioCosteadoxDia["Fecha_Dias"] = Variables().date_movement_config_document()
         df_inventarioCosteadoxDia["ClasSF"] = "Almacen"
 
         #realizar la clasificacion por "TipoDocumento"
         def ClasSF_TipoDocumento(valor_TipoDocumento,valor_almacen):
-            if (valor_TipoDocumento == "Inventario"):
+            if (valor_TipoDocumento.lower() == "inventario"):
                 return "Inventario"
-            elif (valor_TipoDocumento == "Requisiciones"):
+            elif (valor_TipoDocumento.lower() == "requisiciones"):
                 return "Requisiciones"
-            elif (valor_TipoDocumento == "Salidas en Vale"):
+            elif (valor_TipoDocumento.lower() == "salidas en Vale"):
                 return "Salidas en Vale"
-            elif (valor_TipoDocumento == "Traspaso de Entrada" or valor == "Traspaso de Salida"):
+            elif ((valor_TipoDocumento.lower() == "traspaso de entrada") | (valor_TipoDocumento.lower() == "traspaso de salida")):
                 return "Traspaso"
-            elif (valor_TipoDocumento == "Venta"):
+            elif (valor_TipoDocumento.lower() == "venta"):
                 return "Venta"
             else:
                 return valor_almacen
@@ -114,17 +114,17 @@ class InventarioKWESTE(Variables):
 
         #clasificar por Almacen.
         def ClasSF_Almacen(valor_almacen, valor_clasSF):
-            if ("Consigna" in valor_almacen):
+            if ("consigna" in valor_almacen.lower()):
                 return "Consignas"
-            elif ("Rescates" in valor_almacen or "Rescate" in valor_almacen):
+            elif ("rescates" in valor_almacen.lower() or "rescate" in valor_almacen.lower()):
                 return "Rescates"
-            elif ("Infant" in valor_almacen or "InfantCare" in valor_almacen):
+            elif ("infant" in valor_almacen.lower() or "infantCare" in valor_almacen.lower()):
                 return "InfantCare"
-            elif ("MX" in valor_almacen):
+            elif ("mx" in valor_almacen.lower()):
                 return "Motor MX"
-            elif ("Servicio Express" in valor_almacen):
+            elif ("servicio express" in valor_almacen.lower()):
                 return "Servicio Express"
-            elif ("Ultrashift" in valor_almacen):
+            elif ("ultrashift" in valor_almacen.lower()):
                 return "Ultrashift"
             else:
                 return valor_clasSF

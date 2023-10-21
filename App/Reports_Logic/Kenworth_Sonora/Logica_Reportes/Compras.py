@@ -26,7 +26,7 @@ class Compras(Variables):
         df2.insert(
             loc = 5,
             column = "Hoy",
-            value = Variables().fechaInsertar,
+            value = Variables().date_movement_config_document(),
             allow_duplicates = False
         )
         # formateamos las columnas de fecha a trabajar, para poder hacer operaciones 
