@@ -5,7 +5,7 @@
 import os
 import pandas as pd
 import json
-from .Variables.ContenedorVariables import *
+from Variables.ContenedorVariables import *
 class PagosDeClientes(Variables):
     def __init__(self) -> None:
         super().__init__()
@@ -23,7 +23,6 @@ class PagosDeClientes(Variables):
         df = pd.read_excel(path, sheet_name='Hoja2')
         df = df.replace(to_replace=';', value='-', regex=True)
         #copiamos la data para no afectar la original.
-        #df1 = df.copy()
 
         #Eliminamos las columnas que no se van a ocupar.
         df.drop({'Hora Pago', 'Referencia', 'Días Plazo', 'DocumentoMSC', 'Observaciones Pago', 'Referencia Forma de Pago', 'Sucursal Responsable'}, axis=1, inplace=True)
@@ -46,7 +45,6 @@ class PagosDeClientes(Variables):
             value= Variables().nombre_mes(),
             allow_duplicates=True
         )
-
         for i in df.columns:
             nombre_columna = i
             if (df[nombre_columna].dtypes == "object") and (nombre_columna == "Usuario_Aplicó"):
@@ -66,7 +64,6 @@ class PagosDeClientes(Variables):
                 
         
         DataFrameConObjetivo = pd.concat([df, self.objetivos], join="inner")
-
         for i in DataFrameConObjetivo:
             if ("Fecha" in i):
                 DataFrameConObjetivo[i] = pd.to_datetime(DataFrameConObjetivo[i] , errors = 'coerce')
@@ -74,7 +71,7 @@ class PagosDeClientes(Variables):
             else:
                 continue
         
-
+        
         # Recorremos todo el contenido de la columna de "Cuenta Bancaria".
         # si el contenido que encuentre es "digito", solo continuara.
         # si encuentra algo que no sea digito, lo remplazara por el digito 0.
@@ -98,8 +95,7 @@ class PagosDeClientes(Variables):
 
         DataFrameConObjetivo.columns = DataFrameConObjetivo.columns.str.replace(' ', '_')
         # df_completo = DataFrameConObjetivo.query("~(Tipo_Docto == ['Factura de Egreso', 'Facturas de Activo Fijo'])")
-        df_completo = DataFrameConObjetivo().copy()
-        
+        df_completo = DataFrameConObjetivo.copy()
         if os.path.exists(self.ruta):
             try:
                 df_json = pd.read_json(self.ruta)
@@ -119,7 +115,5 @@ class PagosDeClientes(Variables):
                         pass
             except:
                 pass
-
-        df_completo["Area"] = "Pago Clientes"
-
+        df_completo.columns = df.columns.str.replace('_', ' ')
         df_completo.to_excel(os.path.join(Variables().ruta_procesados,f'KWSonora_PagosClientes_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
