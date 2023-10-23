@@ -122,7 +122,7 @@ class InventarioCosteado(Variables):
             else:
                 return valor_clasSF
         #mandamos a llamar a la clasificacion por Almacen.
-        df_inventarioCosteadoxDia["ClasSF"] = df_inventarioCosteadoxDia.apply(lambda fila:ClasSF_Almacen(fila["Almacén"],fila["TipoDocumento"] fila["ClasSF"]),axis=1)
+        df_inventarioCosteadoxDia["ClasSF"] = df_inventarioCosteadoxDia.apply(lambda fila:ClasSF_Almacen(fila["Almacén"],fila["TipoDocumento"], fila["ClasSF"]),axis=1)
 
         #creamoa la columna de marca
         # df_inventarioCosteadoxDia["Marca"] = ""
