@@ -116,15 +116,15 @@ class InventarioCosteado(Variables):
         df_inventarioCosteadoxDia["ClasSF"] = df_inventarioCosteadoxDia.apply(lambda fila:ClasSF_TipoDocumento(fila["TipoDocumento"], fila["ClasSF"]),axis=1)
 
         #clasificar por Almacen.
-        def ClasSF_Almacen(valor_almacen, valor_clasSF):
-            if ("consigna" in valor_almacen.lower()):
+        def ClasSF_Almacen(valor_almacen,tipo_documento, valor_clasSF):
+            if ("consigna" in valor_almacen.lower() and "inventario" in tipo_documento.lower()):
                 return "Consignas"
-            elif ("rescates" in valor_almacen.lower() or "rescate" in valor_almacen.lower()):
+            elif ("rescates" in valor_almacen.lower() or "rescate" in valor_almacen.lower() and "inventario" in tipo_documento.lower()):
                 return "Rescates"
             else:
                 return valor_clasSF
         #mandamos a llamar a la clasificacion por Almacen.
-        df_inventarioCosteadoxDia["ClasSF"] = df_inventarioCosteadoxDia.apply(lambda fila:ClasSF_Almacen(fila["Almacén"], fila["ClasSF"]),axis=1)
+        df_inventarioCosteadoxDia["ClasSF"] = df_inventarioCosteadoxDia.apply(lambda fila:ClasSF_Almacen(fila["Almacén"],fila["TipoDocumento"], fila["ClasSF"]),axis=1)
 
         #convertir la fecha a formato "dia/mes/año"
         df_inventarioCosteadoxDia["Fecha_Dias"] = pd.to_datetime(df_inventarioCosteadoxDia["Fecha_Dias"], errors="coerce")

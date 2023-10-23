@@ -113,23 +113,23 @@ class InventarioKWESTE(Variables):
         df_inventarioCosteadoxDia["ClasSF"] = df_inventarioCosteadoxDia.apply(lambda fila:ClasSF_TipoDocumento(fila["TipoDocumento"], fila["ClasSF"]),axis=1)
 
         #clasificar por Almacen.
-        def ClasSF_Almacen(valor_almacen, valor_clasSF):
-            if ("consigna" in valor_almacen.lower()):
+        def ClasSF_Almacen(valor_almacen,tipo_documento, valor_clasSF):
+            if ("consigna" in valor_almacen.lower() and "inventario" in tipo_documento.lower()):
                 return "Consignas"
-            elif ("rescates" in valor_almacen.lower() or "rescate" in valor_almacen.lower()):
+            elif ("rescates" in valor_almacen.lower() or "rescate" in valor_almacen.lower() and "inventario" in tipo_documento.lower()):
                 return "Rescates"
-            elif ("infant" in valor_almacen.lower() or "infantCare" in valor_almacen.lower()):
+            elif ("infant" in valor_almacen.lower() or "infantCare" in valor_almacen.lower() and "inventario" in tipo_documento.lower()):
                 return "InfantCare"
-            elif ("mx" in valor_almacen.lower()):
+            elif ("mx" in valor_almacen.lower() and "inventario" in tipo_documento.lower()):
                 return "Motor MX"
-            elif ("servicio express" in valor_almacen.lower()):
+            elif ("servicio express" in valor_almacen.lower() and "inventario" in tipo_documento.lower()):
                 return "Servicio Express"
-            elif ("ultrashift" in valor_almacen.lower()):
+            elif ("ultrashift" in valor_almacen.lower() and "inventario" in tipo_documento.lower()):
                 return "Ultrashift"
             else:
                 return valor_clasSF
         #mandamos a llamar a la clasificacion por Almacen.
-        df_inventarioCosteadoxDia["ClasSF"] = df_inventarioCosteadoxDia.apply(lambda fila:ClasSF_Almacen(fila["Almacén"], fila["ClasSF"]),axis=1)
+        df_inventarioCosteadoxDia["ClasSF"] = df_inventarioCosteadoxDia.apply(lambda fila:ClasSF_Almacen(fila["Almacén"],fila["TipoDocumento"], fila["ClasSF"]),axis=1)
 
         #creamoa la columna de marca
         df_inventarioCosteadoxDia["Marca"] = ""
