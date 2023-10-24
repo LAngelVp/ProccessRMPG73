@@ -39,35 +39,10 @@ class PagosDeClientes(Variables):
             value=Variables().date_movement_config_document(),
             allow_duplicates=True
         )
-        df.insert(
-            loc=5,
-            column='Mes',
-            value= Variables().nombre_mes(),
-            allow_duplicates=True
-        )
-        for i in df.columns:
-            nombre_columna = i
-            if (df[nombre_columna].dtypes == "object") and (nombre_columna == "Usuario_Aplicó"):
-                self.objetivos[nombre_columna] = ['DANIA VARGAS ROSAS']
-            elif (df[nombre_columna].dtypes == "object") and (nombre_columna == "Vendedor"):
-                self.objetivos[nombre_columna] = ['Objetivo']
-            elif (df[nombre_columna].dtypes == "int64"):
-                self.objetivos[nombre_columna] = ['0']
-            elif (df[nombre_columna].dtypes == "float64"):
-                self.objetivos[nombre_columna] = ['0.0']
-            elif (nombre_columna == "Mes"):
-                self.objetivos[nombre_columna] = Variables().nombre_mes()
-            elif (df[nombre_columna].dtypes == "datetime64[ns]") and (nombre_columna == "Fecha_Pago") or (nombre_columna == "Fecha_Movimiento"):
-                self.objetivos[nombre_columna] = [fechainsertar]
-            else:
-                self.objetivos[nombre_columna] = ['']
-                
-        
-        DataFrameConObjetivo = pd.concat([df, self.objetivos], join="inner")
-        for i in DataFrameConObjetivo:
+        for i in df:
             if ("Fecha" in i):
-                DataFrameConObjetivo[i] = pd.to_datetime(DataFrameConObjetivo[i] , errors = 'coerce')
-                DataFrameConObjetivo[i] = DataFrameConObjetivo[i].dt.strftime("%d/%m/%Y")
+                df[i] = pd.to_datetime(df[i] , errors = 'coerce')
+                df[i] = df[i].dt.strftime("%d/%m/%Y")
             else:
                 continue
         
@@ -75,45 +50,24 @@ class PagosDeClientes(Variables):
         # Recorremos todo el contenido de la columna de "Cuenta Bancaria".
         # si el contenido que encuentre es "digito", solo continuara.
         # si encuentra algo que no sea digito, lo remplazara por el digito 0.
-        for dato in DataFrameConObjetivo['CuentaBancaria']:
+        for dato in df['CuentaBancaria']:
             try:
                 if (dato.isdigit() == True ):
                     continue
                 else:
-                    DataFrameConObjetivo['CuentaBancaria'] = DataFrameConObjetivo['CuentaBancaria'].replace(dato,0)
+                    df['CuentaBancaria'] = df['CuentaBancaria'].replace(dato,0)
             except:
                 pass
         
         # obtenemos los objetivos
         # con el json
-
-        DataFrameConObjetivo["Motivo_Cancelación"] = ""
         
 
-        columnas_bol=DataFrameConObjetivo.select_dtypes(include=bool).columns.tolist()
-        DataFrameConObjetivo[columnas_bol] = DataFrameConObjetivo[columnas_bol].astype(str)
+        columnas_bol=df.select_dtypes(include=bool).columns.tolist()
+        df[columnas_bol] = df[columnas_bol].astype(str)
 
-        DataFrameConObjetivo.columns = DataFrameConObjetivo.columns.str.replace(' ', '_')
-        # df_completo = DataFrameConObjetivo.query("~(Tipo_Docto == ['Factura de Egreso', 'Facturas de Activo Fijo'])")
-        df_completo = DataFrameConObjetivo.copy()
-        if os.path.exists(self.ruta):
-            try:
-                df_json = pd.read_json(self.ruta)
-                for indice, fila in df_json.iterrows():
-                    sucursal_json = fila["Sucursal"]
-                    objetivo_json = fila["Objetivo"]
-
-                    # Verificar si la sucursal del JSON coincide con la sucursal en df
-
-                    if sucursal_json in df_completo["Sucursal_Factura"].values.tolist():
-                        # Actualizar el valor de "Objetivos" en df_completo
-                        df_completo.loc[df_completo["Sucursal_Factura"] == sucursal_json, "Objetivos"] = objetivo_json
-                    elif sucursal_json in df_completo["Vendedor"].values.tolist():
-                        # Actualizar el valor de "Objetivos" en df_completo
-                        df_completo.loc[df_completo["Vendedor"] == sucursal_json, "Objetivos"] = objetivo_json
-                    else:
-                        pass
-            except:
-                pass
-        df_completo.columns = df.columns.str.replace('_', ' ')
+        df.columns = df.columns.str.replace(' ', '_')
+        # df_completo = df.query("~(Tipo_Docto == ['Factura de Egreso', 'Facturas de Activo Fijo'])")
+        df_completo = df.copy()
+        df_completo.columns = df_completo.columns.str.replace('_', ' ')
         df_completo.to_excel(os.path.join(Variables().ruta_procesados,f'KWSonora_PagosClientes_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
