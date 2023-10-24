@@ -7,7 +7,7 @@ import pandas as pd
 from datetime import *
 from .Variables.ContenedorVariables import Variables
 class TrabajosPorEstado(Variables):
-    def Trabajos_Por_Estado_KWRB(self):
+    def __init__(self):
         # obtenemos el path.
         # leemos el documento.
         exceptoKenworth=["KENWORTH MEXICANA", "KENWORTH DEL ESTE"]

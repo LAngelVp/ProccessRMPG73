@@ -7,7 +7,7 @@ import pandas as pd
 from datetime import *
 from .Variables.ContenedorVariables import Variables
 class SalidasVale(Variables):
-    def SalidasKWRB(self):
+    def __init__(self):
         path = os.path.join(Variables().ruta_Trabajo,'SVR.xlsx')
 
         df = pd.read_excel(path, sheet_name="Hoja2")

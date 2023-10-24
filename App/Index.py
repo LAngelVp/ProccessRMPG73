@@ -12,7 +12,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QIcon, QPixmap, QMouseEvent
 from VPrincipal import *
 # comment importamos concesionarios
-from Reports_Logic.Rio_Bravo.index_KWRioBravo import *
+from Reports_Logic.Rio_Bravo.Home_KWRB import *
 from Reports_Logic.KenworthEste.indexKWESTE import *
 from Reports_Logic.KREI.indexKREI import *
 from Reports_Logic.Kenworth_Sonora.Home_Kenworth_Sonora import *

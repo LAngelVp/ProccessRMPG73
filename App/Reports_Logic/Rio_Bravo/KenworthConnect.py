@@ -26,49 +26,49 @@ from .Logica_Reportes.Financiero import ResultadosFinancieros
 class KenworthConnect():
 #--------------------------------
 # SALIDAS EN VALE
-    def SalidasEnVale_KWRB(self):
-        SalidasVale().SalidasKWRB()
+    def SalidasEnVale(self):
+        SalidasVale()
 #---------------------------------
 # FACTURA DE VENTA DE REFACCIONES
-    def Refacciones_KWRB(self):
-        Refacciones().RefaccionesKWRB()
+    def Refacciones(self):
+        Refacciones()
 #---------------------------------
 # ORDENES DE SERVICIO
-    def OrdenesServicio_KWRB(self):
-        OrdenesServicio().OrdenesServicioKWRB()
+    def OrdenesDeServicio(self):
+        OrdenesServicio()
 #---------------------------------
 # SERVICIO DETALLADO
-    def ServicioDetallado_KWRB(self):
-        ServioDetallado().ServioDetalladoKWRB()
+    def ServicioDetallado(self):
+        ServioDetallado()
 #---------------------------------
 # BACK ORDER DE REFACCIONES
-    def BackOrder_KWRB(self):
-        BackOrder().Back_Order_KWRB()
+    def BackOrder(self):
+        BackOrder()
 #--------------------------------
 # COMPRAS DETALLADO
-    def ComprasDetallado_KWRB(self):
-        Compras().Compras_Detallado_KWRB()
+    def ComprasDetallado(self):
+        Compras()
 #--------------------------------
 # CREDITO
-    def Credito_KWRB(self):
-        Credito().Credito_Normal_KWRB()
+    def Credito(self):
+        Credito()
 #--------------------------------
 # TRABAJOS POR ESTADO
-    def TrabajosPorEstado_KWRB(self):
-        TrabajosPorEstado().Trabajos_Por_Estado_KWRB()
+    def TrabajosPorEstado(self):
+        TrabajosPorEstado()
 #----------------------------------
 # PAGO DE FACTURAS CLIENTES
-    def PagosClientes_KWRB(self):
-        PagosClientes().Pagos_Clientes_KWRB()
+    def PagosClientes(self):
+        PagosClientes()
 #----------------------------------
 # INVENTARIO COSTEADO
-    def InventarioCosteado_KWRB(self):
-        InventarioCosteado().Inventario_Costeado_KWRB()
+    def InventarioCosteado(self):
+        InventarioCosteado()
 #---------------------------------
 # INVENTARIO UNIDADES
-    def InventarioUnidades_KWRB(self):
-        InventarioUnidades().InvUnidades_KWRB()
+    def InventarioDeUnidades(self):
+        InventarioUnidades()
 #----------------------------------
 # RESULTADOS FINANCIEROS
-    def ResultadosFinancieros_KWRB(self):
-        ResultadosFinancieros().ResultadosFinancieroKWRB()
+    def ResultadosFinancieros(self):
+        ResultadosFinancieros()

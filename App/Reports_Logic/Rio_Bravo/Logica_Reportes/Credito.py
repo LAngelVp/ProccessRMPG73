@@ -6,7 +6,7 @@ import os
 import pandas as pd
 from .Variables.ContenedorVariables import Variables
 class Credito(Variables):
-    def Credito_Normal_KWRB(self):
+    def __init__(self):
         path = os.path.join(Variables().ruta_Trabajo,'CR.xlsx')
         df = pd.read_excel(path, sheet_name = 'Hoja2')
         df = df.replace(to_replace=';', value='-', regex=True)

@@ -7,9 +7,9 @@ import pandas as pd
 from datetime import*
 from openpyxl import Workbook
 from openpyxl.utils.dataframe import dataframe_to_rows
-from .Variables.ContenedorVariables import Variables
+from Variables.ContenedorVariables import Variables
 class Refacciones(Variables):
-    def RefaccionesKWRB(self):
+    def __init__(self):
         path = os.path.join(Variables().ruta_Trabajo,'RR.xlsx')
 
         df = pd.read_excel(path, sheet_name='Hoja2')
@@ -17,142 +17,101 @@ class Refacciones(Variables):
         
         df.drop(['% Margen', 'Meta Ventas Por Vendedor', 'Meta Margen Por Vendedor', 'Meta Cantidad Por Vendedor', 'Meta Ventas Por Sucursal', 'Meta Margen Por Sucursal', 'Meta Cantidad Por Sucursal', '% Comisión Por Margen', '% Comisión Por Ventas', 'Comisión Por Margen', 'Comisión Por Ventas', 'EsBonificacion', 'IdUsuario', 'IdPaquete', 'Paquete', 'Descripción Paquete', 'Cantidad Paquete', 'Subtotal Paquete', 'Potencial Total', 'Tipo de Cambio del día', 'OCCliente', '% Margen Sin Descuento'], axis=1, inplace=True)
 
-        df_nuevo = df[df.columns[0:93]].copy()
+        df = df[df.columns[0:93]].copy()
 
-        df_nuevo['Fecha'] = (df_nuevo['Fecha'].dt.strftime('%d/%m/%Y'))
-
-        RefaccionesM = df_nuevo['DepartamentoDocto'] == 'REFACCIONES'
-        df_REFACCIONESMost = df_nuevo[RefaccionesM].copy()
-
-        RefaccionesS = df_nuevo['DepartamentoDocto'] == 'TALLER DE SERVICIO'
-        df_REFACCIONESServ = df_nuevo[RefaccionesS].copy()
-
-
-        # note CLASIFICACION "REFACCIONES MOSTRADOR"
-        #### FILTRAMOS POR SUCURSALES PARA PONER SU CLASIFICACION.
-        # Sucursal                      Departamento Venta              Depa
-        # REYNOSA	                    | Mostrado Reynosa              | Mostrador
-        # NUEVO LAREDO (AEROPUERTO)     | Mostrador NL Aeropuerto	    | Mostrador
-        # TRP NUEVO LAREDO              | Mostrador TRP Nuevo Laredo    | Mostrador
-        # TRP REYNOSA	                | Mostrador TRP Reynosa	        | Mostrador
-        # PIEDRAS NEGRAS	            | Mostrador Piedras Negras      | Mostrador
-        # MATAMOROS	                    | Mostrador Matamoros           | Mostrador
-        # VALLE HERMOSO	                | Mostrador Valle Hermoso       | Mostrador
-        # TRP NAVA	                    | Mostrador TRP Nava            | Mostrador
-        # NUEVO LAREDO (MATRIZ)	        | Mostrador NL Matriz           | Mostrador
-        # POZA RICA	                    | Mostrador Poza Rica           | Mostrador
-        # TRP ACUÑA	                    | Mostrador TRP Acuña           | Mostrador
-
-        ReynosaM_Depas = df_REFACCIONESMost['Sucursal'] == 'REYNOSA'
-        Reynosa = df_REFACCIONESMost[ReynosaM_Depas].copy()
-        Reynosa["Departamento Venta"] = "Mostrado Reynosa"
-        Reynosa["Depa"] = "Mostrador"
-
-        NuevoLaredoA_Depas = df_REFACCIONESMost['Sucursal'] == 'NUEVO LAREDO (AEROPUERTO)'
-        NuevoLaredo_Aero = df_REFACCIONESMost[NuevoLaredoA_Depas].copy()
-        NuevoLaredo_Aero["Departamento Venta"] = "Mostrador NL Aeropuerto"
-        NuevoLaredo_Aero["Depa"] = "Mostrador"
-
-        Trp_NuevoLaredo_Depas = df_REFACCIONESMost['Sucursal'] == 'TRP NUEVO LAREDO'
-        NLaredo_TRP = df_REFACCIONESMost[Trp_NuevoLaredo_Depas].copy()
-        NLaredo_TRP['Departamento Venta'] = 'Mostrador TRP Nuevo Laredo'
-        NLaredo_TRP['Depa'] = 'Mostrador'
-
-        trp_reynosa = df_REFACCIONESMost['Sucursal'] == 'TRP REYNOSA'
-        trpReynosa = df_REFACCIONESMost[trp_reynosa].copy()
-        trpReynosa['Departamento Venta'] = 'Mostrador TRP Reynosa'
-        trpReynosa['Depa'] = 'Mostrador'
-
-        piedras_negras = df_REFACCIONESMost['Sucursal'] == 'PIEDRAS NEGRAS'
-        PiedrasNegras = df_REFACCIONESMost[piedras_negras].copy()
-        PiedrasNegras['Departamento Venta'] = 'Mostrador Piedras Negras'
-        PiedrasNegras['Depa'] = 'Mostrador'
-
-        Matamoros = df_REFACCIONESMost['Sucursal'] == 'MATAMOROS'
-        Matamoros_Depas = df_REFACCIONESMost[Matamoros].copy()
-        Matamoros_Depas['Departamento Venta'] = 'Mostrador Matamoros'
-        Matamoros_Depas['Depa'] = 'Mostrador'
-
-        valle_hermoso = df_REFACCIONESMost['Sucursal'] == 'VALLE HERMOSO'
-        ValleHermoso = df_REFACCIONESMost[valle_hermoso].copy()
-        ValleHermoso['Departamento Venta'] = 'Mostrador Valle Hermoso'
-        ValleHermoso['Depa'] = 'Mostrador'
-
-        TRP_NAVA = df_REFACCIONESMost['Sucursal'] == 'TRP NAVA'
-        TRPNAVA = df_REFACCIONESMost[TRP_NAVA].copy()
-        TRPNAVA['Departamento Venta'] = 'Mostrador TRP Nava'
-        TRPNAVA['Depa'] = 'Mostrador'
-
-        nuevolaredom = df_REFACCIONESMost['Sucursal'] == 'NUEVO LAREDO (MATRIZ)'
-        NuevoLaredoM = df_REFACCIONESMost[nuevolaredom].copy()
-        NuevoLaredoM['Departamento Venta'] = 'Mostrador NL Matriz'
-        NuevoLaredoM['Depa'] = 'Mostrador'
-
-        POZA_RICA = df_REFACCIONESMost['Sucursal'] == 'POZA RICA'
-        POZARICA = df_REFACCIONESMost[POZA_RICA].copy()
-        POZARICA['Departamento Venta'] = 'Mostrador Poza Rica'
-        POZARICA['Depa'] = 'Mostrador'
-
-
-        TRP_ACUÑA = df_REFACCIONESMost['Sucursal'] == 'TRP ACUÑA'
-        TRPACUÑA = df_REFACCIONESMost[TRP_ACUÑA].copy()
-        TRPACUÑA['Departamento Venta'] = 'Mostrador TRP Acuña'
-        TRPACUÑA['Depa'] = 'Mostrador'
-
-
-        # comment CONCATENAMOS TODOS LOS FILTROS DE "REFACCIONES MOSTRADOR"
-        DF_RMOSTRADOR = pd.concat([Reynosa, NuevoLaredo_Aero, NLaredo_TRP, trpReynosa, PiedrasNegras, Matamoros_Depas, ValleHermoso, TRPNAVA, NuevoLaredoM, POZARICA, TRPACUÑA], join = "inner")
-
-
-        # note CLASIFICACION "REFACCIONES SERVICIO"
-
-        # Sucursal    	            Departamento Venta         Depa
-        # REYNOSA	                |Servicio Reynosa	       |Servicio
-        # PIEDRAS NEGRAS	        |Servicio Piedras Negras   |Servicio
-        # NUEVO LAREDO (AEROPUERTO) |Servicio NL Aeropuerto	   |Servicio
-        # MATAMOROS	                |Servicio Matamoros	       |Servicio
-        # NUEVO LAREDO (MATRIZ)	    |Servicio NL Matriz	       |Servicio
-
-        REYNOSA_serv = df_REFACCIONESServ['Sucursal'] == 'REYNOSA'
-        REYNOSAserv = df_REFACCIONESServ[REYNOSA_serv].copy()
-        REYNOSAserv['Departamento Venta'] = 'Servicio Reynosa'
-        REYNOSAserv['Depa'] = 'Servicio'
-
-        PIEDRAS_NEGRAS_serv = df_REFACCIONESServ['Sucursal'] == 'PIEDRAS NEGRAS'
-        PIEDRAS_NEGRASserv = df_REFACCIONESServ[PIEDRAS_NEGRAS_serv].copy()
-        PIEDRAS_NEGRASserv['Departamento Venta'] = 'Servicio Piedras Negras'
-        PIEDRAS_NEGRASserv['Depa'] = 'Servicio'
-
-        NUEVO_LAREDO_Aero_serv = df_REFACCIONESServ['Sucursal'] == 'NUEVO LAREDO (AEROPUERTO)'
-        NUEVOLAREDOAeroserv = df_REFACCIONESServ[NUEVO_LAREDO_Aero_serv].copy()
-        NUEVOLAREDOAeroserv['Departamento Venta'] = 'Servicio NL Aeropuerto'
-        NUEVOLAREDOAeroserv['Depa'] = 'Servicio'
-
-        MATAMOROS_serv = df_REFACCIONESServ['Sucursal'] == 'MATAMOROS'
-        MATAMOROSserv = df_REFACCIONESServ[MATAMOROS_serv].copy()
-        MATAMOROSserv['Departamento Venta'] = 'Servicio Matamoros'
-        MATAMOROSserv['Depa'] = 'Servicio'
-
-        NUEVO_LAREDO_M = df_REFACCIONESServ['Sucursal'] == 'NUEVO LAREDO (MATRIZ)'
-        NUEVOLAREDOMserv = df_REFACCIONESServ[NUEVO_LAREDO_M].copy()
-        NUEVOLAREDOMserv['Departamento Venta'] = 'Servicio NL Matriz'
-        NUEVOLAREDOMserv['Depa'] = 'Servicio'
+        for fecha in df:
+            if ("fecha" in fecha.lower()):
+                df[fecha] = pd.to_datetime(df[fecha], format="%d/%m/%Y", errors='coerce').dt.strftime("%d/%m/%Y")
+            else:
+                continue
         
-        POZA_RICA = df_REFACCIONESServ['Sucursal'] == 'POZA RICA'
-        POZARICA = df_REFACCIONESServ[POZA_RICA].copy()
-        POZARICA['Departamento Venta'] = 'Servicio Poza Rica'
-        POZARICA['Depa'] = 'Servicio'
+        df["Departamento Venta"], df["Depa"] = zip(*df.apply(lambda fila: self.Clasificacion_departamentos_refacciones(fila["Sucursal"], fila["DepartamentoDocto"]), axis=1))
 
-        DF_RSERVICIO = pd.concat([REYNOSAserv, PIEDRAS_NEGRASserv, NUEVOLAREDOAeroserv, MATAMOROSserv, NUEVOLAREDOMserv, POZARICA], join = "inner")
+        df["Departamento Venta"], df["Depa"] = zip(*df.apply(lambda fila: self.Clasificacion_departamentos_servicio(fila["Sucursal"], fila["DepartamentoDocto"], fila["Departamento Venta"], fila["Depa"]), axis=1))
 
-        DF_RefaccionesCompleto = pd.concat([DF_RMOSTRADOR, DF_RSERVICIO], join = "inner")
-        #-------
-        # note creamos la clasificacion de la columna de Area
-        DF_RefaccionesCompleto.loc[(DF_RefaccionesCompleto["Depa"] == "Mostrador"), "Area"] = "Refacc Mostrador"
-        DF_RefaccionesCompleto.loc[(DF_RefaccionesCompleto["Depa"] == "Servicio"), "Area"] = "Refacc Servicio"
+        df.loc[(df["Depa"] == "Mostrador"), "Area"] = "Refacc Mostrador"
+        df.loc[(df["Depa"] == "Servicio"), "Area"] = "Refacc Servicio"
         #-------------
         
-        columnas_bol=DF_RefaccionesCompleto.select_dtypes(include=bool).columns.tolist()
-        DF_RefaccionesCompleto[columnas_bol] = DF_RefaccionesCompleto[columnas_bol].astype(str)
+        columnas_bol=df.select_dtypes(include=bool).columns.tolist()
+        df[columnas_bol] = df[columnas_bol].astype(str)
 
-        DF_RefaccionesCompleto.to_excel(os.path.join(Variables().ruta_procesados,f'KWRB_Refacciones_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+        df.to_excel(os.path.join(Variables().ruta_procesados,f'KWRB_Refacciones_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+
+    def Clasificacion_departamentos_refacciones(self, valor_sucursal, valor_departamento_documento):
+        departamento_venta = None
+        depa = None
+        if (valor_sucursal.lower() == "matamoros") and (valor_departamento_documento.lower() == "refacciones"):
+            departamento_venta =  "Mostrador " + valor_sucursal.title()
+            depa = "Mostrador"
+        elif (valor_sucursal.lower() == "trp acuña") and (valor_departamento_documento.lower() == "refacciones"):
+            departamento_venta =  "Mostrador TRP Acuña"
+            depa = "Mostrador"
+        elif (valor_sucursal.lower() == "poza rica") and (valor_departamento_documento.lower() == "refacciones"):
+            departamento_venta =  "Mostrador " + valor_sucursal.title()
+            depa = "Mostrador"
+        elif (valor_sucursal.lower() == "nuevo laredo (matriz)") and (valor_departamento_documento.lower() == "refacciones"):
+            departamento_venta =  "Mostrador NL Matriz"
+            depa = "Mostrador"
+        elif (valor_sucursal.lower() == "trp nava") and (valor_departamento_documento.lower() == "refacciones"):
+            departamento_venta =  "Mostrador TRP Nava"
+            depa = "Mostrador"
+        elif (valor_sucursal.lower() == "valle hermoso") and (valor_departamento_documento.lower() == "refacciones"):
+            departamento_venta =  "Mostrador " + valor_sucursal.title()
+            depa = "Mostrador"
+        elif (valor_sucursal.lower() == "piedras negras") and (valor_departamento_documento.lower() == "refacciones"):
+            departamento_venta =  "Mostrador " + valor_sucursal.title()
+            depa = "Mostrador"
+        elif (valor_sucursal.lower() == "trp reynosa") and (valor_departamento_documento.lower() == "refacciones"):
+            departamento_venta =  "Mostrador TRP Reynosa"
+            depa = "Mostrador"
+        elif (valor_sucursal.lower() == "trp nuevo laredo") and (valor_departamento_documento.lower() == "refacciones"):
+            departamento_venta =  "Mostrador TRP Nuevo Laredo"
+            depa = "Mostrador"
+        elif (valor_sucursal.lower() == "nuevo laredo (aeropuerto)") and (valor_departamento_documento.lower() == "refacciones"):
+            departamento_venta =  "Mostrador NL Aeropuesto"
+            depa = "Mostrador"
+        elif (valor_sucursal.lower() == "reynosa") and (valor_departamento_documento.lower() == "refacciones"):
+            departamento_venta =  "Mostrador " + valor_sucursal.title()
+            depa = "Mostrador"
+        
+        return departamento_venta, depa
+    
+    def Clasificacion_departamentos_servicio(self, valor_sucursal, valor_departamento_documento, departamento_venta, depa):
+        if (valor_sucursal.lower() == "matamoros") and (valor_departamento_documento.lower() == "taller de servicio"):
+            departamento_venta =  "Servicio " + valor_sucursal.title()
+            depa = "Servicio"
+        elif (valor_sucursal.lower() == "trp acuña") and (valor_departamento_documento.lower() == "taller de servicio"):
+            departamento_venta =  "Servicio TRP Acuña"
+            depa = "Servicio"
+        elif (valor_sucursal.lower() == "poza rica") and (valor_departamento_documento.lower() == "taller de servicio"):
+            departamento_venta =  "Servicio " + valor_sucursal.title()
+            depa = "Servicio"
+        elif (valor_sucursal.lower() == "nuevo laredo (matriz)") and (valor_departamento_documento.lower() == "taller de servicio"):
+            departamento_venta =  "Servicio NL Matriz"
+            depa = "Servicio"
+        elif (valor_sucursal.lower() == "trp nava") and (valor_departamento_documento.lower() == "taller de servicio"):
+            departamento_venta =  "Servicio TRP Nava"
+            depa = "Servicio"
+        elif (valor_sucursal.lower() == "valle hermoso") and (valor_departamento_documento.lower() == "taller de servicio"):
+            departamento_venta =  "Servicio " + valor_sucursal.title()
+            depa = "Servicio"
+        elif (valor_sucursal.lower() == "piedras negras") and (valor_departamento_documento.lower() == "taller de servicio"):
+            departamento_venta =  "Servicio " + valor_sucursal.title()
+            depa = "Servicio"
+        elif (valor_sucursal.lower() == "trp reynosa") and (valor_departamento_documento.lower() == "taller de servicio"):
+            departamento_venta =  "Servicio TRP Reynosa"
+            depa = "Servicio"
+        elif (valor_sucursal.lower() == "trp nuevo laredo") and (valor_departamento_documento.lower() == "taller de servicio"):
+            departamento_venta =  "Servicio TRP Nuevo Laredo"
+            depa = "Servicio"
+        elif (valor_sucursal.lower() == "nuevo laredo (aeropuerto)") and (valor_departamento_documento.lower() == "taller de servicio"):
+            departamento_venta =  "Servicio NL Aeropuesto"
+            depa = "Servicio"
+        elif (valor_sucursal.lower() == "reynosa") and (valor_departamento_documento.lower() == "taller de servicio"):
+            departamento_venta =  "Servicio " + valor_sucursal.title()
+            depa = "Servicio"
+        
+        return departamento_venta, depa
+       
+        

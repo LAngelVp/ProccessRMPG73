@@ -7,7 +7,7 @@ import pandas as pd
 from datetime import *
 from .Variables.ContenedorVariables import Variables
 class InventarioUnidades(Variables):
-    def InvUnidades_KWRB(self):
+    def __init__(self):
         path = os.path.join(Variables().ruta_Trabajo,'IUR.xlsx')
         df = pd.read_excel(path, sheet_name="Hoja2")
         df1 = df.copy()

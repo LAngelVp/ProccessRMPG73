@@ -359,18 +359,18 @@ class trabajohilo(QThread, Variables):
         #---------------------------------------
         # diccionario de los archivos.
         diccionario_archivos = {
-            "SVR.xlsx" : KenworthConnect().SalidasEnVale_KWRB,
-            "RR.xlsx" : KenworthConnect().Refacciones_KWRB,
-            "OSR.xlsx" : KenworthConnect().OrdenesServicio_KWRB,
-            "SDR.xlsx" : KenworthConnect().ServicioDetallado_KWRB,
-            "BOR.xlsx" : KenworthConnect().BackOrder_KWRB,
-            "CDR.xlsx" : KenworthConnect().ComprasDetallado_KWRB,
-            "CR.xlsx" : KenworthConnect().Credito_KWRB,
-            "TER.xlsx" : KenworthConnect().TrabajosPorEstado_KWRB,
-            "PCR.xlsx" : KenworthConnect().PagosClientes_KWRB,
-            "ICR.xlsx" :KenworthConnect().InventarioCosteado_KWRB,
-            "IUR.xlsx" : KenworthConnect().InventarioUnidades_KWRB,
-            "RFR.xlsx" : KenworthConnect().ResultadosFinancieros_KWRB,
+            "SVR.xlsx" : KenworthConnect().SalidasEnVale,
+            "RR.xlsx" : KenworthConnect().Refacciones,
+            "OSR.xlsx" : KenworthConnect().OrdenesDeServicio,
+            "SDR.xlsx" : KenworthConnect().ServicioDetallado,
+            "BOR.xlsx" : KenworthConnect().BackOrder,
+            "CDR.xlsx" : KenworthConnect().ComprasDetallado,
+            "CR.xlsx" : KenworthConnect().Credito,
+            "TER.xlsx" : KenworthConnect().TrabajosPorEstado,
+            "PCR.xlsx" : KenworthConnect().PagosClientes,
+            "ICR.xlsx" :KenworthConnect().InventarioCosteado,
+            "IUR.xlsx" : KenworthConnect().InventarioDeUnidades,
+            "RFR.xlsx" : KenworthConnect().ResultadosFinancieros,
         }
         #-----------------------------------------------
         while True:

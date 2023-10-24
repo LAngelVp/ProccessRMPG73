@@ -8,7 +8,7 @@ import pandas as pd
 from datetime import *
 from .Variables.ContenedorVariables import Variables
 class Compras(Variables):
-    def Compras_Detallado_KWRB(self):
+    def __init__(self):
         # obtenemos la ruta del documento.
         # leemos el archivo.
         path = os.path.join(Variables().ruta_Trabajo,'CDR.xlsx')

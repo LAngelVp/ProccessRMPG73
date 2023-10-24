@@ -8,9 +8,8 @@ from datetime import *
 from .Variables.ContenedorVariables import Variables
 class ResultadosFinancieros(Variables):
 
-    def ResultadosFinancieroKWRB(self):
+    def __init__(self):
         # FUNCION PARA OBTENER EL DEPARTAMENTO
-        print(0)
             
         # CREAMOS UN ARRAY CON EL NOMBRE DE LAS COLUMNAS QUE VAMOS A OCUPAR DEL DATAFRAME ORIGINAL
         # ESTE ARRAY SE VA A OCUPAR MAS ADELANTE PARA CREAR EL DATAFRAME FINAL.
@@ -82,13 +81,7 @@ class ResultadosFinancieros(Variables):
             allow_duplicates = True
         )
 
-        def obtenerDepartamento(valor):
-            currentYear = datetime.now().year
-            if (valor < currentYear):
-                return "Unidades Seminuevas"
-            else:
-                return "Unidades Nuevas"
-        departamento = financiero["Modelo"].apply(lambda x: obtenerDepartamento(x))
+        departamento = financiero["Modelo"].apply(lambda x: self.obtenerDepartamento(x))
 
         financiero.insert(
             loc = 0,
@@ -128,8 +121,13 @@ class ResultadosFinancieros(Variables):
         financiero[columnas_bol] = financiero[columnas_bol].astype(str)
 
         # GUARDAMOS EL ARCHIVO
-        print(4)
         financiero.to_excel(os.path.join(Variables().ruta_procesados,f'KWRB_ResultadosFinancieros_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
         
+    def obtenerDepartamento(valor):
+            currentYear = datetime.now().year
+            if (valor < currentYear):
+                return "Unidades Seminuevas"
+            else:
+                return "Unidades Nuevas"
 
         

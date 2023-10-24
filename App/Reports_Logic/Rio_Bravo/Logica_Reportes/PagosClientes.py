@@ -8,7 +8,7 @@ import pandas as pd
 from datetime import *
 from .Variables.ContenedorVariables import Variables
 class PagosClientes(Variables):
-    def Pagos_Clientes_KWRB(self):
+    def __init__(self):
 
         self.ruta = os.path.join(Variables().ruta_deapoyo, "JsonObjetivos.json")
         
