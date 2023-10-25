@@ -7,7 +7,7 @@ import pandas as pd
 from datetime import *
 from .Variables.ContenedorVariables import Variables
 
-class TrabajosPorEstadoKWESTE(Variables):
+class TrabajosPorEstado(Variables):
     def __init__(self) -> None:
         super().__init__()
          # ESTOS ARRAYS SON DE APOYO PARA LA CLASIFICACION DE LOS CLIENTES

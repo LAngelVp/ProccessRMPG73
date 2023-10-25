@@ -6,7 +6,7 @@ import os
 import pandas as pd
 from datetime import *
 from .Variables.ContenedorVariables import Variables
-class OrdenesDeServicioKWESTE(Variables):
+class OrdenesDeServicio(Variables):
     def __init__(self) -> None:
         super().__init__()
         

@@ -6,8 +6,8 @@ import os
 import pandas as pd
 from datetime import *
 from .Variables.ContenedorVariables import Variables
-class SalidasEnValeKWESTE(Variables):
-    def SalidasEnVale_KWESTE(self):
+class SalidasEnVale(Variables):
+    def __init__(self):
         path = os.path.join(Variables().ruta_Trabajo,'SVE.xlsx')
         df = pd.read_excel(path, sheet_name="Hoja2")
         # NOTE Guardamos una copia del documeto en una variable, haciendo uso de el en memoria para no gastar almacenamiento.

@@ -112,11 +112,6 @@ class Refacciones(Variables):
                     df[i] = df[i].dt.strftime("%d/%m/%Y")
                 except:
                     pass
-        #-------
-        # note creamos la clasificacion de la columna de Area
-        # DF_RefaccionesCompleto.loc[(DF_RefaccionesCompleto["Depa"] == "Mostrador"), "Area"] = "Refacc Mostrador"
-        # DF_RefaccionesCompleto.loc[(DF_RefaccionesCompleto["Depa"] == "Servicio"), "Area"] = "Refacc Servicio"
-        #-------------
         
         columnas_bol=df.select_dtypes(include=bool).columns.tolist()
         df[columnas_bol] = df[columnas_bol].astype(str)

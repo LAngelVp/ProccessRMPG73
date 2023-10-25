@@ -13,9 +13,6 @@ class PagosDeClientes(Variables):
         #leemos el documento.
         self.ruta = os.path.join(Variables().ruta_deapoyo, "JsonObjetivos.json")
         
-
-        self.columnas_objetivo = []
-        self.objetivos = pd.DataFrame()
         fecha = Variables().fechaHoy()
         fechainsertar = str(fecha)
 
@@ -58,13 +55,11 @@ class PagosDeClientes(Variables):
                     df['CuentaBancaria'] = df['CuentaBancaria'].replace(dato,0)
             except:
                 pass
-        
-        # obtenemos los objetivos
-        # con el json
-        
 
         columnas_bol=df.select_dtypes(include=bool).columns.tolist()
         df[columnas_bol] = df[columnas_bol].astype(str)
+
+        df["Objetivo"] = ""
 
         df.columns = df.columns.str.replace(' ', '_')
         # df_completo = df.query("~(Tipo_Docto == ['Factura de Egreso', 'Facturas de Activo Fijo'])")

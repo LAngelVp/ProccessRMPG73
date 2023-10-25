@@ -6,7 +6,7 @@ import os
 import pandas as pd
 from .Variables.ContenedorVariables import Variables
 
-class SeguimientoCoresKWESTE(Variables):
+class SeguimientoCores(Variables):
     def __init__(self) -> None:
         super().__init__()
         path = os.path.join(Variables().ruta_Trabajo,'SCE.xlsx')

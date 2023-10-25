@@ -69,18 +69,6 @@ class Compras(Variables):
         # devolvemos al nombre original.
         df2.rename(columns={ 'FD':'Fecha Docto.', 'FC':'Fecha Captura'}, inplace=True)
 
-        # devolver las columnas de tipo fecha al formato "dia,mes,año"
-        # EXCEPTO...
-        # Las columnas de "fecha documento y fecha factura",
-        # su formato debe de ser "mes,dia,año"
-        # for column_title in df2:
-        #     if ('Fecha' in column_title):
-        #         try:
-        #             df2[column_title] = (df2[column_title].dt.strftime('%m/%d/%Y'))
-        #         except:
-        #             pass
-        #     else:
-        #         pass
         df2.drop(['Folio','Hoy'], axis=1, inplace=True)
         columnas_bol=df2.select_dtypes(include=bool).columns.tolist()
         df2[columnas_bol] = df2[columnas_bol].astype(str)

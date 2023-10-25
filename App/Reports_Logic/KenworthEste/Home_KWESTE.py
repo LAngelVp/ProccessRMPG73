@@ -2,14 +2,11 @@
 # DESARROLLADOR
 # RMPG - LUIS ANGEL VALLEJO PEREZ
 #########################
-# IMPORTACIONES
 import sys
 import os
 import shutil
-from resources import *
 import threading
-import typing
-from PyQt5.QtWidgets import QWidget
+from resources import *
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QIcon, QPixmap, QMouseEvent
@@ -18,13 +15,13 @@ from webbrowser import *
 from .Logica_Reportes.Variables.ContenedorVariables import Variables
 from .Inicio_FechaMovimiento import *
 from .KenworthConnect import *
-from .UI.V_KREI import *
+from .InicialClassObjetivos import *
+from .UI.V_KWESTE import *
 import subprocess
-#----------------------------------------
 
-class KenworthKREI(QMainWindow, QDialog, Variables):
+class Home_KWESTE(QMainWindow, QDialog, Variables):
     def __init__(self):
-        super().__init__()
+        super(Home_KWESTE,self).__init__()
         # variables a las rutas de los iconos e imagenes
         Icon_Cerrar = QIcon(":/Source/Icon_Close.png")
         Icon_Minimizar = QIcon(":/Source/Icon_Minimize.png")
@@ -32,7 +29,7 @@ class KenworthKREI(QMainWindow, QDialog, Variables):
         Icon_Delete = QIcon(":/Source/Icon_Delete.png")
         Icon_Proccess = QIcon(":/Source/Icon_Proccess.png")
         Icon_Upload = QIcon(":/Source/Icon_Upload.png")
-        logo = QPixmap(":/Source/LOGOKREI.png")
+        logo_KWESTE = QPixmap(":/Source/KWESTE.png")
         self.setWindowIcon(QIcon(":/Source/LOGO_KREI_3.ico"))
         
         # llamamos el metodo de creacion de carpetas
@@ -40,30 +37,32 @@ class KenworthKREI(QMainWindow, QDialog, Variables):
         # quitamos la barra superior
         self.setWindowFlags(self.windowFlags() | Qt.FramelessWindowHint)
         # Crear la instancia de la ventana y configurarla
-        self.Ventana = Ui_MainWindow()
-        self.Ventana.setupUi(self)
+        self.ventKWESTE = Ui_MainWindow()
+        self.ventKWESTE.setupUi(self)
         # colocar los iconos e imagenes en su correspondiente elemento.
-        self.Ventana.lblLogoKWKREI.setPixmap(logo)
-        self.Ventana.btnCerrar.setIcon(Icon_Cerrar)
-        self.Ventana.btnMinimizar.setIcon(Icon_Minimizar)
-        self.Ventana.btnAyuda.setIcon(Icon_Help)
-        self.Ventana.btnEliminar.setIcon(Icon_Delete)
-        self.Ventana.btnComenzar.setIcon(Icon_Proccess)
-        self.Ventana.btnSubir.setIcon(Icon_Upload)
+        self.ventKWESTE.lblLogoKWESTE.setPixmap(logo_KWESTE)
+        self.ventKWESTE.btnCerrar.setIcon(Icon_Cerrar)
+        self.ventKWESTE.btnMinimizar.setIcon(Icon_Minimizar)
+        self.ventKWESTE.btnAyuda.setIcon(Icon_Help)
+        self.ventKWESTE.btnEliminar.setIcon(Icon_Delete)
+        self.ventKWESTE.btnComenzar.setIcon(Icon_Proccess)
+        self.ventKWESTE.btnSubir.setIcon(Icon_Upload)
         # creamos el hilo
         self.Hilo = trabajohilo()
         #conexiones de los botones
-        self.Ventana.btnSubir.clicked.connect(self.Cargar)
-        self.Ventana.btnComenzar.clicked.connect(self.ComenzarProceso)
-        self.Ventana.btnEliminar.clicked.connect(self.RemoveProcessed)
-        self.Ventana.btnAyuda.clicked.connect(self.Help)
-        self.Ventana.btnCerrar.clicked.connect(self.Cerrar)
-        self.Ventana.btnMinimizar.clicked.connect(self.Minimizar)
-        self.Ventana.btn_Errores.clicked.connect(self.abrir_ruta_errores)
-        self.Ventana.btn_Originales.clicked.connect(self.abrir_ruta_originales)
-        self.Ventana.btn_Procesados.clicked.connect(self.abrir_ruta_procesados)
+        self.ventKWESTE.btnSubir.clicked.connect(self.Cargar)
+        self.ventKWESTE.btnComenzar.clicked.connect(self.ComenzarProceso)
+        self.ventKWESTE.btnEliminar.clicked.connect(self.RemoveProcessed)
+        self.ventKWESTE.btnAyuda.clicked.connect(self.Help)
+        self.ventKWESTE.btnCerrar.clicked.connect(self.Cerrar)
+        self.ventKWESTE.btnMinimizar.clicked.connect(self.Minimizar)
+        self.ventKWESTE.btn_Errores.clicked.connect(self.abrir_ruta_errores)
+        self.ventKWESTE.btn_Originales.clicked.connect(self.abrir_ruta_originales)
+        self.ventKWESTE.btn_Procesados.clicked.connect(self.abrir_ruta_procesados)
 
-        self.Ventana.actionFechaMovimiento.triggered.connect(self.FechaMovimiento)
+        # MENU DE OPCIONES
+        self.ventKWESTE.actionObjetivos_Mensuales.triggered.connect(self.ObjetivosPagoClientes)
+        self.ventKWESTE.actionFechaMovimiento.triggered.connect(self.FechaMovimiento)
 
         # señales del hilo
         self.Hilo.signal.connect(self.mensajeTrabajoTerminado)
@@ -77,11 +76,17 @@ class KenworthKREI(QMainWindow, QDialog, Variables):
         self.Show_Data_Trabajos()
         self.Show_Data_Procesado()
 
+        
+    def ObjetivosPagoClientes(self):
+        self.ventana_obj = ClassPrincipalObjPagos()
+        self.ventana_obj.show()
+
     def FechaMovimiento(self):
         self.ventana_obj = Home_DateMovement()
         self.ventana_obj.show()
 
     def abrir_ruta_errores(self):
+
         options = QFileDialog.Options()
         options |= QFileDialog.ReadOnly
         file_path, _ = QFileDialog.getOpenFileNames(self, 'Abrir Archivo Excel', Variables().ruta_errores, 'Excel Archivos (*.xlsx);; CSV Archivos (*.csv)',options=options)
@@ -118,9 +123,9 @@ class KenworthKREI(QMainWindow, QDialog, Variables):
                     subprocess.Popen(['start', 'excel', path], shell=True)
             except Exception as e:
                 print("Error al abrir el archivo con Excel:", e)
+
         self.Show_Data_Trabajos()
         self.Show_Data_Procesado()
-
     def mensajeTrabajoTerminado(self):
         msgE = QMessageBox()
         msgE.setWindowTitle("CONTENIDO DE TRABAJOS")
@@ -132,6 +137,8 @@ class KenworthKREI(QMainWindow, QDialog, Variables):
         if (x == QMessageBox.Yes):
             textoVacio =""
             self.nombreArchivoTrabajando(textoVacio)
+        self.Show_Data_Trabajos()
+        self.Show_Data_Procesado()
 #-------------------------------------------------
 
 
@@ -143,16 +150,17 @@ class KenworthKREI(QMainWindow, QDialog, Variables):
         msgE.setStandardButtons(QMessageBox.Yes)
         msgE.button(QMessageBox.Yes).setText("Entendido")
         x = msgE.exec_()
-
+        self.Show_Data_Trabajos()
+        self.Show_Data_Procesado()
 #--------------------------------------------
 # MOSTRAR NOMBRE DEL DOCUMENTO QUE SE ESTA TRABAJANDO
     def nombreArchivoTrabajando(self, nombre):
         if (nombre != ""):
-            self.Ventana.lbl_TrabajandoCon.setText(f'Trabajando Con:')
-            self.Ventana.lbl_NombreReporte.setText(f'{nombre}')
+            self.ventKWESTE.lbl_TrabajandoCon.setText(f'Trabajando Con:')
+            self.ventKWESTE.lbl_NombreReporte.setText(f'{nombre}')
         else:
-            self.Ventana.lbl_TrabajandoCon.setText(f'TERMINADO')
-            self.Ventana.lbl_NombreReporte.setText(f'')
+            self.ventKWESTE.lbl_TrabajandoCon.setText(f'TERMINADO')
+            self.ventKWESTE.lbl_NombreReporte.setText(f'')
         self.Show_Data_Trabajos()
         self.Show_Data_Procesado()
 #--------------------------------------------
@@ -173,37 +181,37 @@ class KenworthKREI(QMainWindow, QDialog, Variables):
     # mostrar el contenido de la carpeta en la tabla de trabajos.
     def Show_Data_Trabajos(self):
         archivos_para_mostrar = os.listdir(Variables().ruta_Trabajo)
-        self.Ventana.TWCola.setRowCount(len(archivos_para_mostrar))
-        self.Ventana.TWCola.setColumnCount(1)
-        self.Ventana.TWCola.setHorizontalHeaderLabels(["Nombre del archivo"])
+        self.ventKWESTE.TWCola.setRowCount(len(archivos_para_mostrar))
+        self.ventKWESTE.TWCola.setColumnCount(1)
+        self.ventKWESTE.TWCola.setHorizontalHeaderLabels(["Nombre del archivo"])
         for fila, archivo in enumerate(archivos_para_mostrar):
             elemento = QTableWidgetItem(archivo)
             elemento.setFlags(QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled)  # Bloqueamos la edición
             elemento.setForeground(QtGui.QColor(0, 0, 0))
-            self.Ventana.TWCola.setItem(fila, 0, elemento)
+            self.ventKWESTE.TWCola.setItem(fila, 0, elemento)
             # font = QtGui.QFont()
             # font.setPointSize(30)  # Establece el tamaño de la letra a 14 puntos
             # elemento.setFont(font)
-        # self.Ventana.TWCola.setColumnWidth(0, 415)
-        header = self.Ventana.TWCola.horizontalHeader()
+        # self.ventKWESTE.TWCola.setColumnWidth(0, 415)
+        header = self.ventKWESTE.TWCola.horizontalHeader()
         header.setSectionResizeMode(0, QtWidgets.QHeaderView.Stretch)
 
     # mostrar el contenido de la carpeta en la tabla de trabajos.
     def Show_Data_Procesado(self):
         archivos_para_mostrar = os.listdir(Variables().ruta_procesados)
-        self.Ventana.TWProcesado.setRowCount(len(archivos_para_mostrar))
-        self.Ventana.TWProcesado.setColumnCount(1)
-        self.Ventana.TWProcesado.setHorizontalHeaderLabels(["Nombre del archivo"])
+        self.ventKWESTE.TWProcesado.setRowCount(len(archivos_para_mostrar))
+        self.ventKWESTE.TWProcesado.setColumnCount(1)
+        self.ventKWESTE.TWProcesado.setHorizontalHeaderLabels(["Nombre del archivo"])
         for fila, archivo in enumerate(archivos_para_mostrar):
             elemento = QTableWidgetItem(archivo)
             elemento.setFlags(QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled)  # Bloqueamos la edición
             elemento.setForeground(QtGui.QColor(0, 0, 0))
-            self.Ventana.TWProcesado.setItem(fila, 0, elemento)
+            self.ventKWESTE.TWProcesado.setItem(fila, 0, elemento)
             # font = QtGui.QFont()
             # font.setPointSize(30)  # Establece el tamaño de la letra a 14 puntos
             # elemento.setFont(font)
-        # self.Ventana.TWProcesado.setColumnWidth(0, 415)
-        header = self.Ventana.TWProcesado.horizontalHeader()
+        # self.ventKWESTE.TWProcesado.setColumnWidth(0, 415)
+        header = self.ventKWESTE.TWProcesado.horizontalHeader()
         header.setSectionResizeMode(0, QtWidgets.QHeaderView.Stretch)
 
 
@@ -218,8 +226,8 @@ class KenworthKREI(QMainWindow, QDialog, Variables):
                 os.makedirs(f'{Variables().ruta_error}')
             elif not os.path.isdir(f'{Variables().ruta_procesados}'):
                 os.makedirs(f'{Variables().ruta_procesados}')
-            elif not os.path.isdir(f'{Variables().ruta_documentos}'):
-                os.makedirs(f'{Variables().ruta_documentos}')
+            elif not os.path.isdir(f'{Variables().ruta_deapoyo}'):
+                os.makedirs(f'{Variables().ruta_deapoyo}')
             else:
                 pass
     # cerrar la ventana
@@ -228,7 +236,6 @@ class KenworthKREI(QMainWindow, QDialog, Variables):
     # minimizar la ventana
     def Minimizar(self):
         self.showMinimized()
-
     # mostrar la data en las tablas
     
     # cargar los archivos a la carpeta de trabajo
@@ -323,6 +330,7 @@ class KenworthKREI(QMainWindow, QDialog, Variables):
                 mensaje.setStandardButtons(QMessageBox.Ok)
                 mensaje.button(QMessageBox.Ok).setText("ENTENDIDO")
                 x = mensaje.exec_()
+            
             else:
                 pass
             self.Show_Data_Trabajos()
@@ -358,19 +366,16 @@ class trabajohilo(QThread, Variables):
         #---------------------------------------
         # diccionario de los archivos.
         diccionario_archivos = {
-            "OSEKREI.xlsx" : KenworthConnect().OrdenesServicioKREIKWESTE,
-            "OSSKREI.xlsx" : KenworthConnect().OrdenesServicioKREIKWSUR,
-            "CEKREI.xlsx" : KenworthConnect().CreditoKREIKWESTE,
-            "CSKREI.xlsx" : KenworthConnect().CreditoKREIKWSUR,
-            "ICEKREI.xlsx" : KenworthConnect().InventarioKREIKWESTE,
-            "ICSKREI.xlsx" :KenworthConnect().InventarioKREIKWSUR,
-            "REKREI.xlsx" : KenworthConnect().RefaccionesKREIKWESTE,
-            "RSKREI.xlsx" : KenworthConnect().RefaccionesKREIKWSUR,
-            "SDEKREI.xlsx" : KenworthConnect().ServicioDetalladoKREIKWESTE,
-            "SDSKREI.xlsx" : KenworthConnect().ServicioDetalladoKREIKWSUR,
-            "RFEKREI.xlsx" : KenworthConnect().ResultadosFinancierosKREI,
-            "RFSKREI.xlsx" : KenworthConnect().ResultadosFinancierosKREI
-
+            "CE.xlsx" : KenworthConnect().Credito,
+            "ICE.xlsx" : KenworthConnect().Inventario,
+            "BOE.xlsx" : KenworthConnect().BackOrders,
+            "SVE.xlsx" : KenworthConnect().SalidasEnVale,
+            "SCE.xlsx" : KenworthConnect().SeguimientoCores,
+            "OSE.xlsx" : KenworthConnect().OrdenesDeServicio,
+            "TEE.xlsx" : KenworthConnect().TrabajosPorEstado,
+            "PCE.xlsx" : KenworthConnect().PagoClientes,
+            "CDE.xlsx" : KenworthConnect().Compras,
+            "IUE.xlsx" : KenworthConnect().InventarioUnidades
         }
         #-----------------------------------------------
         while True:
@@ -435,11 +440,9 @@ class trabajohilo(QThread, Variables):
 #--------------------------------------------------------
 
 
-# ------------------------------------------------------------------------
-# MANDAMOS A LLAMAR A LA VENTANA
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     # Crear una instancia de la clase MyDialog y mostrarla
-    Ventana = KenworthKREI()
+    Ventana = Home_KWESTE()
     Ventana.show()
     sys.exit(app.exec_())

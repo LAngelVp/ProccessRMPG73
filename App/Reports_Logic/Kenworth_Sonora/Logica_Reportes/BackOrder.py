@@ -36,9 +36,7 @@ class BackOrder(Variables):
                     pass
             else:
                 pass
-        
-        # df2["Fecha_Promesa"] = pd.to_datetime(df2["Fecha_Promesa"])
-        # df2['Fecha_Promesa'] = df2['Fecha_Promesa'].dt.date + "/" + df2['Fecha_Promesa'].dt.month + "/" + df2['Fecha_Promesa'].dt.year
+
         # cambiamos el titulo de las columnas a trabajar.
         df_no_nat = df2.query("Fecha_Alta_FC != ['NaT']").copy()
         df_no_nat["Antigüedad"] = (df_no_nat["FechaHoy"] - df_no_nat["Fecha_Alta_FC"])

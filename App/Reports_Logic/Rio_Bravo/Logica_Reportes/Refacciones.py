@@ -7,7 +7,7 @@ import pandas as pd
 from datetime import*
 from openpyxl import Workbook
 from openpyxl.utils.dataframe import dataframe_to_rows
-from Variables.ContenedorVariables import Variables
+from .Variables.ContenedorVariables import Variables
 class Refacciones(Variables):
     def __init__(self):
         path = os.path.join(Variables().ruta_Trabajo,'RR.xlsx')
@@ -69,7 +69,7 @@ class Refacciones(Variables):
             departamento_venta =  "Mostrador TRP Nuevo Laredo"
             depa = "Mostrador"
         elif (valor_sucursal.lower() == "nuevo laredo (aeropuerto)") and (valor_departamento_documento.lower() == "refacciones"):
-            departamento_venta =  "Mostrador NL Aeropuesto"
+            departamento_venta =  "Mostrador NL Aeropuerto"
             depa = "Mostrador"
         elif (valor_sucursal.lower() == "reynosa") and (valor_departamento_documento.lower() == "refacciones"):
             departamento_venta =  "Mostrador " + valor_sucursal.title()
@@ -106,7 +106,7 @@ class Refacciones(Variables):
             departamento_venta =  "Servicio TRP Nuevo Laredo"
             depa = "Servicio"
         elif (valor_sucursal.lower() == "nuevo laredo (aeropuerto)") and (valor_departamento_documento.lower() == "taller de servicio"):
-            departamento_venta =  "Servicio NL Aeropuesto"
+            departamento_venta =  "Servicio NL Aeropuerto"
             depa = "Servicio"
         elif (valor_sucursal.lower() == "reynosa") and (valor_departamento_documento.lower() == "taller de servicio"):
             departamento_venta =  "Servicio " + valor_sucursal.title()

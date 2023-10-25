@@ -6,10 +6,8 @@ import os
 import pandas as pd
 from datetime import *
 from .Variables.ContenedorVariables import Variables
-class InventarioKWESTE(Variables):
+class Inventario(Variables):
     def __init__(self):
-        pass
-    def Inventario_Costeado_KWESTE(self):
         #obtenemos el archivo
         path = os.path.join(Variables().ruta_Trabajo,'ICE.xlsx')
         #leer el documento con pandas
@@ -81,7 +79,7 @@ class InventarioKWESTE(Variables):
         df_inventarioCosteadoxDia["Fecha Entrada"] = df_inventarioCosteadoxDia["Fecha Entrada"].dt.strftime("%d/%m/%Y")
         df_inventarioCosteadoxDia.drop(["Antigüedad","ClasDias"],axis=1,inplace=True)
         df_inventarioCosteadoxDia["Fecha_Dias"] = Variables().date_movement_config_document()
-        df_inventarioCosteadoxDia["ClasSF"] = "Almacen"
+        df_inventarioCosteadoxDia["ClasSF"] = ""
 
         
         #mandar a llamar a la clasificacion por tipoDocumento.
@@ -121,7 +119,7 @@ class InventarioKWESTE(Variables):
     #realizar la clasificacion por "TipoDocumento"
     def ClasSF_TipoDocumento(self, valor_TipoDocumento,valor_almacen):
         if (valor_TipoDocumento.lower() == "inventario"):
-            return "Inventario"
+            return "Almacen"
         elif (valor_TipoDocumento.lower() == "requisiciones"):
             return "Requisiciones"
         elif (valor_TipoDocumento.lower() == "salidas en vale"):

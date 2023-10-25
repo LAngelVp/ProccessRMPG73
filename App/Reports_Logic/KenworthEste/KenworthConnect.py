@@ -3,57 +3,56 @@
 # RMPG - LUIS ANGEL VALLEJO PEREZ
 #########################
 # esta clase sera intermediaria entre el front con el back.
-from .Logica_Reportes.CreditoKWESTE import *
-from .Logica_Reportes.InventarioKWESTE import *
-from .Logica_Reportes.BackOrderKWESTE import *
-from .Logica_Reportes.SalidasEnValeKWESTE import *
-from .Logica_Reportes.CoresKWESTE import *
-from .Logica_Reportes.OrdenesServicioKWESTE import *
-from .Logica_Reportes.TrabajosPorEstadoKWESTE import *
-from .Logica_Reportes.PagosClientesKWESTE import *
-from .Logica_Reportes.ComprasKWESTE import *
+from .Logica_Reportes.Credito import *
+from .Logica_Reportes.Inventario import *
+from .Logica_Reportes.BackOrders import *
+from .Logica_Reportes.SalidasEnVale import *
+from .Logica_Reportes.SeguimientoCores import *
+from .Logica_Reportes.OrdenesDeServicio import *
+from .Logica_Reportes.TrabajosPorEstado import *
+from .Logica_Reportes.PagoClientes import *
+from .Logica_Reportes.Compras import *
 from .Logica_Reportes.InventarioUnidades import *
 #-----------------------------------
 
 #CLASE
 class KenworthConnect():
     # este sera el apartado en donde se colocaran las funciones que conectaran al back.
-    def CreditoNormalKWESTE(self):
-        CreditoNormalKWESTE().Credito_Normal_KWESTE()
+    def Credito(self):
+        Credito()
     #:------------------------------------------------------
     # INVENTARIO COSTEADO
-    def InventarioKWESTE(self):
-        InventarioKWESTE().Inventario_Costeado_KWESTE()
+    def Inventario(self):
+        Inventario()
 
     #BACK ORDER REFACCIONES
-    def BackOrderKWESTE(self):
-        BackOrderKWESTE().BackOrder_KWESTE()
+    def BackOrders(self):
+        BackOrders()
 
     #SALIDAS EN VALE
-    def SalidasenValeKWESTE(self):
-        SalidasEnValeKWESTE().SalidasEnVale_KWESTE()
+    def SalidasEnVale(self):
+        SalidasEnVale()
 
     # SEGUIMIENTO CORES
-    def SeguimientoCoresKWESTE(self):
-        SeguimientoCoresKWESTE()
+    def SeguimientoCores(self):
+        SeguimientoCores()
 
     # ORDENES DE SERVICIO
-    def OrdenesDeServicioKWESTE(self):
-        print (2)
-        OrdenesDeServicioKWESTE()
+    def OrdenesDeServicio(self):
+        OrdenesDeServicio()
 
     # TRABAJOS POR ESTADO
-    def TrabajosPorEstadoKWESTE(self):
-        TrabajosPorEstadoKWESTE()
+    def TrabajosPorEstado(self):
+        TrabajosPorEstado()
     
     # PAGOS CLIENTES
-    def PagosClientesKWESTE(self):
-        PagosClientesKWESTE()
+    def PagoClientes(self):
+        PagoClientes()
 
     # COMPRAS DETALLADO
-    def ComprasDetallado(self):
-        ComprasKWESTE()
+    def Compras(self):
+        Compras()
 
     # INVENTARIO DE UNIDADES
-    def InventrioDeUnidades(self):
+    def InventarioUnidades(self):
         InventarioUnidades()

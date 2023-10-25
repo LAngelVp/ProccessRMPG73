@@ -6,8 +6,8 @@ import os
 import pandas as pd
 from datetime import *
 from .Variables.ContenedorVariables import Variables
-class CreditoNormalKWESTE(Variables):
-    def Credito_Normal_KWESTE(self):
+class Credito(Variables):
+    def __init__(self):
         # obtenemos el path del archivo
         path =  os.path.join(Variables().ruta_Trabajo,'CE.xlsx')
         # leer el documento.

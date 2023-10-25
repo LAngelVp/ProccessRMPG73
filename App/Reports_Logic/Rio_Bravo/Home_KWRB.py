@@ -19,9 +19,9 @@ from .KenworthConnect import *
 from .InicialClassObjetivos import *
 from .UI.V_KWRB import *
 import subprocess
-class KenworthRioBravo(QMainWindow, Variables, ):
+class Home_KWRB(QMainWindow, Variables, ):
     def __init__(self):
-        super(KenworthRioBravo, self).__init__()
+        super(Home_KWRB, self).__init__()
         self.Creacion_Carpetas()
         self.ventanaRioBravo = Ui_MainWindow()
         self.ventanaRioBravo.setupUi(self)
@@ -440,6 +440,6 @@ class trabajohilo(QThread, Variables):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    window = KenworthRioBravo()
+    window = Home_KWRB()
     window.show()
     sys.exit(app.exec_())

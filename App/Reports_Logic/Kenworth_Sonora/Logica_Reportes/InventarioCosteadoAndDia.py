@@ -49,8 +49,6 @@ class InventarioCosteado(Variables):
                     pass
             else:
                 pass
-        #clasificar ls registros conforme a su antiguedad.
-        #Creamos la funcion para encapsular el procedimiento.
         
         #mandar a llamar la funcion dentro de una consulta.
         df2["ClasDias"] = df2["Antigüedad"].apply(lambda x:self.ClasDias(x))
@@ -82,13 +80,11 @@ class InventarioCosteado(Variables):
         df_inventarioCosteadoxDia["Fecha Entrada"] = df_inventarioCosteadoxDia["Fecha Entrada"].dt.strftime("%d/%m/%Y")
         df_inventarioCosteadoxDia.drop(["Antigüedad","ClasDias"],axis=1,inplace=True)
         df_inventarioCosteadoxDia["Fecha_Dias"] = Variables().date_movement_config_document()
-        df_inventarioCosteadoxDia["ClasSF"] = "Almacen"
+        df_inventarioCosteadoxDia["ClasSF"] = ""
 
-        
         #mandar a llamar a la clasificacion por tipoDocumento.
         df_inventarioCosteadoxDia["ClasSF"] = df_inventarioCosteadoxDia.apply(lambda fila:self.ClasSF_TipoDocumento(fila["TipoDocumento"], fila["ClasSF"]),axis=1)
 
-        
         #mandamos a llamar a la clasificacion por Almacen.
         df_inventarioCosteadoxDia["ClasSF"] = df_inventarioCosteadoxDia.apply(lambda fila:self.ClasSF_Almacen(fila["Almacén"],fila["TipoDocumento"], fila["ClasSF"]),axis=1)
 
@@ -103,6 +99,8 @@ class InventarioCosteado(Variables):
 
         df_inventarioCosteadoxDia.to_excel(os.path.join(Variables().ruta_procesados,f'KWSonora_InventarioCosteadoPorDia_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
 
+#clasificar ls registros conforme a su antiguedad.
+#Creamos la funcion para encapsular el procedimiento.
     def ClasDias(self, valor):
         if (valor >= 0 and valor <= 90):
             return "1 a 90"
@@ -117,10 +115,10 @@ class InventarioCosteado(Variables):
         else:
             pass
 
-    #realizar la clasificacion por "TipoDocumento"
+#realizar la clasificacion por "TipoDocumento"
     def ClasSF_TipoDocumento(self, valor_TipoDocumento,valor_almacen):
         if (valor_TipoDocumento.lower() == "inventario"):
-            return "Inventario"
+            return "Almacen"
         elif (valor_TipoDocumento.lower() == "requisiciones"):
             return "Requisiciones"
         elif (valor_TipoDocumento.lower() == "salidas en vale"):
@@ -132,7 +130,7 @@ class InventarioCosteado(Variables):
         else:
             return valor_almacen
         
-    #clasificar por Almacen.
+#clasificar por Almacen.
     def ClasSF_Almacen(self, valor_almacen,tipo_documento, valor_clasSF):
         if (("consigna" in valor_almacen.lower()) and "inventario" in tipo_documento.lower()):
             return "Consignas"

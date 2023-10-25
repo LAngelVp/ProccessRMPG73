@@ -53,16 +53,6 @@ class Credito(Variables):
                 except:
                     pass
 
-        # comment creamos la columna de estado vencimiento
-        # aun no hay que ponerla
-        # df2["Estado_Vencimiento"] = ""
-
-        # df2.loc[(df2["No_vencido"] != 0), "Estado_Vencimiento"] = "No Vencido"
-        # df2.loc[(df2["1_a_30_días"] != 0), "Estado_Vencimiento"] = "1 a 30"
-        # df2.loc[(df2["_31_a_60_días"] != 0), "Estado_Vencimiento"] = "31 a 60"
-        # df2.loc[(df2["_61_a_90_días"] != 0), "Estado_Vencimiento"] = "61 a 90"
-        # df2.loc[(df2["+_de_90_días"] != 0), "Estado_Vencimiento"] = "+ de 90"
-
         # egresamos el titulo de las columnas a su formato original
         df2.columns = df2.columns.str.replace("_", " ")
 

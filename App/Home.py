@@ -13,9 +13,9 @@ from PyQt5.QtGui import QIcon, QPixmap, QMouseEvent
 from VPrincipal import *
 # comment importamos concesionarios
 from Reports_Logic.Rio_Bravo.Home_KWRB import *
-from Reports_Logic.KenworthEste.indexKWESTE import *
-from Reports_Logic.KREI.indexKREI import *
-from Reports_Logic.Kenworth_Sonora.Home_Kenworth_Sonora import *
+from Reports_Logic.KenworthEste.Home_KWESTE import *
+from Reports_Logic.KREI.Home_KREI import *
+from Reports_Logic.Kenworth_Sonora.Home_KWSonora import *
 #------------
 from datetime import *
 import webbrowser
@@ -35,20 +35,20 @@ class my_app(QMainWindow, Variables):
 
 #-------------------------------------------------
     def VentanaRioBravo(self):
-        self.VentanaKWRioBravo = KenworthRioBravo()
-        self.VentanaKWRioBravo.show() 
+        self.Ventana = Home_KWRB()
+        self.Ventana.show() 
 #-------------------------------------------------
     def VentanaKWESTE(self):
-        self.ventanaKWESTE = VentanaKWESTE()
-        self.ventanaKWESTE.show()
+        self.Ventana = Home_KWESTE()
+        self.Ventana.show()
 #-------------------------------------------------
     def VentanaKREI(self):
-        self.VentanaKWKREI = KenworthKREI()
-        self.VentanaKWKREI.show() 
+        self.Ventana = Home_KREI()
+        self.Ventana.show() 
 #-------------------------------------------------
     def VentanaSonora(self):
-        self.VentanaKWSonora = Home_KenworthSonora()
-        self.VentanaKWSonora.show() 
+        self.Ventana = Home_KenworthSonora()
+        self.Ventana.show() 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     window = my_app()

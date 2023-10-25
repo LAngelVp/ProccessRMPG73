@@ -22,12 +22,9 @@ class InventarioUnidades(Variables):
         )
         col_serie = "S-" + df1["Serie"].map(str)
         df1["Serie"] = col_serie
-        def ClasificacionTipoInv(valor):
-            if (valor == "Factura"):
-                return "Propia"
-            else:
-                return "Consigna"
-        df1["TipoInv"] = df1["Tipo_Docto."].apply(lambda x:ClasificacionTipoInv(x))
+        
+        df1["TipoInv"] = df1["Tipo_Docto."].apply(lambda x:self.ClasificacionTipoInv(x))
+        
         for i in df1:
             try:
                 if ("f." in i.lower()):
@@ -43,3 +40,9 @@ class InventarioUnidades(Variables):
         df1[columnas_bol] = df1[columnas_bol].astype(str)
         df1.columns = df1.columns.str.replace("_", " ")
         df1.to_excel(os.path.join(Variables().ruta_procesados,f'KWSonora_InventarioDeUnidades_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+    
+    def ClasificacionTipoInv(self, valor):
+        if (valor == "Factura"):
+            return "Propia"
+        else:
+            return "Consigna"

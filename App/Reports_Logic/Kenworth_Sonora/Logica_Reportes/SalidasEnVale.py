@@ -17,7 +17,6 @@ class SalidasEnVale(Variables):
             df_Sin_Requisiciones = df.query("Tipo != ['Requisiciones']").copy()
             df_format1 = df_Sin_Requisiciones[df_Sin_Requisiciones.columns[0:52]].copy()
 
-
             # NOTE Le damos formato a las columnas de fecha. Inidcando que solo queremos el formato [dia/mes/año]
             for column_title in df_format1:
                 if ("Fecha" in column_title):

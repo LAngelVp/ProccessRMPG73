@@ -6,7 +6,7 @@ import os
 import pandas as pd
 import json
 from .Variables.ContenedorVariables import *
-class PagosClientesKWESTE(Variables):
+class PagoClientes(Variables):
     def __init__(self) -> None:
         super().__init__()
         #obtenemos el parth.

@@ -58,10 +58,8 @@ class ResultadosFinancieros(Variables):
 
         # Comparar DataFrames y eliminar coincidencias basadas en 'factura', 'venta', 'costoTotal' y 'utilidadBruta'
         df1_sin_coincidencias = df.merge(df1, on=['Vin', 'idDocto',"idCliente","NombreCte", 'Venta', 'Compras'], how='left', indicator=True)
-
         df1_sin_coincidencias = df1_sin_coincidencias[df1_sin_coincidencias['_merge'] == 'left_only']
         df1_sin_coincidencias = df1_sin_coincidencias.drop(columns=['_merge'])
-  
         df1_sin_coincidencias = df1_sin_coincidencias.query("cantidad_x == 1").copy()
 
         df1_sin_coincidencias.columns  = df1_sin_coincidencias.columns .str.replace("_x","")
@@ -97,8 +95,8 @@ class ResultadosFinancieros(Variables):
             allow_duplicates = False
         )
 
-        col_numero_articulo = "CH-" + financiero["Numarticulo"].map(str)
-        col_modelo = "AM" + financiero["Modelo"].map(str)
+        col_numero_articulo =financiero["Numarticulo"].map(str)
+        col_modelo =financiero["Modelo"].map(str)
 
         financiero["Numarticulo"] = col_numero_articulo
         financiero["Modelo"] = col_modelo

@@ -7,8 +7,8 @@ import os
 import pandas as pd
 import numpy as np
 from .Variables.ContenedorVariables import Variables
-class BackOrderKWESTE(Variables):
-    def BackOrder_KWESTE(self):
+class BackOrders(Variables):
+    def __init__(self):
         # obtenemos el path.
         # leemos el archivo.
         path = os.path.join(Variables().ruta_Trabajo,'BOE.xlsx')
