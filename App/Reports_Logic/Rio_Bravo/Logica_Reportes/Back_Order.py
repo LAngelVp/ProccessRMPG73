@@ -26,17 +26,15 @@ class BackOrder(Variables):
             allow_duplicates = True
         )
         df2['FechaHoy'] = Variables().date_movement_config_document()
-        for column_title in df2:
-            if ('Fecha' in column_title):
-                try:
-                    df2[column_title] = pd.to_datetime(df2[column_title],errors = 'coerce')
-                except:
-                    pass
-            else:
+
+        self.columnas_fecha = df2.select_dtypes(include=['datetime64']).columns
+        
+        for column_title in self.columnas_fecha:
+            try:
+                df2[column_title] = pd.to_datetime(df2[column_title],errors = 'coerce')
+            except:
                 pass
         
-        # df2["Fecha_Promesa"] = pd.to_datetime(df2["Fecha_Promesa"])
-        # df2['Fecha_Promesa'] = df2['Fecha_Promesa'].dt.date + "/" + df2['Fecha_Promesa'].dt.month + "/" + df2['Fecha_Promesa'].dt.year
         # cambiamos el titulo de las columnas a trabajar.
         df_no_nat = df2.query("Fecha_Alta_FC != ['NaT']").copy()
         df_no_nat["Antigüedad"] = (df_no_nat["FechaHoy"] - df_no_nat["Fecha_Alta_FC"])
@@ -48,13 +46,10 @@ class BackOrder(Variables):
         # cambiamos el formato de las columnas de fecha a trabajar.
         df_resta_fechas.drop(['Folio','FechaHoy','Unidad Relacionada', 'num'], axis=1, inplace=True)
         # COLOCAMOS EL FORMATO A TODA COLUMNA QUE SEA TIPO FECHA.
-        for column_title in df_resta_fechas:
-            if ('Fecha' in column_title):
-                try:
-                    df_resta_fechas[f'{column_title}'] = df_resta_fechas[f'{column_title}'].dt.strftime("%d/%m/%Y")
-                except:
-                    pass
-            else:
+        for column_title in self.columnas_fecha:
+            try:
+                df2[column_title] = pd.to_datetime(df2[column_title],errors = 'coerce')
+            except:
                 pass
         columnas_bol=df_resta_fechas.select_dtypes(include=bool).columns.tolist()
         df_resta_fechas[columnas_bol] = df_resta_fechas[columnas_bol].astype(str)

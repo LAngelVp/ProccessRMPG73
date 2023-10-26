@@ -72,13 +72,11 @@ class Compras(Variables):
         # EXCEPTO...
         # Las columnas de "fecha documento y fecha factura",
         # su formato debe de ser "mes,dia,año"
-        for column_title in df2:
-            if ('Fecha' in column_title):
-                try:
-                    df2[column_title] = (df2[column_title].dt.strftime('%m/%d/%Y'))
-                except:
-                    pass
-            else:
+        columnas_tipo_fecha = df2.select_dtypes(include=['datetime64']).columns
+        for column_title in columnas_tipo_fecha:
+            try:
+                df2[column_title] = (df2[column_title].dt.strftime('%m/%d/%Y'))
+            except:
                 pass
         df2.drop(['Folio','Hoy'], axis=1, inplace=True)
         columnas_bol=df2.select_dtypes(include=bool).columns.tolist()

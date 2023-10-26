@@ -59,5 +59,7 @@ class Credito(Variables):
         columnas_bol=df2.select_dtypes(include=bool).columns.tolist()
         df2[columnas_bol] = df2[columnas_bol].astype(str)
 
+        
+
         # exportamos el documento
         df2.to_excel(os.path.join(Variables().ruta_procesados,f'KWSonora_Credito_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)

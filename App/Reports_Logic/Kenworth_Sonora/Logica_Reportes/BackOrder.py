@@ -27,15 +27,14 @@ class BackOrder(Variables):
             allow_duplicates = True
         )
         df2['FechaHoy'] = Variables().date_movement_config_document()
+
+        columnas_tipo_fecha = df2.select_dtypes(include=['datetime64']).columns
         # formatear las columnas de fecha para trabajar con ellas.
-        for column_title in df2:
-            if ('Fecha' in column_title):
+        for column_title in columnas_tipo_fecha:
                 try:
                     df2[column_title] = pd.to_datetime(df2[column_title],errors = 'coerce')
                 except:
                     pass
-            else:
-                pass
 
         # cambiamos el titulo de las columnas a trabajar.
         df_no_nat = df2.query("Fecha_Alta_FC != ['NaT']").copy()

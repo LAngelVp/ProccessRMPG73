@@ -9,7 +9,6 @@ from .Variables.ContenedorVariables import Variables
 class InventarioCosteado(Variables):
     def __init__(self):
         pass
-    def Inventario_Costeado_KWRB(self):
         #obtenemos el archivo
         path = os.path.join(Variables().ruta_Trabajo,'ICR.xlsx')
         #leer el documento con pandas

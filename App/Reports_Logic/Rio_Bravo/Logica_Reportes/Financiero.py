@@ -7,7 +7,6 @@ import pandas as pd
 from datetime import *
 from .Variables.ContenedorVariables import Variables
 class ResultadosFinancieros(Variables):
-
     def __init__(self):
         # FUNCION PARA OBTENER EL DEPARTAMENTO
             
@@ -123,7 +122,7 @@ class ResultadosFinancieros(Variables):
         # GUARDAMOS EL ARCHIVO
         financiero.to_excel(os.path.join(Variables().ruta_procesados,f'KWRB_ResultadosFinancieros_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
         
-    def obtenerDepartamento(valor):
+    def obtenerDepartamento(self, valor):
             currentYear = datetime.now().year
             if (valor < currentYear):
                 return "Unidades Seminuevas"

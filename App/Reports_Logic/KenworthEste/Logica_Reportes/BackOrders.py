@@ -26,14 +26,13 @@ class BackOrders(Variables):
             allow_duplicates = True
         )
         df2['FechaHoy'] = Variables().date_movement_config_document()
+
+        self.columna_fecha = df2.select_dtypes(include=["datetime64"]).columns
         # formatear las columnas de fecha para trabajar con ellas.
-        for column_title in df2:
-            if ('Fecha' in column_title):
-                try:
-                    df2[column_title] = pd.to_datetime(df2[column_title],errors = 'coerce')
-                except:
-                    pass
-            else:
+        for column_title in self.columna_fecha:
+            try:
+                df2[column_title] = pd.to_datetime(df2[column_title],errors = 'coerce')
+            except:
                 pass
         
         # df2["Fecha_Promesa"] = pd.to_datetime(df2["Fecha_Promesa"])
@@ -49,13 +48,10 @@ class BackOrders(Variables):
         # cambiamos el formato de las columnas de fecha a trabajar.
         df_resta_fechas.drop(['Folio','FechaHoy','Unidad Relacionada', 'num'], axis=1, inplace=True)
         # COLOCAMOS EL FORMATO A TODA COLUMNA QUE SEA TIPO FECHA.
-        for column_title in df_resta_fechas:
-            if ('Fecha' in column_title):
-                try:
-                    df_resta_fechas[f'{column_title}'] = df_resta_fechas[f'{column_title}'].dt.strftime("%d/%m/%Y")
-                except:
-                    pass
-            else:
+        for column_title in self.columna_fecha:
+            try:
+                df2[column_title] = pd.to_datetime(df2[column_title],errors = 'coerce')
+            except:
                 pass
         columnas_bol=df_resta_fechas.select_dtypes(include=bool).columns.tolist()
         df_resta_fechas[columnas_bol] = df_resta_fechas[columnas_bol].astype(str)
