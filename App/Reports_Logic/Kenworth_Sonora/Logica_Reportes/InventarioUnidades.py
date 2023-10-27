@@ -13,7 +13,7 @@ class InventarioUnidades(Variables):
         df = pd.read_excel(path, sheet_name="Hoja2")
         df1 = df.copy()
         df1.columns = df1.columns.str.replace(" ", "_")
-        df1.drop(["Serie_Motor","Int._Diario","Fecha_Vencimiento","Importe_Inventario_Moneda_Local","Moneda_Artículo","Fact._Compra_TipoCambio","Fact._Compra_Moneda"], axis=1, inplace=True)
+        df1.drop(["Serie_Motor","Int._Diario","Fecha_Vencimiento","Fact._Compra_TipoCambio","Fact._Compra_Moneda"], axis=1, inplace=True)
         df1.insert(
             loc = 5,
             column = "Año Modelo",

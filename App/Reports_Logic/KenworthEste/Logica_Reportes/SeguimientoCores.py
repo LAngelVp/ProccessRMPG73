@@ -7,7 +7,7 @@ import pandas as pd
 from .Variables.ContenedorVariables import Variables
 
 class SeguimientoCores(Variables):
-    def __init__(self) -> None:
+    def __init__(self):
         super().__init__()
         path = os.path.join(Variables().ruta_Trabajo,'SCE.xlsx')
         df = pd.read_excel(path, sheet_name='Hoja2')

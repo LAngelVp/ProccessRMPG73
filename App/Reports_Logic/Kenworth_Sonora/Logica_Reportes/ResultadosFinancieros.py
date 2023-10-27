@@ -128,5 +128,3 @@ class ResultadosFinancieros(Variables):
         # GUARDAMOS EL ARCHIVO
         print(4)
         financiero.to_excel(os.path.join(Variables().ruta_procesados,f'KWSonora_ResultadosFinancieros_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
-
-        

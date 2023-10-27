@@ -27,11 +27,11 @@ class BackOrders(Variables):
         )
         df2['FechaHoy'] = Variables().date_movement_config_document()
 
-        self.columna_fecha = df2.select_dtypes(include=["datetime64"]).columns
-        # formatear las columnas de fecha para trabajar con ellas.
-        for column_title in self.columna_fecha:
+        self.columnas_fecha = df2.select_dtypes(include=['datetime64']).columns
+        
+        for column_title in self.columnas_fecha:
             try:
-                df2[column_title] = pd.to_datetime(df2[column_title],errors = 'coerce')
+                df2[column_title] = pd.to_datetime(df2[column_title], format='%d/%m/%Y', errors = 'coerce')
             except:
                 pass
         
@@ -43,16 +43,18 @@ class BackOrders(Variables):
         df_nat = df2.query("Fecha_Alta_FC == ['NaT']").copy()
         df_nat["Antigüedad"] = (df_nat["FechaHoy"] - df_nat["Fecha_Alta"])
         df_resta_fechas = pd.concat([df_no_nat, df_nat], join="inner")
-        
-        df_resta_fechas.columns = df_resta_fechas.columns.str.replace('_', ' ')
-        # cambiamos el formato de las columnas de fecha a trabajar.
-        df_resta_fechas.drop(['Folio','FechaHoy','Unidad Relacionada', 'num'], axis=1, inplace=True)
+
         # COLOCAMOS EL FORMATO A TODA COLUMNA QUE SEA TIPO FECHA.
-        for column_title in self.columna_fecha:
+        for column_title in self.columnas_fecha:
             try:
-                df2[column_title] = pd.to_datetime(df2[column_title],errors = 'coerce')
+                df_resta_fechas[column_title] = df_resta_fechas[column_title].dt.strftime('%d/%m/%Y')
             except:
                 pass
+        
+        
+        # cambiamos el formato de las columnas de fecha a trabajar.
+        df_resta_fechas.drop(['Folio','FechaHoy','Unidad_Relacionada', 'num'], axis=1, inplace=True)
+        
         columnas_bol=df_resta_fechas.select_dtypes(include=bool).columns.tolist()
         df_resta_fechas[columnas_bol] = df_resta_fechas[columnas_bol].astype(str)
         df_resta_fechas['Antigüedad'] = pd.to_numeric(df_resta_fechas['Antigüedad'].dt.days, downcast='integer')
@@ -62,5 +64,8 @@ class BackOrders(Variables):
                 df_resta_fechas['Antigüedad'] = df_resta_fechas['Antigüedad'].replace(column,0)
             else:
                 pass
+        
+        df_resta_fechas.columns = df_resta_fechas.columns.str.replace('_', ' ')
 
         df_resta_fechas.to_excel(os.path.join(Variables().ruta_procesados,f'KWESTE_BackOrder_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+

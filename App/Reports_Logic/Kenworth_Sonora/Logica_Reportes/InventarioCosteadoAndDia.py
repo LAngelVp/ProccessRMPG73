@@ -138,3 +138,4 @@ class InventarioCosteado(Variables):
             return "Rescates"
         else:
             return valor_clasSF
+        

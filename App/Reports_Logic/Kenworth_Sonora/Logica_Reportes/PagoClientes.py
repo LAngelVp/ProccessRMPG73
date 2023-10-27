@@ -4,7 +4,6 @@
 #########################
 import os
 import pandas as pd
-import json
 from .Variables.ContenedorVariables import *
 class PagosDeClientes(Variables):
     def __init__(self) -> None:
@@ -13,8 +12,7 @@ class PagosDeClientes(Variables):
         #leemos el documento.
         self.ruta = os.path.join(Variables().ruta_deapoyo, "JsonObjetivos.json")
         
-        fecha = Variables().fechaHoy()
-        fechainsertar = str(fecha)
+        
 
         path = os.path.join(Variables().ruta_Trabajo,'PCS.xlsx')
         df = pd.read_excel(path, sheet_name='Hoja2')

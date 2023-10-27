@@ -49,6 +49,7 @@ class Compras(Variables):
             value = df2['Hoy'] - df2['FD'],
             allow_duplicates = False
         )
+        
 
         # procedemos a formatear la columna de antigüedad a tipo Entero,
         # con el objetivo de poder condicionar la iteracion de la columna,
@@ -72,5 +73,13 @@ class Compras(Variables):
         df2.drop(['Folio','Hoy'], axis=1, inplace=True)
         columnas_bol=df2.select_dtypes(include=bool).columns.tolist()
         df2[columnas_bol] = df2[columnas_bol].astype(str)
+
+        self.columnas_fecha = df2.select_dtypes(include=['datetime64']).columns
+        # formatear las columnas de fecha para trabajar con ellas.
+        for column_title in self.columnas_fecha:
+                try:
+                    df2[column_title] = df2[column_title].dt.strftime('%d/%m/%Y')
+                except:
+                    pass
 
         df2.to_excel(os.path.join(Variables().ruta_procesados,f'KWSonora_ComprasDetallado_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
