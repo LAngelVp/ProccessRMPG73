@@ -51,7 +51,8 @@ class BackOrders(Variables):
             except:
                 pass
         
-        
+        df_resta_fechas["Fecha_Promesa"] = pd.to_datetime(df_resta_fechas["Fecha_Promesa"], format='%d/%m/%Y', errors = 'coerce')
+        df_resta_fechas["Fecha_Promesa"] = df_resta_fechas["Fecha_Promesa"].dt.strftime('%d/%m/%Y')
         # cambiamos el formato de las columnas de fecha a trabajar.
         df_resta_fechas.drop(['Folio','FechaHoy','Unidad_Relacionada', 'num'], axis=1, inplace=True)
         

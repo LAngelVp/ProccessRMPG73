@@ -191,15 +191,13 @@ class ServioDetallado(Variables):
         # # NOTE Regresamos el titulo de la columna a su nombre original
         df_Final = df_Final.rename(columns={ 'Tipop': 'Tipo Servicio'})
         # NOTE Creamos la columna con la fecha actual
+        # NOTE INTENTAMOS HACER LOS CAMBIOS DE FORMATO PARA LAS FECHAS EN PYTHON
         df_Final.insert(
                 loc = 10,
                 column = 'Fecha Movimiento',
                 value = Variables().date_movement_config_document(),
                 allow_duplicates = False
             )
-
-
-        # NOTE INTENTAMOS HACER LOS CAMBIOS DE FORMATO PARA LAS FECHAS EN PYTHON
         for column_title in df_Final:
             if ('Fecha' in column_title):
                 try:
@@ -208,6 +206,8 @@ class ServioDetallado(Variables):
                     pass
             else:
                 pass
+
+
         df_Final.insert(
             loc = 25,
             column = "Número Orden",

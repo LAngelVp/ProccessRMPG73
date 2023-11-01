@@ -128,5 +128,3 @@ class ResultadosFinancieros(Variables):
                 return "Unidades Seminuevas"
             else:
                 return "Unidades Nuevas"
-
-        

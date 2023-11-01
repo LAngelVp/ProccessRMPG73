@@ -72,5 +72,5 @@ class Variables():
     
     def date_movement_config_document(self):
         document = pd.read_json(self.route_file_date)
-        date_movement = pd.to_datetime(document.loc[0,"Date_Movement"]) 
+        date_movement = pd.to_datetime(document.loc[0,"Date_Movement"], format="%d/%m/%Y") 
         return date_movement
