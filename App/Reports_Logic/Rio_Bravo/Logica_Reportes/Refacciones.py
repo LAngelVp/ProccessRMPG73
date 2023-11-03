@@ -19,11 +19,13 @@ class Refacciones(Variables):
 
         df = df[df.columns[0:93]].copy()
 
-        for fecha in df:
-            if ("fecha" in fecha.lower()):
-                df[fecha] = pd.to_datetime(df[fecha], format="%d/%m/%Y", errors='coerce').dt.strftime("%d/%m/%Y")
-            else:
-                continue
+        self.columnas_fecha = df.select_dtypes(include=['datetime64']).columns
+        
+        for column_title in self.columnas_fecha:
+            try:
+                df[column_title] = pd.to_datetime(df[column_title], format='%d/%m/%Y', errors = 'coerce').dt.strftime('%d/%m/%Y')
+            except:
+                pass
         
         df["Departamento Venta"], df["Depa"] = zip(*df.apply(lambda fila: self.Clasificacion_departamentos_refacciones(fila["Sucursal"], fila["DepartamentoDocto"]), axis=1))
 
