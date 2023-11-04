@@ -72,7 +72,7 @@ class Variables():
         fecha = datetime.now()
         return fecha
     def nombre_mes_base_columna(self, valor):
-        mes = calendar.month_name[valor.month].capitalize()
+        mes = valor.strftime(f'%b-%y').replace(".","")
         return mes
     
     def date_movement_config_document(self):

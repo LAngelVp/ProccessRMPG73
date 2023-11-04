@@ -6,7 +6,7 @@
 import os
 import pandas as pd
 from datetime import *
-from .Variables.ContenedorVariables import Variables
+from Variables.ContenedorVariables import Variables
 # clase del reporte a realizar
 class Compras(Variables):
     def __init__(self):
@@ -95,3 +95,4 @@ class Compras(Variables):
         df2[columnas_bol] = df2[columnas_bol].astype(str)
     
         df2.to_excel(os.path.join(Variables().ruta_procesados,f'KWESTE_ComprasDetallado_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+Compras()
