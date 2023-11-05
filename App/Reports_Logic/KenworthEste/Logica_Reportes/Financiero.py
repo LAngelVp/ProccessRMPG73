@@ -7,9 +7,7 @@ import pandas as pd
 from datetime import *
 from .Variables.ContenedorVariables import Variables
 class ResultadosFinancieros(Variables):
-
     def __init__(self):
-        super().__init__()
         # FUNCION PARA OBTENER EL DEPARTAMENTO
             
         # CREAMOS UN ARRAY CON EL NOMBRE DE LAS COLUMNAS QUE VAMOS A OCUPAR DEL DATAFRAME ORIGINAL
@@ -44,12 +42,12 @@ class ResultadosFinancieros(Variables):
 
         # OBTENEMOS LA RUTA DEL ARCHIVO Y PARSEAMOS SU CONTENIDO Y SUS CABECERAS.
 
-        path = os.path.join(Variables().ruta_Trabajo,'RFS.xlsx')
-        df = pd.read_excel(path, sheet_name='Hoja2')
+        path = os.path.join(Variables().ruta_Trabajo,'RFE.xlsx')
+        df = pd.read_excel(path, sheet_name='Hoja1')
         df = df.replace(to_replace=';', value='-', regex=True)
         df.columns = df.columns.str.replace(" ", "_")
         
-         # creamos la tabla pivote, con el fin de obtener las unidades facturadas
+        # creamos la tabla pivote, con el fin de obtener las unidades facturadas
         pivot = pd.pivot_table(df, index=['Numarticulo', 'Modelo', 'Sucursal', 'idCliente', 'NombreCte', 'idClienteAsignatario', 'NombreCteAsignatario', 'NumCategoria', 'Vendedor'], values=['cantidad', 'Venta', 'NC_Bonif', 'VentasNetas', 'CostoTotal', 'UtilidadBruta', '%_Margen_Conc', 'Compras', 'VtasInternas', 'NCreddeProv', 'NCargodeProv',	'ProvNCargoCargo',	'ProvNCargoAbono',	'ProvNCredCargo',	'ProvNCredAbono',	'NotaCargoCte'
         ],  aggfunc='sum')
 
@@ -71,20 +69,26 @@ class ResultadosFinancieros(Variables):
             value = df_unidades_facturadas_ordenado["Sucursal"],
             allow_duplicates=True
         )
+
         df_unidades_facturadas_ordenado.insert(
             loc = 16,
             column = "Margen(%)",
             value = df_unidades_facturadas_ordenado["UtilidadBruta"] / df_unidades_facturadas_ordenado["VentasNetas"],
-            allow_duplicates = True
+            allow_duplicates=False
         )
 
-        def obtenerDepartamento(valor):
-            currentYear = datetime.now().year
-            if (valor < currentYear):
-                return "Unidades Seminuevas"
-            else:
-                return "Unidades Nuevas"
-        departamento = df_unidades_facturadas_ordenado["Modelo"].apply(lambda x: obtenerDepartamento(x))
+        departamento = df_unidades_facturadas_ordenado["Modelo"].apply(lambda x: self.obtenerDepartamento(x))
+        col_numero_articulo = "CH-" + df_unidades_facturadas_ordenado["Numarticulo"].map(str)
+        col_modelo = "AM" + df_unidades_facturadas_ordenado["Modelo"].map(str)
+
+        df_unidades_facturadas_ordenado["Numarticulo"] = col_numero_articulo
+        df_unidades_facturadas_ordenado["Modelo"] = col_modelo
+
+        df_unidades_facturadas_ordenado["Fecha"] = Variables().date_movement_config_document().replace(day=1)
+        df_unidades_facturadas_ordenado["Ciudad"] = "Pendiente"
+        df_unidades_facturadas_ordenado["Estado"] = "Pendiente"
+
+
 
         df_unidades_facturadas_ordenado.insert(
             loc = 0,
@@ -92,17 +96,6 @@ class ResultadosFinancieros(Variables):
             value = departamento,
             allow_duplicates = False
         )
-
-        col_numero_articulo =df_unidades_facturadas_ordenado["Numarticulo"].map(str)
-        col_modelo =df_unidades_facturadas_ordenado["Modelo"].map(str)
-
-        df_unidades_facturadas_ordenado["Numarticulo"] = col_numero_articulo
-        df_unidades_facturadas_ordenado["Modelo"] = col_modelo
-
-
-        df_unidades_facturadas_ordenado["Fecha"] = Variables().date_movement_config_document().replace(day=1)
-        df_unidades_facturadas_ordenado["Ciudad"] = "Pendiente"
-        df_unidades_facturadas_ordenado["Estado"] = "Pendiente"
 
 # TERMINAMOS DE INSERTAR COLUMNAS ------------------
 
@@ -124,5 +117,11 @@ class ResultadosFinancieros(Variables):
         df_unidades_facturadas_ordenado[columnas_bol] = df_unidades_facturadas_ordenado[columnas_bol].astype(str)
 
         # GUARDAMOS EL ARCHIVO
-        print(4)
-        df_unidades_facturadas_ordenado.to_excel(os.path.join(Variables().ruta_procesados,f'KWSonora_ResultadosFinancieros_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+        df_unidades_facturadas_ordenado.to_excel(os.path.join(Variables().ruta_procesados,f'KWESTE_ResultadosFinancieros_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+        
+    def obtenerDepartamento(self, valor):
+            currentYear = datetime.now().year
+            if (valor < currentYear):
+                return "Unidades Seminuevas"
+            else:
+                return "Unidades Nuevas"
