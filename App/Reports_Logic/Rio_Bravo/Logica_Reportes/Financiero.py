@@ -13,7 +13,7 @@ class ResultadosFinancieros(Variables):
         # CREAMOS UN ARRAY CON EL NOMBRE DE LAS COLUMNAS QUE VAMOS A OCUPAR DEL DATAFRAME ORIGINAL
         # ESTE ARRAY SE VA A OCUPAR MAS ADELANTE PARA CREAR EL DATAFRAME FINAL.
             
-        array_columnas_ATrabajar = [
+        columnas = [
             "Sucursal",
             "Numarticulo",
             "idCliente",
@@ -25,7 +25,7 @@ class ResultadosFinancieros(Variables):
             "Modelo",
             "cantidad",
             "Venta",
-            "NC_Bonif",
+            "NC Bonif",
             "VentasNetas",
             "CostoTotal",
             "UtilidadBruta",
@@ -45,70 +45,66 @@ class ResultadosFinancieros(Variables):
         path = os.path.join(Variables().ruta_Trabajo,'RFR.xlsx')
         df = pd.read_excel(path, sheet_name='Hoja2')
         df = df.replace(to_replace=';', value='-', regex=True)
-        df.columns = df.columns.str.replace(" ", "_")
         
-        # REALIZAMOS UNA COPIA DEL DATAFRAME
-        df1 = df.query("cantidad == -1").copy()
-        df1["Venta"] = df1["Venta"].abs()
-        df1["VentasNetas"] = df1["VentasNetas"].abs()
-        df1["CostoTotal"] = df1["CostoTotal"].abs()
-        df1["Compras"] = df1["Compras"].abs()
+        # creamos la tabla pivote, con el fin de obtener las unidades facturadas
+        pivot = pd.pivot_table(df, index=['Numarticulo', 'Modelo', 'Sucursal', 'idCliente', 'NombreCte', 'idClienteAsignatario', 'NombreCteAsignatario', 'NumCategoria', 'Vendedor'], values=['cantidad', 'Venta', 'NC Bonif', 'VentasNetas', 'CostoTotal', 'UtilidadBruta', '% Margen Conc', 'Compras', 'VtasInternas', 'NCreddeProv', 'NCargodeProv',	'ProvNCargoCargo',	'ProvNCargoAbono',	'ProvNCredCargo',	'ProvNCredAbono',	'NotaCargoCte'
+        ],  aggfunc='sum')
 
-        # Comparar DataFrames y eliminar coincidencias basadas en 'factura', 'venta', 'costoTotal' y 'utilidadBruta'
-        df1_sin_coincidencias = df.merge(df1, on=['Vin', 'idDocto',"idCliente","NombreCte", 'Venta', 'Compras'], how='left', indicator=True)
+        # copiamos la tabla pivote en una nueva variable
+        df_pivote = pivot.copy()
 
-        df1_sin_coincidencias = df1_sin_coincidencias[df1_sin_coincidencias['_merge'] == 'left_only']
-        df1_sin_coincidencias = df1_sin_coincidencias.drop(columns=['_merge'])
-  
-        df1_sin_coincidencias = df1_sin_coincidencias.query("cantidad_x == 1").copy()
+        # eliminamos el formato de la tabla pivote, con la finalidas de aparecer los numeros que la tabla pivote maneja como vacios
+        df_pivote.reset_index(inplace=True)
+        
+        # excluimos las cotizaciones
+        df_unidades_facturadas = df_pivote.query("cantidad == 1").copy()
 
-        df1_sin_coincidencias.columns  = df1_sin_coincidencias.columns .str.replace("_x","")
- 
-        financiero = df1_sin_coincidencias[array_columnas_ATrabajar]
+        df_unidades_facturadas_ordenado = df_unidades_facturadas[columnas]
 
 
-        financiero.insert(
+        df_unidades_facturadas_ordenado.insert(
             loc = 1,
             column = "ZonaVenta",
-            value = financiero["Sucursal"],
+            value = df_unidades_facturadas_ordenado["Sucursal"],
             allow_duplicates=True
         )
-        financiero.insert(
+
+        df_unidades_facturadas_ordenado.insert(
             loc = 16,
             column = "Margen(%)",
-            value = financiero["UtilidadBruta"] / financiero["VentasNetas"],
-            allow_duplicates = True
+            value = df_unidades_facturadas_ordenado["UtilidadBruta"] / df_unidades_facturadas_ordenado["VentasNetas"],
+            allow_duplicates=False
         )
 
-        departamento = financiero["Modelo"].apply(lambda x: self.obtenerDepartamento(x))
+        departamento = df_unidades_facturadas_ordenado["Modelo"].apply(lambda x: self.obtenerDepartamento(x))
+        col_numero_articulo = "CH-" + df_unidades_facturadas_ordenado["Numarticulo"].map(str)
+        col_modelo = "AM" + df_unidades_facturadas_ordenado["Modelo"].map(str)
 
-        financiero.insert(
+        df_unidades_facturadas_ordenado["Numarticulo"] = col_numero_articulo
+        df_unidades_facturadas_ordenado["Modelo"] = col_modelo
+
+        df_unidades_facturadas_ordenado["Fecha"] = Variables().date_movement_config_document().replace(day=1)
+        df_unidades_facturadas_ordenado["Ciudad"] = "Pendiente"
+        df_unidades_facturadas_ordenado["Estado"] = "Pendiente"
+
+
+
+        df_unidades_facturadas_ordenado.insert(
             loc = 0,
             column = "Departamento",
             value = departamento,
             allow_duplicates = False
         )
 
-        col_numero_articulo = "CH-" + financiero["Numarticulo"].map(str)
-        col_modelo = "AM" + financiero["Modelo"].map(str)
-
-        financiero["Numarticulo"] = col_numero_articulo
-        financiero["Modelo"] = col_modelo
-
-
-        financiero["Fecha"] = Variables().date_movement_config_document().replace(day=1)
-        financiero["Ciudad"] = "Pendiente"
-        financiero["Estado"] = "Pendiente"
-
 # TERMINAMOS DE INSERTAR COLUMNAS ------------------
 
         # FORMATEAMOS LAS COLUMNAS DE FECHA
 
-        for i in financiero:
+        for i in df_unidades_facturadas_ordenado:
             if ("fecha" in i.lower()):
                 try:
-                    financiero[i] = pd.to_datetime(financiero[i], errors="coerce")
-                    financiero[i] = financiero[i].dt.strftime("%d/%m/%Y")
+                    df_unidades_facturadas_ordenado[i] = pd.to_datetime(df_unidades_facturadas_ordenado[i], errors="coerce")
+                    df_unidades_facturadas_ordenado[i] = df_unidades_facturadas_ordenado[i].dt.strftime("%d/%m/%Y")
                 except:
                     continue
             else:
@@ -116,11 +112,11 @@ class ResultadosFinancieros(Variables):
 
         # BUSCAMOS COLUMNAS QUE SEAN DE TIPO BOOLEANO, SI LAS ENCUENTRA, QUE LAS CONVIERTA EN CADENA.
 
-        columnas_bol=financiero.select_dtypes(include=bool).columns.tolist()
-        financiero[columnas_bol] = financiero[columnas_bol].astype(str)
+        columnas_bol=df_unidades_facturadas_ordenado.select_dtypes(include=bool).columns.tolist()
+        df_unidades_facturadas_ordenado[columnas_bol] = df_unidades_facturadas_ordenado[columnas_bol].astype(str)
 
         # GUARDAMOS EL ARCHIVO
-        financiero.to_excel(os.path.join(Variables().ruta_procesados,f'KWRB_ResultadosFinancieros_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+        df_unidades_facturadas_ordenado.to_excel(os.path.join(Variables().ruta_procesados,f'KWRB_ResultadosFinancieros_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
         
     def obtenerDepartamento(self, valor):
             currentYear = datetime.now().year

@@ -11,15 +11,16 @@ class ResultadosFinancierosKREI(Variables):
         pathEste = os.path.join(Variables().ruta_Trabajo,'RFEKREI.xlsx')
         pathSur = os.path.join(Variables().ruta_Trabajo,'RFSKREI.xlsx')
 
-        self.array_columnas_ATrabajar = [
+        self.columnas = [
+            "Sucursal",
             "Numarticulo",
             "idCliente",
             "NombreCte",
             "idClienteAsignatario",
             "NombreCteAsignatario",
+            "Vendedor",
             "NumCategoria",
             "Modelo",
-            "Sucursal",
             "cantidad",
             "Venta",
             "NC_Bonif",
@@ -34,9 +35,8 @@ class ResultadosFinancierosKREI(Variables):
             "ProvNCargoAbono",
             "ProvNCredCargo",
             "ProvNCredAbono",
-            "NotaCargoCte",
-            "Vendedor"  
-                ]
+            "NotaCargoCte"
+        ]
 
         if os.path.exists(pathEste):
             self.ReporteFinancieroKWESTE_KREI(pathEste)
@@ -49,34 +49,31 @@ class ResultadosFinancierosKREI(Variables):
         df = pd.read_excel(PATH, sheet_name="Hoja2")
         df.columns = df.columns.str.replace(" ", "_")
         
-        df1 = df.query("cantidad == -1").copy()
-        df1["Venta"] = df1["Venta"].abs()
-        df1["VentasNetas"] = df1["VentasNetas"].abs()
-        df1["CostoTotal"] = df1["CostoTotal"].abs()
-        df1["Compras"] = df1["Compras"].abs()
+        # creamos la tabla pivote, con el fin de obtener las unidades facturadas
+        pivot = pd.pivot_table(df, index=['Numarticulo', 'Modelo', 'Sucursal', 'idCliente', 'NombreCte', 'idClienteAsignatario', 'NombreCteAsignatario', 'NumCategoria', 'Vendedor'], values=['cantidad', 'Venta', 'NC_Bonif', 'VentasNetas', 'CostoTotal', 'UtilidadBruta', '%_Margen_Conc', 'Compras', 'VtasInternas', 'NCreddeProv', 'NCargodeProv',	'ProvNCargoCargo',	'ProvNCargoAbono',	'ProvNCredCargo',	'ProvNCredAbono',	'NotaCargoCte'
+        ],  aggfunc='sum')
 
-         # Comparar DataFrames y eliminar coincidencias basadas en 'factura', 'venta', 'costoTotal' y 'utilidadBruta'
-        df1_sin_coincidencias = df.merge(df1, on=['Vin', 'idDocto',"idCliente","NombreCte", 'Venta', 'Compras'], how='left', indicator=True)
+        # copiamos la tabla pivote en una nueva variable
+        df_pivote = pivot.copy()
 
-        df1_sin_coincidencias = df1_sin_coincidencias[df1_sin_coincidencias['_merge'] == 'left_only']
-        df1_sin_coincidencias = df1_sin_coincidencias.drop(columns=['_merge'])
+        # eliminamos el formato de la tabla pivote, con la finalidas de aparecer los numeros que la tabla pivote maneja como vacios
+        df_pivote.reset_index(inplace=True)
+        
+        # excluimos las cotizaciones
+        df_unidades_facturadas = df_pivote.query("cantidad == 1").copy()
 
-        df1_sin_coincidencias = df1_sin_coincidencias.query("cantidad_x == 1").copy()
+        df_unidades_facturadas_ordenado = df_unidades_facturadas[self.columnas]
 
-        df1_sin_coincidencias.columns  = df1_sin_coincidencias.columns .str.replace("_x","")
-
-        financiero = df1_sin_coincidencias[self.array_columnas_ATrabajar]
-
-        financiero.insert(
+        df_unidades_facturadas_ordenado.insert(
                 loc = 0,
                 column = "Concesionario",
                 value = "ESTE",
                 allow_duplicates=True
             )
         
-        departamento = financiero["Modelo"].apply(lambda x: self.obtenerDepartamento(x))
+        departamento = df_unidades_facturadas_ordenado["Modelo"].apply(lambda x: self.obtenerDepartamento(x))
 
-        financiero.insert(
+        df_unidades_facturadas_ordenado.insert(
             loc = 1,
             column = "Departamento",
             value = departamento,
@@ -84,15 +81,15 @@ class ResultadosFinancierosKREI(Variables):
         )
 
 
-        col_numero_articulo = "CH-" + financiero["Numarticulo"].map(str)
-        col_modelo = "AM" + financiero["Modelo"].map(str)
+        col_numero_articulo = "CH-" + df_unidades_facturadas_ordenado["Numarticulo"].map(str)
+        col_modelo = "AM" + df_unidades_facturadas_ordenado["Modelo"].map(str)
 
-        financiero["Numarticulo"] = col_numero_articulo
-        financiero["Modelo"] = col_modelo
+        df_unidades_facturadas_ordenado["Numarticulo"] = col_numero_articulo
+        df_unidades_facturadas_ordenado["Modelo"] = col_modelo
 
-        Margen = financiero["UtilidadBruta"] / financiero["VentasNetas"]
+        Margen = df_unidades_facturadas_ordenado["UtilidadBruta"] / df_unidades_facturadas_ordenado["VentasNetas"]
 
-        financiero.insert(
+        df_unidades_facturadas_ordenado.insert(
             loc = 16,
             column = "Margen(%)",
             value = Margen,
@@ -101,29 +98,29 @@ class ResultadosFinancierosKREI(Variables):
 
         Fecha = Variables().fecha_hoy
 
-        financiero.insert(
+        df_unidades_facturadas_ordenado.insert(
             loc = 26,
             column = "Fecha",
             value = Fecha,
             allow_duplicates = True
         )
 
-        for i in financiero:
+        for i in df_unidades_facturadas_ordenado:
             if ("fecha" in i.lower()):
                 try:
-                    financiero[i] = pd.to_datetime(financiero[i], errors="coerce")
-                    financiero[i] = financiero[i].dt.strftime("%d/%m/%Y")
+                    df_unidades_facturadas_ordenado[i] = pd.to_datetime(df_unidades_facturadas_ordenado[i], errors="coerce")
+                    df_unidades_facturadas_ordenado[i] = df_unidades_facturadas_ordenado[i].dt.strftime("%d/%m/%Y")
                 except:
                     continue
             else:
                 continue
 
-        columnas_bol=financiero.select_dtypes(include=bool).columns.tolist()
-        financiero[columnas_bol] = financiero[columnas_bol].astype(str)
+        columnas_bol=df_unidades_facturadas_ordenado.select_dtypes(include=bool).columns.tolist()
+        df_unidades_facturadas_ordenado[columnas_bol] = df_unidades_facturadas_ordenado[columnas_bol].astype(str)
 
-        financiero.columns = financiero.columns.str.replace("_", " ")
+        df_unidades_facturadas_ordenado.columns = df_unidades_facturadas_ordenado.columns.str.replace("_", " ")
 
-        financiero.to_excel(os.path.join(Variables().ruta_procesados,f'KREI_ResultadosFinancieros_KWESTE_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+        df_unidades_facturadas_ordenado.to_excel(os.path.join(Variables().ruta_procesados,f'KREI_ResultadosFinancieros_KWESTE_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
 
 
     def ReporteFinancieroKWSUR_KREI(self, PATH):
@@ -131,34 +128,31 @@ class ResultadosFinancierosKREI(Variables):
         df = pd.read_excel(PATH, sheet_name="Hoja2")
         df.columns = df.columns.str.replace(" ", "_")
         
-        df1 = df.query("cantidad == -1").copy()
-        df1["Venta"] = df1["Venta"].abs()
-        df1["VentasNetas"] = df1["VentasNetas"].abs()
-        df1["CostoTotal"] = df1["CostoTotal"].abs()
-        df1["Compras"] = df1["Compras"].abs()
+        # creamos la tabla pivote, con el fin de obtener las unidades facturadas
+        pivot = pd.pivot_table(df, index=['Numarticulo', 'Modelo', 'Sucursal', 'idCliente', 'NombreCte', 'idClienteAsignatario', 'NombreCteAsignatario', 'NumCategoria', 'Vendedor'], values=['cantidad', 'Venta', 'NC_Bonif', 'VentasNetas', 'CostoTotal', 'UtilidadBruta', '%_Margen_Conc', 'Compras', 'VtasInternas', 'NCreddeProv', 'NCargodeProv',	'ProvNCargoCargo',	'ProvNCargoAbono',	'ProvNCredCargo',	'ProvNCredAbono',	'NotaCargoCte'
+        ],  aggfunc='sum')
 
-         # Comparar DataFrames y eliminar coincidencias basadas en 'factura', 'venta', 'costoTotal' y 'utilidadBruta'
-        df1_sin_coincidencias = df.merge(df1, on=['Vin', 'idDocto',"idCliente","NombreCte", 'Venta', 'Compras'], how='left', indicator=True)
+        # copiamos la tabla pivote en una nueva variable
+        df_pivote = pivot.copy()
 
-        df1_sin_coincidencias = df1_sin_coincidencias[df1_sin_coincidencias['_merge'] == 'left_only']
-        df1_sin_coincidencias = df1_sin_coincidencias.drop(columns=['_merge'])
+        # eliminamos el formato de la tabla pivote, con la finalidas de aparecer los numeros que la tabla pivote maneja como vacios
+        df_pivote.reset_index(inplace=True)
+        
+        # excluimos las cotizaciones
+        df_unidades_facturadas = df_pivote.query("cantidad == 1").copy()
 
-        df1_sin_coincidencias = df1_sin_coincidencias.query("cantidad_x == 1").copy()
+        df_unidades_facturadas_ordenado = df_unidades_facturadas[self.columnas]
 
-        df1_sin_coincidencias.columns  = df1_sin_coincidencias.columns .str.replace("_x","")
-
-        financiero = df1_sin_coincidencias[self.array_columnas_ATrabajar]
-
-        financiero.insert(
+        df_unidades_facturadas_ordenado.insert(
                 loc = 0,
                 column = "Concesionario",
                 value = "SUR",
                 allow_duplicates=True
             )
         
-        departamento = financiero["Modelo"].apply(lambda x: self.obtenerDepartamento(x))
+        departamento = df_unidades_facturadas_ordenado["Modelo"].apply(lambda x: self.obtenerDepartamento(x))
 
-        financiero.insert(
+        df_unidades_facturadas_ordenado.insert(
             loc = 1,
             column = "Departamento",
             value = departamento,
@@ -166,15 +160,15 @@ class ResultadosFinancierosKREI(Variables):
         )
 
 
-        col_numero_articulo = "CH-" + financiero["Numarticulo"].map(str)
-        col_modelo = "AM" + financiero["Modelo"].map(str)
+        col_numero_articulo = "CH-" + df_unidades_facturadas_ordenado["Numarticulo"].map(str)
+        col_modelo = "AM" + df_unidades_facturadas_ordenado["Modelo"].map(str)
 
-        financiero["Numarticulo"] = col_numero_articulo
-        financiero["Modelo"] = col_modelo
+        df_unidades_facturadas_ordenado["Numarticulo"] = col_numero_articulo
+        df_unidades_facturadas_ordenado["Modelo"] = col_modelo
 
-        Margen = financiero["UtilidadBruta"] / financiero["VentasNetas"]
+        Margen = df_unidades_facturadas_ordenado["UtilidadBruta"] / df_unidades_facturadas_ordenado["VentasNetas"]
 
-        financiero.insert(
+        df_unidades_facturadas_ordenado.insert(
             loc = 16,
             column = "Margen(%)",
             value = Margen,
@@ -183,29 +177,29 @@ class ResultadosFinancierosKREI(Variables):
 
         Fecha = Variables().date_movement_config_document()
 
-        financiero.insert(
+        df_unidades_facturadas_ordenado.insert(
             loc = 26,
             column = "Fecha",
             value = Fecha,
             allow_duplicates = True
         )
 
-        for i in financiero:
+        for i in df_unidades_facturadas_ordenado:
             if ("fecha" in i.lower()):
                 try:
-                    financiero[i] = pd.to_datetime(financiero[i], errors="coerce")
-                    financiero[i] = financiero[i].dt.strftime("%d/%m/%Y")
+                    df_unidades_facturadas_ordenado[i] = pd.to_datetime(df_unidades_facturadas_ordenado[i], errors="coerce")
+                    df_unidades_facturadas_ordenado[i] = df_unidades_facturadas_ordenado[i].dt.strftime("%d/%m/%Y")
                 except:
                     continue
             else:
                 continue
 
-        columnas_bol=financiero.select_dtypes(include=bool).columns.tolist()
-        financiero[columnas_bol] = financiero[columnas_bol].astype(str)
+        columnas_bol=df_unidades_facturadas_ordenado.select_dtypes(include=bool).columns.tolist()
+        df_unidades_facturadas_ordenado[columnas_bol] = df_unidades_facturadas_ordenado[columnas_bol].astype(str)
 
-        financiero.columns = financiero.columns.str.replace("_", " ")
+        df_unidades_facturadas_ordenado.columns = df_unidades_facturadas_ordenado.columns.str.replace("_", " ")
 
-        financiero.to_excel(os.path.join(Variables().ruta_procesados,f'KREI_ResultadosFinancieros_KWSUR_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+        df_unidades_facturadas_ordenado.to_excel(os.path.join(Variables().ruta_procesados,f'KREI_ResultadosFinancieros_KWSUR_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
 
 
     def obtenerDepartamento(self,valor):
