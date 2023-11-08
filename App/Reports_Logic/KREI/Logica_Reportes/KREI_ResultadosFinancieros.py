@@ -12,15 +12,14 @@ class ResultadosFinancierosKREI(Variables):
         pathSur = os.path.join(Variables().ruta_Trabajo,'RFSKREI.xlsx')
 
         self.columnas = [
-            "Sucursal",
             "Numarticulo",
             "idCliente",
             "NombreCte",
             "idClienteAsignatario",
             "NombreCteAsignatario",
-            "Vendedor",
             "NumCategoria",
             "Modelo",
+            "Sucursal",
             "cantidad",
             "Venta",
             "NC_Bonif",
@@ -35,7 +34,8 @@ class ResultadosFinancierosKREI(Variables):
             "ProvNCargoAbono",
             "ProvNCredCargo",
             "ProvNCredAbono",
-            "NotaCargoCte"
+            "NotaCargoCte",
+            "Vendedor"
         ]
 
         if os.path.exists(pathEste):

@@ -25,7 +25,7 @@ class ResultadosFinancieros(Variables):
             "Modelo",
             "cantidad",
             "Venta",
-            "NC_Bonif",
+            "NC Bonif",
             "VentasNetas",
             "CostoTotal",
             "UtilidadBruta",
@@ -43,12 +43,11 @@ class ResultadosFinancieros(Variables):
         # OBTENEMOS LA RUTA DEL ARCHIVO Y PARSEAMOS SU CONTENIDO Y SUS CABECERAS.
 
         path = os.path.join(Variables().ruta_Trabajo,'RFR.xlsx')
-        df = pd.read_excel(path, sheet_name='Hoja1')
+        df = pd.read_excel(path, sheet_name='Hoja2')
         df = df.replace(to_replace=';', value='-', regex=True)
-        df.columns = df.columns.str.replace(" ", "_")
         
         # creamos la tabla pivote, con el fin de obtener las unidades facturadas
-        pivot = pd.pivot_table(df, index=['Numarticulo', 'Modelo', 'Sucursal', 'idCliente', 'NombreCte', 'idClienteAsignatario', 'NombreCteAsignatario', 'NumCategoria', 'Vendedor'], values=['cantidad', 'Venta', 'NC_Bonif', 'VentasNetas', 'CostoTotal', 'UtilidadBruta', '%_Margen_Conc', 'Compras', 'VtasInternas', 'NCreddeProv', 'NCargodeProv',	'ProvNCargoCargo',	'ProvNCargoAbono',	'ProvNCredCargo',	'ProvNCredAbono',	'NotaCargoCte'
+        pivot = pd.pivot_table(df, index=['Numarticulo', 'Modelo', 'Sucursal', 'idCliente', 'NombreCte', 'idClienteAsignatario', 'NombreCteAsignatario', 'NumCategoria', 'Vendedor'], values=['cantidad', 'Venta', 'NC Bonif', 'VentasNetas', 'CostoTotal', 'UtilidadBruta', '% Margen Conc', 'Compras', 'VtasInternas', 'NCreddeProv', 'NCargodeProv',	'ProvNCargoCargo',	'ProvNCargoAbono',	'ProvNCredCargo',	'ProvNCredAbono',	'NotaCargoCte'
         ],  aggfunc='sum')
 
         # copiamos la tabla pivote en una nueva variable
