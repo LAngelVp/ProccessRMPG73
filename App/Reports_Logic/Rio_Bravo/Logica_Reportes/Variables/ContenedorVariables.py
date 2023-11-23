@@ -2,6 +2,7 @@
 # DESARROLLADOR
 # RMPG - LUIS ANGEL VALLEJO PEREZ
 #########################
+import json
 import os
 from datetime import *
 from webbrowser import *
@@ -76,3 +77,10 @@ class Variables():
         document = pd.read_json(self.route_file_date)
         date_movement = pd.to_datetime(document.loc[0,"Date_Movement"], format="%d/%m/%Y") 
         return date_movement
+    def comprobar_reporte_documento_rutas(self):
+        if (os.path.exists(self.ruta_documentos_rutas)):
+            with open(self.ruta_documentos_rutas, "r") as documento:
+                    self.documento_existe = json.load(documento)
+        else:
+            pass
+Variables().comprobar_reporte_documento_rutas()
