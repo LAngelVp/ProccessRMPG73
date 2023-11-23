@@ -821,6 +821,7 @@ background-color: transparent;
     </widget>
     <addaction name="menuPagosClientes"/>
     <addaction name="actionFechaMovimiento"/>
+    <addaction name="actionDirecciones_de_envio"/>
    </widget>
    <addaction name="menuOPCIONES"/>
   </widget>
@@ -842,6 +843,11 @@ background-color: transparent;
   <action name="actionFechaMovimiento">
    <property name="text">
     <string>FechaMovimiento</string>
+   </property>
+  </action>
+  <action name="actionDirecciones_de_envio">
+   <property name="text">
+    <string>Direcciones de envio</string>
    </property>
   </action>
  </widget>

@@ -2,7 +2,7 @@ import sys
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 import os
-from .ventana_rutas import *
+from .UI.ventana_rutas import *
 from .Documento_ligas import *
 
 
@@ -30,6 +30,8 @@ class rutas(QMainWindow):
 
         self.actualizar_tabla()
 
+        
+
     def comprobar(self):
         if self.eliminar.isChecked():
             self.eliminar_datos()
@@ -49,7 +51,7 @@ class rutas(QMainWindow):
             ruta = self.ui.tabla_rutas.item(fila, columna + 1).text()
         else:
             print("Error en la selección")
-        self.ui.txt_nombre.setText(nombre)
+        self.ui.txt_nombre.setText(nombre.split(".")[0])
         self.ui.txt_ruta.setText(ruta)
 
     def actualizar_tabla(self):
@@ -71,17 +73,18 @@ class rutas(QMainWindow):
     def ingresar_datos(self):
         nombre = self.ui.txt_nombre.text().strip()
         ruta = self.ui.txt_ruta.text().strip()
+        extension = self.ui.txt_extension_documento.text()
         if not (nombre and ruta):
             print("Ambos están vacíos")
         else:
-            CreacionJson(nombre, ruta).Agregar_ruta
+            CreacionJson(nombre, ruta, extension).Agregar_ruta
             self.actualizar_tabla()
             print("Al menos uno de ellos tiene contenido")
         self.ui.txt_nombre.clear()
         self.ui.txt_ruta.clear()
 
     def eliminar_datos(self):
-        nombre = self.ui.txt_nombre.text()
+        nombre = self.ui.txt_nombre.text() + self.ui.txt_extension_documento.text()
         ruta = self.ui.txt_ruta.text()
         CreacionJson().Eliminar_ruta(nombre, ruta)
         self.actualizar_tabla()

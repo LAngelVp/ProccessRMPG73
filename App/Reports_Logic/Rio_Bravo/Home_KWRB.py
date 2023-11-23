@@ -18,6 +18,7 @@ from .Inicio_FechaMovimiento import *
 from .KenworthConnect import *
 from .InicialClassObjetivos import *
 from .UI.V_KWRB import *
+from .Home_rutas import *
 import subprocess
 class Home_KWRB(QMainWindow, Variables, ):
     def __init__(self):
@@ -47,6 +48,7 @@ class Home_KWRB(QMainWindow, Variables, ):
         # MENU DE OPCIONES
         self.ventanaRioBravo.actionObjetivos_Mensuales.triggered.connect(self.ObjetivosPagoClientes)
         self.ventanaRioBravo.actionFechaMovimiento.triggered.connect(self.FechaMovimiento)
+        self.ventanaRioBravo.actionDirecciones_de_envio.triggered.connect(self.direcciones_envio)
         #--------------------
         # Señales del hilo
         self.Hilo.signal.connect(self.mensajeTrabajoTerminado)
@@ -67,6 +69,9 @@ class Home_KWRB(QMainWindow, Variables, ):
         self.ventana_obj = Home_DateMovement()
         self.ventana_obj.show()
 
+    def direcciones_envio(self):
+        self.ventana_rutas = rutas()
+        self.ventana_rutas.show()
 #-------------------------------------------------------
     def inicialHilo(self):
         if self.Hilo.isRunning():
@@ -180,7 +185,6 @@ class Home_KWRB(QMainWindow, Variables, ):
             else:
                 pass
 #-------------------------------------------------
-
 
 # MINIMIZAR LA PANTALLA
     def minimizar(self):

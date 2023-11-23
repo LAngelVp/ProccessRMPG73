@@ -26,6 +26,7 @@ class Variables():
         self.ruta_exitosos = os.path.join(self.ruta_Kenworth, self.documentos_Procesados)
         self.ruta_documentos = os.path.join(self.ruta_Kenworth, "Documentos")
         self.route_file_date = os.path.join(self.ruta_documentos, "Config_Document.json")
+        self.ruta_documentos_rutas = os.path.join(self.ruta_documentos, "Rutas_Envio.json")
 
         #--------------------------------
         #NOTE Reemplazamos las diagonales de las rutas, con la finalidad que cualquier sistema operativo pueda ejecutar el software.
@@ -36,6 +37,7 @@ class Variables():
         self.ruta_procesados = self.ruta_exitosos.replace('\\','/')
         self.ruta_deapoyo = self.ruta_documentos.replace('\\','/')
         self.route_file_date_movement  = self.route_file_date.replace('\\','/')
+        self.ruta_envio_documentos  = self.ruta_documentos_rutas.replace('\\','/')
         #________________________________________________
 
         self.pdf = 'https://onedrive.live.com/?cid=C903C3E707BD874A&id=C903C3E707BD874A%21220&parId=root&o=OneUp' #NOTE Direccion en donde se encuentra el archivo de apoyo

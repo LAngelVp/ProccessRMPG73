@@ -11,9 +11,9 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_MainWindowKenworthSonora(object):
+class Ui_VentanaPrincipalSonora(object):
     def setupUi(self, MainWindow):
-        MainWindow.setObjectName("Kenworth Sonora")
+        MainWindow.setObjectName("MainWindow")
         MainWindow.resize(800, 500)
         MainWindow.setMinimumSize(QtCore.QSize(800, 500))
         MainWindow.setMaximumSize(QtCore.QSize(800, 500))
@@ -370,9 +370,12 @@ class Ui_MainWindowKenworthSonora(object):
         font.setFamily("Arial")
         self.actionFechaMovimiento.setFont(font)
         self.actionFechaMovimiento.setObjectName("actionFechaMovimiento")
+        self.actionDirecciones_de_envio = QtWidgets.QAction(MainWindow)
+        self.actionDirecciones_de_envio.setObjectName("actionDirecciones_de_envio")
         self.menuPagoClientes.addAction(self.actionObjetivos_Mensuales)
         self.menuOPCIONES.addAction(self.menuPagoClientes.menuAction())
         self.menuOPCIONES.addAction(self.actionFechaMovimiento)
+        self.menuOPCIONES.addAction(self.actionDirecciones_de_envio)
         self.menuBar.addAction(self.menuOPCIONES.menuAction())
 
         self.retranslateUi(MainWindow)
@@ -380,34 +383,35 @@ class Ui_MainWindowKenworthSonora(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("Kenworth Sonora", "Kenworth Sonora"))
-        self.btnSubir.setToolTip(_translate("Kenworth Sonora", "<html><head/><body><p>Selecciona un archivo .xlsx</p></body></html>"))
-        self.btnSubir.setText(_translate("Kenworth Sonora", "Subir"))
-        self.btnEliminar.setToolTip(_translate("Kenworth Sonora", "<html><head/><body><p>Elimina los archivos procesados</p></body></html>"))
-        self.btnEliminar.setText(_translate("Kenworth Sonora", "Eliminar"))
-        self.btnComenzar.setToolTip(_translate("Kenworth Sonora", "<html><head/><body><p>Comenzar el proceso</p></body></html>"))
-        self.btnComenzar.setText(_translate("Kenworth Sonora", "Comenzar"))
-        self.btn_Procesados.setToolTip(_translate("Kenworth Sonora", "<html><head/><body><p>Ruta de archivos procesados</p></body></html>"))
-        self.btn_Procesados.setText(_translate("Kenworth Sonora", "Procesados"))
-        self.btn_Originales.setToolTip(_translate("Kenworth Sonora", "<html><head/><body><p>Ruta de archivos originales</p></body></html>"))
-        self.btn_Originales.setText(_translate("Kenworth Sonora", "Originales"))
-        self.btn_Errores.setToolTip(_translate("Kenworth Sonora", "<html><head/><body><p>Ruta de archivos erroneos</p></body></html>"))
-        self.btn_Errores.setText(_translate("Kenworth Sonora", "Erroneos"))
-        self.btnMinimizar.setToolTip(_translate("Kenworth Sonora", "Minimizar"))
-        self.btnCerrar.setToolTip(_translate("Kenworth Sonora", "Cerrar"))
-        self.lblTextoEnCola.setText(_translate("Kenworth Sonora", "Trabajos En Espera"))
-        self.lblTextoProcesado.setText(_translate("Kenworth Sonora", "Trabajos Realizados"))
-        self.menuOPCIONES.setTitle(_translate("Kenworth Sonora", "OPCIONES"))
-        self.menuPagoClientes.setTitle(_translate("Kenworth Sonora", "Pago Clientes"))
-        self.actionObjetivos_Mensuales.setText(_translate("Kenworth Sonora", "Objetivos Mensuales"))
-        self.actionFechaMovimiento.setText(_translate("Kenworth Sonora", "Fecha Movimiento"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        self.btnSubir.setToolTip(_translate("MainWindow", "<html><head/><body><p>Selecciona un archivo .xlsx</p></body></html>"))
+        self.btnSubir.setText(_translate("MainWindow", "Subir"))
+        self.btnEliminar.setToolTip(_translate("MainWindow", "<html><head/><body><p>Elimina los archivos procesados</p></body></html>"))
+        self.btnEliminar.setText(_translate("MainWindow", "Eliminar"))
+        self.btnComenzar.setToolTip(_translate("MainWindow", "<html><head/><body><p>Comenzar el proceso</p></body></html>"))
+        self.btnComenzar.setText(_translate("MainWindow", "Comenzar"))
+        self.btn_Procesados.setToolTip(_translate("MainWindow", "<html><head/><body><p>Ruta de archivos procesados</p></body></html>"))
+        self.btn_Procesados.setText(_translate("MainWindow", "Procesados"))
+        self.btn_Originales.setToolTip(_translate("MainWindow", "<html><head/><body><p>Ruta de archivos originales</p></body></html>"))
+        self.btn_Originales.setText(_translate("MainWindow", "Originales"))
+        self.btn_Errores.setToolTip(_translate("MainWindow", "<html><head/><body><p>Ruta de archivos erroneos</p></body></html>"))
+        self.btn_Errores.setText(_translate("MainWindow", "Erroneos"))
+        self.btnMinimizar.setToolTip(_translate("MainWindow", "Minimizar"))
+        self.btnCerrar.setToolTip(_translate("MainWindow", "Cerrar"))
+        self.lblTextoEnCola.setText(_translate("MainWindow", "Trabajos En Espera"))
+        self.lblTextoProcesado.setText(_translate("MainWindow", "Trabajos Realizados"))
+        self.menuOPCIONES.setTitle(_translate("MainWindow", "OPCIONES"))
+        self.menuPagoClientes.setTitle(_translate("MainWindow", "Pago Clientes"))
+        self.actionObjetivos_Mensuales.setText(_translate("MainWindow", "Objetivos Mensuales"))
+        self.actionFechaMovimiento.setText(_translate("MainWindow", "Fecha Movimiento"))
+        self.actionDirecciones_de_envio.setText(_translate("MainWindow", "Direcciones de envio"))
 
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindowKenworthSonora()
+    ui = Ui_VentanaPrincipalSonora()
     ui.setupUi(MainWindow)
     MainWindow.show()
     sys.exit(app.exec_())

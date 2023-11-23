@@ -28,7 +28,11 @@ class Ui_VPrincipal(object):
         VPrincipal.setWindowIcon(icon)
         VPrincipal.setLayoutDirection(QtCore.Qt.LeftToRight)
         VPrincipal.setAutoFillBackground(False)
-        VPrincipal.setStyleSheet("[objectName^=\"btc_btc\"]{\n"
+        VPrincipal.setStyleSheet("#panel_principal{\n"
+"background-color: rgb(255, 255, 255);\n"
+"border-radius:8px;\n"
+"}\n"
+"[objectName^=\"btc_btc\"]{\n"
 "background-color: transparent;\n"
 "}\n"
 "[objectName^=\"btc_btc\"]:hover{\n"
@@ -75,14 +79,14 @@ class Ui_VPrincipal(object):
 "}")
         VPrincipal.setIconSize(QtCore.QSize(45, 45))
         VPrincipal.setDockNestingEnabled(True)
-        self.centralwidget = QtWidgets.QWidget(VPrincipal)
-        self.centralwidget.setObjectName("centralwidget")
-        self.gridLayout_2 = QtWidgets.QGridLayout(self.centralwidget)
+        self.panel_principal = QtWidgets.QWidget(VPrincipal)
+        self.panel_principal.setObjectName("panel_principal")
+        self.gridLayout_2 = QtWidgets.QGridLayout(self.panel_principal)
         self.gridLayout_2.setContentsMargins(0, 0, 0, 0)
         self.gridLayout_2.setHorizontalSpacing(0)
         self.gridLayout_2.setVerticalSpacing(15)
         self.gridLayout_2.setObjectName("gridLayout_2")
-        self.panel_img_logo = QtWidgets.QWidget(self.centralwidget)
+        self.panel_img_logo = QtWidgets.QWidget(self.panel_principal)
         self.panel_img_logo.setObjectName("panel_img_logo")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.panel_img_logo)
         self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
@@ -95,7 +99,7 @@ class Ui_VPrincipal(object):
         self.imgPrincipalMenu.setObjectName("imgPrincipalMenu")
         self.horizontalLayout.addWidget(self.imgPrincipalMenu)
         self.gridLayout_2.addWidget(self.panel_img_logo, 1, 0, 1, 1)
-        self.panel_btn_sucursales = QtWidgets.QWidget(self.centralwidget)
+        self.panel_btn_sucursales = QtWidgets.QWidget(self.panel_principal)
         self.panel_btn_sucursales.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.panel_btn_sucursales.setObjectName("panel_btn_sucursales")
         self.gridLayout_3 = QtWidgets.QGridLayout(self.panel_btn_sucursales)
@@ -144,7 +148,7 @@ class Ui_VPrincipal(object):
         self.btn_btn_kwrb.setObjectName("btn_btn_kwrb")
         self.gridLayout_3.addWidget(self.btn_btn_kwrb, 0, 0, 1, 1)
         self.gridLayout_2.addWidget(self.panel_btn_sucursales, 2, 0, 1, 1)
-        self.panel_encabezado = QtWidgets.QWidget(self.centralwidget)
+        self.panel_encabezado = QtWidgets.QWidget(self.panel_principal)
         self.panel_encabezado.setObjectName("panel_encabezado")
         self.gridLayout = QtWidgets.QGridLayout(self.panel_encabezado)
         self.gridLayout.setContentsMargins(0, 0, 5, 0)
@@ -152,19 +156,25 @@ class Ui_VPrincipal(object):
         self.gridLayout.setObjectName("gridLayout")
         spacerItem = QtWidgets.QSpacerItem(310, 14, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout.addItem(spacerItem, 0, 0, 1, 1)
-        self.btc_btc_rutas = QtWidgets.QPushButton(self.panel_encabezado)
-        self.btc_btc_rutas.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.btc_btc_rutas.setText("")
+        self.btc_btc_cerrar = QtWidgets.QPushButton(self.panel_encabezado)
+        self.btc_btc_cerrar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btc_btc_cerrar.setText("")
         icon1 = QtGui.QIcon()
         icon1.addPixmap(QtGui.QPixmap("../../../../../Downloads/rutas.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.btc_btc_rutas.setIcon(icon1)
-        self.btc_btc_rutas.setIconSize(QtCore.QSize(20, 20))
-        self.btc_btc_rutas.setObjectName("btc_btc_rutas")
-        self.gridLayout.addWidget(self.btc_btc_rutas, 0, 1, 1, 1)
+        self.btc_btc_cerrar.setIcon(icon1)
+        self.btc_btc_cerrar.setIconSize(QtCore.QSize(28, 28))
+        self.btc_btc_cerrar.setObjectName("btc_btc_cerrar")
+        self.gridLayout.addWidget(self.btc_btc_cerrar, 0, 2, 1, 1)
+        self.btc_btc_minimizar = QtWidgets.QPushButton(self.panel_encabezado)
+        self.btc_btc_minimizar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btc_btc_minimizar.setText("")
+        self.btc_btc_minimizar.setIconSize(QtCore.QSize(28, 28))
+        self.btc_btc_minimizar.setObjectName("btc_btc_minimizar")
+        self.gridLayout.addWidget(self.btc_btc_minimizar, 0, 1, 1, 1)
         self.gridLayout_2.addWidget(self.panel_encabezado, 0, 0, 1, 1)
         spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.gridLayout_2.addItem(spacerItem1, 3, 0, 1, 1)
-        VPrincipal.setCentralWidget(self.centralwidget)
+        VPrincipal.setCentralWidget(self.panel_principal)
 
         self.retranslateUi(VPrincipal)
         self.btn_btn_kwrb.clicked.connect(VPrincipal.show) # type: ignore

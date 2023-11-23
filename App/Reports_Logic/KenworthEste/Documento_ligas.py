@@ -1,12 +1,14 @@
 import os
 import json
-from .Variables.ContenedorVariables import *
-class CreacionJson:
-    def __init__(self, nombre_documento=None, ruta_destino_documento=None):
+from .Logica_Reportes.Variables.ContenedorVariables import Variables
+class CreacionJson(Variables):
+    def __init__(self, nombre_documento=None, ruta_destino_documento=None, extension = None):
         self.nombre_documento = nombre_documento
         self.ruta_destino_documento = ruta_destino_documento
+        self.extentension_documento = extension
         self.__contenido_vacio_json = []
-        self.__ruta_base_documento_json = "Json.json"
+        # Variables().comprobar_rutas_documentos_rutas
+        self.__ruta_base_documento_json = Variables().ruta_documentos_rutas
 
     @property
     def comprobar_existencia(self):
@@ -36,8 +38,9 @@ class CreacionJson:
     @property
     def Agregar_ruta(self):
         self.comprobar_existencia
+        nombre = self.nombre_documento
         self.nueva_direccion = {
-            "Nombre_documento": self.nombre_documento,
+            "Nombre_documento": self.nombre_documento + self.extentension_documento,
             "Ruta_destino_documento": self.ruta_destino_documento,
         }
         self.__contenido_vacio_json.append(self.nueva_direccion)

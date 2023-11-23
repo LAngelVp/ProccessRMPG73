@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\Angel Rodriguez\OneDrive - Kenworth Del este\Escritorio\BusinessIntelligence\App\Front\ventana_rutas.ui'
+# Form implementation generated from reading ui file 'ventana_rutas.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.9
 #
@@ -168,3 +168,13 @@ class Ui_ventana_configuracion_rutasdocumentos(object):
         item = self.tabla_rutas.horizontalHeaderItem(1)
         item.setText(_translate("ventana_configuracion_rutasdocumentos", "Ruta"))
         self.btn_btn_aceptar.setText(_translate("ventana_configuracion_rutasdocumentos", "Aceptar"))
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    ventana_configuracion_rutasdocumentos = QtWidgets.QMainWindow()
+    ui = Ui_ventana_configuracion_rutasdocumentos()
+    ui.setupUi(ventana_configuracion_rutasdocumentos)
+    ventana_configuracion_rutasdocumentos.show()
+    sys.exit(app.exec_())

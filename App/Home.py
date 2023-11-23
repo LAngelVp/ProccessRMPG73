@@ -17,7 +17,6 @@ from Reports_Logic.KenworthEste.Home_KWESTE import *
 from Reports_Logic.KREI.Home_KREI import *
 from Reports_Logic.Kenworth_Sonora.Home_KWSonora import *
 #------------
-from Clases.Home_rutas import *
 from datetime import *
 import webbrowser
 
@@ -26,15 +25,22 @@ class my_app(QMainWindow, Variables):
         super(my_app, self).__init__()
         self.ui = Ui_VPrincipal()
         self.ui.setupUi(self)
+        self.setWindowFlags(self.windowFlags() | Qt.FramelessWindowHint)
+        self.setAttribute(Qt.WA_TranslucentBackground)
         self.setWindowTitle("Menu de Sucursales")
+        # self.ui.centralwidget.setStyleSheet("background-color:rgb(255, 255, 255);")
         self.ui.imgPrincipalMenu.setPixmap(QPixmap(":/Source/LOGO_KREI.png"))
         self.setWindowIcon(QIcon(":/Source/LOGO_KREI_3.ico"))
-        self.ui.btc_btc_rutas.setIcon(QIcon("Source/rutas.svg"))
+        self.ui.btc_btc_cerrar.setIcon(QIcon("Source/Icon_Close.png"))
+        self.ui.btc_btc_minimizar.setIcon(QIcon("Source/Icon_Minimize.png"))
+        self.ui.panel_encabezado.setStyleSheet("margin-top:5px;")
         self.ui.btn_btn_kwrb.clicked.connect(self.VentanaRioBravo)
         self.ui.btn_btn_kweste.clicked.connect(self.VentanaKWESTE)
         self.ui.btn_btn_kwkrei.clicked.connect(self.VentanaKREI)
         self.ui.btn_btn_kwsonora.clicked.connect(self.VentanaSonora)
-        self.ui.btc_btc_rutas.clicked.connect(self.rutas)
+        
+        self.ui.btc_btc_cerrar.clicked.connect(self.cerrar)
+        self.ui.btc_btc_minimizar.clicked.connect(self.minimizar)
 
 #-------------------------------------------------
     def VentanaRioBravo(self):
@@ -53,9 +59,11 @@ class my_app(QMainWindow, Variables):
         self.Ventana = Home_KenworthSonora()
         self.Ventana.show() 
 #-------------------------------------------------
-    def rutas(self):
-        self.rutas = rutas()
-        self.rutas.show()
+    def cerrar(self):
+        self.close()
+
+    def minimizar(self):
+        self.showMinimized()
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     window = my_app()
