@@ -27,11 +27,14 @@ class Home_KWRB(QMainWindow, Variables, ):
         self.ventanaRioBravo = Ui_MainWindow()
         self.ventanaRioBravo.setupUi(self)
         self.setWindowFlags(self.windowFlags() | Qt.FramelessWindowHint)
+        self.setAttribute(Qt.WA_TranslucentBackground)
         self.ventanaRioBravo.btnAyuda.setIcon(QIcon(":/Source/Icon_Help.png"))
         self.ventanaRioBravo.btnMinimizar.setIcon(QIcon(":/Source/Icon_Minimize.png"))
         self.ventanaRioBravo.btnCerrar.setIcon(QIcon(":/Source/Icon_Close.png"))
         self.ventanaRioBravo.lblLogoKWRB.setPixmap(QPixmap(":/Source/LOGO_KWRB.png"))
         self.setWindowIcon(QIcon(":/Source/LOGO_KREI_3.ico"))
+        
+        
         
         # Creamos el hilo
         self.Hilo = trabajohilo()

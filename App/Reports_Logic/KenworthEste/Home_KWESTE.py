@@ -37,6 +37,7 @@ class Home_KWESTE(QMainWindow, QDialog, Variables):
         self.Creacion_Carpetas()
         # quitamos la barra superior
         self.setWindowFlags(self.windowFlags() | Qt.FramelessWindowHint)
+        self.setAttribute(Qt.WA_TranslucentBackground)
         # Crear la instancia de la ventana y configurarla
         self.ventKWESTE = Ui_MainWindow()
         self.ventKWESTE.setupUi(self)

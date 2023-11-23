@@ -26,23 +26,7 @@
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true"/>
-  </property>
-  <widget class="QWidget" name="WPrincipal">
-   <property name="minimumSize">
-    <size>
-     <width>800</width>
-     <height>500</height>
-    </size>
-   </property>
-   <property name="maximumSize">
-    <size>
-     <width>800</width>
-     <height>500</height>
-    </size>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">#WPrincipal{
+   <string notr="true">#WPrincipal{
 background-color: rgb(255, 255, 255);
 }
 #btnSubir{
@@ -94,9 +78,31 @@ background-color: rgb(209, 209, 209);
 #btnMinimizar{
 background-color: transparent;
 }
+
 #btnCerrar{
 background-color: transparent;
+}
+#menuBar{
+background-color: rgb(255, 255, 255);
+border-top-left-radius: 10px;
+border-top-right-radius: 10px;
 }</string>
+  </property>
+  <widget class="QWidget" name="WPrincipal">
+   <property name="minimumSize">
+    <size>
+     <width>800</width>
+     <height>500</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>800</width>
+     <height>500</height>
+    </size>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <property name="spacing">

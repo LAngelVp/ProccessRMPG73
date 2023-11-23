@@ -17,11 +17,7 @@ class Ui_MainWindow(object):
         MainWindow.resize(800, 500)
         MainWindow.setMinimumSize(QtCore.QSize(800, 500))
         MainWindow.setMaximumSize(QtCore.QSize(800, 500))
-        MainWindow.setStyleSheet("")
-        self.WPrincipal = QtWidgets.QWidget(MainWindow)
-        self.WPrincipal.setMinimumSize(QtCore.QSize(800, 500))
-        self.WPrincipal.setMaximumSize(QtCore.QSize(800, 500))
-        self.WPrincipal.setStyleSheet("#WPrincipal{\n"
+        MainWindow.setStyleSheet("#WPrincipal{\n"
 "background-color: rgb(255, 255, 255);\n"
 "}\n"
 "#btnSubir{\n"
@@ -73,9 +69,19 @@ class Ui_MainWindow(object):
 "#btnMinimizar{\n"
 "background-color: transparent;\n"
 "}\n"
+"\n"
 "#btnCerrar{\n"
 "background-color: transparent;\n"
+"}\n"
+"#menuBar{\n"
+"background-color: rgb(255, 255, 255);\n"
+"border-top-left-radius: 10px;\n"
+"border-top-right-radius: 10px;\n"
 "}")
+        self.WPrincipal = QtWidgets.QWidget(MainWindow)
+        self.WPrincipal.setMinimumSize(QtCore.QSize(800, 500))
+        self.WPrincipal.setMaximumSize(QtCore.QSize(800, 500))
+        self.WPrincipal.setStyleSheet("")
         self.WPrincipal.setObjectName("WPrincipal")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.WPrincipal)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)

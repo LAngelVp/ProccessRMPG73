@@ -25,9 +25,8 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <widget class="QWidget" name="WPrincipal">
-   <property name="styleSheet">
-    <string notr="true">#WPrincipal{
+  <property name="styleSheet">
+   <string notr="true">#WPrincipal{
 background-color: rgb(255, 255, 255);
 }
 #btnSubir{
@@ -81,7 +80,16 @@ background-color: transparent;
 }
 #btnCerrar{
 background-color: transparent;
+}
+#menuBar{
+background-color: rgb(255, 255, 255);
+border-top-left-radius: 10px;
+border-top-right-radius: 10px;
 }</string>
+  </property>
+  <widget class="QWidget" name="WPrincipal">
+   <property name="styleSheet">
+    <string notr="true"/>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <property name="spacing">

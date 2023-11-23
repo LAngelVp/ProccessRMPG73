@@ -39,6 +39,7 @@ class Home_KREI(QMainWindow, QDialog, Variables):
         self.Creacion_Carpetas()
         # quitamos la barra superior
         self.setWindowFlags(self.windowFlags() | Qt.FramelessWindowHint)
+        self.setAttribute(Qt.WA_TranslucentBackground)
         # Crear la instancia de la ventana y configurarla
         self.Ventana = Ui_MainWindow()
         self.Ventana.setupUi(self)
