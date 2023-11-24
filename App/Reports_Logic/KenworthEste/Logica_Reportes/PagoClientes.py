@@ -18,8 +18,8 @@ class PagoClientes(Variables):
         self.objetivos = pd.DataFrame()
         fecha = Variables().fechaHoy()
         fechainsertar = str(fecha)
-
-        path = os.path.join(Variables().ruta_Trabajo,'PCE.xlsx')
+        self.nombre_doc = 'PCE.xlsx'
+        path = os.path.join(Variables().ruta_Trabajo,self.nombre_doc)
         df = pd.read_excel(path, sheet_name='Hoja2')
         df = df.replace(to_replace=';', value='-', regex=True)
         #copiamos la data para no afectar la original.
@@ -122,6 +122,9 @@ class PagoClientes(Variables):
 
         df_completo["Area"] = "Pago Clientes"
 
-        df_completo.to_excel(os.path.join(Variables().ruta_procesados,f'KWESTE_PagosClientes_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+        # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
+        if (os.path.basename(Variables().comprobar_reporte_documento_rutas(self.nombre_doc)).split(".")[1] == self.nombre_doc.split(".")[1]):
+            df_completo.to_excel(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), index=False )
+        else:
+            df_completo.to_csv(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), encoding="utf-8", index=False )
 
-        #df1.to_excel(os.path.join(Variables().ruta_procesados,f'PagosClientes_KWESTE_SDR_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)

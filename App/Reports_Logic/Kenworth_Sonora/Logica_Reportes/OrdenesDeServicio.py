@@ -13,7 +13,8 @@ from .Variables.ContenedorVariables import Variables
 class OrdenesDeServicio(Variables):
     def __init__(self):
         super().__init__()
-        path = os.path.join(Variables().ruta_Trabajo,'OSS.xlsx')
+        self.nombre_doc = 'OSS.xlsx'
+        path = os.path.join(Variables().ruta_Trabajo,self.nombre_doc)
         
         df = pd.read_excel(path, sheet_name="Hoja2")
         df = df.replace(to_replace=';', value='-', regex=True)
@@ -83,4 +84,8 @@ class OrdenesDeServicio(Variables):
         columnas_bol=claficicacion_tipo_servicio.select_dtypes(include=bool).columns.tolist()
         claficicacion_tipo_servicio[columnas_bol] = claficicacion_tipo_servicio[columnas_bol].astype(str)
 
-        claficicacion_tipo_servicio.to_excel(os.path.join(Variables().ruta_procesados,f'KWSonora_OrdenesDeServicio_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+        # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
+        if (os.path.basename(Variables().comprobar_reporte_documento_rutas(self.nombre_doc)).split(".")[1] == self.nombre_doc.split(".")[1]):
+            claficicacion_tipo_servicio.to_excel(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), index=False )
+        else:
+            claficicacion_tipo_servicio.to_csv(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), encoding="utf-8", index=False )

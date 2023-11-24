@@ -10,7 +10,8 @@ class Credito(Variables):
     def __init__(self):
         super().__init__()
         # obtenemos el path del archivo
-        path =  os.path.join(Variables().ruta_Trabajo,'CS.xlsx')
+        self.nombre_doc = 'CS.xlsx'
+        path =  os.path.join(Variables().ruta_Trabajo,self.nombre_doc)
         # leer el documento.
         df = pd.read_excel(path, sheet_name="Hoja2")
         # obtenemos las columnas que se van a utilizar
@@ -61,5 +62,8 @@ class Credito(Variables):
 
         
 
-        # exportamos el documento
-        df2.to_excel(os.path.join(Variables().ruta_procesados,f'KWSonora_Credito_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+        # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
+        if (os.path.basename(Variables().comprobar_reporte_documento_rutas(self.nombre_doc)).split(".")[1] == self.nombre_doc.split(".")[1]):
+            df2.to_excel(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), index=False )
+        else:
+            df2.to_csv(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), encoding="utf-8", index=False )

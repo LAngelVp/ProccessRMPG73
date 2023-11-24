@@ -9,6 +9,7 @@ from .Variables.ContenedorVariables import Variables
 class Credito(Variables):
     def __init__(self):
         # obtenemos el path del archivo
+        self.nombre_doc = 'CE.xlsx'
         path =  os.path.join(Variables().ruta_Trabajo,'CE.xlsx')
         # leer el documento.
         df = pd.read_excel(path, sheet_name="Hoja2")
@@ -68,4 +69,7 @@ class Credito(Variables):
         df2[columnas_bol] = df2[columnas_bol].astype(str)
 
         # exportamos el documento
-        df2.to_excel(os.path.join(Variables().ruta_procesados,f'KWESTE_Credito_KREI_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+        if (os.path.basename(Variables().comprobar_reporte_documento_rutas(self.nombre_doc)).split(".")[1] == self.nombre_doc.split(".")[1]):
+            df2.to_excel(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), index=False )
+        else:
+            df2.to_csv(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), encoding="utf-8", index=False )

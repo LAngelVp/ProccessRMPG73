@@ -9,7 +9,8 @@ from .Variables.ContenedorVariables import Variables
 class SeguimientoCores(Variables):
     def __init__(self):
         super().__init__()
-        path = os.path.join(Variables().ruta_Trabajo,'SCE.xlsx')
+        self.nombre_doc = 'SCE.xlsx'
+        path = os.path.join(Variables().ruta_Trabajo,self.nombre_doc)
         df = pd.read_excel(path, sheet_name='Hoja2')
         df = df.replace(to_replace=';', value='-', regex=True)
 
@@ -43,7 +44,11 @@ class SeguimientoCores(Variables):
         df_SeguimientoCores[columnas_bol] = df_SeguimientoCores[columnas_bol].astype(str)
         df_SeguimientoCores['Antigüedad'] = pd.to_numeric(df_SeguimientoCores['Antigüedad'].dt.days, downcast='integer')
 
-        df_SeguimientoCores.to_excel(os.path.join(Variables().ruta_procesados,f'KWESTE_SeguimientoCores_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+        # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
+        if (os.path.basename(Variables().comprobar_reporte_documento_rutas(self.nombre_doc)).split(".")[1] == self.nombre_doc.split(".")[1]):
+            df_SeguimientoCores.to_excel(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), index=False )
+        else:
+            df_SeguimientoCores.to_csv(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), encoding="utf-8", index=False )
 
     def EstadoFactura(self, row):
         if pd.notna(row["FechaFactura"]):

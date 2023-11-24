@@ -9,7 +9,8 @@ from .Variables.ContenedorVariables import Variables
 class InventarioUnidades(Variables):
     def __init__(self):
         super().__init__()
-        path = os.path.join(Variables().ruta_Trabajo,'IUS.xlsx')
+        self.nombre_doc = 'IUS.xlsx'
+        path = os.path.join(Variables().ruta_Trabajo,self.nombre_doc)
         df = pd.read_excel(path, sheet_name="Hoja2")
         df1 = df.copy()
         df1.columns = df1.columns.str.replace(" ", "_")
@@ -39,7 +40,12 @@ class InventarioUnidades(Variables):
         columnas_bol=df1.select_dtypes(include=bool).columns.tolist()
         df1[columnas_bol] = df1[columnas_bol].astype(str)
         df1.columns = df1.columns.str.replace("_", " ")
-        df1.to_excel(os.path.join(Variables().ruta_procesados,f'KWSonora_InventarioDeUnidades_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+
+        # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
+        if (os.path.basename(Variables().comprobar_reporte_documento_rutas(self.nombre_doc)).split(".")[1] == self.nombre_doc.split(".")[1]):
+            df1.to_excel(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), index=False )
+        else:
+            df1.to_csv(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), encoding="utf-8", index=False )
     
     def ClasificacionTipoInv(self, valor):
         if (valor == "Factura"):

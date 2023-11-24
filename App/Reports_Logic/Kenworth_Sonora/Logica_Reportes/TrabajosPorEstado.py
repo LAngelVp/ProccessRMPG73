@@ -13,7 +13,8 @@ class TrabajosPorEstado(Variables):
         array_Garantia = ["KENWORTH MEXICANA", "PACCAR PARTS MEXICO", "DISTRIBUIDORA MEGAMAK"]
         array_PLM = ["PACCAR FINANCIAL MEXICO", "PACLEASE MEXICANA"]
         #------------------------------------------------------
-        path = os.path.join(Variables().ruta_Trabajo,'TES.xlsx')
+        self.nombre_doc = 'TES.xlsx'
+        path = os.path.join(Variables().ruta_Trabajo,self.nombre_doc)
 
         df = pd.read_excel(path, sheet_name="Hoja2")
         df = df.replace(to_replace=';', value='-', regex=True)
@@ -84,7 +85,11 @@ class TrabajosPorEstado(Variables):
         columnas_bol=Completo.select_dtypes(include=bool).columns.tolist()
         Completo[columnas_bol] = Completo[columnas_bol].astype(str)
 
-        Completo.to_excel(os.path.join(Variables().ruta_procesados,f'KWSonora_TrabajosPorEstado_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+        # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
+        if (os.path.basename(Variables().comprobar_reporte_documento_rutas(self.nombre_doc)).split(".")[1] == self.nombre_doc.split(".")[1]):
+            Completo.to_excel(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), index=False )
+        else:
+            Completo.to_csv(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), encoding="utf-8", index=False )
 
 
     # CREAMOS LA FUNCION PARA LAS CLASIFICACIONES POR NUMERO DE ORDEN
