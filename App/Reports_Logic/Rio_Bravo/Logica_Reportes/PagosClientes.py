@@ -19,7 +19,8 @@ class PagosClientes(Variables):
         fechainsertar = str(fecha)
         #obtenemos el parth.
         #leemos el documento.
-        path = os.path.join(Variables().ruta_Trabajo,'PCR.xlsx')
+        self.nombre_doc = 'PCR.xlsx'
+        path = os.path.join(Variables().ruta_Trabajo, self.nombre_doc)
         df = pd.read_excel(path, sheet_name='Hoja2')
         df = df.replace(to_replace=';', value='-', regex=True)
         #copiamos la data para no afectar la original.
@@ -288,5 +289,7 @@ class PagosClientes(Variables):
         # recordar volver a la normalidad.
         DataFrameConObjetivo.columns = DataFrameConObjetivo.columns.str.replace('_', ' ')
         
-
-        DataFrameConObjetivo.to_excel(os.path.join(Variables().ruta_procesados,f'KWRB_PagoClientes_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+        if (os.path.basename(Variables().comprobar_reporte_documento_rutas(self.nombre_doc)).split(".")[1] == self.nombre_doc.split(".")[1]):
+            df1.to_excel(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), index=False )
+        else:
+            df1.to_csv(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), encoding="utf-8", index=False )

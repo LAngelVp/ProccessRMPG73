@@ -81,3 +81,19 @@ class Variables():
         document = pd.read_json(self.route_file_date)
         date_movement = pd.to_datetime(document.loc[0,"Date_Movement"], format="%d/%m/%Y", errors="coerce")
         return date_movement
+    
+    def comprobar_reporte_documento_rutas(self, nombre=None):
+        archivo = pd.read_json(self.ruta_envio_documentos)
+        nombre_arreglado_csv = f'KWRB_{nombre.split(".")[0]}_RMPG_{self.FechaExternsionGuardar()}.csv'
+        nombre_arreglado_xlsx = f'KWRB_{nombre.split(".")[0]}_RMPG_{self.FechaExternsionGuardar()}.xlsx'
+        self.docu =None
+        self.docu_nombre = None
+        for index, fila in archivo.iterrows():
+            if (fila["Nombre_documento"] == nombre):
+                self.docu_nombre = fila["Nombre_documento"]
+                self.docu = str(fila["Ruta_destino_documento"])
+                break
+        if (self.docu is not None) | (self.docu_nombre == nombre):
+            return os.path.join(self.docu,nombre_arreglado_csv)
+        else:
+            return os.path.join(self.ruta_procesados,nombre_arreglado_xlsx)

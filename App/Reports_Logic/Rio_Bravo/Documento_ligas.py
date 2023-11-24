@@ -12,7 +12,7 @@ class CreacionJson(Variables):
 
     @property
     def comprobar_existencia(self):
-        Variables().comprobar_reporte_documento_rutas()
+        
         if os.path.exists(self.__ruta_base_documento_json):
             try:
                 with open(self.__ruta_base_documento_json, "r") as documento:

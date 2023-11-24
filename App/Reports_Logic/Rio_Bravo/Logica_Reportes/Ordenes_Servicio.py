@@ -16,8 +16,8 @@ class OrdenesServicio(Variables):
         registroos_tallerMovil = ['TM', 'Taller Movil']
         registroos_exceptoTipoServicio = ['Rescate Avalado','Rescate Carretero','TM', 'Taller Movil']
         registros_excluir = ['KENWORTH', 'PACCAR PARTS MEXICO','ALESSO','PACCAR FINANCIAL MEXICO','PACLEASE MEXICANA']
-        
-        path = os.path.join(Variables().ruta_Trabajo,'OSR.xlsx')
+        self.nombre_doc = 'OSR.xlsx'
+        path = os.path.join(Variables().ruta_Trabajo,self.nombre_doc)
 
         # FIXME OBTENEMOS EL DOCUMENTO
         df = pd.read_excel(path, sheet_name='Hoja2')
@@ -104,5 +104,7 @@ class OrdenesServicio(Variables):
 
 
         # # Guardar el libro de Excel
-        df_clasificadoPorTiposervicio.to_excel(os.path.join(Variables().ruta_procesados,f'KWRB_OrdenesDeServicio_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
-        # df_clasificadoPorTiposervicio.to_csv(f'C:/SalesForce/Analytics KWRB/KWRB_OrdenesServicio/KWRB_OrdenesDeServicio_RMPG_{Variables().FechaExternsionGuardar()}.csv', index=False, encoding="utf-8")
+        if (os.path.basename(Variables().comprobar_reporte_documento_rutas(self.nombre_doc)).split(".")[1] == self.nombre_doc.split(".")[1]):
+            df_clasificadoPorTiposervicio.to_excel(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), index=False )
+        else:
+            df_clasificadoPorTiposervicio.to_csv(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), encoding="utf-8", index=False )

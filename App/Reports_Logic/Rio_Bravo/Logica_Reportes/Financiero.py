@@ -41,8 +41,8 @@ class ResultadosFinancieros(Variables):
         ]
 
         # OBTENEMOS LA RUTA DEL ARCHIVO Y PARSEAMOS SU CONTENIDO Y SUS CABECERAS.
-
-        path = os.path.join(Variables().ruta_Trabajo,'RFR.xlsx')
+        self.nombre_doc = 'RFR.xlsx'
+        path = os.path.join(Variables().ruta_Trabajo,self.nombre_doc)
         df = pd.read_excel(path, sheet_name='Hoja2')
         df = df.replace(to_replace=';', value='-', regex=True)
         
@@ -116,7 +116,11 @@ class ResultadosFinancieros(Variables):
         df_unidades_facturadas_ordenado[columnas_bol] = df_unidades_facturadas_ordenado[columnas_bol].astype(str)
 
         # GUARDAMOS EL ARCHIVO
-        df_unidades_facturadas_ordenado.to_excel(os.path.join(Variables().ruta_procesados,f'KWRB_ResultadosFinancieros_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+        # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
+        if (os.path.basename(Variables().comprobar_reporte_documento_rutas(self.nombre_doc)).split(".")[1] == self.nombre_doc.split(".")[1]):
+            df_unidades_facturadas_ordenado.to_excel(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), index=False )
+        else:
+            df_unidades_facturadas_ordenado.to_csv(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), encoding="utf-8", index=False )
         
     def obtenerDepartamento(self, valor):
             currentYear = datetime.now().year

@@ -7,7 +7,8 @@ import pandas as pd
 from .Variables.ContenedorVariables import Variables
 class Credito(Variables):
     def __init__(self):
-        path = os.path.join(Variables().ruta_Trabajo,'CR.xlsx')
+        self.nombre_doc = 'CR.xlsx'
+        path = os.path.join(Variables().ruta_Trabajo, self.nombre_doc)
         df = pd.read_excel(path, sheet_name = 'Hoja2')
         df = df.replace(to_replace=';', value='-', regex=True)
         df2 = df[df.columns[0:52]].copy()
@@ -51,4 +52,8 @@ class Credito(Variables):
         columnas_bol=df_complete.select_dtypes(include=bool).columns.tolist()
         df_complete[columnas_bol] = df_complete[columnas_bol].astype(str)
         
-        df_complete.to_excel(os.path.join(Variables().ruta_procesados,f'KWRB_Credito_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+        # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
+        if (os.path.basename(Variables().comprobar_reporte_documento_rutas(self.nombre_doc)).split(".")[1] == self.nombre_doc.split(".")[1]):
+            df_complete.to_excel(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), index=False )
+        else:
+            df_complete.to_csv(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), encoding="utf-8", index=False )

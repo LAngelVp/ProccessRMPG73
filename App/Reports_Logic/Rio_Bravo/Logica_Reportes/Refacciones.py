@@ -10,7 +10,8 @@ from openpyxl.utils.dataframe import dataframe_to_rows
 from .Variables.ContenedorVariables import Variables
 class Refacciones(Variables):
     def __init__(self):
-        path = os.path.join(Variables().ruta_Trabajo,'RR.xlsx')
+        self.nombre_doc = 'RR.xlsx'
+        path = os.path.join(Variables().ruta_Trabajo, self.nombre_doc)
 
         df = pd.read_excel(path, sheet_name='Hoja2')
         df = df.replace(to_replace=';', value='-', regex=True)
@@ -38,7 +39,10 @@ class Refacciones(Variables):
         columnas_bol=df.select_dtypes(include=bool).columns.tolist()
         df[columnas_bol] = df[columnas_bol].astype(str)
 
-        df.to_excel(os.path.join(Variables().ruta_procesados,f'KWRB_Refacciones_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+        if (os.path.basename(Variables().comprobar_reporte_documento_rutas(self.nombre_doc)).split(".")[1] == self.nombre_doc.split(".")[1]):
+            df.to_excel(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), index=False )
+        else:
+            df.to_csv(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), encoding="utf-8", index=False )
 
     def Clasificacion_departamentos_refacciones(self, valor_sucursal, valor_departamento_documento):
         departamento_venta = None

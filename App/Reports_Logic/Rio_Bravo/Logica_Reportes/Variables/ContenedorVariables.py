@@ -80,15 +80,16 @@ class Variables():
     
     def comprobar_reporte_documento_rutas(self, nombre=None):
         archivo = pd.read_json(self.ruta_envio_documentos)
-        nombre_arreglado = f'KWRB_{nombre.split(".")[0]}_RMPG_{self.FechaExternsionGuardar()}.csv'
+        nombre_arreglado_csv = f'KWRB_{nombre.split(".")[0]}_RMPG_{self.FechaExternsionGuardar()}.csv'
+        nombre_arreglado_xlsx = f'KWRB_{nombre.split(".")[0]}_RMPG_{self.FechaExternsionGuardar()}.xlsx'
         self.docu =None
         self.docu_nombre = None
         for index, fila in archivo.iterrows():
             if (fila["Nombre_documento"] == nombre):
                 self.docu_nombre = fila["Nombre_documento"]
-                self.docu = fila["Ruta_destino_documento"]
+                self.docu = str(fila["Ruta_destino_documento"])
                 break
         if (self.docu is not None) | (self.docu_nombre == nombre):
-            print (os.path.join(self.docu,nombre_arreglado))
+            return os.path.join(self.docu,nombre_arreglado_csv)
         else:
-            print (os.path.join(self.ruta_procesados,nombre_arreglado))
+            return os.path.join(self.ruta_procesados,nombre_arreglado_xlsx)

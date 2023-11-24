@@ -16,7 +16,8 @@ class TrabajosPorEstado(Variables):
         registroos_exceptoTipoServicio = ['Rescate Avalado','Rescate Carretero','TM', 'Taller Movil']
         excepto_estadoTrabajo = ["Facturado", "Cancelado"]
         #------------------------------------------------------
-        path = os.path.join(Variables().ruta_Trabajo,'TER.xlsx')
+        self.nombre_doc = 'TER.xlsx'
+        path = os.path.join(Variables().ruta_Trabajo, self.nombre_doc)
         df = pd.read_excel(path, sheet_name = "Hoja2")
 
         df1 = df.copy()
@@ -95,4 +96,7 @@ class TrabajosPorEstado(Variables):
         columnas_bol=df_clasificadoPorTiposervicio.select_dtypes(include=bool).columns.tolist()
         df_clasificadoPorTiposervicio[columnas_bol] = df_clasificadoPorTiposervicio[columnas_bol].astype(str)
         
-        df_clasificadoPorTiposervicio.to_excel(os.path.join(Variables().ruta_procesados,f'KWRB_TrabajosPorEstado_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+        if (os.path.basename(Variables().comprobar_reporte_documento_rutas(self.nombre_doc)).split(".")[1] == self.nombre_doc.split(".")[1]):
+            df_clasificadoPorTiposervicio.to_excel(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), index=False )
+        else:
+            df_clasificadoPorTiposervicio.to_csv(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), encoding="utf-8", index=False )
