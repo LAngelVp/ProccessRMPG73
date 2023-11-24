@@ -24,7 +24,7 @@ class Home_KWRB(QMainWindow, Variables, ):
     def __init__(self):
         super(Home_KWRB, self).__init__()
         self.Creacion_Carpetas()
-        self.ventanaRioBravo = Ui_MainWindow()
+        self.ventanaRioBravo = Ui_Kenworth_Rio_Bravo()
         self.ventanaRioBravo.setupUi(self)
         self.setWindowFlags(self.windowFlags() | Qt.FramelessWindowHint)
         self.setAttribute(Qt.WA_TranslucentBackground)

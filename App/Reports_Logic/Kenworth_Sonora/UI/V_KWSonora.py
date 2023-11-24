@@ -11,13 +11,13 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_W_Sonora(object):
-    def setupUi(self, W_Sonora):
-        W_Sonora.setObjectName("W_Sonora")
-        W_Sonora.resize(800, 500)
-        W_Sonora.setMinimumSize(QtCore.QSize(800, 500))
-        W_Sonora.setMaximumSize(QtCore.QSize(800, 500))
-        W_Sonora.setStyleSheet("[objectName^=\"W_\"]{\n"
+class Ui_Kenworth_Sonora(object):
+    def setupUi(self, Kenworth_Sonora):
+        Kenworth_Sonora.setObjectName("Kenworth_Sonora")
+        Kenworth_Sonora.resize(800, 500)
+        Kenworth_Sonora.setMinimumSize(QtCore.QSize(800, 500))
+        Kenworth_Sonora.setMaximumSize(QtCore.QSize(800, 500))
+        Kenworth_Sonora.setStyleSheet("[objectName^=\"W_\"]{\n"
 "    background-color: rgb(255, 255, 255);\n"
 "}\n"
 "#btnSubir{\n"
@@ -79,7 +79,7 @@ class Ui_W_Sonora(object):
 "}\n"
 "\n"
 "")
-        self.W_Principal = QtWidgets.QWidget(W_Sonora)
+        self.W_Principal = QtWidgets.QWidget(Kenworth_Sonora)
         self.W_Principal.setMinimumSize(QtCore.QSize(800, 500))
         self.W_Principal.setMaximumSize(QtCore.QSize(800, 500))
         self.W_Principal.setObjectName("W_Principal")
@@ -346,8 +346,8 @@ class Ui_W_Sonora(object):
         self.TWProcesado.setColumnCount(0)
         self.TWProcesado.setRowCount(0)
         self.verticalLayout_4.addWidget(self.TWProcesado)
-        W_Sonora.setCentralWidget(self.W_Principal)
-        self.menuBar = QtWidgets.QMenuBar(W_Sonora)
+        Kenworth_Sonora.setCentralWidget(self.W_Principal)
+        self.menuBar = QtWidgets.QMenuBar(Kenworth_Sonora)
         self.menuBar.setGeometry(QtCore.QRect(0, 0, 800, 20))
         font = QtGui.QFont()
         font.setFamily("Arial")
@@ -366,18 +366,18 @@ class Ui_W_Sonora(object):
         font.setPointSize(8)
         self.menuPagoClientes.setFont(font)
         self.menuPagoClientes.setObjectName("menuPagoClientes")
-        W_Sonora.setMenuBar(self.menuBar)
-        self.actionObjetivos_Mensuales = QtWidgets.QAction(W_Sonora)
+        Kenworth_Sonora.setMenuBar(self.menuBar)
+        self.actionObjetivos_Mensuales = QtWidgets.QAction(Kenworth_Sonora)
         font = QtGui.QFont()
         font.setFamily("Arial")
         self.actionObjetivos_Mensuales.setFont(font)
         self.actionObjetivos_Mensuales.setObjectName("actionObjetivos_Mensuales")
-        self.actionFechaMovimiento = QtWidgets.QAction(W_Sonora)
+        self.actionFechaMovimiento = QtWidgets.QAction(Kenworth_Sonora)
         font = QtGui.QFont()
         font.setFamily("Arial")
         self.actionFechaMovimiento.setFont(font)
         self.actionFechaMovimiento.setObjectName("actionFechaMovimiento")
-        self.actionDirecciones_de_envio = QtWidgets.QAction(W_Sonora)
+        self.actionDirecciones_de_envio = QtWidgets.QAction(Kenworth_Sonora)
         self.actionDirecciones_de_envio.setObjectName("actionDirecciones_de_envio")
         self.menuPagoClientes.addAction(self.actionObjetivos_Mensuales)
         self.menuOPCIONES.addAction(self.menuPagoClientes.menuAction())
@@ -385,40 +385,40 @@ class Ui_W_Sonora(object):
         self.menuOPCIONES.addAction(self.actionDirecciones_de_envio)
         self.menuBar.addAction(self.menuOPCIONES.menuAction())
 
-        self.retranslateUi(W_Sonora)
-        QtCore.QMetaObject.connectSlotsByName(W_Sonora)
+        self.retranslateUi(Kenworth_Sonora)
+        QtCore.QMetaObject.connectSlotsByName(Kenworth_Sonora)
 
-    def retranslateUi(self, W_Sonora):
+    def retranslateUi(self, Kenworth_Sonora):
         _translate = QtCore.QCoreApplication.translate
-        W_Sonora.setWindowTitle(_translate("W_Sonora", "MainWindow"))
-        self.btnSubir.setToolTip(_translate("W_Sonora", "<html><head/><body><p>Selecciona un archivo .xlsx</p></body></html>"))
-        self.btnSubir.setText(_translate("W_Sonora", "Subir"))
-        self.btnEliminar.setToolTip(_translate("W_Sonora", "<html><head/><body><p>Elimina los archivos procesados</p></body></html>"))
-        self.btnEliminar.setText(_translate("W_Sonora", "Eliminar"))
-        self.btnComenzar.setToolTip(_translate("W_Sonora", "<html><head/><body><p>Comenzar el proceso</p></body></html>"))
-        self.btnComenzar.setText(_translate("W_Sonora", "Comenzar"))
-        self.btn_Procesados.setToolTip(_translate("W_Sonora", "<html><head/><body><p>Ruta de archivos procesados</p></body></html>"))
-        self.btn_Procesados.setText(_translate("W_Sonora", "Procesados"))
-        self.btn_Originales.setToolTip(_translate("W_Sonora", "<html><head/><body><p>Ruta de archivos originales</p></body></html>"))
-        self.btn_Originales.setText(_translate("W_Sonora", "Originales"))
-        self.btn_Errores.setToolTip(_translate("W_Sonora", "<html><head/><body><p>Ruta de archivos erroneos</p></body></html>"))
-        self.btn_Errores.setText(_translate("W_Sonora", "Erroneos"))
-        self.btnMinimizar.setToolTip(_translate("W_Sonora", "Minimizar"))
-        self.btnCerrar.setToolTip(_translate("W_Sonora", "Cerrar"))
-        self.lblTextoEnCola.setText(_translate("W_Sonora", "Trabajos En Espera"))
-        self.lblTextoProcesado.setText(_translate("W_Sonora", "Trabajos Realizados"))
-        self.menuOPCIONES.setTitle(_translate("W_Sonora", "OPCIONES"))
-        self.menuPagoClientes.setTitle(_translate("W_Sonora", "Pago Clientes"))
-        self.actionObjetivos_Mensuales.setText(_translate("W_Sonora", "Objetivos Mensuales"))
-        self.actionFechaMovimiento.setText(_translate("W_Sonora", "Fecha Movimiento"))
-        self.actionDirecciones_de_envio.setText(_translate("W_Sonora", "Direcciones de envio"))
+        Kenworth_Sonora.setWindowTitle(_translate("Kenworth_Sonora", "KENWORTH SONORA"))
+        self.btnSubir.setToolTip(_translate("Kenworth_Sonora", "<html><head/><body><p>Selecciona un archivo .xlsx</p></body></html>"))
+        self.btnSubir.setText(_translate("Kenworth_Sonora", "Subir"))
+        self.btnEliminar.setToolTip(_translate("Kenworth_Sonora", "<html><head/><body><p>Elimina los archivos procesados</p></body></html>"))
+        self.btnEliminar.setText(_translate("Kenworth_Sonora", "Eliminar"))
+        self.btnComenzar.setToolTip(_translate("Kenworth_Sonora", "<html><head/><body><p>Comenzar el proceso</p></body></html>"))
+        self.btnComenzar.setText(_translate("Kenworth_Sonora", "Comenzar"))
+        self.btn_Procesados.setToolTip(_translate("Kenworth_Sonora", "<html><head/><body><p>Ruta de archivos procesados</p></body></html>"))
+        self.btn_Procesados.setText(_translate("Kenworth_Sonora", "Procesados"))
+        self.btn_Originales.setToolTip(_translate("Kenworth_Sonora", "<html><head/><body><p>Ruta de archivos originales</p></body></html>"))
+        self.btn_Originales.setText(_translate("Kenworth_Sonora", "Originales"))
+        self.btn_Errores.setToolTip(_translate("Kenworth_Sonora", "<html><head/><body><p>Ruta de archivos erroneos</p></body></html>"))
+        self.btn_Errores.setText(_translate("Kenworth_Sonora", "Erroneos"))
+        self.btnMinimizar.setToolTip(_translate("Kenworth_Sonora", "Minimizar"))
+        self.btnCerrar.setToolTip(_translate("Kenworth_Sonora", "Cerrar"))
+        self.lblTextoEnCola.setText(_translate("Kenworth_Sonora", "Trabajos En Espera"))
+        self.lblTextoProcesado.setText(_translate("Kenworth_Sonora", "Trabajos Realizados"))
+        self.menuOPCIONES.setTitle(_translate("Kenworth_Sonora", "OPCIONES"))
+        self.menuPagoClientes.setTitle(_translate("Kenworth_Sonora", "Pago Clientes"))
+        self.actionObjetivos_Mensuales.setText(_translate("Kenworth_Sonora", "Objetivos Mensuales"))
+        self.actionFechaMovimiento.setText(_translate("Kenworth_Sonora", "Fecha Movimiento"))
+        self.actionDirecciones_de_envio.setText(_translate("Kenworth_Sonora", "Direcciones de envio"))
 
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    W_Sonora = QtWidgets.QMainWindow()
-    ui = Ui_W_Sonora()
-    ui.setupUi(W_Sonora)
-    W_Sonora.show()
+    Kenworth_Sonora = QtWidgets.QMainWindow()
+    ui = Ui_Kenworth_Sonora()
+    ui.setupUi(Kenworth_Sonora)
+    Kenworth_Sonora.show()
     sys.exit(app.exec_())

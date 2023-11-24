@@ -11,13 +11,13 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_MainWindow(object):
-    def setupUi(self, MainWindow):
-        MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(800, 500)
-        MainWindow.setMinimumSize(QtCore.QSize(800, 500))
-        MainWindow.setMaximumSize(QtCore.QSize(800, 500))
-        MainWindow.setStyleSheet("#WPrincipal{\n"
+class Ui_Kenworth_del_Este(object):
+    def setupUi(self, Kenworth_del_Este):
+        Kenworth_del_Este.setObjectName("Kenworth_del_Este")
+        Kenworth_del_Este.resize(800, 500)
+        Kenworth_del_Este.setMinimumSize(QtCore.QSize(800, 500))
+        Kenworth_del_Este.setMaximumSize(QtCore.QSize(800, 500))
+        Kenworth_del_Este.setStyleSheet("#WPrincipal{\n"
 "background-color: rgb(255, 255, 255);\n"
 "}\n"
 "#btnSubir{\n"
@@ -77,7 +77,7 @@ class Ui_MainWindow(object):
 "border-top-left-radius: 10px;\n"
 "border-top-right-radius: 10px;\n"
 "}")
-        self.WPrincipal = QtWidgets.QWidget(MainWindow)
+        self.WPrincipal = QtWidgets.QWidget(Kenworth_del_Este)
         self.WPrincipal.setStyleSheet("")
         self.WPrincipal.setObjectName("WPrincipal")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.WPrincipal)
@@ -347,8 +347,8 @@ class Ui_MainWindow(object):
         self.verticalLayout_12.addWidget(self.btnAyuda)
         self.horizontalLayout_8.addWidget(self.WBotonAyuda)
         self.verticalLayout.addWidget(self.WPie)
-        MainWindow.setCentralWidget(self.WPrincipal)
-        self.menuBar = QtWidgets.QMenuBar(MainWindow)
+        Kenworth_del_Este.setCentralWidget(self.WPrincipal)
+        self.menuBar = QtWidgets.QMenuBar(Kenworth_del_Este)
         self.menuBar.setGeometry(QtCore.QRect(0, 0, 800, 20))
         font = QtGui.QFont()
         font.setFamily("Arial")
@@ -369,12 +369,12 @@ class Ui_MainWindow(object):
         font.setPointSize(8)
         self.menuPagosClientes.setFont(font)
         self.menuPagosClientes.setObjectName("menuPagosClientes")
-        MainWindow.setMenuBar(self.menuBar)
-        self.actionObjetivos_Mensuales = QtWidgets.QAction(MainWindow)
+        Kenworth_del_Este.setMenuBar(self.menuBar)
+        self.actionObjetivos_Mensuales = QtWidgets.QAction(Kenworth_del_Este)
         self.actionObjetivos_Mensuales.setObjectName("actionObjetivos_Mensuales")
-        self.actionFechaMovimiento = QtWidgets.QAction(MainWindow)
+        self.actionFechaMovimiento = QtWidgets.QAction(Kenworth_del_Este)
         self.actionFechaMovimiento.setObjectName("actionFechaMovimiento")
-        self.actionDirecciones_de_envio = QtWidgets.QAction(MainWindow)
+        self.actionDirecciones_de_envio = QtWidgets.QAction(Kenworth_del_Este)
         self.actionDirecciones_de_envio.setObjectName("actionDirecciones_de_envio")
         self.menuPagosClientes.addAction(self.actionObjetivos_Mensuales)
         self.menuOpciones.addAction(self.menuPagosClientes.menuAction())
@@ -382,40 +382,40 @@ class Ui_MainWindow(object):
         self.menuOpciones.addAction(self.actionDirecciones_de_envio)
         self.menuBar.addAction(self.menuOpciones.menuAction())
 
-        self.retranslateUi(MainWindow)
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        self.retranslateUi(Kenworth_del_Este)
+        QtCore.QMetaObject.connectSlotsByName(Kenworth_del_Este)
 
-    def retranslateUi(self, MainWindow):
+    def retranslateUi(self, Kenworth_del_Este):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.btnMinimizar.setToolTip(_translate("MainWindow", "Minimizar"))
-        self.btnCerrar.setToolTip(_translate("MainWindow", "Cerrar"))
-        self.lblTextoEnCola_2.setText(_translate("MainWindow", "Trabajos En Espera"))
-        self.lblTextoProcesado_2.setText(_translate("MainWindow", "Trabajos Realizados"))
-        self.btnSubir.setToolTip(_translate("MainWindow", "<html><head/><body><p>Selecciona un archivo .xlsx</p></body></html>"))
-        self.btnSubir.setText(_translate("MainWindow", "Subir"))
-        self.btnEliminar.setToolTip(_translate("MainWindow", "<html><head/><body><p>Elimina los archivos procesados</p></body></html>"))
-        self.btnEliminar.setText(_translate("MainWindow", "Eliminar"))
-        self.btnComenzar.setToolTip(_translate("MainWindow", "<html><head/><body><p>Comenzar el proceso</p></body></html>"))
-        self.btnComenzar.setText(_translate("MainWindow", "Comenzar"))
-        self.btn_Procesados.setToolTip(_translate("MainWindow", "<html><head/><body><p>Ruta de archivos procesados</p></body></html>"))
-        self.btn_Procesados.setText(_translate("MainWindow", "Procesados"))
-        self.btn_Originales.setToolTip(_translate("MainWindow", "<html><head/><body><p>Ruta de archivos originales</p></body></html>"))
-        self.btn_Originales.setText(_translate("MainWindow", "Originales"))
-        self.btn_Errores.setToolTip(_translate("MainWindow", "<html><head/><body><p>Ruta de archivos erroneos</p></body></html>"))
-        self.btn_Errores.setText(_translate("MainWindow", "Erroneos"))
-        self.menuOpciones.setTitle(_translate("MainWindow", "OPCIONES"))
-        self.menuPagosClientes.setTitle(_translate("MainWindow", "PagosClientes"))
-        self.actionObjetivos_Mensuales.setText(_translate("MainWindow", "Objetivos Mensuales"))
-        self.actionFechaMovimiento.setText(_translate("MainWindow", "FechaMovimiento"))
-        self.actionDirecciones_de_envio.setText(_translate("MainWindow", "Direcciones de envio"))
+        Kenworth_del_Este.setWindowTitle(_translate("Kenworth_del_Este", "KENWORTH DEL ESTE"))
+        self.btnMinimizar.setToolTip(_translate("Kenworth_del_Este", "Minimizar"))
+        self.btnCerrar.setToolTip(_translate("Kenworth_del_Este", "Cerrar"))
+        self.lblTextoEnCola_2.setText(_translate("Kenworth_del_Este", "Trabajos En Espera"))
+        self.lblTextoProcesado_2.setText(_translate("Kenworth_del_Este", "Trabajos Realizados"))
+        self.btnSubir.setToolTip(_translate("Kenworth_del_Este", "<html><head/><body><p>Selecciona un archivo .xlsx</p></body></html>"))
+        self.btnSubir.setText(_translate("Kenworth_del_Este", "Subir"))
+        self.btnEliminar.setToolTip(_translate("Kenworth_del_Este", "<html><head/><body><p>Elimina los archivos procesados</p></body></html>"))
+        self.btnEliminar.setText(_translate("Kenworth_del_Este", "Eliminar"))
+        self.btnComenzar.setToolTip(_translate("Kenworth_del_Este", "<html><head/><body><p>Comenzar el proceso</p></body></html>"))
+        self.btnComenzar.setText(_translate("Kenworth_del_Este", "Comenzar"))
+        self.btn_Procesados.setToolTip(_translate("Kenworth_del_Este", "<html><head/><body><p>Ruta de archivos procesados</p></body></html>"))
+        self.btn_Procesados.setText(_translate("Kenworth_del_Este", "Procesados"))
+        self.btn_Originales.setToolTip(_translate("Kenworth_del_Este", "<html><head/><body><p>Ruta de archivos originales</p></body></html>"))
+        self.btn_Originales.setText(_translate("Kenworth_del_Este", "Originales"))
+        self.btn_Errores.setToolTip(_translate("Kenworth_del_Este", "<html><head/><body><p>Ruta de archivos erroneos</p></body></html>"))
+        self.btn_Errores.setText(_translate("Kenworth_del_Este", "Erroneos"))
+        self.menuOpciones.setTitle(_translate("Kenworth_del_Este", "OPCIONES"))
+        self.menuPagosClientes.setTitle(_translate("Kenworth_del_Este", "PagosClientes"))
+        self.actionObjetivos_Mensuales.setText(_translate("Kenworth_del_Este", "Objetivos Mensuales"))
+        self.actionFechaMovimiento.setText(_translate("Kenworth_del_Este", "FechaMovimiento"))
+        self.actionDirecciones_de_envio.setText(_translate("Kenworth_del_Este", "Direcciones de envio"))
 
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
+    Kenworth_del_Este = QtWidgets.QMainWindow()
+    ui = Ui_Kenworth_del_Este()
+    ui.setupUi(Kenworth_del_Este)
+    Kenworth_del_Este.show()
     sys.exit(app.exec_())

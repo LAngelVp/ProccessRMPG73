@@ -39,7 +39,7 @@ class Home_KWESTE(QMainWindow, QDialog, Variables):
         self.setWindowFlags(self.windowFlags() | Qt.FramelessWindowHint)
         self.setAttribute(Qt.WA_TranslucentBackground)
         # Crear la instancia de la ventana y configurarla
-        self.ventKWESTE = Ui_MainWindow()
+        self.ventKWESTE = Ui_Kenworth_del_Este()
         self.ventKWESTE.setupUi(self)
         # colocar los iconos e imagenes en su correspondiente elemento.
         self.ventKWESTE.lblLogoKWESTE.setPixmap(logo_KWESTE)

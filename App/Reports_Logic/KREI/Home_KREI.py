@@ -41,7 +41,7 @@ class Home_KREI(QMainWindow, QDialog, Variables):
         self.setWindowFlags(self.windowFlags() | Qt.FramelessWindowHint)
         self.setAttribute(Qt.WA_TranslucentBackground)
         # Crear la instancia de la ventana y configurarla
-        self.Ventana = Ui_MainWindow()
+        self.Ventana = Ui_Kenworth_KREI()
         self.Ventana.setupUi(self)
         # colocar los iconos e imagenes en su correspondiente elemento.
         self.Ventana.lblLogoKWKREI.setPixmap(logo)

@@ -1,6 +1,8 @@
 import sys
+from resources import *
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
+from PyQt5.QtGui import QIcon
 import os
 from .UI.ventana_rutas import *
 from .Documento_ligas import *
@@ -12,6 +14,7 @@ class rutas(QMainWindow):
         self.ui = Ui_ventana_configuracion_rutasdocumentos()
         self.ui.setupUi(self)
         self.setWindowTitle("Registro de rutas")
+        self.setWindowIcon(QIcon(":/Source/LOGO_KREI_3.ico"))
         self.ui.btn_btn_aceptar.clicked.connect(self.comprobar)
         self.ui.tabla_rutas.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.ui.tabla_rutas.horizontalHeader().setSectionResizeMode(

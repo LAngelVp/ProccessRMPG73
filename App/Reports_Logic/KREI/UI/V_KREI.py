@@ -11,13 +11,13 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_MainWindow(object):
-    def setupUi(self, MainWindow):
-        MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(800, 500)
-        MainWindow.setMinimumSize(QtCore.QSize(800, 500))
-        MainWindow.setMaximumSize(QtCore.QSize(800, 500))
-        MainWindow.setStyleSheet("#WPrincipal{\n"
+class Ui_Kenworth_KREI(object):
+    def setupUi(self, Kenworth_KREI):
+        Kenworth_KREI.setObjectName("Kenworth_KREI")
+        Kenworth_KREI.resize(800, 500)
+        Kenworth_KREI.setMinimumSize(QtCore.QSize(800, 500))
+        Kenworth_KREI.setMaximumSize(QtCore.QSize(800, 500))
+        Kenworth_KREI.setStyleSheet("#WPrincipal{\n"
 "background-color: rgb(255, 255, 255);\n"
 "}\n"
 "#btnSubir{\n"
@@ -77,7 +77,7 @@ class Ui_MainWindow(object):
 "border-top-left-radius: 10px;\n"
 "border-top-right-radius: 10px;\n"
 "}")
-        self.WPrincipal = QtWidgets.QWidget(MainWindow)
+        self.WPrincipal = QtWidgets.QWidget(Kenworth_KREI)
         self.WPrincipal.setMinimumSize(QtCore.QSize(800, 500))
         self.WPrincipal.setMaximumSize(QtCore.QSize(800, 500))
         self.WPrincipal.setStyleSheet("")
@@ -349,8 +349,8 @@ class Ui_MainWindow(object):
         self.verticalLayout_8.addWidget(self.btnAyuda)
         self.horizontalLayout_7.addWidget(self.WBotonAyuda)
         self.verticalLayout_10.addWidget(self.WPie)
-        MainWindow.setCentralWidget(self.WPrincipal)
-        self.menuBar = QtWidgets.QMenuBar(MainWindow)
+        Kenworth_KREI.setCentralWidget(self.WPrincipal)
+        self.menuBar = QtWidgets.QMenuBar(Kenworth_KREI)
         self.menuBar.setGeometry(QtCore.QRect(0, 0, 800, 20))
         font = QtGui.QFont()
         font.setFamily("Arial")
@@ -363,8 +363,8 @@ class Ui_MainWindow(object):
         font.setPointSize(8)
         self.menuOPCIONES.setFont(font)
         self.menuOPCIONES.setObjectName("menuOPCIONES")
-        MainWindow.setMenuBar(self.menuBar)
-        self.actionFechaMovimiento = QtWidgets.QAction(MainWindow)
+        Kenworth_KREI.setMenuBar(self.menuBar)
+        self.actionFechaMovimiento = QtWidgets.QAction(Kenworth_KREI)
         font = QtGui.QFont()
         font.setFamily("Arial")
         self.actionFechaMovimiento.setFont(font)
@@ -372,37 +372,37 @@ class Ui_MainWindow(object):
         self.menuOPCIONES.addAction(self.actionFechaMovimiento)
         self.menuBar.addAction(self.menuOPCIONES.menuAction())
 
-        self.retranslateUi(MainWindow)
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        self.retranslateUi(Kenworth_KREI)
+        QtCore.QMetaObject.connectSlotsByName(Kenworth_KREI)
 
-    def retranslateUi(self, MainWindow):
+    def retranslateUi(self, Kenworth_KREI):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.btnMinimizar.setToolTip(_translate("MainWindow", "Minimizar"))
-        self.btnCerrar.setToolTip(_translate("MainWindow", "Cerrar"))
-        self.lblTextoEnCola.setText(_translate("MainWindow", "Trabajos En Espera"))
-        self.lblTextoProcesado.setText(_translate("MainWindow", "Trabajos Realizados"))
-        self.btnSubir.setToolTip(_translate("MainWindow", "<html><head/><body><p>Selecciona un archivo .xlsx</p></body></html>"))
-        self.btnSubir.setText(_translate("MainWindow", "Subir"))
-        self.btnEliminar.setToolTip(_translate("MainWindow", "<html><head/><body><p>Elimina los archivos procesados</p></body></html>"))
-        self.btnEliminar.setText(_translate("MainWindow", "Eliminar"))
-        self.btnComenzar.setToolTip(_translate("MainWindow", "<html><head/><body><p>Comenzar el proceso</p></body></html>"))
-        self.btnComenzar.setText(_translate("MainWindow", "Comenzar"))
-        self.btn_Procesados.setToolTip(_translate("MainWindow", "<html><head/><body><p>Ruta de archivos procesados</p></body></html>"))
-        self.btn_Procesados.setText(_translate("MainWindow", "Procesados"))
-        self.btn_Originales.setToolTip(_translate("MainWindow", "<html><head/><body><p>Ruta de archivos originales</p></body></html>"))
-        self.btn_Originales.setText(_translate("MainWindow", "Originales"))
-        self.btn_Errores.setToolTip(_translate("MainWindow", "<html><head/><body><p>Ruta de archivos erroneos</p></body></html>"))
-        self.btn_Errores.setText(_translate("MainWindow", "Erroneos"))
-        self.menuOPCIONES.setTitle(_translate("MainWindow", "OPCIONES"))
-        self.actionFechaMovimiento.setText(_translate("MainWindow", "FechaMovimiento"))
+        Kenworth_KREI.setWindowTitle(_translate("Kenworth_KREI", "KENWORTH KREI"))
+        self.btnMinimizar.setToolTip(_translate("Kenworth_KREI", "Minimizar"))
+        self.btnCerrar.setToolTip(_translate("Kenworth_KREI", "Cerrar"))
+        self.lblTextoEnCola.setText(_translate("Kenworth_KREI", "Trabajos En Espera"))
+        self.lblTextoProcesado.setText(_translate("Kenworth_KREI", "Trabajos Realizados"))
+        self.btnSubir.setToolTip(_translate("Kenworth_KREI", "<html><head/><body><p>Selecciona un archivo .xlsx</p></body></html>"))
+        self.btnSubir.setText(_translate("Kenworth_KREI", "Subir"))
+        self.btnEliminar.setToolTip(_translate("Kenworth_KREI", "<html><head/><body><p>Elimina los archivos procesados</p></body></html>"))
+        self.btnEliminar.setText(_translate("Kenworth_KREI", "Eliminar"))
+        self.btnComenzar.setToolTip(_translate("Kenworth_KREI", "<html><head/><body><p>Comenzar el proceso</p></body></html>"))
+        self.btnComenzar.setText(_translate("Kenworth_KREI", "Comenzar"))
+        self.btn_Procesados.setToolTip(_translate("Kenworth_KREI", "<html><head/><body><p>Ruta de archivos procesados</p></body></html>"))
+        self.btn_Procesados.setText(_translate("Kenworth_KREI", "Procesados"))
+        self.btn_Originales.setToolTip(_translate("Kenworth_KREI", "<html><head/><body><p>Ruta de archivos originales</p></body></html>"))
+        self.btn_Originales.setText(_translate("Kenworth_KREI", "Originales"))
+        self.btn_Errores.setToolTip(_translate("Kenworth_KREI", "<html><head/><body><p>Ruta de archivos erroneos</p></body></html>"))
+        self.btn_Errores.setText(_translate("Kenworth_KREI", "Erroneos"))
+        self.menuOPCIONES.setTitle(_translate("Kenworth_KREI", "OPCIONES"))
+        self.actionFechaMovimiento.setText(_translate("Kenworth_KREI", "FechaMovimiento"))
 
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
+    Kenworth_KREI = QtWidgets.QMainWindow()
+    ui = Ui_Kenworth_KREI()
+    ui.setupUi(Kenworth_KREI)
+    Kenworth_KREI.show()
     sys.exit(app.exec_())

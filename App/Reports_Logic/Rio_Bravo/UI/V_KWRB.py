@@ -11,13 +11,13 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_MainWindow(object):
-    def setupUi(self, MainWindow):
-        MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(800, 500)
-        MainWindow.setMinimumSize(QtCore.QSize(800, 500))
-        MainWindow.setMaximumSize(QtCore.QSize(800, 500))
-        MainWindow.setStyleSheet("#WPrincipal{\n"
+class Ui_Kenworth_Rio_Bravo(object):
+    def setupUi(self, Kenworth_Rio_Bravo):
+        Kenworth_Rio_Bravo.setObjectName("Kenworth_Rio_Bravo")
+        Kenworth_Rio_Bravo.resize(800, 500)
+        Kenworth_Rio_Bravo.setMinimumSize(QtCore.QSize(800, 500))
+        Kenworth_Rio_Bravo.setMaximumSize(QtCore.QSize(800, 500))
+        Kenworth_Rio_Bravo.setStyleSheet("#WPrincipal{\n"
 "background-color: rgb(255, 255, 255);\n"
 "}\n"
 "#btnSubir{\n"
@@ -78,7 +78,7 @@ class Ui_MainWindow(object):
 "border-top-left-radius: 10px;\n"
 "border-top-right-radius: 10px;\n"
 "}")
-        self.WPrincipal = QtWidgets.QWidget(MainWindow)
+        self.WPrincipal = QtWidgets.QWidget(Kenworth_Rio_Bravo)
         self.WPrincipal.setMinimumSize(QtCore.QSize(800, 500))
         self.WPrincipal.setMaximumSize(QtCore.QSize(800, 500))
         self.WPrincipal.setStyleSheet("")
@@ -350,8 +350,8 @@ class Ui_MainWindow(object):
         self.verticalLayout_7.addWidget(self.btnAyuda)
         self.horizontalLayout_4.addWidget(self.WBotonAyuda)
         self.verticalLayout.addWidget(self.WPie)
-        MainWindow.setCentralWidget(self.WPrincipal)
-        self.menuBar = QtWidgets.QMenuBar(MainWindow)
+        Kenworth_Rio_Bravo.setCentralWidget(self.WPrincipal)
+        self.menuBar = QtWidgets.QMenuBar(Kenworth_Rio_Bravo)
         self.menuBar.setGeometry(QtCore.QRect(0, 0, 800, 20))
         font = QtGui.QFont()
         font.setFamily("Arial")
@@ -370,17 +370,17 @@ class Ui_MainWindow(object):
         font.setPointSize(8)
         self.menuPagosClientes.setFont(font)
         self.menuPagosClientes.setObjectName("menuPagosClientes")
-        MainWindow.setMenuBar(self.menuBar)
-        self.Pagos_Clientes_Objetivos = QtWidgets.QAction(MainWindow)
+        Kenworth_Rio_Bravo.setMenuBar(self.menuBar)
+        self.Pagos_Clientes_Objetivos = QtWidgets.QAction(Kenworth_Rio_Bravo)
         self.Pagos_Clientes_Objetivos.setObjectName("Pagos_Clientes_Objetivos")
-        self.actionObjetivos_Mensuales = QtWidgets.QAction(MainWindow)
+        self.actionObjetivos_Mensuales = QtWidgets.QAction(Kenworth_Rio_Bravo)
         font = QtGui.QFont()
         font.setFamily("Arial")
         self.actionObjetivos_Mensuales.setFont(font)
         self.actionObjetivos_Mensuales.setObjectName("actionObjetivos_Mensuales")
-        self.actionFechaMovimiento = QtWidgets.QAction(MainWindow)
+        self.actionFechaMovimiento = QtWidgets.QAction(Kenworth_Rio_Bravo)
         self.actionFechaMovimiento.setObjectName("actionFechaMovimiento")
-        self.actionDirecciones_de_envio = QtWidgets.QAction(MainWindow)
+        self.actionDirecciones_de_envio = QtWidgets.QAction(Kenworth_Rio_Bravo)
         self.actionDirecciones_de_envio.setObjectName("actionDirecciones_de_envio")
         self.menuPagosClientes.addAction(self.actionObjetivos_Mensuales)
         self.menuOPCIONES.addAction(self.menuPagosClientes.menuAction())
@@ -388,41 +388,41 @@ class Ui_MainWindow(object):
         self.menuOPCIONES.addAction(self.actionDirecciones_de_envio)
         self.menuBar.addAction(self.menuOPCIONES.menuAction())
 
-        self.retranslateUi(MainWindow)
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        self.retranslateUi(Kenworth_Rio_Bravo)
+        QtCore.QMetaObject.connectSlotsByName(Kenworth_Rio_Bravo)
 
-    def retranslateUi(self, MainWindow):
+    def retranslateUi(self, Kenworth_Rio_Bravo):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.btnMinimizar.setToolTip(_translate("MainWindow", "Minimizar"))
-        self.btnCerrar.setToolTip(_translate("MainWindow", "Cerrar"))
-        self.lblTextoEnCola.setText(_translate("MainWindow", "Trabajos En Espera"))
-        self.lblTextoProcesado.setText(_translate("MainWindow", "Trabajos Realizados"))
-        self.btnSubir.setToolTip(_translate("MainWindow", "<html><head/><body><p>Selecciona un archivo .xlsx</p></body></html>"))
-        self.btnSubir.setText(_translate("MainWindow", "Subir"))
-        self.btnEliminar.setToolTip(_translate("MainWindow", "<html><head/><body><p>Elimina los archivos procesados</p></body></html>"))
-        self.btnEliminar.setText(_translate("MainWindow", "Eliminar"))
-        self.btnComenzar.setToolTip(_translate("MainWindow", "<html><head/><body><p>Comenzar el proceso</p></body></html>"))
-        self.btnComenzar.setText(_translate("MainWindow", "Comenzar"))
-        self.btn_Procesados.setToolTip(_translate("MainWindow", "<html><head/><body><p>Ruta de archivos procesados</p></body></html>"))
-        self.btn_Procesados.setText(_translate("MainWindow", "Procesados"))
-        self.btn_Originales.setToolTip(_translate("MainWindow", "<html><head/><body><p>Ruta de archivos originales</p></body></html>"))
-        self.btn_Originales.setText(_translate("MainWindow", "Originales"))
-        self.btn_Errores.setToolTip(_translate("MainWindow", "<html><head/><body><p>Ruta de archivos erroneos</p></body></html>"))
-        self.btn_Errores.setText(_translate("MainWindow", "Erroneos"))
-        self.menuOPCIONES.setTitle(_translate("MainWindow", "OPCIONES"))
-        self.menuPagosClientes.setTitle(_translate("MainWindow", "PagosClientes"))
-        self.Pagos_Clientes_Objetivos.setText(_translate("MainWindow", "Pagos_Clientes(Objetivos)"))
-        self.actionObjetivos_Mensuales.setText(_translate("MainWindow", "Objetivos Mensuales"))
-        self.actionFechaMovimiento.setText(_translate("MainWindow", "FechaMovimiento"))
-        self.actionDirecciones_de_envio.setText(_translate("MainWindow", "Direcciones de envio"))
+        Kenworth_Rio_Bravo.setWindowTitle(_translate("Kenworth_Rio_Bravo", "KENWORTH RIO BRAVO"))
+        self.btnMinimizar.setToolTip(_translate("Kenworth_Rio_Bravo", "Minimizar"))
+        self.btnCerrar.setToolTip(_translate("Kenworth_Rio_Bravo", "Cerrar"))
+        self.lblTextoEnCola.setText(_translate("Kenworth_Rio_Bravo", "Trabajos En Espera"))
+        self.lblTextoProcesado.setText(_translate("Kenworth_Rio_Bravo", "Trabajos Realizados"))
+        self.btnSubir.setToolTip(_translate("Kenworth_Rio_Bravo", "<html><head/><body><p>Selecciona un archivo .xlsx</p></body></html>"))
+        self.btnSubir.setText(_translate("Kenworth_Rio_Bravo", "Subir"))
+        self.btnEliminar.setToolTip(_translate("Kenworth_Rio_Bravo", "<html><head/><body><p>Elimina los archivos procesados</p></body></html>"))
+        self.btnEliminar.setText(_translate("Kenworth_Rio_Bravo", "Eliminar"))
+        self.btnComenzar.setToolTip(_translate("Kenworth_Rio_Bravo", "<html><head/><body><p>Comenzar el proceso</p></body></html>"))
+        self.btnComenzar.setText(_translate("Kenworth_Rio_Bravo", "Comenzar"))
+        self.btn_Procesados.setToolTip(_translate("Kenworth_Rio_Bravo", "<html><head/><body><p>Ruta de archivos procesados</p></body></html>"))
+        self.btn_Procesados.setText(_translate("Kenworth_Rio_Bravo", "Procesados"))
+        self.btn_Originales.setToolTip(_translate("Kenworth_Rio_Bravo", "<html><head/><body><p>Ruta de archivos originales</p></body></html>"))
+        self.btn_Originales.setText(_translate("Kenworth_Rio_Bravo", "Originales"))
+        self.btn_Errores.setToolTip(_translate("Kenworth_Rio_Bravo", "<html><head/><body><p>Ruta de archivos erroneos</p></body></html>"))
+        self.btn_Errores.setText(_translate("Kenworth_Rio_Bravo", "Erroneos"))
+        self.menuOPCIONES.setTitle(_translate("Kenworth_Rio_Bravo", "OPCIONES"))
+        self.menuPagosClientes.setTitle(_translate("Kenworth_Rio_Bravo", "PagosClientes"))
+        self.Pagos_Clientes_Objetivos.setText(_translate("Kenworth_Rio_Bravo", "Pagos_Clientes(Objetivos)"))
+        self.actionObjetivos_Mensuales.setText(_translate("Kenworth_Rio_Bravo", "Objetivos Mensuales"))
+        self.actionFechaMovimiento.setText(_translate("Kenworth_Rio_Bravo", "FechaMovimiento"))
+        self.actionDirecciones_de_envio.setText(_translate("Kenworth_Rio_Bravo", "Direcciones de envio"))
 
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
+    Kenworth_Rio_Bravo = QtWidgets.QMainWindow()
+    ui = Ui_Kenworth_Rio_Bravo()
+    ui.setupUi(Kenworth_Rio_Bravo)
+    Kenworth_Rio_Bravo.show()
     sys.exit(app.exec_())

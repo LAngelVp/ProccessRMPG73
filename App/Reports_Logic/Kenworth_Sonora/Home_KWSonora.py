@@ -17,7 +17,7 @@ from .Home_rutas import *
 class Home_KenworthSonora(QMainWindow, Variables):
     def __init__(self):
         super(Home_KenworthSonora,self).__init__()
-        self.ui = Ui_W_Sonora()
+        self.ui = Ui_Kenworth_Sonora()
         self.ui.setupUi(self)
         self.setWindowFlags(self.windowFlags() | Qt.FramelessWindowHint) # comment_line quitamos la barra superior
         self.setAttribute(Qt.WA_TranslucentBackground)
