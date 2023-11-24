@@ -25,9 +25,8 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <widget class="QWidget" name="WPrincipal">
-   <property name="styleSheet">
-    <string notr="true">#WPrincipal{
+  <property name="styleSheet">
+   <string notr="true">#WPrincipal{
 background-color: rgb(255, 255, 255);
 }
 #btnSubir{
@@ -81,7 +80,16 @@ background-color: transparent;
 }
 #btnCerrar{
 background-color: transparent;
+}
+#menuBar{
+background-color: rgb(255, 255, 255);
+border-top-left-radius: 10px;
+border-top-right-radius: 10px;
 }</string>
+  </property>
+  <widget class="QWidget" name="WPrincipal">
+   <property name="styleSheet">
+    <string notr="true"/>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <property name="spacing">
@@ -808,6 +816,7 @@ background-color: transparent;
     </widget>
     <addaction name="menuPagosClientes"/>
     <addaction name="actionFechaMovimiento"/>
+    <addaction name="actionDirecciones_de_envio"/>
    </widget>
    <addaction name="menuOpciones"/>
   </widget>
@@ -819,6 +828,11 @@ background-color: transparent;
   <action name="actionFechaMovimiento">
    <property name="text">
     <string>FechaMovimiento</string>
+   </property>
+  </action>
+  <action name="actionDirecciones_de_envio">
+   <property name="text">
+    <string>Direcciones de envio</string>
    </property>
   </action>
  </widget>

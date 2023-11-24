@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
+ <class>W_Sonora</class>
+ <widget class="QMainWindow" name="W_Sonora">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -26,8 +26,8 @@
    <string>MainWindow</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">#WPrincipal{
-background-color: rgb(255, 255, 255);
+   <string notr="true">[objectName^=&quot;W_&quot;]{
+	background-color: rgb(255, 255, 255);
 }
 #btnSubir{
 background-color: rgb(232, 232, 232);
@@ -80,9 +80,16 @@ background-color: transparent;
 }
 #btnCerrar{
 background-color: transparent;
-}</string>
+}
+#menuBar{
+background-color: rgb(255, 255, 255);
+border-top-left-radius: 10px;
+border-top-right-radius: 10px;
+}
+
+</string>
   </property>
-  <widget class="QWidget" name="WPrincipal">
+  <widget class="QWidget" name="W_Principal">
    <property name="minimumSize">
     <size>
      <width>800</width>
@@ -95,7 +102,7 @@ background-color: transparent;
      <height>500</height>
     </size>
    </property>
-   <widget class="QWidget" name="WCuerpo" native="true">
+   <widget class="QWidget" name="W_Cuerpo" native="true">
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -134,7 +141,7 @@ background-color: transparent;
      </property>
     </layout>
    </widget>
-   <widget class="QWidget" name="WPie" native="true">
+   <widget class="QWidget" name="W_Pie" native="true">
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -172,7 +179,7 @@ background-color: transparent;
       <number>0</number>
      </property>
      <item>
-      <widget class="QWidget" name="WBotones" native="true">
+      <widget class="QWidget" name="W_Botones" native="true">
        <property name="minimumSize">
         <size>
          <width>450</width>
@@ -196,7 +203,7 @@ background-color: transparent;
          <number>0</number>
         </property>
         <item>
-         <widget class="QWidget" name="WBotonesTrabajo" native="true">
+         <widget class="QWidget" name="W_BotonesTrabajo" native="true">
           <property name="minimumSize">
            <size>
             <width>0</width>
@@ -301,7 +308,7 @@ background-color: transparent;
          </widget>
         </item>
         <item>
-         <widget class="QWidget" name="WBotonesRutas" native="true">
+         <widget class="QWidget" name="W_BotonesRutas" native="true">
           <layout class="QHBoxLayout" name="horizontalLayout_6">
            <property name="spacing">
             <number>5</number>
@@ -390,7 +397,7 @@ background-color: transparent;
       </widget>
      </item>
      <item>
-      <widget class="QWidget" name="WTextoProceso" native="true">
+      <widget class="QWidget" name="W_TextoProceso" native="true">
        <layout class="QVBoxLayout" name="verticalLayout_5">
         <property name="spacing">
          <number>5</number>
@@ -447,7 +454,7 @@ background-color: transparent;
       </widget>
      </item>
      <item>
-      <widget class="QWidget" name="WBotonAyuda" native="true">
+      <widget class="QWidget" name="W_BotonAyuda" native="true">
        <property name="minimumSize">
         <size>
          <width>60</width>
@@ -533,7 +540,7 @@ background-color: transparent;
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="WCabecera" native="true">
+   <widget class="QWidget" name="W_Cabecera" native="true">
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -571,7 +578,7 @@ background-color: transparent;
       <number>0</number>
      </property>
      <item>
-      <widget class="QWidget" name="WLogo" native="true">
+      <widget class="QWidget" name="W_Logo" native="true">
        <property name="minimumSize">
         <size>
          <width>200</width>
@@ -624,7 +631,7 @@ background-color: transparent;
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QWidget" name="WBotonesSalida" native="true">
+   <widget class="QWidget" name="W_BotonesSalida" native="true">
     <property name="geometry">
      <rect>
       <x>725</x>
@@ -700,7 +707,7 @@ background-color: transparent;
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="WTablaIzquierda" native="true">
+   <widget class="QWidget" name="W_TablaIzquierda" native="true">
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -745,7 +752,7 @@ background-color: transparent;
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="WTablaDerecha" native="true">
+   <widget class="QWidget" name="W_TablaDerecha" native="true">
     <property name="geometry">
      <rect>
       <x>400</x>
@@ -830,6 +837,7 @@ background-color: transparent;
     </widget>
     <addaction name="menuPagoClientes"/>
     <addaction name="actionFechaMovimiento"/>
+    <addaction name="actionDirecciones_de_envio"/>
    </widget>
    <addaction name="menuOPCIONES"/>
   </widget>
@@ -851,6 +859,11 @@ background-color: transparent;
     <font>
      <family>Arial</family>
     </font>
+   </property>
+  </action>
+  <action name="actionDirecciones_de_envio">
+   <property name="text">
+    <string>Direcciones de envio</string>
    </property>
   </action>
  </widget>

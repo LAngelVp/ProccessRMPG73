@@ -45,54 +45,54 @@
    <bool>false</bool>
   </property>
   <property name="styleSheet">
-   <string notr="true">#VPrincipal{
+   <string notr="true">#panel_principal{
+background-color: rgb(255, 255, 255);
+border-radius:8px;
+}
+[objectName^=&quot;btc_btc&quot;]{
+background-color: transparent;
+}
+[objectName^=&quot;btc_btc&quot;]:hover{
+	background-color: rgb(209, 209, 209);
+	color: rgb(0, 0, 0);
+	border-radius:4px;
+}
+[objectName^=&quot;btn_btn&quot;]{
+background-color: rgb(232, 232, 232);
+	color: rgb(0, 0, 0);
+	color: rgb(0, 0, 0);
+	border-radius:8px;
+	font-size: 15px;
+	font-weight: bold;
+max-height: 35px;
+max-width: 280px;
+}
+[objectName^=&quot;btn_btn&quot;]:hover{
+	background-color: rgb(209, 209, 209);
+	color: rgb(0, 0, 0);
+}
+#panel_encabezado{
+min-height: 35px;	
+max-height: 35px;
+}
+#panel_img_logo{
+min-height: 120px;
+	max-height: 120px;
+}
+#panel_btn_sucursales{
+margin-top:10px;
+min-height: 200px;
+	max-height: 300px;
+}
+#imgPrincipalMenu{
+    margin-left: 25px;
+    margin-right: 25px;
+}
+#VPrincipal{
 background-color: rgb(255, 255, 255);
 }
 #imgPrincipalMenu{
 border-radius:8px;
-}
-#btnKWRB{
-background-color: rgb(232, 232, 232);
-	color: rgb(0, 0, 0);
-	border-radius:8px;
-	font-size: 15px;
-	font-weight: bold;
-}
-#btnKWRB::Hover{
-background-color: rgb(209, 209, 209);
-	color: rgb(0, 0, 0);
-}
-#btnKWESTE{
-background-color: rgb(232, 232, 232);
-	color: rgb(0, 0, 0);
-	color: rgb(0, 0, 0);
-	border-radius:8px;
-	font-size: 15px;
-	font-weight: bold;
-}
-#btnKWESTE::Hover{
-background-color: rgb(209, 209, 209);
-	color: rgb(0, 0, 0);
-}
-#btnKWKREI{
-background-color: rgb(232, 232, 232);
-	border-radius:8px;
-	font-size: 15px;
-	font-weight: bold;
-}
-#btnKWKREI::Hover{
-background-color: rgb(209, 209, 209);
-	color: rgb(0, 0, 0);
-}
-#btnKWS{
-background-color: rgb(232, 232, 232);
-	border-radius:8px;
-	font-size: 15px;
-	font-weight: bold;
-}
-#btnKWS::Hover{
-background-color: rgb(209, 209, 209);
-	color: rgb(0, 0, 0);
 }</string>
   </property>
   <property name="iconSize">
@@ -104,136 +104,257 @@ background-color: rgb(209, 209, 209);
   <property name="dockNestingEnabled">
    <bool>true</bool>
   </property>
-  <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="btnKWRB">
-    <property name="geometry">
-     <rect>
-      <x>40</x>
-      <y>200</y>
-      <width>271</width>
-      <height>41</height>
-     </rect>
+  <widget class="QWidget" name="panel_principal">
+   <layout class="QGridLayout" name="gridLayout_2">
+    <property name="leftMargin">
+     <number>0</number>
     </property>
-    <property name="font">
-     <font>
-      <pointsize>-1</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
+    <property name="topMargin">
+     <number>0</number>
     </property>
-    <property name="cursor">
-     <cursorShape>PointingHandCursor</cursorShape>
+    <property name="rightMargin">
+     <number>0</number>
     </property>
-    <property name="styleSheet">
-     <string notr="true"/>
+    <property name="bottomMargin">
+     <number>0</number>
     </property>
-    <property name="text">
-     <string>KENWORTH RIO BRAVO</string>
+    <property name="horizontalSpacing">
+     <number>0</number>
     </property>
-   </widget>
-   <widget class="QPushButton" name="btnKWESTE">
-    <property name="geometry">
-     <rect>
-      <x>40</x>
-      <y>260</y>
-      <width>271</width>
-      <height>41</height>
-     </rect>
+    <property name="verticalSpacing">
+     <number>15</number>
     </property>
-    <property name="font">
-     <font>
-      <pointsize>-1</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="cursor">
-     <cursorShape>PointingHandCursor</cursorShape>
-    </property>
-    <property name="styleSheet">
-     <string notr="true"/>
-    </property>
-    <property name="text">
-     <string>KENWORTH DEL ESTE</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="btnKWKREI">
-    <property name="geometry">
-     <rect>
-      <x>40</x>
-      <y>320</y>
-      <width>271</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>-1</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="cursor">
-     <cursorShape>PointingHandCursor</cursorShape>
-    </property>
-    <property name="styleSheet">
-     <string notr="true"/>
-    </property>
-    <property name="text">
-     <string>KENWORTH KREI</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="imgPrincipalMenu">
-    <property name="geometry">
-     <rect>
-      <x>60</x>
-      <y>30</y>
-      <width>231</width>
-      <height>111</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="scaledContents">
-     <bool>true</bool>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="btnKWS">
-    <property name="geometry">
-     <rect>
-      <x>40</x>
-      <y>380</y>
-      <width>271</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>-1</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="cursor">
-     <cursorShape>PointingHandCursor</cursorShape>
-    </property>
-    <property name="styleSheet">
-     <string notr="true"/>
-    </property>
-    <property name="text">
-     <string>KENWORTH SONORA</string>
-    </property>
-   </widget>
+    <item row="1" column="0">
+     <widget class="QWidget" name="panel_img_logo" native="true">
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QLabel" name="imgPrincipalMenu">
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="scaledContents">
+          <bool>true</bool>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QWidget" name="panel_btn_sucursales" native="true">
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_3">
+       <property name="sizeConstraint">
+        <enum>QLayout::SetDefaultConstraint</enum>
+       </property>
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <item row="1" column="0">
+        <widget class="QPushButton" name="btn_btn_kweste">
+         <property name="font">
+          <font>
+           <pointsize>-1</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <property name="text">
+          <string>KENWORTH DEL ESTE</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QPushButton" name="btn_btn_kwsonora">
+         <property name="font">
+          <font>
+           <pointsize>-1</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <property name="text">
+          <string>KENWORTH SONORA</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QPushButton" name="btn_btn_kwkrei">
+         <property name="font">
+          <font>
+           <pointsize>-1</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <property name="text">
+          <string>KENWORTH KREI</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QPushButton" name="btn_btn_kwrb">
+         <property name="font">
+          <font>
+           <pointsize>-1</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <property name="text">
+          <string>KENWORTH RIO BRAVO</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QWidget" name="panel_encabezado" native="true">
+      <layout class="QGridLayout" name="gridLayout">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>5</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <item row="0" column="0">
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>310</width>
+           <height>14</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="0" column="2">
+        <widget class="QPushButton" name="btc_btc_cerrar">
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>../../../../../Downloads/rutas.svg</normaloff>../../../../../Downloads/rutas.svg</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>28</width>
+           <height>28</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QPushButton" name="btc_btc_minimizar">
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>28</width>
+           <height>28</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <spacer name="verticalSpacer">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+   </layout>
   </widget>
  </widget>
  <resources/>
  <connections>
   <connection>
-   <sender>btnKWRB</sender>
+   <sender>btn_btn_kwrb</sender>
    <signal>clicked()</signal>
    <receiver>VPrincipal</receiver>
    <slot>show()</slot>

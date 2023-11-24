@@ -12,13 +12,15 @@ from webbrowser import *
 import subprocess
 from .Logica_Reportes.Variables.ContenedorVariables import Variables
 from .Kenworth_Connect import *
+from .Home_rutas import *
 
 class Home_KenworthSonora(QMainWindow, Variables):
     def __init__(self):
         super(Home_KenworthSonora,self).__init__()
-        self.ui = Ui_MainWindowKenworthSonora()
+        self.ui = Ui_W_Sonora()
         self.ui.setupUi(self)
         self.setWindowFlags(self.windowFlags() | Qt.FramelessWindowHint) # comment_line quitamos la barra superior
+        self.setAttribute(Qt.WA_TranslucentBackground)
         # comment llamamos el metodo de creacion de carpetas
         self.Creacion_Carpetas()
         # comment variables a las rutas de los iconos e imagenes
@@ -55,6 +57,8 @@ class Home_KenworthSonora(QMainWindow, Variables):
         # MENU DE OPCIONES
         self.ui.actionObjetivos_Mensuales.triggered.connect(self.ObjetivosPagoClientes)
         self.ui.actionFechaMovimiento.triggered.connect(self.FechaMovimiento)
+        self.ui.actionDirecciones_de_envio.triggered.connect(self.direcciones_envio)
+
 
         # señales del hilo
         self.Hilo.signal.connect(self.mensajeTrabajoTerminado)
@@ -66,6 +70,10 @@ class Home_KenworthSonora(QMainWindow, Variables):
         Home_DateMovement()
         self.Show_Data_Trabajos()
         self.Show_Data_Procesado()
+
+    def direcciones_envio(self):
+        self.ventana_rutas = rutas()
+        self.ventana_rutas.show()
 
     def ObjetivosPagoClientes(self):
         self.ventana_obj = ClassPrincipalObjPagos()

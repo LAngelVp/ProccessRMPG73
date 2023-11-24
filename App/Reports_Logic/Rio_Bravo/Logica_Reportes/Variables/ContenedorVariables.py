@@ -2,6 +2,7 @@
 # DESARROLLADOR
 # RMPG - LUIS ANGEL VALLEJO PEREZ
 #########################
+import json
 import os
 from datetime import *
 from webbrowser import *
@@ -26,6 +27,7 @@ class Variables():
         self.ruta_exitosos = os.path.join(self.ruta_Kenworth, self.documentos_Procesados)
         self.ruta_documentos = os.path.join(self.ruta_Kenworth, "Documentos")
         self.route_file_date = os.path.join(self.ruta_documentos, "Config_Document.json")
+        self.ruta_documentos_rutas = os.path.join(self.ruta_documentos, "Rutas_Envio.json")
 
         #--------------------------------
         #NOTE Reemplazamos las diagonales de las rutas, con la finalidad que cualquier sistema operativo pueda ejecutar el software.
@@ -36,6 +38,7 @@ class Variables():
         self.ruta_procesados = self.ruta_exitosos.replace('\\','/')
         self.ruta_deapoyo = self.ruta_documentos.replace('\\','/')
         self.route_file_date_movement  = self.route_file_date.replace('\\','/')
+        self.ruta_envio_documentos  = self.ruta_documentos_rutas.replace('\\','/')
         #________________________________________________
 
         self.pdf = 'https://onedrive.live.com/?cid=C903C3E707BD874A&id=C903C3E707BD874A%21220&parId=root&o=OneUp' #NOTE Direccion en donde se encuentra el archivo de apoyo
@@ -74,5 +77,18 @@ class Variables():
         document = pd.read_json(self.route_file_date)
         date_movement = pd.to_datetime(document.loc[0,"Date_Movement"], format="%d/%m/%Y") 
         return date_movement
-    def inetento_de_lectura(self, mensaje):
-        print (mensaje)
+    
+    def comprobar_reporte_documento_rutas(self, nombre=None):
+        archivo = pd.read_json(self.ruta_envio_documentos)
+        nombre_arreglado = f'KWRB_{nombre.split(".")[0]}_RMPG_{self.FechaExternsionGuardar()}.csv'
+        self.docu =None
+        self.docu_nombre = None
+        for index, fila in archivo.iterrows():
+            if (fila["Nombre_documento"] == nombre):
+                self.docu_nombre = fila["Nombre_documento"]
+                self.docu = fila["Ruta_destino_documento"]
+                break
+        if (self.docu is not None) | (self.docu_nombre == nombre):
+            print (os.path.join(self.docu,nombre_arreglado))
+        else:
+            print (os.path.join(self.ruta_procesados,nombre_arreglado))

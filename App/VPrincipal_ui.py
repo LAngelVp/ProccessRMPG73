@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'VPrincipal.ui'
+# Form implementation generated from reading ui file 'c:\Users\Angel Rodriguez\OneDrive - Kenworth Del este\Escritorio\BusinessIntelligence\App\Front\VPrincipal.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.9
 #
@@ -24,7 +24,7 @@ class Ui_VPrincipal(object):
         VPrincipal.setMinimumSize(QtCore.QSize(350, 450))
         VPrincipal.setMaximumSize(QtCore.QSize(350, 450))
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("Source/KWE.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Angel Rodriguez\\OneDrive - Kenworth Del este\\Escritorio\\BusinessIntelligence\\App\\Front\\Source/KWE.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         VPrincipal.setWindowIcon(icon)
         VPrincipal.setLayoutDirection(QtCore.Qt.LeftToRight)
         VPrincipal.setAutoFillBackground(False)
@@ -160,13 +160,12 @@ class Ui_VPrincipal(object):
         self.btc_btc_cerrar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btc_btc_cerrar.setText("")
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("../../../../../Downloads/rutas.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon1.addPixmap(QtGui.QPixmap("c:\\Users\\Angel Rodriguez\\OneDrive - Kenworth Del este\\Escritorio\\BusinessIntelligence\\App\\Front\\../../../../../Downloads/rutas.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.btc_btc_cerrar.setIcon(icon1)
         self.btc_btc_cerrar.setIconSize(QtCore.QSize(28, 28))
         self.btc_btc_cerrar.setObjectName("btc_btc_cerrar")
         self.gridLayout.addWidget(self.btc_btc_cerrar, 0, 2, 1, 1)
         self.btc_btc_minimizar = QtWidgets.QPushButton(self.panel_encabezado)
-        self.btc_btc_minimizar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btc_btc_minimizar.setText("")
         self.btc_btc_minimizar.setIconSize(QtCore.QSize(28, 28))
         self.btc_btc_minimizar.setObjectName("btc_btc_minimizar")
@@ -187,13 +186,3 @@ class Ui_VPrincipal(object):
         self.btn_btn_kwsonora.setText(_translate("VPrincipal", "KENWORTH SONORA"))
         self.btn_btn_kwkrei.setText(_translate("VPrincipal", "KENWORTH KREI"))
         self.btn_btn_kwrb.setText(_translate("VPrincipal", "KENWORTH RIO BRAVO"))
-
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    VPrincipal = QtWidgets.QMainWindow()
-    ui = Ui_VPrincipal()
-    ui.setupUi(VPrincipal)
-    VPrincipal.show()
-    sys.exit(app.exec_())

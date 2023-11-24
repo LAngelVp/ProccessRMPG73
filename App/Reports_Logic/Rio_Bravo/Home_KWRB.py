@@ -18,6 +18,7 @@ from .Inicio_FechaMovimiento import *
 from .KenworthConnect import *
 from .InicialClassObjetivos import *
 from .UI.V_KWRB import *
+from .Home_rutas import *
 import subprocess
 class Home_KWRB(QMainWindow, Variables, ):
     def __init__(self):
@@ -26,11 +27,14 @@ class Home_KWRB(QMainWindow, Variables, ):
         self.ventanaRioBravo = Ui_MainWindow()
         self.ventanaRioBravo.setupUi(self)
         self.setWindowFlags(self.windowFlags() | Qt.FramelessWindowHint)
+        self.setAttribute(Qt.WA_TranslucentBackground)
         self.ventanaRioBravo.btnAyuda.setIcon(QIcon(":/Source/Icon_Help.png"))
         self.ventanaRioBravo.btnMinimizar.setIcon(QIcon(":/Source/Icon_Minimize.png"))
         self.ventanaRioBravo.btnCerrar.setIcon(QIcon(":/Source/Icon_Close.png"))
         self.ventanaRioBravo.lblLogoKWRB.setPixmap(QPixmap(":/Source/LOGO_KWRB.png"))
         self.setWindowIcon(QIcon(":/Source/LOGO_KREI_3.ico"))
+        
+        
         
         # Creamos el hilo
         self.Hilo = trabajohilo()
@@ -47,6 +51,7 @@ class Home_KWRB(QMainWindow, Variables, ):
         # MENU DE OPCIONES
         self.ventanaRioBravo.actionObjetivos_Mensuales.triggered.connect(self.ObjetivosPagoClientes)
         self.ventanaRioBravo.actionFechaMovimiento.triggered.connect(self.FechaMovimiento)
+        self.ventanaRioBravo.actionDirecciones_de_envio.triggered.connect(self.direcciones_envio)
         #--------------------
         # Señales del hilo
         self.Hilo.signal.connect(self.mensajeTrabajoTerminado)
@@ -67,6 +72,9 @@ class Home_KWRB(QMainWindow, Variables, ):
         self.ventana_obj = Home_DateMovement()
         self.ventana_obj.show()
 
+    def direcciones_envio(self):
+        self.ventana_rutas = rutas()
+        self.ventana_rutas.show()
 #-------------------------------------------------------
     def inicialHilo(self):
         if self.Hilo.isRunning():
@@ -180,7 +188,6 @@ class Home_KWRB(QMainWindow, Variables, ):
             else:
                 pass
 #-------------------------------------------------
-
 
 # MINIMIZAR LA PANTALLA
     def minimizar(self):
