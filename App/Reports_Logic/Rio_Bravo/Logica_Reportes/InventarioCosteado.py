@@ -110,7 +110,6 @@ class InventarioCosteado(Variables):
         columnas_bol=df_inventarioCosteadoxDia.select_dtypes(include=bool).columns.tolist()
         df_inventarioCosteadoxDia[columnas_bol] = df_inventarioCosteadoxDia[columnas_bol].astype(str)
 
-        df_inventarioCosteadoxDia.to_excel(os.path.join(Variables().ruta_procesados,f'KWRB_InventarioCosteadoPorDia_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
         # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
         if (os.path.basename(Variables().comprobar_reporte_documento_rutas(self.nombre_doc2)).split(".")[1] == self.nombre_doc2.split(".")[1]):
             df_inventarioCosteadoxDia.to_excel(Variables().comprobar_reporte_documento_rutas(self.nombre_doc2), index=False )
