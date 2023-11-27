@@ -288,8 +288,10 @@ class PagosClientes(Variables):
         # damos formato a todas las cabeceras de las columnas.
         # recordar volver a la normalidad.
         DataFrameConObjetivo.columns = DataFrameConObjetivo.columns.str.replace('_', ' ')
+
+
         
         if (os.path.basename(Variables().comprobar_reporte_documento_rutas(self.nombre_doc)).split(".")[1] == self.nombre_doc.split(".")[1]):
-            df1.to_excel(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), index=False )
+            DataFrameConObjetivo.to_excel(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), index=False )
         else:
-            df1.to_csv(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), encoding="utf-8", index=False )
+            DataFrameConObjetivo.to_csv(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), encoding="utf-8", index=False )

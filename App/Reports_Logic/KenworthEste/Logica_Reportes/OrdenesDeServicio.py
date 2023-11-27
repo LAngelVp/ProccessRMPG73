@@ -116,6 +116,9 @@ class OrdenesDeServicio(Variables):
 
         Completo.insert(loc=25, column = 'Total OS Pde Fact', value = Completo[['MO', 'CM', 'TOT', 'Subtotal_Ref_Sin_Facturar']].fillna(0).sum(axis=1), allow_duplicates = False)
 
+        Completo['Total OS Pde Fact'] = Completo['Total OS Pde Fact'].apply(lambda x: '{:.2f}'.format(x))
+        Completo['Total OS Pde Fact'] = Completo['Total OS Pde Fact'].astype(float).fillna(0)
+
         Completo.columns = Completo.columns.str.replace('_', ' ')
 
         for col_fecha in Completo:

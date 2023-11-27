@@ -9,7 +9,7 @@ import os
 import pandas as pd
 from datetime import *
 import numpy as np
-from .Variables.ContenedorVariables import Variables
+from Variables.ContenedorVariables import Variables
 class OrdenesServicio(Variables):
     def __init__(self):
         exceptoKenworth=["KENWORTH MEXICANA", "KENWORTH DEL ESTE"]
@@ -17,6 +17,7 @@ class OrdenesServicio(Variables):
         registroos_exceptoTipoServicio = ['Rescate Avalado','Rescate Carretero','TM', 'Taller Movil']
         registros_excluir = ['KENWORTH', 'PACCAR PARTS MEXICO','ALESSO','PACCAR FINANCIAL MEXICO','PACLEASE MEXICANA']
         self.nombre_doc = 'OSR.xlsx'
+        self.nombre_doc1 = 'OSR1.xlsx'
         path = os.path.join(Variables().ruta_Trabajo,self.nombre_doc)
 
         # FIXME OBTENEMOS EL DOCUMENTO
@@ -24,7 +25,7 @@ class OrdenesServicio(Variables):
         df = df.replace(to_replace=';', value='-', regex=True)
         ## NOTE Copia
         df1 = df.copy()
-        df1 = df1.rename(columns={ 'Número Orden': 'num', 'Unidad':'UNI', 'Subtotal Ref Sin Facturar':'sub' })
+        df1 = df1.rename(columns={ 'Número Orden': 'num', 'Unidad':'UNI'})
         df1.insert(loc = 0,column = 'OS',value = 'OS',allow_duplicates = False)
         df1.insert(loc = 2, column = 'Num Orden', value = df1["OS"].map(str) + "" + df1["num"].map(str), allow_duplicates = False)
         df1.insert(loc = 3,column = 'UN',value = 'UN-',allow_duplicates = False)
@@ -77,12 +78,22 @@ class OrdenesServicio(Variables):
 
         df_clasificadoPorTiposervicio.insert(6, "Clasificacion Venta", df_clasificadoPorTiposervicio['CL'], allow_duplicates = False)
 
-        columna = df_clasificadoPorTiposervicio.pop("sub")
-        df_clasificadoPorTiposervicio.insert(21, "sub", columna)
-
-        df_clasificadoPorTiposervicio.insert(loc=25, column = 'Total OS Pde Fact', value = df_clasificadoPorTiposervicio[['MO', 'CM', 'TOT', 'sub']].fillna(0).sum(axis=1), allow_duplicates = False)
-        df_clasificadoPorTiposervicio['Total OS Pde Fact'] = pd.to_numeric(df_clasificadoPorTiposervicio['Total OS Pde Fact'], errors='coerce').fillna(0)
-        df_clasificadoPorTiposervicio = df_clasificadoPorTiposervicio.rename(columns={'CL':'Clasificacion Cliente','Tipop':'Tipo Servicio','sub':'Subtotal Ref Sin Facturar'})
+        columna = df_clasificadoPorTiposervicio.pop("Subtotal Ref Sin Facturar")
+        df_clasificadoPorTiposervicio.insert(21, "Subtotal Ref Sin Facturar", columna)
+        
+        total_os_pde_fact = df[["MO", "CM", "TOT", "Subtotal Ref Sin Facturar"]].sum(axis=1)
+        print (total_os_pde_fact.sum())
+        df_clasificadoPorTiposervicio.insert(
+            loc=25,
+            column = 'Total OS Pde Fact',
+            value = total_os_pde_fact,
+            allow_duplicates = False
+            )
+        
+        
+        df_clasificadoPorTiposervicio['Total OS Pde Fact'] = df_clasificadoPorTiposervicio['Total OS Pde Fact'].apply(lambda x: '{:.2f}'.format(x))
+        df_clasificadoPorTiposervicio['Total OS Pde Fact'] = df_clasificadoPorTiposervicio['Total OS Pde Fact'].astype(float).fillna(0)
+        df_clasificadoPorTiposervicio = df_clasificadoPorTiposervicio.rename(columns={'CL':'Clasificacion Cliente','Tipop':'Tipo Servicio'})
         
 
         for column_title in df_clasificadoPorTiposervicio:
@@ -102,8 +113,7 @@ class OrdenesServicio(Variables):
         
         df_clasificadoPorTiposervicio = df_clasificadoPorTiposervicio.iloc[:,:ultima_columna + 1]
 
-
-        # # Guardar el libro de Excel
+        # Guardar el libro de Excel
         if (os.path.basename(Variables().comprobar_reporte_documento_rutas(self.nombre_doc)).split(".")[1] == self.nombre_doc.split(".")[1]):
             df_clasificadoPorTiposervicio.to_excel(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), index=False )
         else:

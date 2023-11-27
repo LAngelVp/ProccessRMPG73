@@ -9,7 +9,7 @@ from .Variables.ContenedorVariables import Variables
 class InventarioUnidades(Variables):
     def __init__(self):
         super().__init__()
-        self.nombre_doc = 'IUR.xlsx'
+        self.nombre_doc = 'IUE.xlsx'
         path = os.path.join(Variables().ruta_Trabajo,self.nombre_doc)
         df = pd.read_excel(path, sheet_name="Hoja2")
         df1 = df.copy()

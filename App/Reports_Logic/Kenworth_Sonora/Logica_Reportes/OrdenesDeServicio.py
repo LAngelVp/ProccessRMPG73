@@ -72,6 +72,9 @@ class OrdenesDeServicio(Variables):
         claficicacion_tipo_servicio.insert(21, "Subtotal_Ref_Sin_Facturar", columna)
         claficicacion_tipo_servicio.insert(loc=25, column = 'Total OS Pde Fact', value = claficicacion_tipo_servicio[['MO', 'CM', 'TOT', 'Subtotal_Ref_Sin_Facturar']].fillna(0).sum(axis=1), allow_duplicates = False)
 
+        claficicacion_tipo_servicio['Total OS Pde Fact'] = claficicacion_tipo_servicio['Total OS Pde Fact'].apply(lambda x: '{:.2f}'.format(x))
+        claficicacion_tipo_servicio['Total OS Pde Fact'] = claficicacion_tipo_servicio['Total OS Pde Fact'].astype(float).fillna(0)
+
         claficicacion_tipo_servicio.columns = claficicacion_tipo_servicio.columns.str.replace('_', ' ')
 
         for col_fecha in claficicacion_tipo_servicio:

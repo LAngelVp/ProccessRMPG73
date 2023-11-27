@@ -53,6 +53,10 @@ class  OrdenesServicioKWESTEKREI(Variables):
         columna = dfKWESTE.pop("sub")
         dfKWESTE.insert(20, "sub", columna)
         dfKWESTE.insert(loc=24, column = 'Total OS Pde Fact', value = dfKWESTE[['MO', 'CM', 'TOT', 'sub']].fillna(0).sum(axis=1), allow_duplicates = False)
+
+        dfKWESTE['Total OS Pde Fact'] = dfKWESTE['Total OS Pde Fact'].apply(lambda x: '{:.2f}'.format(x))
+        dfKWESTE['Total OS Pde Fact'] = dfKWESTE['Total OS Pde Fact'].astype(float).fillna(0)
+
         dfKWESTE['Total OS Pde Fact'] = pd.to_numeric(dfKWESTE['Total OS Pde Fact'], errors='coerce').fillna(0)
         dfKWESTE = dfKWESTE.rename(columns={'sub' : 'Subtotal_Ref_Sin_Facturar'})
 
@@ -114,6 +118,10 @@ class  OrdenesServicioKWESTEKREI(Variables):
         columna = dfKWSUR.pop("sub")
         dfKWSUR.insert(20, "sub", columna)
         dfKWSUR.insert(loc=24, column = 'Total OS Pde Fact', value = dfKWSUR[['MO', 'CM', 'TOT', 'sub']].fillna(0).sum(axis=1), allow_duplicates = False)
+
+        dfKWSUR['Total OS Pde Fact'] = dfKWSUR['Total OS Pde Fact'].apply(lambda x: '{:.2f}'.format(x))
+        dfKWSUR['Total OS Pde Fact'] = dfKWSUR['Total OS Pde Fact'].astype(float).fillna(0)
+
         dfKWSUR['Total OS Pde Fact'] = pd.to_numeric(dfKWSUR['Total OS Pde Fact'], errors='coerce').fillna(0)
         dfKWSUR = dfKWSUR.rename(columns={'sub' : 'Subtotal_Ref_Sin_Facturar'})
 
