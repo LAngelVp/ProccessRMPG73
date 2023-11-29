@@ -28,7 +28,7 @@ class my_app(QMainWindow, Variables):
         self.setWindowFlags(self.windowFlags() | Qt.FramelessWindowHint)
         self.setAttribute(Qt.WA_TranslucentBackground)
         self.setWindowTitle("Menu de Sucursales")
-        # self.ui.centralwidget.setStyleSheet("background-color:rgb(255, 255, 255);") 
+        # self.ui.centralwidget.setStyleSheet("background-color:rgb(255, 255, 255);")
         self.ui.imgPrincipalMenu.setPixmap(QPixmap(":/Source/LOGO_KREI.png"))
         self.setWindowIcon(QIcon(":/Source/LOGO_KREI_3.ico"))
         self.ui.btc_btc_cerrar.setIcon(QIcon(":Source/Icon_Close.png"))
