@@ -65,7 +65,7 @@ class Variables():
         return mes_actual_nombre
     
     def nombre_mes_actual_abreviado(self):
-        mes_actual = datetime.now()
+        mes_actual = self.date_movement_config_document()
         mes_abreviado = mes_actual.strftime(f'%b-%y').replace(".","")
         return mes_abreviado
     

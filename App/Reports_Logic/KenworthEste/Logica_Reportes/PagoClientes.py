@@ -16,8 +16,6 @@ class PagoClientes(Variables):
 
         self.columnas_objetivo = []
         self.objetivos = pd.DataFrame()
-        fecha = Variables().fechaHoy()
-        fechainsertar = str(fecha)
         self.nombre_doc = 'PCE.xlsx'
         path = os.path.join(Variables().ruta_Trabajo,self.nombre_doc)
         df = pd.read_excel(path, sheet_name='Hoja2')
@@ -60,7 +58,7 @@ class PagoClientes(Variables):
             elif (nombre_columna == "Mes"):
                 self.objetivos[nombre_columna] = Variables().nombre_mes()
             elif (df[nombre_columna].dtypes == "datetime64[ns]") and (nombre_columna == "Fecha_Pago") or (nombre_columna == "Fecha_Movimiento"):
-                self.objetivos[nombre_columna] = [fechainsertar]
+                self.objetivos[nombre_columna] = [Variables().date_movement_config_document()]
             else:
                 self.objetivos[nombre_columna] = ['']
                 

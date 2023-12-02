@@ -15,8 +15,6 @@ class PagosClientes(Variables):
 
         self.columnas_objetivo = []
         self.objetivos = pd.DataFrame()
-        fecha = Variables().fechaHoy()
-        fechainsertar = str(fecha)
         #obtenemos el parth.
         #leemos el documento.
         self.nombre_doc = 'PCR.xlsx'
@@ -246,7 +244,7 @@ class PagosClientes(Variables):
             elif (nombre_columna == "Mes"):
                 self.objetivos[nombre_columna] = Variables().nombre_mes()
             elif (nombre_columna == "Fecha_Pago") or (nombre_columna == "Fecha_Movimiento"):
-                self.objetivos[nombre_columna] = [fechainsertar]
+                self.objetivos[nombre_columna] = [Variables().date_movement_config_document]
             else:
                 self.objetivos[nombre_columna] = ['']
 

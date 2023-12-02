@@ -96,7 +96,7 @@ class ResultadosFinancierosKREI(Variables):
             allow_duplicates = True
         )
 
-        Fecha = Variables().fecha_hoy
+        Fecha = Variables().date_movement_config_document()
 
         df_unidades_facturadas_ordenado.insert(
             loc = 26,
