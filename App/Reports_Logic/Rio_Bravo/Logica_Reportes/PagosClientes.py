@@ -244,7 +244,7 @@ class PagosClientes(Variables):
             elif (nombre_columna == "Mes"):
                 self.objetivos[nombre_columna] = Variables().nombre_mes()
             elif (nombre_columna == "Fecha_Pago") or (nombre_columna == "Fecha_Movimiento"):
-                self.objetivos[nombre_columna] = [Variables().date_movement_config_document]
+                self.objetivos[nombre_columna] = [Variables().date_movement_config_document()]
             else:
                 self.objetivos[nombre_columna] = ['']
 

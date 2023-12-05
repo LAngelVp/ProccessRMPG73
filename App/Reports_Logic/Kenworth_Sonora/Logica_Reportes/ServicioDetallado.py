@@ -106,7 +106,7 @@ class ServicioDetallado(Variables):
         columnas_bol=df.select_dtypes(include=bool).columns.tolist()
         df[columnas_bol] = df[columnas_bol].astype(str)
 
-        df.drop(['Hora Docto.','Fecha Cancelación','Categoría','Id. Paquete','Paquete','Descripción Paquete','Cantidad Paquete','Saldo'], axis=1, inplace=True)
+        df.drop(['Hora Docto.','Fecha Cancelación','Id. Paquete','Paquete','Descripción Paquete','Cantidad Paquete',"Subtotal Paquete",'Saldo'], axis=1, inplace=True)
 
         # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
         if (os.path.basename(Variables().comprobar_reporte_documento_rutas(self.nombre_doc)).split(".")[1] == self.nombre_doc.split(".")[1]):

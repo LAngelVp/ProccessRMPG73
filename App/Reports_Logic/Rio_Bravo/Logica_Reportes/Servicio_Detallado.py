@@ -228,7 +228,7 @@ class ServioDetallado(Variables):
         df_Final.loc[(df_Final["DepaVenta"] == "Servicio"), "Area"] = "MO Servicio"
         # ----------------
         # NOTE ELIMINAMOS LAS COLUMNAS QUE NO SE OCUPAN
-        df_Final.drop(['Hora Docto.','NO','U','Fecha Cancelación','Categoría','Id. Paquete','Paquete','Descripción Paquete','Cantidad Paquete','Saldo'], axis=1, inplace=True)
+        df_Final.drop(['Hora Docto.','NO','U','Fecha Cancelación','Id. Paquete','Paquete','Descripción Paquete','Cantidad Paquete',"Subtotal Paquete",'Saldo'], axis=1, inplace=True)
         
         columnas_bol=df_Final.select_dtypes(include=bool).columns.tolist()
         df_Final[columnas_bol] = df_Final[columnas_bol].astype(str)
