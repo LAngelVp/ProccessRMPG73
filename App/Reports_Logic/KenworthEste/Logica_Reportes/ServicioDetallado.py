@@ -4,8 +4,8 @@
 #########################
 import os
 import pandas as pd
-from Variables.ContenedorVariables import Variables
 from datetime import datetime
+from .Variables.ContenedorVariables import Variables
 
 class ServicioDetallado(Variables):
     def __init__(self):
@@ -16,7 +16,7 @@ class ServicioDetallado(Variables):
         self.columnas_after_cliente = ['ObjRefacc','ObjUBTRef','ObjMO', 'ObjUTBMO', 'Clasificacion Cliente']
 
         #COMMENT: LECTURA DE ARCHIVOS
-        self.json_vendedores = pd.read_json("vendedores_servicio_detallado_este.json")
+        self.json_vendedores = Variables().vendedores_y_depas_este()
         path = os.path.join(Variables().ruta_Trabajo,self.nombre_doc)
         d = pd.read_excel(path, sheet_name='Hoja2')
 
@@ -120,6 +120,10 @@ class ServicioDetallado(Variables):
         columnas_booleanas = d.select_dtypes(include=bool).columns.to_list()
         d[columnas_booleanas] = d[columnas_booleanas].astype(str)
 
+        #COMMENT: INSERTAR COLUMNAS DE FECHA
+        d.insert(10,"Fecha Movimiento",Variables().date_movement_config_document(),allow_duplicates=False)
+        d.insert(11,"Mes",Variables().nombre_mes(),allow_duplicates=False)
+
         #COMMENT: RECORRER COLUMNAS DE FECHA PARA TRANSFORMAR
         for i in d:
             if ("fecha" in i.lower()):
@@ -129,10 +133,6 @@ class ServicioDetallado(Variables):
                 except:
                     continue
         
-        #COMMENT: INSERTAR COLUMNAS DE FECHA
-        d.insert(10,"Fecha Movimiento",Variables().date_movement_config_document(),allow_duplicates=False)
-        d.insert(11,"Mes",Variables().nombre_mes(),allow_duplicates=False)
-
         #COMMENT: ELIMINAMOS COLUMNAS
         d.drop(
             [
@@ -188,3 +188,4 @@ class ServicioDetallado(Variables):
             return departamento_venta, departamento
         else:
             return depa_venta, depa
+        

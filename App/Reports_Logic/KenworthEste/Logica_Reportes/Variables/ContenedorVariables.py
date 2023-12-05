@@ -27,6 +27,7 @@ class Variables():
         self.ruta_documentos = os.path.join(self.ruta_Kenworth, "Documentos")
         self.route_file_date = os.path.join(self.ruta_documentos, "Config_Document.json")
         self.ruta_documentos_rutas = os.path.join(self.ruta_documentos, "Rutas_Envio.json")
+        self.vendedores_servicio_detallado_este = os.path.join(self.ruta_documentos, "Vendedores_Servicio_Detallado_Este.json")
 
         #--------------------------------
         #NOTE Reemplazamos las diagonales de las rutas, con la finalidad que cualquier sistema operativo pueda ejecutar el software.
@@ -38,6 +39,7 @@ class Variables():
         self.ruta_deapoyo = self.ruta_documentos.replace('\\','/')
         self.route_file_date_movement  = self.route_file_date.replace('\\','/')
         self.ruta_envio_documentos  = self.ruta_documentos_rutas.replace('\\','/')
+        self.ruta_vendedores_servicio_detallado_este  = self.vendedores_servicio_detallado_este.replace('\\','/')
         
         #________________________________________________
 
@@ -97,3 +99,7 @@ class Variables():
             return os.path.join(self.docu,nombre_arreglado_csv)
         else:
             return os.path.join(self.ruta_procesados,nombre_arreglado_xlsx)
+        
+    def vendedores_y_depas_este(self):
+        documento = pd.read_json(self.ruta_vendedores_servicio_detallado_este)
+        return documento
