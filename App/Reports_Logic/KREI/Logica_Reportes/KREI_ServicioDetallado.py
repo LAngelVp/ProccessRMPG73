@@ -87,7 +87,7 @@ class ServicioDetalladoKWESTEKREI(Variables):
             value = 'UN-' + df['U'].map(str).str.split('.').str[0],
             allow_duplicates = False
         )
-        df.drop(['Hora Docto.','NO','U','Fecha Cancelación','Fecha Inicio Garantía','Fecha Fin Garantía','Categoría','Id. Paquete','Paquete','Descripción Paquete','Cantidad Paquete','Saldo'], axis=1, inplace=True)
+        df.drop(['Hora Docto.','NO','U','Fecha Cancelación','Fecha Inicio Garantía','Fecha Fin Garantía','Id. Paquete','Paquete','Descripción Paquete','Cantidad Paquete',"Subtotal Paquete",'Saldo'], axis=1, inplace=True)
 
         # NOTE INTENTAMOS HACER LOS CAMBIOS DE FORMATO PARA LAS FECHAS EN PYTHON
         for column_title in df:
