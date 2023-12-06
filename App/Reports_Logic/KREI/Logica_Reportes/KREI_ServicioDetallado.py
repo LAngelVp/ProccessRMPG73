@@ -22,7 +22,7 @@ class ServicioDetalladoKWESTEKREI(Variables):
             )
         
         df["Columna_Fantasma2"] = ""
-        df["Fecha_Movimiento"] = Variables().fechaInsertar
+        df["Fecha_Movimiento"] = Variables().date_movement_config_document()
         # NOTE Creamos la columna con la fecha actual
         
         df.insert(
@@ -55,6 +55,7 @@ class ServicioDetalladoKWESTEKREI(Variables):
         df[columnas_bol] = df[columnas_bol].astype(str)
 
         df.to_excel(os.path.join(Variables().ruta_procesados,f'KREI_ServicioDetallado_ESTE_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+
     def ServicioDetalladoKWSUR_KREI(self):
         path = os.path.join(Variables().ruta_Trabajo,"SDSKREI.xlsx")
         df = pd.read_excel(path, sheet_name='Hoja2')

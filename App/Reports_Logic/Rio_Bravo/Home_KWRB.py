@@ -49,7 +49,7 @@ class Home_KWRB(QMainWindow, Variables, ):
         self.ventanaRioBravo.btn_Procesados.clicked.connect(self.abrir_ruta_procesados)
 
         # MENU DE OPCIONES
-        self.ventanaRioBravo.actionObjetivos_Mensuales.triggered.connect(self.ObjetivosPagoClientes)
+        self.ventanaRioBravo.actionObjetivos_Mensuales_PagosClientes.triggered.connect(self.ObjetivosPagoClientes)
         self.ventanaRioBravo.actionFechaMovimiento.triggered.connect(self.FechaMovimiento)
         self.ventanaRioBravo.actionDirecciones_de_envio.triggered.connect(self.direcciones_envio)
         #--------------------

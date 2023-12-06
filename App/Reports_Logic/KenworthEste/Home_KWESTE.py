@@ -63,7 +63,7 @@ class Home_KWESTE(QMainWindow, QDialog, Variables):
         self.ventKWESTE.btn_Procesados.clicked.connect(self.abrir_ruta_procesados)
 
         # MENU DE OPCIONES
-        self.ventKWESTE.actionObjetivos_Mensuales.triggered.connect(self.ObjetivosPagoClientes)
+        self.ventKWESTE.actionObjetivos_Mensuales_PagosClientes.triggered.connect(self.ObjetivosPagoClientes)
         self.ventKWESTE.actionFechaMovimiento.triggered.connect(self.FechaMovimiento)
         self.ventKWESTE.actionDirecciones_de_envio.triggered.connect(self.direcciones_envio)
 

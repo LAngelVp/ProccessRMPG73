@@ -821,9 +821,15 @@ border-top-right-radius: 10px;
       </font>
      </property>
      <property name="title">
-      <string>PagosClientes</string>
+      <string>Reportes</string>
      </property>
-     <addaction name="actionObjetivos_Mensuales"/>
+     <widget class="QMenu" name="menuPagos_de_facturas_de_clientes">
+      <property name="title">
+       <string>Pagos de facturas de clientes</string>
+      </property>
+      <addaction name="actionObjetivos_Mensuales_PagosClientes"/>
+     </widget>
+     <addaction name="menuPagos_de_facturas_de_clientes"/>
     </widget>
     <addaction name="menuPagosClientes"/>
     <addaction name="actionFechaMovimiento"/>
@@ -836,16 +842,6 @@ border-top-right-radius: 10px;
     <string>Pagos_Clientes(Objetivos)</string>
    </property>
   </action>
-  <action name="actionObjetivos_Mensuales">
-   <property name="text">
-    <string>Objetivos Mensuales</string>
-   </property>
-   <property name="font">
-    <font>
-     <family>Arial</family>
-    </font>
-   </property>
-  </action>
   <action name="actionFechaMovimiento">
    <property name="text">
     <string>FechaMovimiento</string>
@@ -854,6 +850,11 @@ border-top-right-radius: 10px;
   <action name="actionDirecciones_de_envio">
    <property name="text">
     <string>Direcciones de envio</string>
+   </property>
+  </action>
+  <action name="actionObjetivos_Mensuales_PagosClientes">
+   <property name="text">
+    <string>Objetivos Mensuales</string>
    </property>
   </action>
  </widget>
