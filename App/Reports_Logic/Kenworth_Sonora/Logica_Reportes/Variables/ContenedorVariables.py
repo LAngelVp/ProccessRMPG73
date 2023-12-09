@@ -97,3 +97,9 @@ class Variables():
             return os.path.join(self.docu,nombre_arreglado_csv)
         else:
             return os.path.join(self.ruta_procesados,nombre_arreglado_xlsx)
+        
+    def guardar_datos_dataframe(self, nombre_documento, dataframe):
+        if (os.path.basename(self.comprobar_reporte_documento_rutas(nombre_documento)).split(".")[1] == nombre_documento.split(".")[1]):
+                dataframe.to_excel(self.comprobar_reporte_documento_rutas(nombre_documento), index=False )
+        else:
+            dataframe.to_csv(self.comprobar_reporte_documento_rutas(nombre_documento), encoding="utf-8", index=False )

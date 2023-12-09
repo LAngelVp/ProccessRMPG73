@@ -103,3 +103,9 @@ class Variables():
     def vendedores_y_depas_este(self):
         documento = pd.read_json(self.ruta_vendedores_servicio_detallado_este)
         return documento
+    
+    def guardar_datos_dataframe(self, nombre_documento, dataframe):
+        if (os.path.basename(self.comprobar_reporte_documento_rutas(nombre_documento)).split(".")[1] == nombre_documento.split(".")[1]):
+                dataframe.to_excel(self.comprobar_reporte_documento_rutas(nombre_documento), index=False )
+        else:
+            dataframe.to_csv(self.comprobar_reporte_documento_rutas(nombre_documento), encoding="utf-8", index=False )
