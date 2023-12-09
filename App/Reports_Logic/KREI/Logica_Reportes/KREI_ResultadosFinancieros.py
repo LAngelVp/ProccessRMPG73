@@ -64,63 +64,67 @@ class ResultadosFinancierosKREI(Variables):
 
         df_unidades_facturadas_ordenado = df_unidades_facturadas[self.columnas]
 
-        df_unidades_facturadas_ordenado.insert(
-                loc = 0,
-                column = "Concesionario",
-                value = "ESTE",
-                allow_duplicates=True
+        if (len(df_unidades_facturadas_ordenado) == 0):
+            return
+            
+        else:
+            df_unidades_facturadas_ordenado.insert(
+                    loc = 0,
+                    column = "Concesionario",
+                    value = "ESTE",
+                    allow_duplicates=True
+                )
+            
+            departamento = df_unidades_facturadas_ordenado["Modelo"].apply(lambda x: self.obtenerDepartamento(x))
+
+            df_unidades_facturadas_ordenado.insert(
+                loc = 1,
+                column = "Departamento",
+                value = departamento,
+                allow_duplicates = False
             )
-        
-        departamento = df_unidades_facturadas_ordenado["Modelo"].apply(lambda x: self.obtenerDepartamento(x))
-
-        df_unidades_facturadas_ordenado.insert(
-            loc = 1,
-            column = "Departamento",
-            value = departamento,
-            allow_duplicates = False
-        )
 
 
-        col_numero_articulo = "CH-" + df_unidades_facturadas_ordenado["Numarticulo"].map(str)
-        col_modelo = "AM" + df_unidades_facturadas_ordenado["Modelo"].map(str)
+            col_numero_articulo = "CH-" + df_unidades_facturadas_ordenado["Numarticulo"].map(str)
+            col_modelo = "AM" + df_unidades_facturadas_ordenado["Modelo"].map(str)
 
-        df_unidades_facturadas_ordenado["Numarticulo"] = col_numero_articulo
-        df_unidades_facturadas_ordenado["Modelo"] = col_modelo
+            df_unidades_facturadas_ordenado["Numarticulo"] = col_numero_articulo
+            df_unidades_facturadas_ordenado["Modelo"] = col_modelo
 
-        Margen = df_unidades_facturadas_ordenado["UtilidadBruta"] / df_unidades_facturadas_ordenado["VentasNetas"]
+            Margen = df_unidades_facturadas_ordenado["UtilidadBruta"] / df_unidades_facturadas_ordenado["VentasNetas"]
 
-        df_unidades_facturadas_ordenado.insert(
-            loc = 16,
-            column = "Margen(%)",
-            value = Margen,
-            allow_duplicates = True
-        )
+            df_unidades_facturadas_ordenado.insert(
+                loc = 16,
+                column = "Margen(%)",
+                value = Margen,
+                allow_duplicates = True
+            )
 
-        Fecha = Variables().date_movement_config_document()
+            Fecha = Variables().date_movement_config_document()
 
-        df_unidades_facturadas_ordenado.insert(
-            loc = 26,
-            column = "Fecha",
-            value = Fecha,
-            allow_duplicates = True
-        )
+            df_unidades_facturadas_ordenado.insert(
+                loc = 26,
+                column = "Fecha",
+                value = Fecha,
+                allow_duplicates = True
+            )
 
-        for i in df_unidades_facturadas_ordenado:
-            if ("fecha" in i.lower()):
-                try:
-                    df_unidades_facturadas_ordenado[i] = pd.to_datetime(df_unidades_facturadas_ordenado[i], errors="coerce")
-                    df_unidades_facturadas_ordenado[i] = df_unidades_facturadas_ordenado[i].dt.strftime("%d/%m/%Y")
-                except:
+            for i in df_unidades_facturadas_ordenado:
+                if ("fecha" in i.lower()):
+                    try:
+                        df_unidades_facturadas_ordenado[i] = pd.to_datetime(df_unidades_facturadas_ordenado[i], errors="coerce")
+                        df_unidades_facturadas_ordenado[i] = df_unidades_facturadas_ordenado[i].dt.strftime("%d/%m/%Y")
+                    except:
+                        continue
+                else:
                     continue
-            else:
-                continue
 
-        columnas_bol=df_unidades_facturadas_ordenado.select_dtypes(include=bool).columns.tolist()
-        df_unidades_facturadas_ordenado[columnas_bol] = df_unidades_facturadas_ordenado[columnas_bol].astype(str)
+            columnas_bol=df_unidades_facturadas_ordenado.select_dtypes(include=bool).columns.tolist()
+            df_unidades_facturadas_ordenado[columnas_bol] = df_unidades_facturadas_ordenado[columnas_bol].astype(str)
 
-        df_unidades_facturadas_ordenado.columns = df_unidades_facturadas_ordenado.columns.str.replace("_", " ")
+            df_unidades_facturadas_ordenado.columns = df_unidades_facturadas_ordenado.columns.str.replace("_", " ")
 
-        df_unidades_facturadas_ordenado.to_excel(os.path.join(Variables().ruta_procesados,f'KREI_ResultadosFinancieros_KWESTE_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+            df_unidades_facturadas_ordenado.to_excel(os.path.join(Variables().ruta_procesados,f'KREI_ResultadosFinancieros_KWESTE_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
 
 
     def ReporteFinancieroKWSUR_KREI(self, PATH):
@@ -143,63 +147,67 @@ class ResultadosFinancierosKREI(Variables):
 
         df_unidades_facturadas_ordenado = df_unidades_facturadas[self.columnas]
 
-        df_unidades_facturadas_ordenado.insert(
-                loc = 0,
-                column = "Concesionario",
-                value = "SUR",
-                allow_duplicates=True
+        if (len(df_unidades_facturadas_ordenado) == 0):
+            return
+            
+        else:
+            df_unidades_facturadas_ordenado.insert(
+                    loc = 0,
+                    column = "Concesionario",
+                    value = "SUR",
+                    allow_duplicates=True
+                )
+            
+            departamento = df_unidades_facturadas_ordenado["Modelo"].apply(lambda x: self.obtenerDepartamento(x))
+
+            df_unidades_facturadas_ordenado.insert(
+                loc = 1,
+                column = "Departamento",
+                value = departamento,
+                allow_duplicates = False
             )
-        
-        departamento = df_unidades_facturadas_ordenado["Modelo"].apply(lambda x: self.obtenerDepartamento(x))
-
-        df_unidades_facturadas_ordenado.insert(
-            loc = 1,
-            column = "Departamento",
-            value = departamento,
-            allow_duplicates = False
-        )
 
 
-        col_numero_articulo = "CH-" + df_unidades_facturadas_ordenado["Numarticulo"].map(str)
-        col_modelo = "AM" + df_unidades_facturadas_ordenado["Modelo"].map(str)
+            col_numero_articulo = "CH-" + df_unidades_facturadas_ordenado["Numarticulo"].map(str)
+            col_modelo = "AM" + df_unidades_facturadas_ordenado["Modelo"].map(str)
 
-        df_unidades_facturadas_ordenado["Numarticulo"] = col_numero_articulo
-        df_unidades_facturadas_ordenado["Modelo"] = col_modelo
+            df_unidades_facturadas_ordenado["Numarticulo"] = col_numero_articulo
+            df_unidades_facturadas_ordenado["Modelo"] = col_modelo
 
-        Margen = df_unidades_facturadas_ordenado["UtilidadBruta"] / df_unidades_facturadas_ordenado["VentasNetas"]
+            Margen = df_unidades_facturadas_ordenado["UtilidadBruta"] / df_unidades_facturadas_ordenado["VentasNetas"]
 
-        df_unidades_facturadas_ordenado.insert(
-            loc = 16,
-            column = "Margen(%)",
-            value = Margen,
-            allow_duplicates = True
-        )
+            df_unidades_facturadas_ordenado.insert(
+                loc = 16,
+                column = "Margen(%)",
+                value = Margen,
+                allow_duplicates = True
+            )
 
-        Fecha = Variables().date_movement_config_document()
+            Fecha = Variables().date_movement_config_document()
 
-        df_unidades_facturadas_ordenado.insert(
-            loc = 26,
-            column = "Fecha",
-            value = Fecha,
-            allow_duplicates = True
-        )
+            df_unidades_facturadas_ordenado.insert(
+                loc = 26,
+                column = "Fecha",
+                value = Fecha,
+                allow_duplicates = True
+            )
 
-        for i in df_unidades_facturadas_ordenado:
-            if ("fecha" in i.lower()):
-                try:
-                    df_unidades_facturadas_ordenado[i] = pd.to_datetime(df_unidades_facturadas_ordenado[i], errors="coerce")
-                    df_unidades_facturadas_ordenado[i] = df_unidades_facturadas_ordenado[i].dt.strftime("%d/%m/%Y")
-                except:
+            for i in df_unidades_facturadas_ordenado:
+                if ("fecha" in i.lower()):
+                    try:
+                        df_unidades_facturadas_ordenado[i] = pd.to_datetime(df_unidades_facturadas_ordenado[i], errors="coerce")
+                        df_unidades_facturadas_ordenado[i] = df_unidades_facturadas_ordenado[i].dt.strftime("%d/%m/%Y")
+                    except:
+                        continue
+                else:
                     continue
-            else:
-                continue
 
-        columnas_bol=df_unidades_facturadas_ordenado.select_dtypes(include=bool).columns.tolist()
-        df_unidades_facturadas_ordenado[columnas_bol] = df_unidades_facturadas_ordenado[columnas_bol].astype(str)
+            columnas_bol=df_unidades_facturadas_ordenado.select_dtypes(include=bool).columns.tolist()
+            df_unidades_facturadas_ordenado[columnas_bol] = df_unidades_facturadas_ordenado[columnas_bol].astype(str)
 
-        df_unidades_facturadas_ordenado.columns = df_unidades_facturadas_ordenado.columns.str.replace("_", " ")
+            df_unidades_facturadas_ordenado.columns = df_unidades_facturadas_ordenado.columns.str.replace("_", " ")
 
-        df_unidades_facturadas_ordenado.to_excel(os.path.join(Variables().ruta_procesados,f'KREI_ResultadosFinancieros_KWSUR_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+            df_unidades_facturadas_ordenado.to_excel(os.path.join(Variables().ruta_procesados,f'KREI_ResultadosFinancieros_KWSUR_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
 
 
     def obtenerDepartamento(self,valor):
