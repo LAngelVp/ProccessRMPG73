@@ -1,5 +1,6 @@
 ![Kenworth del este](https://github.com/LAngelVp/programakw/blob/master/App/Source/LOGO_KWE.png)
 
+# **KWDataProcessRMPG73**
 # **Automatización de reportes**
 Esta aplicación esta desarrollada con el lenguaje de programación **Python**, librerias de analisis de datos **Pandas**, libreria de desarrollo de interfaz de escritorio **PyQT5**.
 
