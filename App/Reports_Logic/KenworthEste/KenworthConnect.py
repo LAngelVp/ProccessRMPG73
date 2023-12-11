@@ -14,6 +14,7 @@ from .Logica_Reportes.PagoClientes import *
 from .Logica_Reportes.Compras import *
 from .Logica_Reportes.InventarioUnidades import *
 from .Logica_Reportes.ServicioDetallado import *
+from .Logica_Reportes.Refacciones import *
 #-----------------------------------
 
 #CLASE
@@ -61,3 +62,8 @@ class KenworthConnect():
     # SERVICIO DETALLADO
     def ServicioDetallado(self):
         ServicioDetallado()
+    
+    # REFACCIONES
+    def Refacciones(self):
+        Refacciones()
+        

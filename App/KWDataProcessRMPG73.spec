@@ -28,7 +28,7 @@ exe = EXE(
     a.zipfiles,
     a.datas,
     [],
-    name='ProcesadorRMPG',
+    name='KWDataProcessRMPG73',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
