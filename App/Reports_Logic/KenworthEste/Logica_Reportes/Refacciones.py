@@ -98,14 +98,15 @@ class Refacciones(Variables):
         servicio_merida = ((a["Sucursal"] == "Merida") & (a["Centro de Costo"] == "REQUISICIONES"))
         a.loc[servicio_merida, ["Depto_venta", "Depto_normal"]] = ["Servicio Merida", "Servicio"]
 
+#COMMENT: CLASIFICACION DEL TAMAÑO DE LOS CLIENTES
+        a["Status_cliente"] = a.apply(lambda fila: pd.Series(self.clientes_grandes(fila["Cliente"], fila["Sucursal"])), axis=1)
+
 #COMMENT: CLASIFICACION DE LA COLUMNA DE AREA
         a["Area"] = ""
         a.loc[(a["Depto_normal"] == "Mostrador"), "Area"] = "Refacc Mostrador"
         a.loc[(a["Depto_normal"] == "Carroceria"), "Area"] = "Refacc Carroceria"
         a.loc[((a["Depto_normal"] == "Servicio") | (a["Depto_normal"] == "Rescates")), "Area"] = "Refacc Servicio"
 
-#COMMENT: CLASIFICACION DEL TAMAÑO DE LOS CLIENTES
-        a["Status_cliente"] = a.apply(lambda fila: pd.Series(self.clientes_grandes(fila["Cliente"], fila["Sucursal"])), axis=1)
 
 #COMMENT: CLASIFICACION DE LA MARCA DE LAS REFACCIONES
         a["Marca"] = a.apply(
@@ -159,10 +160,9 @@ class Refacciones(Variables):
             valor_cliente = valor["cliente"]
             valor_sucursal = valor["sucursal"]
 
-            if (cliente == valor_cliente) and (sucursal == valor_sucursal):
+            if (str(cliente) == str(valor_cliente)) and (str(sucursal) == str(valor_sucursal)):
                 return "grandes"
-            else:
-                return "pequeños"
+        return "pequeños"
 
 #COMMENT_FUNCTION: FUNCION PARA LA CLASIFICACION DE LA MARCA DE LAS REFACCIONES
     def marca_refacciones(self, numero_articulo, numero_categoria, categoria):
