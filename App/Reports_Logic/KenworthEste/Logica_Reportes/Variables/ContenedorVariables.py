@@ -29,6 +29,10 @@ class Variables():
         self.ruta_documentos_rutas = os.path.join(self.ruta_documentos, "Rutas_Envio.json")
         self.vendedores_servicio_detallado_este = os.path.join(self.ruta_documentos, "Vendedores_Servicio_Detallado_Este.json")
 
+        self.clasif_vendedores_refacciones = os.path.join(self.ruta_documentos, "Clasificacion_Vendedores_refacc.json")
+        self.tamaño_clientes_refacciones = os.path.join(self.ruta_documentos, "clientes_grandes.json")
+        self.marcas_refacciones = os.path.join(self.ruta_documentos, "marcas_refacciones")
+
         #--------------------------------
         #NOTE Reemplazamos las diagonales de las rutas, con la finalidad que cualquier sistema operativo pueda ejecutar el software.
         self.ruta_carpeta = self.ruta_Kenworth.replace('\\','/')
@@ -40,6 +44,10 @@ class Variables():
         self.route_file_date_movement  = self.route_file_date.replace('\\','/')
         self.ruta_envio_documentos  = self.ruta_documentos_rutas.replace('\\','/')
         self.ruta_vendedores_servicio_detallado_este  = self.vendedores_servicio_detallado_este.replace('\\','/')
+
+        self.clasif_de_vendedores_refacciones  = self.clasif_vendedores_refacciones.replace('\\','/')
+        self.tamaño_de_clientes_refacciones  = self.tamaño_clientes_refacciones.replace('\\','/')
+        self.marcas_de_refacciones  = self.marcas_refacciones.replace('\\','/')
         
         #________________________________________________
 
@@ -103,7 +111,17 @@ class Variables():
     def vendedores_y_depas_este(self):
         documento = pd.read_json(self.ruta_vendedores_servicio_detallado_este)
         return documento
-    
+#-----------
+    def clasificacion_vendedores_departamentos_refacciones(self):
+        documento = pd.read_json(self.clasif_de_vendedores_refacciones)
+        return documento
+    def clasificacion_tamaño_clientes_refacciones(self):
+        documento = pd.read_json(self.tamaño_de_clientes_refacciones)
+        return documento
+    def marcas_refacciones_fun(self):
+        documento = pd.read_json(self.marcas_de_refacciones)
+        return documento
+#------------
     def guardar_datos_dataframe(self, nombre_documento, dataframe):
         if (os.path.basename(self.comprobar_reporte_documento_rutas(nombre_documento)).split(".")[1] == nombre_documento.split(".")[1]):
                 dataframe.to_excel(self.comprobar_reporte_documento_rutas(nombre_documento), index=False )

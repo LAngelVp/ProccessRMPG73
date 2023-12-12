@@ -11,9 +11,9 @@ class Refacciones(Variables):
 #COMMENT: APARTADO DE DOCUMENTOS DE APOYO
 
         self.nombre_doc = 'RE.xlsx'
-        self.j = pd.read_json("Clasificacion_Vendedores_refacc.json")
-        self.c = pd.read_json("clientes_grandes.json")
-        self.m = pd.read_json("marcas_refacciones")
+        self.j = Variables().clasificacion_vendedores_departamentos_refacciones()
+        self.c = Variables().clasificacion_tamaño_clientes_refacciones()
+        self.m = Variables().marcas_refacciones_fun()
 
 
 #COMMENT: LEER EL DOCUMENTO
