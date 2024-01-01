@@ -35,24 +35,27 @@ class Home_KenworthSonora(QMainWindow, Variables):
     
         # comment colocar los iconos e imagenes en su correspondiente elemento.
         self.ui.lblLogoKWS.setPixmap(logo)
-        self.ui.btnCerrar.setIcon(Icon_Cerrar)
-        self.ui.btnMinimizar.setIcon(Icon_Minimizar)
-        self.ui.btnAyuda.setIcon(Icon_Help)
-        self.ui.btnEliminar.setIcon(Icon_Delete)
-        self.ui.btnComenzar.setIcon(Icon_Proccess)
-        self.ui.btnSubir.setIcon(Icon_Upload)
+        self.ui.btc_btc_Cerrar.setIcon(Icon_Cerrar)
+        self.ui.btc_btc_Minimizar.setIcon(Icon_Minimizar)
+        self.ui.btn_btn_Ayuda.setIcon(Icon_Help)
+        self.ui.btn_btn_Eliminar.setIcon(Icon_Delete)
+        self.ui.btn_btn_Eliminar.setIconSize(QtCore.QSize(24, 24))
+        self.ui.btn_btn_Comenzar.setIcon(Icon_Proccess)
+        self.ui.btn_btn_Comenzar.setIconSize(QtCore.QSize(24, 24))
+        self.ui.btn_btn_Subir.setIcon(Icon_Upload)
+        self.ui.btn_btn_Subir.setIconSize(QtCore.QSize(24, 24))
         # creamos el hilo
         self.Hilo = trabajohilo()
         #conexiones de los botones
-        self.ui.btnSubir.clicked.connect(self.Cargar)
-        self.ui.btnComenzar.clicked.connect(self.ComenzarProceso)
-        self.ui.btnEliminar.clicked.connect(self.RemoveProcessed)
-        self.ui.btnAyuda.clicked.connect(self.Help)
-        self.ui.btnCerrar.clicked.connect(self.Cerrar)
-        self.ui.btnMinimizar.clicked.connect(self.Minimizar)
-        self.ui.btn_Errores.clicked.connect(self.abrir_ruta_errores)
-        self.ui.btn_Originales.clicked.connect(self.abrir_ruta_originales)
-        self.ui.btn_Procesados.clicked.connect(self.abrir_ruta_procesados)
+        self.ui.btn_btn_Subir.clicked.connect(self.Cargar)
+        self.ui.btn_btn_Comenzar.clicked.connect(self.ComenzarProceso)
+        self.ui.btn_btn_Eliminar.clicked.connect(self.RemoveProcessed)
+        self.ui.btn_btn_Ayuda.clicked.connect(self.Help)
+        self.ui.btc_btc_Cerrar.clicked.connect(self.Cerrar)
+        self.ui.btc_btc_Minimizar.clicked.connect(self.Minimizar)
+        self.ui.btn_btn_Errores.clicked.connect(self.abrir_ruta_errores)
+        self.ui.btn_btn_Originales.clicked.connect(self.abrir_ruta_originales)
+        self.ui.btn_btn_Procesados.clicked.connect(self.abrir_ruta_procesados)
 
         # MENU DE OPCIONES
         self.ui.actionObjetivos_Mensuales.triggered.connect(self.ObjetivosPagoClientes)
@@ -179,37 +182,37 @@ class Home_KenworthSonora(QMainWindow, Variables):
     # mostrar el contenido de la carpeta en la tabla de trabajos.
     def Show_Data_Trabajos(self):
         archivos_para_mostrar = os.listdir(Variables().ruta_Trabajo)
-        self.ui.TWCola.setRowCount(len(archivos_para_mostrar))
-        self.ui.TWCola.setColumnCount(1)
-        self.ui.TWCola.setHorizontalHeaderLabels(["Nombre del archivo"])
+        self.ui.Tabla_Cola.setRowCount(len(archivos_para_mostrar))
+        self.ui.Tabla_Cola.setColumnCount(1)
+        self.ui.Tabla_Cola.setHorizontalHeaderLabels(["Nombre del archivo"])
         for fila, archivo in enumerate(archivos_para_mostrar):
             elemento = QTableWidgetItem(archivo)
             elemento.setFlags(QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled)  # Bloqueamos la edición
             elemento.setForeground(QtGui.QColor(0, 0, 0))
-            self.ui.TWCola.setItem(fila, 0, elemento)
+            self.ui.Tabla_Cola.setItem(fila, 0, elemento)
             # font = QtGui.QFont()
             # font.setPointSize(30)  # Establece el tamaño de la letra a 14 puntos
             # elemento.setFont(font)
-        # self.ui.TWCola.setColumnWidth(0, 415)
-        header = self.ui.TWCola.horizontalHeader()
+        # self.ui.Tabla_Cola.setColumnWidth(0, 415)
+        header = self.ui.Tabla_Cola.horizontalHeader()
         header.setSectionResizeMode(0, QtWidgets.QHeaderView.Stretch)
 
     # mostrar el contenido de la carpeta en la tabla de trabajos.
     def Show_Data_Procesado(self):
         archivos_para_mostrar = os.listdir(Variables().ruta_procesados)
-        self.ui.TWProcesado.setRowCount(len(archivos_para_mostrar))
-        self.ui.TWProcesado.setColumnCount(1)
-        self.ui.TWProcesado.setHorizontalHeaderLabels(["Nombre del archivo"])
+        self.ui.Tabla_Procesado.setRowCount(len(archivos_para_mostrar))
+        self.ui.Tabla_Procesado.setColumnCount(1)
+        self.ui.Tabla_Procesado.setHorizontalHeaderLabels(["Nombre del archivo"])
         for fila, archivo in enumerate(archivos_para_mostrar):
             elemento = QTableWidgetItem(archivo)
             elemento.setFlags(QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled)  # Bloqueamos la edición
             elemento.setForeground(QtGui.QColor(0, 0, 0))
-            self.ui.TWProcesado.setItem(fila, 0, elemento)
+            self.ui.Tabla_Procesado.setItem(fila, 0, elemento)
             # font = QtGui.QFont()
             # font.setPointSize(30)  # Establece el tamaño de la letra a 14 puntos
             # elemento.setFont(font)
-        # self.ui.TWProcesado.setColumnWidth(0, 415)
-        header = self.ui.TWProcesado.horizontalHeader()
+        # self.ui.Tabla_Procesado.setColumnWidth(0, 415)
+        header = self.ui.Tabla_Procesado.horizontalHeader()
         header.setSectionResizeMode(0, QtWidgets.QHeaderView.Stretch)
 
 

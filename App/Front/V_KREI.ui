@@ -1,88 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>Kenworth_KREI</class>
-  <widget class="QMainWindow" name="Kenworth_KREI">
+ <widget class="QMainWindow" name="Kenworth_KREI">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>800</width>
-    <height>500</height>
+    <height>520</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>800</width>
-    <height>500</height>
+    <height>520</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>800</width>
-    <height>500</height>
+    <height>520</height>
    </size>
   </property>
   <property name="windowTitle">
    <string>KENWORTH KREI</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">#WPrincipal{
+   <string notr="true">#Kenworth_KREI{
+min-width: 800px;
+min-height:520px;
+max-width: 800px;
+max-height:520px;
+}
+#WPrincipal{
 background-color: rgb(255, 255, 255);
 }
-#btnSubir{
-background-color: rgb(232, 232, 232);
-border-radius:8px;
-}
-#btnSubir::Hover{
-background-color: rgb(209, 209, 209);
-}
-#btnEliminar{
-background-color: rgb(232, 232, 232);
-border-radius:8px;
-}
-#btnEliminar::Hover{
-background-color: rgb(209, 209, 209);
-}
-#btnComenzar{
-background-color: rgb(232, 232, 232);
-border-radius:8px;
-}
-#btnComenzar::Hover{
-background-color: rgb(209, 209, 209);
-}
-#btn_Procesados{
-background-color: rgb(232, 232, 232);
-}
-#btn_Procesados::hover{
-background-color: rgb(209, 209, 209);
-}
-#btn_Originales{
-background-color: rgb(232, 232, 232);
-}
-#btn_Originales::hover{
-background-color: rgb(209, 209, 209);
-}
-#btn_Errores{
-background-color: rgb(232, 232, 232);
-}
-#btn_Errores::hover{
-background-color: rgb(209, 209, 209);
-}
-#btnAyuda{
-background-color: rgb(232, 232, 232);
-border-radius:5px;
-}
-#btnAyuda::hover{
-background-color: rgb(209, 209, 209);
-}
-#btnMinimizar{
+[objectName^=&quot;btc_btc&quot;]{
 background-color: transparent;
+border-radius:none;
+width:35px;
+height:35px;
 }
-#btnCerrar{
-background-color: transparent;
+[objectName^=&quot;btc_btc&quot;]:hover{
+	background-color: rgb(209, 209, 209);
+	color: rgb(0, 0, 0);
+	border-radius:4px;
+}
+[objectName^=&quot;Tabla&quot;]{
+	background-color: rgb(255, 255, 255);
+	border: 1px solid;
+}
+[objectName^=&quot;txt&quot;]{
+	font-family: Arial;
+	color: rgb(0, 0, 0);
+	font-size: 20px;
+}
+[objectName^=&quot;btn_btn&quot;]{
+	background-color: rgb(145, 145, 145);
+	border-radius:4px;
+	color: rgb(0, 0, 0);
+	height:35px;
+}
+[objectName^=&quot;btn_btn&quot;]:hover{
+	background-color:  rgb(209, 209, 209);
 }
 #menuBar{
 background-color: rgb(255, 255, 255);
+color: rgb(0, 0, 0);
 border-top-left-radius: 10px;
 border-top-right-radius: 10px;
 }</string>
@@ -227,7 +211,7 @@ border-top-right-radius: 10px;
            <number>5</number>
           </property>
           <item>
-           <widget class="QPushButton" name="btnMinimizar">
+           <widget class="QPushButton" name="btc_btc_Minimizar">
             <property name="cursor">
              <cursorShape>PointingHandCursor</cursorShape>
             </property>
@@ -250,12 +234,12 @@ border-top-right-radius: 10px;
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="btnCerrar">
+           <widget class="QPushButton" name="btc_btc_Cerrar">
             <property name="cursor">
              <cursorShape>PointingHandCursor</cursorShape>
             </property>
             <property name="mouseTracking">
-             <bool>false</bool>
+             <bool>true</bool>
             </property>
             <property name="toolTip">
              <string>Cerrar</string>
@@ -315,7 +299,7 @@ border-top-right-radius: 10px;
         <widget class="QWidget" name="WTablaIzquierda" native="true">
          <layout class="QVBoxLayout" name="verticalLayout_4">
           <item>
-           <widget class="QLabel" name="lblTextoEnCola">
+           <widget class="QLabel" name="txt_Cola">
             <property name="minimumSize">
              <size>
               <width>0</width>
@@ -330,8 +314,8 @@ border-top-right-radius: 10px;
             </property>
             <property name="font">
              <font>
-              <family>Cambria Math</family>
-              <pointsize>14</pointsize>
+              <family>Arial</family>
+              <pointsize>-1</pointsize>
               <weight>75</weight>
               <bold>true</bold>
              </font>
@@ -345,7 +329,7 @@ border-top-right-radius: 10px;
            </widget>
           </item>
           <item>
-           <widget class="QTableWidget" name="TWCola"/>
+           <widget class="QTableWidget" name="Tabla_Cola"/>
           </item>
          </layout>
         </widget>
@@ -354,7 +338,7 @@ border-top-right-radius: 10px;
         <widget class="QWidget" name="WTablaDerecha" native="true">
          <layout class="QVBoxLayout" name="verticalLayout_5">
           <item>
-           <widget class="QLabel" name="lblTextoProcesado">
+           <widget class="QLabel" name="txt_Procesado">
             <property name="minimumSize">
              <size>
               <width>0</width>
@@ -369,8 +353,8 @@ border-top-right-radius: 10px;
             </property>
             <property name="font">
              <font>
-              <family>Cambria Math</family>
-              <pointsize>14</pointsize>
+              <family>Arial</family>
+              <pointsize>-1</pointsize>
               <weight>75</weight>
               <bold>true</bold>
              </font>
@@ -384,7 +368,7 @@ border-top-right-radius: 10px;
            </widget>
           </item>
           <item>
-           <widget class="QTableWidget" name="TWProcesado"/>
+           <widget class="QTableWidget" name="Tabla_Procesado"/>
           </item>
          </layout>
         </widget>
@@ -477,7 +461,7 @@ border-top-right-radius: 10px;
               <number>5</number>
              </property>
              <item>
-              <widget class="QPushButton" name="btnSubir">
+              <widget class="QPushButton" name="btn_btn_Subir">
                <property name="font">
                 <font>
                  <family>Cambria Math</family>
@@ -501,7 +485,7 @@ border-top-right-radius: 10px;
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="btnEliminar">
+              <widget class="QPushButton" name="btn_btn_Eliminar">
                <property name="font">
                 <font>
                  <family>Cambria Math</family>
@@ -525,7 +509,7 @@ border-top-right-radius: 10px;
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="btnComenzar">
+              <widget class="QPushButton" name="btn_btn_Comenzar">
                <property name="font">
                 <font>
                  <family>Cambria Math</family>
@@ -570,7 +554,7 @@ border-top-right-radius: 10px;
               <number>5</number>
              </property>
              <item>
-              <widget class="QPushButton" name="btn_Procesados">
+              <widget class="QPushButton" name="btn_btn_Procesados">
                <property name="font">
                 <font>
                  <pointsize>12</pointsize>
@@ -593,7 +577,7 @@ border-top-right-radius: 10px;
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="btn_Originales">
+              <widget class="QPushButton" name="btn_btn_Originales">
                <property name="font">
                 <font>
                  <pointsize>12</pointsize>
@@ -614,7 +598,7 @@ border-top-right-radius: 10px;
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="btn_Errores">
+              <widget class="QPushButton" name="btn_btn_Errores">
                <property name="font">
                 <font>
                  <pointsize>12</pointsize>
@@ -713,7 +697,7 @@ border-top-right-radius: 10px;
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_8">
           <item>
-           <widget class="QPushButton" name="btnAyuda">
+           <widget class="QPushButton" name="btn_btn_Ayuda">
             <property name="maximumSize">
              <size>
               <width>16777213</width>
@@ -793,7 +777,7 @@ border-top-right-radius: 10px;
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>20</height>
+     <height>25</height>
     </rect>
    </property>
    <property name="font">

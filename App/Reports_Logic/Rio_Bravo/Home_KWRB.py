@@ -28,25 +28,37 @@ class Home_KWRB(QMainWindow, Variables, ):
         self.ventanaRioBravo.setupUi(self)
         self.setWindowFlags(self.windowFlags() | Qt.FramelessWindowHint)
         self.setAttribute(Qt.WA_TranslucentBackground)
-        self.ventanaRioBravo.btnAyuda.setIcon(QIcon(":/Source/Icon_Help.png"))
-        self.ventanaRioBravo.btnMinimizar.setIcon(QIcon(":/Source/Icon_Minimize.png"))
-        self.ventanaRioBravo.btnCerrar.setIcon(QIcon(":/Source/Icon_Close.png"))
+        self.ventanaRioBravo.btn_btn_Ayuda.setIcon(QIcon(":/Source/Icon_Help.png"))
+        self.ventanaRioBravo.btc_btc_Minimizar.setIcon(QIcon(":/Source/Icon_Minimize.png"))
+        self.ventanaRioBravo.btc_btc_Cerrar.setIcon(QIcon(":/Source/Icon_Close.png"))
         self.ventanaRioBravo.lblLogoKWRB.setPixmap(QPixmap(":/Source/LOGO_KWRB.png"))
+        Icon_Delete = QIcon(":/Source/Icon_Delete.png")
+        Icon_Proccess = QIcon(":/Source/Icon_Proccess.png")
+        Icon_Upload = QIcon(":/Source/Icon_Upload.png")
         self.setWindowIcon(QIcon(":/Source/LOGO_KREI_3.ico"))
         
         
         
         # Creamos el hilo
         self.Hilo = trabajohilo()
-        self.ventanaRioBravo.btnEliminar.clicked.connect(self.RemoveProcessed)
-        self.ventanaRioBravo.btnSubir.clicked.connect(self.Cargar)
-        self.ventanaRioBravo.btnComenzar.clicked.connect(self.inicialHilo)
-        self.ventanaRioBravo.btnAyuda.clicked.connect(self.Ayuda)
-        self.ventanaRioBravo.btnMinimizar.clicked.connect(self.minimizar)
-        self.ventanaRioBravo.btnCerrar.clicked.connect(self.Cerrar)
-        self.ventanaRioBravo.btn_Errores.clicked.connect(self.abrir_ruta_errores)
-        self.ventanaRioBravo.btn_Originales.clicked.connect(self.abrir_ruta_originales)
-        self.ventanaRioBravo.btn_Procesados.clicked.connect(self.abrir_ruta_procesados)
+
+        self.ventanaRioBravo.btn_btn_Eliminar.setIcon(Icon_Delete)
+        self.ventanaRioBravo.btn_btn_Eliminar.setIconSize(QtCore.QSize(24, 24))
+        self.ventanaRioBravo.btn_btn_Comenzar.setIcon(Icon_Proccess)
+        self.ventanaRioBravo.btn_btn_Comenzar.setIconSize(QtCore.QSize(24, 24))
+        self.ventanaRioBravo.btn_btn_Subir.setIcon(Icon_Upload)
+        self.ventanaRioBravo.btn_btn_Subir.setIconSize(QtCore.QSize(24, 24))
+
+
+        self.ventanaRioBravo.btn_btn_Eliminar.clicked.connect(self.RemoveProcessed)
+        self.ventanaRioBravo.btn_btn_Subir.clicked.connect(self.Cargar)
+        self.ventanaRioBravo.btn_btn_Comenzar.clicked.connect(self.inicialHilo)
+        self.ventanaRioBravo.btn_btn_Ayuda.clicked.connect(self.Ayuda)
+        self.ventanaRioBravo.btc_btc_Minimizar.clicked.connect(self.minimizar)
+        self.ventanaRioBravo.btc_btc_Cerrar.clicked.connect(self.Cerrar)
+        self.ventanaRioBravo.btn_btn_Errores.clicked.connect(self.abrir_ruta_errores)
+        self.ventanaRioBravo.btn_btn_Originales.clicked.connect(self.abrir_ruta_originales)
+        self.ventanaRioBravo.btn_btn_Procesados.clicked.connect(self.abrir_ruta_procesados)
 
         # MENU DE OPCIONES
         self.ventanaRioBravo.actionObjetivos_Mensuales_PagosClientes.triggered.connect(self.ObjetivosPagoClientes)
@@ -314,30 +326,30 @@ class Home_KWRB(QMainWindow, Variables, ):
 # mostrar el contenido de la carpeta en la tabla de trabajos.
     def Show_Data_Trabajos(self):
         archivos_para_mostrar = os.listdir(Variables().ruta_Trabajo)
-        self.ventanaRioBravo.TWCola.setRowCount(len(archivos_para_mostrar))
-        self.ventanaRioBravo.TWCola.setColumnCount(1)
-        self.ventanaRioBravo.TWCola.setHorizontalHeaderLabels(["Nombre del archivo"])
+        self.ventanaRioBravo.Tabla_Cola.setRowCount(len(archivos_para_mostrar))
+        self.ventanaRioBravo.Tabla_Cola.setColumnCount(1)
+        self.ventanaRioBravo.Tabla_Cola.setHorizontalHeaderLabels(["Nombre del archivo"])
         for fila, archivo in enumerate(archivos_para_mostrar):
             elemento = QTableWidgetItem(archivo)
             elemento.setFlags(QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled)  # Bloqueamos la edición
             elemento.setForeground(QtGui.QColor(0, 0, 0))
-            self.ventanaRioBravo.TWCola.setItem(fila, 0, elemento)
-        header = self.ventanaRioBravo.TWCola.horizontalHeader()
+            self.ventanaRioBravo.Tabla_Cola.setItem(fila, 0, elemento)
+        header = self.ventanaRioBravo.Tabla_Cola.horizontalHeader()
         header.setSectionResizeMode(0, QtWidgets.QHeaderView.Stretch)
 
 
 
     def Show_Data_Procesado(self):
             archivos_para_mostrar = os.listdir(Variables().ruta_procesados)
-            self.ventanaRioBravo.TWProcesado.setRowCount(len(archivos_para_mostrar))
-            self.ventanaRioBravo.TWProcesado.setColumnCount(1)
-            self.ventanaRioBravo.TWProcesado.setHorizontalHeaderLabels(["Nombre del archivo"])
+            self.ventanaRioBravo.Tabla_Procesados.setRowCount(len(archivos_para_mostrar))
+            self.ventanaRioBravo.Tabla_Procesados.setColumnCount(1)
+            self.ventanaRioBravo.Tabla_Procesados.setHorizontalHeaderLabels(["Nombre del archivo"])
             for fila, archivo in enumerate(archivos_para_mostrar):
                 elemento = QTableWidgetItem(archivo)
                 elemento.setFlags(QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled)  # Bloqueamos la edición
                 elemento.setForeground(QtGui.QColor(0, 0, 0))
-                self.ventanaRioBravo.TWProcesado.setItem(fila, 0, elemento)
-            header = self.ventanaRioBravo.TWProcesado.horizontalHeader()
+                self.ventanaRioBravo.Tabla_Procesados.setItem(fila, 0, elemento)
+            header = self.ventanaRioBravo.Tabla_Procesados.horizontalHeader()
             header.setSectionResizeMode(0, QtWidgets.QHeaderView.Stretch)
 #--------------------------------------------------
 

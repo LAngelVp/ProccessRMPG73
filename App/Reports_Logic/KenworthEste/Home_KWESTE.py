@@ -43,24 +43,27 @@ class Home_KWESTE(QMainWindow, QDialog, Variables):
         self.ventKWESTE.setupUi(self)
         # colocar los iconos e imagenes en su correspondiente elemento.
         self.ventKWESTE.lblLogoKWESTE.setPixmap(logo_KWESTE)
-        self.ventKWESTE.btnCerrar.setIcon(Icon_Cerrar)
-        self.ventKWESTE.btnMinimizar.setIcon(Icon_Minimizar)
-        self.ventKWESTE.btnAyuda.setIcon(Icon_Help)
-        self.ventKWESTE.btnEliminar.setIcon(Icon_Delete)
-        self.ventKWESTE.btnComenzar.setIcon(Icon_Proccess)
-        self.ventKWESTE.btnSubir.setIcon(Icon_Upload)
+        self.ventKWESTE.btc_btc_Cerrar.setIcon(Icon_Cerrar)
+        self.ventKWESTE.btc_btc_Minimizar.setIcon(Icon_Minimizar)
+        self.ventKWESTE.btn_btn_Ayuda.setIcon(Icon_Help)
+        self.ventKWESTE.btn_btn_Eliminar.setIcon(Icon_Delete)
+        self.ventKWESTE.btn_btn_Eliminar.setIconSize(QtCore.QSize(24, 24))
+        self.ventKWESTE.btn_btn_Comenzar.setIcon(Icon_Proccess)
+        self.ventKWESTE.btn_btn_Comenzar.setIconSize(QtCore.QSize(24, 24))
+        self.ventKWESTE.btn_btn_Subir.setIcon(Icon_Upload)
+        self.ventKWESTE.btn_btn_Subir.setIconSize(QtCore.QSize(24, 24))
         # creamos el hilo
         self.Hilo = trabajohilo()
         #conexiones de los botones
-        self.ventKWESTE.btnSubir.clicked.connect(self.Cargar)
-        self.ventKWESTE.btnComenzar.clicked.connect(self.ComenzarProceso)
-        self.ventKWESTE.btnEliminar.clicked.connect(self.RemoveProcessed)
-        self.ventKWESTE.btnAyuda.clicked.connect(self.Help)
-        self.ventKWESTE.btnCerrar.clicked.connect(self.Cerrar)
-        self.ventKWESTE.btnMinimizar.clicked.connect(self.Minimizar)
-        self.ventKWESTE.btn_Errores.clicked.connect(self.abrir_ruta_errores)
-        self.ventKWESTE.btn_Originales.clicked.connect(self.abrir_ruta_originales)
-        self.ventKWESTE.btn_Procesados.clicked.connect(self.abrir_ruta_procesados)
+        self.ventKWESTE.btn_btn_Subir.clicked.connect(self.Cargar)
+        self.ventKWESTE.btn_btn_Comenzar.clicked.connect(self.ComenzarProceso)
+        self.ventKWESTE.btn_btn_Eliminar.clicked.connect(self.RemoveProcessed)
+        self.ventKWESTE.btn_btn_Ayuda.clicked.connect(self.Help)
+        self.ventKWESTE.btc_btc_Cerrar.clicked.connect(self.Cerrar)
+        self.ventKWESTE.btc_btc_Minimizar.clicked.connect(self.Minimizar)
+        self.ventKWESTE.btn_btn_Errores.clicked.connect(self.abrir_ruta_errores)
+        self.ventKWESTE.btn_btn_Originales.clicked.connect(self.abrir_ruta_originales)
+        self.ventKWESTE.btn_btn_Procesados.clicked.connect(self.abrir_ruta_procesados)
 
         # MENU DE OPCIONES
         self.ventKWESTE.actionObjetivos_Mensuales_PagosClientes.triggered.connect(self.ObjetivosPagoClientes)
@@ -187,37 +190,37 @@ class Home_KWESTE(QMainWindow, QDialog, Variables):
     # mostrar el contenido de la carpeta en la tabla de trabajos.
     def Show_Data_Trabajos(self):
         archivos_para_mostrar = os.listdir(Variables().ruta_Trabajo)
-        self.ventKWESTE.TWCola.setRowCount(len(archivos_para_mostrar))
-        self.ventKWESTE.TWCola.setColumnCount(1)
-        self.ventKWESTE.TWCola.setHorizontalHeaderLabels(["Nombre del archivo"])
+        self.ventKWESTE.Tabla_cola.setRowCount(len(archivos_para_mostrar))
+        self.ventKWESTE.Tabla_cola.setColumnCount(1)
+        self.ventKWESTE.Tabla_cola.setHorizontalHeaderLabels(["Nombre del archivo"])
         for fila, archivo in enumerate(archivos_para_mostrar):
             elemento = QTableWidgetItem(archivo)
             elemento.setFlags(QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled)  # Bloqueamos la edición
             elemento.setForeground(QtGui.QColor(0, 0, 0))
-            self.ventKWESTE.TWCola.setItem(fila, 0, elemento)
+            self.ventKWESTE.Tabla_cola.setItem(fila, 0, elemento)
             # font = QtGui.QFont()
             # font.setPointSize(30)  # Establece el tamaño de la letra a 14 puntos
             # elemento.setFont(font)
-        # self.ventKWESTE.TWCola.setColumnWidth(0, 415)
-        header = self.ventKWESTE.TWCola.horizontalHeader()
+        # self.ventKWESTE.Tabla_cola.setColumnWidth(0, 415)
+        header = self.ventKWESTE.Tabla_cola.horizontalHeader()
         header.setSectionResizeMode(0, QtWidgets.QHeaderView.Stretch)
 
     # mostrar el contenido de la carpeta en la tabla de trabajos.
     def Show_Data_Procesado(self):
         archivos_para_mostrar = os.listdir(Variables().ruta_procesados)
-        self.ventKWESTE.TWProcesado.setRowCount(len(archivos_para_mostrar))
-        self.ventKWESTE.TWProcesado.setColumnCount(1)
-        self.ventKWESTE.TWProcesado.setHorizontalHeaderLabels(["Nombre del archivo"])
+        self.ventKWESTE.Tabla_Procesados.setRowCount(len(archivos_para_mostrar))
+        self.ventKWESTE.Tabla_Procesados.setColumnCount(1)
+        self.ventKWESTE.Tabla_Procesados.setHorizontalHeaderLabels(["Nombre del archivo"])
         for fila, archivo in enumerate(archivos_para_mostrar):
             elemento = QTableWidgetItem(archivo)
             elemento.setFlags(QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled)  # Bloqueamos la edición
             elemento.setForeground(QtGui.QColor(0, 0, 0))
-            self.ventKWESTE.TWProcesado.setItem(fila, 0, elemento)
+            self.ventKWESTE.Tabla_Procesados.setItem(fila, 0, elemento)
             # font = QtGui.QFont()
             # font.setPointSize(30)  # Establece el tamaño de la letra a 14 puntos
             # elemento.setFont(font)
-        # self.ventKWESTE.TWProcesado.setColumnWidth(0, 415)
-        header = self.ventKWESTE.TWProcesado.horizontalHeader()
+        # self.ventKWESTE.Tabla_Procesados.setColumnWidth(0, 415)
+        header = self.ventKWESTE.Tabla_Procesados.horizontalHeader()
         header.setSectionResizeMode(0, QtWidgets.QHeaderView.Stretch)
 
 

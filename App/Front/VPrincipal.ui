@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>350</width>
+    <width>320</width>
     <height>450</height>
    </rect>
   </property>
@@ -21,13 +21,13 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>350</width>
+    <width>320</width>
     <height>450</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>350</width>
+    <width>320</width>
     <height>450</height>
    </size>
   </property>
@@ -45,12 +45,22 @@
    <bool>false</bool>
   </property>
   <property name="styleSheet">
-   <string notr="true">#panel_principal{
+   <string notr="true">#VPrincipal{
+background-color: rgb(255, 255, 255);
+min-height:450px;
+min-width: 320px;
+max-height: 450px;
+max-width: 320px;
+}
+#panel_principal{
 background-color: rgb(255, 255, 255);
 border-radius:8px;
 }
 [objectName^=&quot;btc_btc&quot;]{
 background-color: transparent;
+border-radius:none;
+width:35px;
+height:35px;
 }
 [objectName^=&quot;btc_btc&quot;]:hover{
 	background-color: rgb(209, 209, 209);
@@ -58,17 +68,17 @@ background-color: transparent;
 	border-radius:4px;
 }
 [objectName^=&quot;btn_btn&quot;]{
-background-color: rgb(232, 232, 232);
+	background-color: rgb(153, 153, 153);
 	color: rgb(0, 0, 0);
 	color: rgb(0, 0, 0);
 	border-radius:8px;
 	font-size: 15px;
 	font-weight: bold;
-max-height: 35px;
-max-width: 280px;
+	max-height: 35px;
+	max-width: 280px;
 }
 [objectName^=&quot;btn_btn&quot;]:hover{
-	background-color: rgb(209, 209, 209);
+	background-color: rgb(163, 163, 163);
 	color: rgb(0, 0, 0);
 }
 #panel_encabezado{
@@ -85,8 +95,8 @@ min-height: 200px;
 	max-height: 300px;
 }
 #imgPrincipalMenu{
-    margin-left: 25px;
-    margin-right: 25px;
+    margin-left: 60px;
+    margin-right: 60px;
 }
 #VPrincipal{
 background-color: rgb(255, 255, 255);
@@ -160,6 +170,18 @@ border-radius:8px;
     </item>
     <item row="2" column="0">
      <widget class="QWidget" name="panel_btn_sucursales" native="true">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>210</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>310</height>
+       </size>
+      </property>
       <property name="layoutDirection">
        <enum>Qt::LeftToRight</enum>
       </property>
@@ -349,6 +371,16 @@ border-radius:8px;
      </spacer>
     </item>
    </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>320</width>
+     <height>30</height>
+    </rect>
+   </property>
   </widget>
  </widget>
  <resources/>
