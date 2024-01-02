@@ -159,9 +159,10 @@ class ServicioDetallado(Variables):
 #//////////////////////////////////////////////////////////////////////////////////////
     #COMMENT_FUNCTION: FUNCION PARA CONCATENAR UNIDAD
     def unidad(self, valor):
+        valor = str(valor)
         if (valor == ""):
             return ""
-        elif (valor.isnumeric()):
+        elif (valor.isdigit()):
             return "UN-" + valor
         else:
             return "UN-F" + valor 
