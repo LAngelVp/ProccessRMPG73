@@ -58,7 +58,10 @@ class ResultadosFinancieros(Variables):
         df_pivote.reset_index(inplace=True)
         
         # excluimos las cotizaciones
-        df_unidades_facturadas = df_pivote.query("cantidad == 1").copy()
+        try:
+            df_unidades_facturadas = df_pivote.query("cantidad == 1").copy()
+        except:
+            return
 
         df_unidades_facturadas_ordenado = df_unidades_facturadas[columnas]
 
