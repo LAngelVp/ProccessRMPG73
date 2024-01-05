@@ -8,6 +8,7 @@ from datetime import *
 from .Variables.ContenedorVariables import Variables
 class Inventario(Variables):
     def __init__(self):
+        self.m = Variables().marcas_refacciones_fun()
         #obtenemos el archivo
         self.nombre_doc = 'ICE.xlsx'
         self.nombre_doc2 = 'ICDE.xlsx'
@@ -95,7 +96,14 @@ class Inventario(Variables):
         df_inventarioCosteadoxDia["ClasSF"] = df_inventarioCosteadoxDia.apply(lambda fila:self.ClasSF_Almacen(fila["Almacén"],fila["TipoDocumento"], fila["ClasSF"]),axis=1)
 
         #creamoa la columna de marca
-        df_inventarioCosteadoxDia["Marca"] = ""
+        df_inventarioCosteadoxDia["Marca"] = df_inventarioCosteadoxDia.apply(
+            lambda fila: pd.Series(
+                self.marca_inventario(
+                    fila["Núm Artículo"], fila["Número Categoría"], fila["Categoría"]
+                )
+            ),
+            axis=1,
+        )
         #creamos la del mes
         df_inventarioCosteadoxDia["Mes"] = Variables().nombre_mes_actual_abreviado()
 
@@ -156,3 +164,17 @@ class Inventario(Variables):
             return "Ultrashift"
         else:
             return valor_clasSF
+#COMMENT_FUNCTION: FUNCION PARA LA CLASIFICACION DE LA MARCA DE LAS REFACCIONES
+    def marca_inventario(self, numero_articulo, numero_categoria, categoria):
+        for i, valor in self.m.iterrows():
+            valor_articulo = valor["Número Artículo"]
+            valor_num_categoria = valor["Número Categoría"]
+            valor_categoria = valor["Ctegoria"]
+            valor_marca = valor["Marca"]
+            if (
+                (str(numero_articulo) == str(valor_articulo))
+                and (str(numero_categoria) == str(valor_num_categoria))
+                and (str(categoria) == str(valor_categoria))
+            ):
+                return valor_marca
+        return "SM"
