@@ -4,7 +4,7 @@
 #########################
 import os
 import pandas as pd
-from .Variables.ContenedorVariables import Variables
+from Variables.ContenedorVariables import Variables
 class Refacciones(Variables):
     def __init__(self):
 
@@ -64,6 +64,7 @@ class Refacciones(Variables):
 #COMMENT: CREAR COLUMNA DE MOVIMIENTO
         a["Columna_movimiento"] = "False"
         a.loc[(a["Cliente"] == "TRANSPORTES G.R.L.") | (a["Sucursal"] == "Coatzacoalcos"), "Columna_movimiento"] = 'e-KREI'
+        a.loc[(a["Vendedor"] == "NOTAS DE CARGO"), "Vendedor"] = "EDWARD REYES P"
 
 #COMMENT: CREAR LAS COLUMNAS DE CLASIFICACION DE VENDEDORES
         a[["Depto_venta","Depto_normal"]] = a.apply(
@@ -178,3 +179,4 @@ class Refacciones(Variables):
             ):
                 return valor_marca
         return "SM"
+Refacciones()
