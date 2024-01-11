@@ -4,7 +4,7 @@
 #########################
 import os
 import pandas as pd
-from Variables.ContenedorVariables import Variables
+from .Variables.ContenedorVariables import Variables
 class Refacciones(Variables):
     def __init__(self):
 
@@ -179,4 +179,3 @@ class Refacciones(Variables):
             ):
                 return valor_marca
         return "SM"
-Refacciones()
