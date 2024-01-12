@@ -125,4 +125,3 @@ class PagoClientes(Variables):
             df_completo.to_excel(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), index=False )
         else:
             df_completo.to_csv(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), encoding="utf-8", index=False )
-
