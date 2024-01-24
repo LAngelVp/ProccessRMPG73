@@ -52,7 +52,7 @@ Dentro de cada una de estas carpetas se encuentra la logica de su IU y proceso d
 ## **Comandos de soporte:**
 ~~~~~
 Ejecutable de la aplicación:
-[pyinstaller --onefile --name "ProcesadorRMPG" --icon="LKW.ico" --windowed "Home.py"]
+[pyinstaller --onefile --name "KWDataProcessRMPG73" --icon="LKW.ico" --windowed "Home.py"]
 ~~~~~
 ~~~
 Transformar archivo .qrc a .py, por ejemplo para las imagenes.
