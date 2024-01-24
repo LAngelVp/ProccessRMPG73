@@ -69,6 +69,9 @@ class Compras(Variables):
             else:
                 pass
         # devolvemos al nombre original.
+            
+        df2["Mes"] = df2["FD"].apply(lambda x:Variables().nombre_mes_base_columna(x))
+        
         df2.rename(columns={ 'FD':'Fecha Docto.', 'FC':'Fecha Captura'}, inplace=True)
 
         df2.drop(['Folio','Hoy'], axis=1, inplace=True)
