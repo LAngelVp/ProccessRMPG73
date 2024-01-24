@@ -1,0 +1,7 @@
+pandas
+numpy
+openpyxl
+PyQt5
+PyInstaller
+virtualenv
+sqlalchemy
