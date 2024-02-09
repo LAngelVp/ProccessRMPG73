@@ -119,5 +119,3 @@ class Refacciones(Variables):
             depa = "Servicio"
         
         return departamento_venta, depa
-       
-        

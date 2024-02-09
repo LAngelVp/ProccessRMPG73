@@ -82,8 +82,8 @@ class PagosClientes(Variables):
         d.loc[
             (credito)
             & (d["Usuario_Aplicó"] == "DANIEL ALEJANDRO JACINTO LOPEZ")
-            & (d["Tipo_Docto."] == "Nota de cargo")
-            & (d["Departamento"].isin(["REFACCIONES", "TALLER DE SERVICIO", "ADMINISTRACION"])),
+            & (d["Cliente_Pago"] == "RECICLADORA INDUSTRIAL DE ACUMULADORES")
+            & (d["Tipo_Docto."] == "Nota de cargo"),
             "CLASS_SUCURSAL",
         ] = "12 NOTA DE CARGO"
 
@@ -91,9 +91,9 @@ class PagosClientes(Variables):
         d.loc[
             (credito)
             & (d["Usuario_Aplicó"] == "DANIEL ALEJANDRO JACINTO LOPEZ")
-            & (d["Cliente_Pago"].str.contains("PACLEASE MEXICANA"))
+            & (d["Cliente_Pago"].isin(["PACLEASE MEXICANA","PACCAR FINANCIAL MEXICO"]))
             & (d["Tipo_Docto."] == "Factura")
-            & (d["Departamento"].isin(["REFACCIONES", "TALLER DE SERVICIO", "ADMINISTRACION"]))
+            & (d["Departamento"].isin(["REFACCIONES", "TALLER DE SERVICIO"]))
             & (d["CLASS_SUCURSAL"] == "OTROS"),
             "CLASS_SUCURSAL",
         ] = "11 PACLEASE"
@@ -145,7 +145,7 @@ class PagosClientes(Variables):
         d.loc[
             (credito)
             & (d["Usuario_Aplicó"] == "GUADALUPE JUAREZ")
-            & (d["Tipo_Docto."].isin(["Anticipo", "Factura"]))
+            & (d["Tipo_Docto."].isin(["Factura"]))
             & (d["Departamento"].isin(["REFACCIONES", "TALLER DE SERVICIO"]))
             & (d["CLASS_SUCURSAL"] == "OTROS"),
             "CLASS_SUCURSAL",
