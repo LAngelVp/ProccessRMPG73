@@ -119,6 +119,9 @@ class Refacciones(Variables):
             axis=1,
         )
 
+#COMENT: CREATE COLUMN JOB POSITION
+        a["Puesto de Trabajo"] = a.apply(lambda fila: pd.Series(self.posicion_de_trabajo(fila["Sucursal"])), axis=1)
+
 #COMMENT:OBTENEMOS LAS COLUMNAS BOOL A STR
         columnas_bol=a.select_dtypes(include=bool).columns.tolist()
         a[columnas_bol] = a[columnas_bol].astype(str)
@@ -179,3 +182,12 @@ class Refacciones(Variables):
             ):
                 return valor_marca
         return "SM"
+    
+    def posicion_de_trabajo(self, sucursal):
+        for index, valor in self.j.iterrows():
+            valor_vendedor = valor["vendedor"]
+            valor_sucursal = valor["sucursal"]
+            valor_jerarquia = valor["jerarquia"]
+            if sucursal == valor_sucursal and valor_jerarquia.lower() == "coordinador":
+                return valor_vendedor
+        return ""
