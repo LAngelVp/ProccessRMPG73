@@ -82,8 +82,12 @@ class PagosClientes(Variables):
         d.loc[
             (credito)
             & (d["Usuario_Aplicó"] == "DANIEL ALEJANDRO JACINTO LOPEZ")
-            & (d["Cliente_Pago"] == "RECICLADORA INDUSTRIAL DE ACUMULADORES")
             & (d["Tipo_Docto."] == "Nota de cargo"),
+            "CLASS_SUCURSAL",
+        ] = "12 NOTA DE CARGO"
+        d.loc[
+            (credito)
+            & (d["Cliente_Pago"] == "RECICLADORA INDUSTRIAL DE ACUMULADORES"),
             "CLASS_SUCURSAL",
         ] = "12 NOTA DE CARGO"
 
