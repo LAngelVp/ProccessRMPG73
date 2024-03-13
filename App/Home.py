@@ -64,6 +64,22 @@ class my_app(QMainWindow, Variables):
 
     def minimizar(self):
         self.showMinimized()
+
+    # EVENTOS DEL MOUSE
+    def mousePressEvent(self, event: QMouseEvent):
+        try:
+            if event.button() == Qt.LeftButton:
+                self.drag_start_position = event.globalPos() - self.frameGeometry().topLeft()
+        except:
+            pass
+#-----------------------------------------------------
+    def mouseMoveEvent(self, event: QMouseEvent):
+        try:
+            if event.buttons() == Qt.LeftButton:
+                self.move(event.globalPos() - self.drag_start_position)
+        except:
+            pass
+
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     window = my_app()
