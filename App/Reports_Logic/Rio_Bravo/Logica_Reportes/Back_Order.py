@@ -68,4 +68,4 @@ class BackOrder(Variables):
         if (os.path.basename(Variables().comprobar_reporte_documento_rutas(self.nombre_doc)).split(".")[1] == self.nombre_doc.split(".")[1]):
             df_resta_fechas.to_excel(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), index=False )
         else:
-            df_resta_fechas.to_csv(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), encoding="utf-8", index=False )
+            df_resta_fechas.to_csv(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), encoding="utf-8", index=False )   
