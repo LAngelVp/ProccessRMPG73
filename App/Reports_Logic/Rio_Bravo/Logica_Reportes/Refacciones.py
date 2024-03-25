@@ -34,6 +34,14 @@ class Refacciones(Variables):
 
         df.loc[(df["Depa"] == "Mostrador"), "Area"] = "Refacc Mostrador"
         df.loc[(df["Depa"] == "Servicio"), "Area"] = "Refacc Servicio"
+
+        # columna de Número de factura
+        column_bill_number = df["Número Factura"].map(str) + df["Serie Factura"].map(str)
+
+        df.drop(['Número Factura','Serie Factura'], axis=1, inplace=True)
+
+        df.insert(loc=3, column="Número Factura", value=column_bill_number, allow_duplicates=False)
+
         #-------------
         
         columnas_bol=df.select_dtypes(include=bool).columns.tolist()

@@ -119,8 +119,18 @@ class Refacciones(Variables):
             axis=1,
         )
 
-#COMENT: CREATE COLUMN JOB POSITION
+#COMMENT: CREATE COLUMN JOB POSITION
         a["Puesto de Trabajo"] = a.apply(lambda fila: pd.Series(self.posicion_de_trabajo(fila["Sucursal"])), axis=1)
+
+#COMMENT: CREATE COLUMN "ID_CLIENTE" (CONCATENATE)
+        Id_Cliente = "ID" + a["Id Cliente"].map(str)
+        a.drop(["Id Cliente"], axis=1, inplace=True)
+        a.insert(
+            loc = 15,
+            column = "Id Cliente",
+            value = Id_Cliente,
+            allow_duplicates = False
+        )
 
 #COMMENT:OBTENEMOS LAS COLUMNAS BOOL A STR
         columnas_bol=a.select_dtypes(include=bool).columns.tolist()
@@ -136,6 +146,10 @@ class Refacciones(Variables):
         else:
             a.to_csv(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), encoding="utf-8", index=False )
 
+
+#SEPARATOR ---------------------------------------------------------------------------------
+#COMMENT:FUNCIONES PARA LA CREACION DE COLUMNAS
+            
 #COMMENT_FUNCTION: FUNCION PARA CLASIFICAR LOS VENDEDORES CON SUS DEPARTAMENTOS
     def clasificacion_vendedores(self, vendedor, sucursal):
         for index, valor in self.j.iterrows():
