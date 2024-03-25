@@ -20,7 +20,7 @@ from .InicialClassObjetivos import *
 from .UI.V_KWRB import *
 from .Home_rutas import *
 import subprocess
-class Home_KWRB(QMainWindow, Variables, ):
+class Home_KWRB(QMainWindow, Variables):
     def __init__(self):
         super(Home_KWRB, self).__init__()
         self.Creacion_Carpetas()
@@ -458,7 +458,6 @@ class trabajohilo(QThread, Variables):
             os.remove(destino_archivoOriginal)
             shutil.move(ruta_origen, Variables().ruta_error)
 #--------------------------------------------------------
-
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
