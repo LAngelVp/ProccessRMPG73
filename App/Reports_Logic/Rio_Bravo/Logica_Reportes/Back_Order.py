@@ -13,7 +13,11 @@ class BackOrder(Variables):
         # leemos el archivo.
         self.nombre_doc = "BOR.xlsx"
         path = os.path.join(Variables().ruta_Trabajo,self.nombre_doc)
-        df = pd.read_excel(path, sheet_name='Hoja2')
+
+        try:
+            df = pd.read_excel(path, sheet_name='Hoja2')
+        except FileNotFoundError:
+            pass    
         df = df.replace(to_replace=';', value='-', regex=True)
         # copiamos el dataframe
         df2 = df.copy()
