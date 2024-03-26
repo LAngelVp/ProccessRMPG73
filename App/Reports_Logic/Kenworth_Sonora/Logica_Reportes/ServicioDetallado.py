@@ -4,7 +4,7 @@
 #########################
 import os
 import pandas as pd
-from .Variables.ContenedorVariables import Variables
+from Variables.ContenedorVariables import Variables
 
 class ServicioDetallado(Variables):
     def __init__(self):
@@ -52,9 +52,10 @@ class ServicioDetallado(Variables):
         df.loc[df["Cliente"].str.contains("|".join(array_PLM)),"Clasificacion Cliente"] = "PLM"
         df.loc[(df["Cliente"] == "KENWORTH DISTRIBUIDORA DE SONORA") | (df["Cliente"] == ""), "Clasificacion Cliente"] = "CI"
         df.loc[(df["Cliente"].str.contains("SEGUROS")) | (df["Cliente"].str.contains("SEGURO")) | (df["Cliente"] == "GRUPO NACIONAL PROVINCIAL"), "Clasificacion Cliente"] = "SEGUROS"
-
+        
+        df["Unidad"].fillna("",inplace=True)
         unidad = "UN-" + df["Unidad"].map(str)
-        numero_orden = "OS" + df["Número Orden"].map(str)
+        numero_orden = 'OS' + df["Número Orden"].astype(str).str.split(".").str[0].replace("nan","").fillna("")
         
         df["Unidad"] = unidad
         df["Número Orden"] = numero_orden
@@ -65,6 +66,7 @@ class ServicioDetallado(Variables):
         # obregon
         df.loc[df["Vendedor"] == "TALLER OBREGON", "DepaVenta"] = "Taller"
         df.loc[df["Vendedor"] == "MANUEL BELTRAN", "DepaVenta"] = "Taller"
+        df.loc[df["Vendedor"] == "MEDINA OCHOA FRANCISCO JAVIER", "DepaVenta"] = "Taller"
         # Hermosillo
         df.loc[df["Vendedor"] == "TALLER HERMOSILLO", "DepaVenta"] = "Taller"
         # Nogales
@@ -75,8 +77,10 @@ class ServicioDetallado(Variables):
         df.loc[df["Vendedor"] == "BALDENEGRO ARVAYO MIGUEL BAUDELIO", "DepaVenta"] = "Taller"
 
         # Depa
+        #COMMENT: Obregon
         df.loc[df["Vendedor"] == "TALLER OBREGON" , "Depa"] = "Taller Obregon"
         df.loc[df["Vendedor"] == "MANUEL BELTRAN" , "Depa"] = "Taller Obregon"
+        df.loc[df["Vendedor"] == "MEDINA OCHOA FRANCISCO JAVIER" , "Depa"] = "Taller Obregon"
         # Hermosillo
         df.loc[df["Vendedor"] == "TALLER HERMOSILLO", "Depa"] = "Taller Hermosillo"
         # Nogales
@@ -113,3 +117,5 @@ class ServicioDetallado(Variables):
             df.to_excel(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), index=False )
         else:
             df.to_csv(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), encoding="utf-8", index=False )
+
+ServicioDetallado()

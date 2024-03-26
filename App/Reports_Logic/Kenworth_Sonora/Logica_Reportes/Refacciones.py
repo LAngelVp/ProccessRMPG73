@@ -20,22 +20,26 @@ class Refacciones(Variables):
         df["Departamento Venta"] = ""
         df["Depa"] = ""
 
-        # clasificacion de los vendedores
-        # sucursal cananea - mostrador
+        #COMMENT: clasificacion de los vendedores
+        #COMMENT: sucursal cananea - mostrador
         df.loc[(df["Vendedor"] == "BELTRAN ALVIDREZ LOURDES LIZETH") & (df["Sucursal"] == "Cananea"),"Departamento Venta"] = "Mostrador Cananea"
         df.loc[(df["Vendedor"] == "OMAR DELGADO ZARCO") & (df["Sucursal"] == "Cananea"),"Departamento Venta"] = "Mostrador Cananea"
         df.loc[(df["Vendedor"] == "LOPEZ HERNANDEZ OSCAR") & (df["Sucursal"] == "Cananea"),"Departamento Venta"] = "Mostrador Cananea"
+        df.loc[(df["Vendedor"] == "TALLER HERMOSILLO") & (df["Sucursal"] == "Cananea"),"Departamento Venta"] = "Mostrador Cananea"
 
         df.loc[(df["Vendedor"] == "BELTRAN ALVIDREZ LOURDES LIZETH") & (df["Sucursal"] == "Cananea"),"Depa"] = "Mostrador"
         df.loc[(df["Vendedor"] == "OMAR DELGADO ZARCO") & (df["Sucursal"] == "Cananea"),"Depa"] = "Mostrador"
         df.loc[(df["Vendedor"] == "LOPEZ HERNANDEZ OSCAR") & (df["Sucursal"] == "Cananea"),"Depa"] = "Mostrador"
-        # sucursal hermosillo - mostrador
+        df.loc[(df["Vendedor"] == "TALLER HERMOSILLO") & (df["Sucursal"] == "Cananea"),"Depa"] = "Mostrador"
+        
+        #COMMENT: sucursal hermosillo - mostrador
         df.loc[(df["Vendedor"] == "BALDENEGRO ARVAYO MIGUEL BAUDELIO") & (df["Sucursal"] == "Hermosillo"),"Departamento Venta"] = "Mostrador Hermosillo"
         df.loc[(df["Vendedor"] == "GOMEZ CHINCHILLAS ANGEL ALFONSO") & (df["Sucursal"] == "Hermosillo"),"Departamento Venta"] = "Mostrador Hermosillo"
         df.loc[(df["Vendedor"] == "BELEM CECILIA MARCIAL LARES") & (df["Sucursal"] == "Hermosillo"),"Departamento Venta"] = "Mostrador Hermosillo"
         df.loc[(df["Vendedor"] == "LOPEZ HERNANDEZ OSCAR") & (df["Sucursal"] == "Hermosillo"),"Departamento Venta"] = "Mostrador Hermosillo"
         df.loc[(df["Vendedor"] == "HECTOR DUARTE RENDÓN") & (df["Sucursal"] == "Hermosillo"),"Departamento Venta"] = "Mostrador Hermosillo"
         df.loc[(df["Vendedor"] == "LOPEZ SANCHEZ JORGE RENNE") & (df["Sucursal"] == "Hermosillo"),"Departamento Venta"] = "Mostrador Hermosillo"
+        df.loc[(df["Vendedor"] == "SERGIO MEDINA GOMEZ") & (df["Sucursal"] == "Hermosillo"),"Departamento Venta"] = "Mostrador Hermosillo"
 
         df.loc[(df["Vendedor"] == "BALDENEGRO ARVAYO MIGUEL BAUDELIO") & (df["Sucursal"] == "Hermosillo"),"Depa"] = "Mostrador"
         df.loc[(df["Vendedor"] == "GOMEZ CHINCHILLAS ANGEL ALFONSO") & (df["Sucursal"] == "Hermosillo"),"Depa"] = "Mostrador"
@@ -43,7 +47,9 @@ class Refacciones(Variables):
         df.loc[(df["Vendedor"] == "LOPEZ HERNANDEZ OSCAR") & (df["Sucursal"] == "Hermosillo"),"Depa"] = "Mostrador"
         df.loc[(df["Vendedor"] == "HECTOR DUARTE RENDÓN") & (df["Sucursal"] == "Hermosillo"),"Depa"] = "Mostrador"
         df.loc[(df["Vendedor"] == "LOPEZ SANCHEZ JORGE RENNE") & (df["Sucursal"] == "Hermosillo"),"Depa"] = "Mostrador"
-        # sucursal navojoa - mostrador
+        df.loc[(df["Vendedor"] == "SERGIO MEDINA GOMEZ") & (df["Sucursal"] == "Hermosillo"),"Depa"] = "Mostrador"
+
+        #COMMENT: sucursal navojoa - mostrador
         df.loc[(df["Vendedor"] == "JOSE LUIS RUELAS CHAVEZ") & (df["Sucursal"] == "Navojoa"),"Departamento Venta"] = "Mostrador Navojoa"
         df.loc[(df["Vendedor"] == "URIEL PORTILLO ESQUER") & (df["Sucursal"] == "Navojoa"),"Departamento Venta"] = "Mostrador Navojoa"
         df.loc[(df["Vendedor"] == "JORGE EDUARDO MONTOYA CAMPILLO") & (df["Sucursal"] == "Navojoa"),"Departamento Venta"] = "Mostrador Navojoa"
@@ -53,15 +59,19 @@ class Refacciones(Variables):
         df.loc[(df["Vendedor"] == "URIEL PORTILLO ESQUER") & (df["Sucursal"] == "Navojoa"),"Depa"] = "Mostrador"
         df.loc[(df["Vendedor"] == "JORGE EDUARDO MONTOYA CAMPILLO") & (df["Sucursal"] == "Navojoa"),"Depa"] = "Mostrador"
         df.loc[(df["Vendedor"] == "JOEL GUTIERREZ BAJECA") & (df["Sucursal"] == "Navojoa"),"Depa"] = "Mostrador"
-        # sucursal Nogales - mostrador
+
+        #COMMENT: sucursal Nogales - mostrador
         df.loc[(df["Vendedor"] == "RENE ALEJANDRO ACOSTA VALENZUELA") & (df["Sucursal"] == "Nogales"),"Departamento Venta"] = "Mostrador Nogales"
         df.loc[(df["Vendedor"] == "JUAB CARLOS JARAMILLO ARMENTA") & (df["Sucursal"] == "Nogales"),"Departamento Venta"] = "Mostrador Nogales"
         df.loc[(df["Vendedor"] == "EDGAR GERALDO GUTIERREZ BACASEGUA") & (df["Sucursal"] == "Nogales"),"Departamento Venta"] = "Mostrador Nogales"
+        df.loc[(df["Vendedor"] == "TALLER HERMOSILLO") & (df["Sucursal"] == "Nogales"),"Departamento Venta"] = "Mostrador Nogales"
 
         df.loc[(df["Vendedor"] == "RENE ALEJANDRO ACOSTA VALENZUELA") & (df["Sucursal"] == "Nogales"),"Depa"] = "Mostrador"
         df.loc[(df["Vendedor"] == "JUAB CARLOS JARAMILLO ARMENTA") & (df["Sucursal"] == "Nogales"),"Depa"] = "Mostrador"
         df.loc[(df["Vendedor"] == "EDGAR GERALDO GUTIERREZ BACASEGUA") & (df["Sucursal"] == "Nogales"),"Depa"] = "Mostrador"
-        # sucursal Nogales Centro - mostrador
+        df.loc[(df["Vendedor"] == "TALLER HERMOSILLO") & (df["Sucursal"] == "Nogales"),"Depa"] = "Mostrador"
+
+        #COMMENT: sucursal Nogales Centro - mostrador
         df.loc[(df["Vendedor"] == "RODRIGO ANTONIO QUIÑONES NUÑEZ") & (df["Sucursal"] == "Nogales Centro"),"Departamento Venta"] = "Mostrador Nogales Centro"
         df.loc[(df["Vendedor"] == "LILIANA HAYDEE FONTES BARRON") & (df["Sucursal"] == "Nogales Centro"),"Departamento Venta"] = "Mostrador Nogales Centro"
         df.loc[(df["Vendedor"] == "IVAN IBARRA NAVARRO") & (df["Sucursal"] == "Nogales Centro"),"Departamento Venta"] = "Mostrador Nogales Centro"
@@ -69,7 +79,8 @@ class Refacciones(Variables):
         df.loc[(df["Vendedor"] == "RODRIGO ANTONIO QUIÑONES NUÑEZ") & (df["Sucursal"] == "Nogales Centro"),"Depa"] = "Mostrador"
         df.loc[(df["Vendedor"] == "LILIANA HAYDEE FONTES BARRON") & (df["Sucursal"] == "Nogales Centro"),"Depa"] = "Mostrador"
         df.loc[(df["Vendedor"] == "IVAN IBARRA NAVARRO") & (df["Sucursal"] == "Nogales Centro"),"Depa"] = "Mostrador"
-        # sucursal Obregon - mostrador
+
+        #COMMENT: sucursal Obregon - mostrador
         df.loc[(df["Vendedor"] == "MANUEL BELTRAN") & (df["Sucursal"] == "Obregon"),"Departamento Venta"] = "Mostrador Obregon"
         df.loc[(df["Vendedor"] == "VICENTE TREJO ORDORICA") & (df["Sucursal"] == "Obregon"),"Departamento Venta"] = "Mostrador Obregon"
         df.loc[(df["Vendedor"] == "MEDINA OCHOA FRANCISCO JAVIER") & (df["Sucursal"] == "Obregon"),"Departamento Venta"] = "Mostrador Obregon"
@@ -83,26 +94,35 @@ class Refacciones(Variables):
         df.loc[(df["Vendedor"] == "ELISEO MAZO JAQUES") & (df["Sucursal"] == "Obregon"),"Depa"] = "Mostrador"
         df.loc[(df["Vendedor"] == "ACOSTA AVILA JORGE ANTONIO") & (df["Sucursal"] == "Obregon"),"Depa"] = "Mostrador"
         df.loc[(df["Vendedor"] == "JORGE EDUARDO MONTOYA CAMPILLO") & (df["Sucursal"] == "Obregon"),"Depa"] = "Mostrador"
-        # sucursal Perisur - mostrador
+        
+        #COMMENT: sucursal Perisur - mostrador
         df.loc[(df["Vendedor"] == "LOPEZ SANCHEZ JORGE RENNE") & (df["Sucursal"] == "Perisur"),"Departamento Venta"] = "Mostrador Perisur"
         df.loc[(df["Vendedor"] == "HECTOR DUARTE RENDÓN") & (df["Sucursal"] == "Perisur"),"Departamento Venta"] = "Mostrador Perisur"
         df.loc[(df["Vendedor"] == "JORGE VALENCIA [PERISUR]]") & (df["Sucursal"] == "Perisur"),"Departamento Venta"] = "Mostrador Perisur"
         df.loc[(df["Vendedor"] == "PIRI OQUITA RAMON") & (df["Sucursal"] == "Perisur"),"Departamento Venta"] = "Mostrador Perisur"
+        df.loc[(df["Vendedor"] == "TALLER HERMOSILLO") & (df["Sucursal"] == "Perisur"),"Departamento Venta"] = "Mostrador Perisur"
+        df.loc[(df["Vendedor"] == "TOMAS CORONADO") & (df["Sucursal"] == "Perisur"),"Departamento Venta"] = "Mostrador Perisur"
 
         df.loc[(df["Vendedor"] == "LOPEZ SANCHEZ JORGE RENNE") & (df["Sucursal"] == "Perisur"),"Depa"] = "Mostrador"
         df.loc[(df["Vendedor"] == "HECTOR DUARTE RENDÓN") & (df["Sucursal"] == "Perisur"),"Depa"] = "Mostrador"
         df.loc[(df["Vendedor"] == "JORGE VALENCIA [PERISUR]]") & (df["Sucursal"] == "Perisur"),"Depa"] = "Mostrador"
         df.loc[(df["Vendedor"] == "PIRI OQUITA RAMON") & (df["Sucursal"] == "Perisur"),"Depa"] = "Mostrador"
-        # sucursal Obregon - taller
+        df.loc[(df["Vendedor"] == "TALLER HERMOSILLO") & (df["Sucursal"] == "Perisur"),"Depa"] = "Mostrador"
+        df.loc[(df["Vendedor"] == "TOMAS CORONADO") & (df["Sucursal"] == "Perisur"),"Depa"] = "Mostrador"
+        
+        #COMMENT: sucursal Obregon - taller
         df.loc[(df["Vendedor"] == "TALLER OBREGON") & (df["Sucursal"] == "Obregon"),"Departamento Venta"] = "Taller Obregon"
         df.loc[(df["Vendedor"] == "TALLER OBREGON") & (df["Sucursal"] == "Obregon"),"Depa"] = "Taller"
-        # sucursal Nogales - Taller
+        
+        #COMMENT: sucursal Nogales - Taller
         df.loc[(df["Vendedor"] == "TALLER NOGALES") & (df["Sucursal"] == "Nogales"),"Departamento Venta"] = "Taller Nogales"
         df.loc[(df["Vendedor"] == "TALLER NOGALES") & (df["Sucursal"] == "Nogales"),"Depa"] = "Taller"
-        # sucaursa Hermosillo - Taller
+        
+        #COMMENT: sucaursa Hermosillo - Taller
         df.loc[(df["Vendedor"] == "TALLER HERMOSILLO") & (df["Sucursal"] == "Hermosillo"),"Departamento Venta"] = "Taller Hermosillo"
         df.loc[(df["Vendedor"] == "TALLER HERMOSILLO") & (df["Sucursal"] == "Hermosillo"),"Depa"] = "Taller"
-        # sucursal Hermosillo - Carroceria
+        
+        #COMMENT: sucursal Hermosillo - Carroceria
         df.loc[(df["Vendedor"] == "CARROCERIA HERMOSILLO") & (df["Sucursal"] == "Hermosillo"),"Departamento Venta"] = "Carroceria Hermosillo"
         df.loc[(df["Vendedor"] == "CARROCERIA HERMOSILLO") & (df["Sucursal"] == "Hermosillo"),"Depa"] = "Carroceria"
 
