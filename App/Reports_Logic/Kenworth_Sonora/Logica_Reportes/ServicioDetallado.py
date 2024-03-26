@@ -4,7 +4,7 @@
 #########################
 import os
 import pandas as pd
-from Variables.ContenedorVariables import Variables
+from .Variables.ContenedorVariables import Variables
 
 class ServicioDetallado(Variables):
     def __init__(self):
@@ -118,4 +118,3 @@ class ServicioDetallado(Variables):
         else:
             df.to_csv(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), encoding="utf-8", index=False )
 
-ServicioDetallado()
