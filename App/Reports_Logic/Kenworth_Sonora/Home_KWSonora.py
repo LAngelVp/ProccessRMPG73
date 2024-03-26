@@ -378,7 +378,8 @@ class trabajohilo(QThread, Variables):
             "RFS.xlsx" : KenworthConnect().ResultadosFinancieros,
             "CDS.xlsx" : KenworthConnect().Compras,
             "BOS.xlsx" : KenworthConnect().BackOrder,
-            "SDS.xlsx" : KenworthConnect().ServicioDetallado
+            "SDS.xlsx" : KenworthConnect().ServicioDetallado,
+            "VSS.xlsx" : KenworthConnect().VentasOServicio
         }
         #-----------------------------------------------
         while True:
