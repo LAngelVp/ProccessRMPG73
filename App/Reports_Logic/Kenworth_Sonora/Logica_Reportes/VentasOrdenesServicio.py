@@ -11,7 +11,7 @@ from .Variables.ContenedorVariables import Variables
 class VentasOrdenesServicio(Variables):
     def __init__(self):
         super().__init__()
-        self.nombre_doc = 'VSS.xlsx'
+        self.nombre_doc = 'VOSS.xlsx'
         path = os.path.join(Variables().ruta_Trabajo, self.nombre_doc)
         df = pd.read_excel(path, sheet_name='Hoja2')
         df = df.replace(to_replace=';', value='-', regex=True)
@@ -32,7 +32,7 @@ class VentasOrdenesServicio(Variables):
         df['Número Orden'] = self.numero_orden
         df["Unidad"] = self.unidad
         
-        df[['Departamento Venta', 'Depa']] = df.apply(lambda fila : pd.Series(self.clasificacion_departamentos(fila["Sucursal"])), axis=1)
+        df[['Departamento Venta', 'Depa']] = df.apply(lambda fila : pd.Series(self.clasificacion_departamentos(fila["Sucursal"], fila["Vendedor"])), axis=1)
 
         for i in df:
             if ('fecha' in i.lower()):
@@ -56,7 +56,12 @@ class VentasOrdenesServicio(Variables):
             df.to_csv(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), encoding="utf-8", index=False )
 
 
-    def clasificacion_departamentos(self, sucursal):
+    def clasificacion_departamentos(self, sucursal, vendedor):
         taller = 'Taller'
-        depa = f'{taller} {sucursal}'
-        return taller, depa
+        carroceria = 'Carroceria'
+        depa_taller = f'{taller} {sucursal}'
+        depa_carroceria = f'{carroceria} {sucursal}'
+        if (carroceria.upper() in vendedor):
+            return carroceria, depa_carroceria
+        else:
+            return taller, depa_taller

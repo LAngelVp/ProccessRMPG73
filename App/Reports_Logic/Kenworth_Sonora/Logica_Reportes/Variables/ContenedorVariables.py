@@ -77,6 +77,10 @@ class Variables():
         mes = calendar.month_name[valor.month].capitalize()
         return mes
     
+    def nombre_mes_base_columna_month_year(self, valor):
+        mes = valor.strftime(f'%b-%y').replace(".","")
+        return mes
+    
     def date_movement_config_document(self):
         document = pd.read_json(self.route_file_date)
         date_movement = pd.to_datetime(document.loc[0,"Date_Movement"], format="%d/%m/%Y", errors="coerce")

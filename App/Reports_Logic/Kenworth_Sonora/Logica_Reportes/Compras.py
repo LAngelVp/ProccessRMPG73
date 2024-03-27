@@ -6,7 +6,7 @@
 import os
 import pandas as pd
 from datetime import *
-from .Variables.ContenedorVariables import Variables
+from Variables.ContenedorVariables import Variables
 class Compras(Variables):
     def __init__(self):
         super().__init__()
@@ -70,9 +70,10 @@ class Compras(Variables):
                 pass
         # devolvemos al nombre original.
             
-        df2["Mes"] = df2["FD"].apply(lambda x:Variables().nombre_mes_base_columna(x))
+        df2["Mes"] = df2["FD"].apply(lambda x:Variables().nombre_mes_base_columna_month_year(x))
         
         df2.rename(columns={ 'FD':'Fecha Docto.', 'FC':'Fecha Captura'}, inplace=True)
+        
 
         df2.drop(['Folio','Hoy'], axis=1, inplace=True)
         columnas_bol=df2.select_dtypes(include=bool).columns.tolist()
@@ -91,3 +92,5 @@ class Compras(Variables):
             df2.to_excel(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), index=False )
         else:
             df2.to_csv(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), encoding="utf-8", index=False )
+
+Compras()
