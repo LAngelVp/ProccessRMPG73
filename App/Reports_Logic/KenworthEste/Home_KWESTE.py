@@ -405,8 +405,12 @@ class trabajohilo(QThread, Variables):
                             self.Comprobacion_Originales(nombre_archivo)
                             self.signalShowTrabajos.emit()
                             self.signalShowProcesados.emit()
-                        except:
-                            pass
+                        except Exception as e:
+                            array_errores.append(nombre_archivo)
+                            self.Comprobacion_Errores(nombre_archivo)
+                            self.signalShowTrabajos.emit()
+                            self.signalShowProcesados.emit()
+                            continue
                     else:
                         nombre_archivo_error = nombre_archivo
                         array_errores.append(nombre_archivo_error)

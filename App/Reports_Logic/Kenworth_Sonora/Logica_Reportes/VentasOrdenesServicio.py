@@ -8,7 +8,7 @@ import pandas as pd
 from datetime import *
 from .Variables.ContenedorVariables import Variables
 
-class VentasOrdenesServicio(Variables):
+class VentasServicio(Variables):
     def __init__(self):
         super().__init__()
         self.nombre_doc = 'VSS.xlsx'

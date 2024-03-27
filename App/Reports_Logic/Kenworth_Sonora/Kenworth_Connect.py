@@ -60,5 +60,5 @@ class KenworthConnect():
     def ServicioDetallado(self):
         ServicioDetallado()
 
-    def VentasOServicio(self):
-        VentasOrdenesServicio()
+    def VentasServicio(self):
+        VentasServicio()
