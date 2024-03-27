@@ -11,7 +11,7 @@ from .Variables.ContenedorVariables import Variables
 class VentasOrdenesServicio(Variables):
     def __init__(self):
         super().__init__()
-        self.nombre_doc = 'VOSS.xlsx'
+        self.nombre_doc = 'VSS.xlsx'
         path = os.path.join(Variables().ruta_Trabajo, self.nombre_doc)
         df = pd.read_excel(path, sheet_name='Hoja2')
         df = df.replace(to_replace=';', value='-', regex=True)
