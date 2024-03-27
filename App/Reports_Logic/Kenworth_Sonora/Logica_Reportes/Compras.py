@@ -6,7 +6,7 @@
 import os
 import pandas as pd
 from datetime import *
-from Variables.ContenedorVariables import Variables
+from .Variables.ContenedorVariables import Variables
 class Compras(Variables):
     def __init__(self):
         super().__init__()
@@ -92,5 +92,3 @@ class Compras(Variables):
             df2.to_excel(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), index=False )
         else:
             df2.to_csv(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), encoding="utf-8", index=False )
-
-Compras()
