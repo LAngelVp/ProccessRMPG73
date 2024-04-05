@@ -18,6 +18,7 @@ from .KenworthConnect import *
 from .InicialClassObjetivos import *
 from .UI.V_KWESTE import *
 from .Home_rutas import *
+from .Vendedores import *
 import subprocess
 
 class Home_KWESTE(QMainWindow, QDialog, Variables):
@@ -69,6 +70,7 @@ class Home_KWESTE(QMainWindow, QDialog, Variables):
         self.ventKWESTE.actionObjetivos_Mensuales_PagosClientes.triggered.connect(self.ObjetivosPagoClientes)
         self.ventKWESTE.actionFechaMovimiento.triggered.connect(self.FechaMovimiento)
         self.ventKWESTE.actionDirecciones_de_envio.triggered.connect(self.direcciones_envio)
+        self.ventKWESTE.actionDepartamentos.triggered.connect(self.departamentos_vendedores)
 
         # señales del hilo
         self.Hilo.signal.connect(self.mensajeTrabajoTerminado)
@@ -81,6 +83,9 @@ class Home_KWESTE(QMainWindow, QDialog, Variables):
         Home_DateMovement()
         self.Show_Data_Trabajos()
         self.Show_Data_Procesado()
+    def departamentos_vendedores(self):
+        self.ventana_departamentos = Vendedores()
+        self.ventana_departamentos.show()
 
     def direcciones_envio(self):
         self.ventana_rutas = rutas()

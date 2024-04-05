@@ -8,6 +8,7 @@ from webbrowser import *
 import calendar
 import pandas as pd
 import locale
+import json
 locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
 class Variables():
     def __init__(self):
@@ -28,7 +29,7 @@ class Variables():
         self.route_file_date = os.path.join(self.ruta_documentos, "Config_Document.json")
         self.ruta_documentos_rutas = os.path.join(self.ruta_documentos, "Rutas_Envio.json")
         self.vendedores_servicio_detallado_este = os.path.join(self.ruta_documentos, "Vendedores_Servicio_Detallado_Este.json")
-
+    
         self.clasif_vendedores_refacciones = os.path.join(self.ruta_documentos, "Clasificacion_Vendedores_refacc.json")
         self.tamaño_clientes_refacciones = os.path.join(self.ruta_documentos, "clientes_grandes.json")
         self.marcas_refacciones = os.path.join(self.ruta_documentos, "marcas_refacciones")
@@ -108,10 +109,10 @@ class Variables():
         else:
             return os.path.join(self.ruta_procesados,nombre_arreglado_xlsx)
         
-    def vendedores_y_depas_este(self):
+    def vendedores_y_depas_este_servicio(self):
         documento = pd.read_json(self.ruta_vendedores_servicio_detallado_este)
         return documento
-#-----------
+# SEPARATOR: CLASIFICACIONES DE VENDEDORES KWESTE
     def clasificacion_vendedores_departamentos_refacciones(self):
         documento = pd.read_json(self.clasif_de_vendedores_refacciones)
         return documento
@@ -127,3 +128,4 @@ class Variables():
                 dataframe.to_excel(self.comprobar_reporte_documento_rutas(nombre_documento), index=False )
         else:
             dataframe.to_csv(self.comprobar_reporte_documento_rutas(nombre_documento), encoding="utf-8", index=False )
+    
