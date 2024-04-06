@@ -1,5 +1,7 @@
 import os
 import json
+from PyQt5.QtWidgets import QMessageBox, QPushButton
+import pandas as pd
 class creacion_json():
     def __init__(self, ruta = None, nombre = None, objeto = None):
         super().__init__()
@@ -8,7 +10,6 @@ class creacion_json():
         self.direccion = os.path.join(self.ruta,self.nombre)
         self.objeto = objeto
         self.__contenido_vacio_json = []
-
 
     @property
     def actualizar_json(self):
@@ -48,3 +49,18 @@ class creacion_json():
                 self.documento_existe = json.load(documento)
                 return self.documento_existe
         return self.documento_existe
+    
+    def Leer_json(self):
+        direccion = os.path.join(self.ruta, self.nombre)
+        documento_abierto = pd.read_json(direccion)
+        return documento_abierto
+    
+    def Mensaje(self, mensaje, titulo, icono = QMessageBox.Information, botones = [QMessageBox.Ok]):
+        msg_box = QMessageBox()
+        msg_box.setWindowTitle(titulo)
+        msg_box.setIcon(icono)
+        msg_box.setText(mensaje)
+        for boton in botones:
+            if isinstance(boton, QPushButton):
+                msg_box.addButton(boton)
+        return msg_box.exec_()

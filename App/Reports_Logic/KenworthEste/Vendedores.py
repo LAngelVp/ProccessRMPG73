@@ -7,13 +7,15 @@ import os
 import json
 from PyQt5.QtGui import QIcon, QPixmap, QMouseEvent
 from PyQt5.QtWidgets import *
+from PyQt5.QtCore import *
 from PyQt5 import *
 from resources import *
 from .Logica_Reportes.Variables.ContenedorVariables import *
 from .UI.IU_VENDEDORES import *
 from ..documentos_json import*
+from ..mensajes_alertas import *
 
-class Vendedores(QWidget, Variables):
+class Vendedores(QWidget, Variables, ):
     def __init__(self):
         super(Vendedores,self).__init__()
 
@@ -42,6 +44,29 @@ class Vendedores(QWidget, Variables):
 
         
 
+        self.ui.Vendedores_Refacciones.currentChanged.connect(self.Obtener_index)
+
+        self.Actualizar_tablas()
+
+
+    def Actualizar_tablas(self):
+        self.datos_json = creacion_json(Variables().ruta_deapoyo, Variables().nombre_documento_clasificacion_vendedores_refacciones).comprobar_existencia
+        self.ui.tabla_vendedoresrefacciones.clearContents()
+        self.ui.tabla_vendedoresrefacciones.setRowCount(0)
+
+        for row, item in enumerate(self.datos_json):
+            self.ui.tabla_vendedoresrefacciones.insertRow(row)
+            for col, key in enumerate(["vendedor", "sucursal","depto venta","departamento","jerarquia"]):
+                self.ui.tabla_vendedoresrefacciones.setItem(row, col, QTableWidgetItem(str(item[key])))
+
+        for fila in range(self.ui.tabla_vendedoresrefacciones.rowCount()):
+            for columna in range(self.ui.tabla_vendedoresrefacciones.columnCount()):
+                celda = self.ui.tabla_vendedoresrefacciones.item(fila, columna)
+                if celda:
+                    celda.setFlags(celda.flags() & ~Qt.ItemIsEditable)
+
+    def Obtener_index(self, index):
+        print(index)
 
     def obtener_tab_activo(self):
         ventana_activa = self.ui.Vendedores_Refacciones.currentIndex()
@@ -58,23 +83,40 @@ class Vendedores(QWidget, Variables):
                     departamento_venta = self.ui.ledit_depaventa.text()
                     departamento = self.ui.ledit_depa.text()
                     cargo = self.ui.ledit_cargo.text()
-                    funcion(nombre, sucursal,departamento_venta,departamento,cargo)
+                    if (nombre and sucursal and departamento_venta and departamento and cargo):
+                        funcion(nombre, sucursal,departamento_venta,departamento,cargo)
+                    else:
+                        Mensajes_Alertas.mostrar(
+                            "Datos Incompletos.",
+                            "Para completar la operación, deberá de ingresar obligatoriamente todos los campos.",
+                            QMessageBox.Warning,  # Aquí se pasa el tipo de ícono
+                            [("Aceptar", QMessageBox.AcceptRole)]
+                        )
+                    self.ui.ledit_nombrevendedor.clear()
+                    self.ui.ledit_sucursal.clear()
+                    self.ui.ledit_depaventa.clear()
+                    self.ui.ledit_depa.clear()
+                    self.ui.ledit_cargo.clear()
+                    self.Actualizar_tablas()
+
                 elif getattr(self.ui, f"rb_{accion}").isChecked():
                     funcion()
 
+
 class funciones_vendedores_refacciones(Variables):
     def __init__(self):
-        self.ruta_json_vendedores_refacciones =  Variables().ruta_deapoyo
-        self.nombre_documento = "Vendedores_refacciones_departamentos.json"
+        self.direccion_documento = os.path.join(Variables().ruta_deapoyo,Variables().nombre_documento_clasificacion_vendedores_refacciones)
+        
         #COMMENT: COMPROBAR LA EXISTENCIA DE LOS DOCUMENTOS        
         try:
-            self.json_vendedores_refacciones = Variables().clasificacion_vendedores_departamentos_refacciones()
+            self.json_vendedores_refacciones = creacion_json(Variables().ruta_deapoyo, Variables().nombre_documento_clasificacion_vendedores_refacciones).comprobar_existencia
         except FileNotFoundError as error:
             pass
 
     def actualizar_vendedores_refacciones(self,nombre = None,sucursal=None,depaventa=None,depa=None,cargo=None):
         data_default = []
-        creacion_json(self.ruta_json_vendedores_refacciones, self.nombre_documento,data_default).comprobar_existencia
+        creacion_json(Variables().ruta_deapoyo, Variables().nombre_documento_clasificacion_vendedores_refacciones,data_default).comprobar_existencia
+
     def agregar_vendedores_refacciones(self,nombre,sucursal,depaventa,depa,cargo):
         objeto = {
             "vendedor" : nombre,
@@ -83,8 +125,9 @@ class funciones_vendedores_refacciones(Variables):
             "departamento" : depa,
             "jerarquia" : cargo
         }
-        print (objeto)
-        creacion_json(self.ruta_json_vendedores_refacciones, self.nombre_documento, objeto).actualizar_json
+        creacion_json(Variables().ruta_deapoyo, Variables().nombre_documento_clasificacion_vendedores_refacciones, objeto).actualizar_json
+        
+    
     def eliminar_vendedores_refacciones(self):
         print (3)
 

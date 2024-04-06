@@ -19,6 +19,8 @@ class Variables():
         self.documentos_originales = "Original"
         self.documentos_Errores = "Errores"
         self.documentos_Procesados = "Exitosos"
+        self.nombre_documento_clasificacion_vendedores_refacciones = "Vendedores_refacciones_departamentos.json"
+
         self.directorio_raiz = os.path.expanduser(f'~{self.separador}') #NOTE Obtenemos la ruta raiz del sistema, con raiz en el usuario.
         self.ruta_Kenworth = os.path.join(self.directorio_raiz, self.carpeta_documentos_trabajos)
         self.ruta_Trabajos = os.path.join(self.ruta_Kenworth, self.documentos_Trabajos)
