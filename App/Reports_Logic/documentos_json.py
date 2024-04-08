@@ -1,5 +1,7 @@
 import os
 import json
+import random
+import string
 from PyQt5.QtWidgets import QMessageBox, QPushButton
 import pandas as pd
 class creacion_json():
@@ -11,19 +13,6 @@ class creacion_json():
         self.objeto = objeto
         self.__contenido_vacio_json = []
 
-    @property
-    def actualizar_json(self):
-        self.comprobar_existencia
-        try:
-
-            self.__contenido_vacio_json.append(self.objeto)
-
-            self.comprobar_existencia.extend(self.__contenido_vacio_json)
-
-            with open(self.direccion, "w") as archivo:
-                json.dump(self.documento_existe, archivo, indent=4)
-        except Exception as e:
-            print(e)
 
     @property
     def comprobar_existencia(self):
@@ -49,12 +38,62 @@ class creacion_json():
                 self.documento_existe = json.load(documento)
                 return self.documento_existe
         return self.documento_existe
+  
+    @property
+    def agregar_json(self):
+        self.comprobar_existencia
+        self.longitud = 15
+        self.cadena = string.ascii_letters+string.digits
+        self.id = ''.join(random.choices(self.cadena, k=self.longitud))
+
+        try:
+            self.nuevo_objeto = {"id": self.id}
+            self.nuevo_objeto.update(self.objeto)
+            self.__contenido_vacio_json.append(self.nuevo_objeto)
+
+            self.comprobar_existencia.extend(self.__contenido_vacio_json)
+
+            
+            self.sobre_escribir_json(self.documento_existe)
+        except Exception as e:
+            print(e)
+
     
-    def Leer_json(self):
-        direccion = os.path.join(self.ruta, self.nombre)
-        documento_abierto = pd.read_json(direccion)
-        return documento_abierto
+    @property
+    def eliminar_datos_json(self):
+        documento = self.comprobar_existencia
+        valor_id = self.objeto
+        id = valor_id["id"]
+        for elemento in documento:
+            if elemento["id"] == id:
+                documento.remove(elemento)
+                break
+        self.sobre_escribir_json(documento)
+    @property
+    def obtener_datos_json_por_id(self):
+        documento = self.comprobar_existencia
+        id = self.objeto["id"]
+        for elemento in documento:
+            if elemento["id"] == id:
+                return elemento
+
+    def actualizar_datos(self, nuevos_datos):
+        # Cargar el JSON desde el archivo
+        datos = self.comprobar_existencia
+        
+        # Buscar el registro con el ID buscado y actualizar sus datos
+        for registro in datos:
+            if registro["id"] == self.objeto["id"]:
+                registro.update(nuevos_datos)
+                break
+        
+        self.sobre_escribir_json(datos)
     
+    def sobre_escribir_json(self,documento):
+        with open(self.direccion, "w", encoding='utf-8', errors='ignore') as archivo:
+            json.dump(documento, archivo, indent=4)
+
+
     def Mensaje(self, mensaje, titulo, icono = QMessageBox.Information, botones = [QMessageBox.Ok]):
         msg_box = QMessageBox()
         msg_box.setWindowTitle(titulo)

@@ -128,7 +128,7 @@
          </attribute>
          <layout class="QVBoxLayout" name="verticalLayout">
           <item>
-           <widget class="QWidget" name="widget_2" native="true">
+           <widget class="QWidget" name="lbl_lbl_idrefacciones" native="true">
             <property name="minimumSize">
              <size>
               <width>0</width>
@@ -136,15 +136,15 @@
              </size>
             </property>
             <layout class="QGridLayout" name="gridLayout_2">
-             <item row="0" column="0" colspan="2">
-              <widget class="QLabel" name="lbl_lbl_nombre">
+             <item row="0" column="0">
+              <widget class="QLabel" name="label">
                <property name="text">
-                <string>Nombre Vendedor:</string>
+                <string>Id:</string>
                </property>
               </widget>
              </item>
-             <item row="0" column="2" colspan="2">
-              <widget class="QLineEdit" name="ledit_nombrevendedor"/>
+             <item row="0" column="1" colspan="3">
+              <widget class="QLineEdit" name="ledit_idrefacciones"/>
              </item>
              <item row="0" column="4">
               <widget class="QLabel" name="lbl_lbl_sucu">
@@ -156,38 +156,55 @@
              <item row="0" column="5">
               <widget class="QLineEdit" name="ledit_sucursal"/>
              </item>
-             <item row="1" column="0" colspan="3">
-              <widget class="QLabel" name="lbl_lbl_depaventa">
-               <property name="text">
-                <string>Departamento Venta:</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="3">
-              <widget class="QLineEdit" name="ledit_depaventa"/>
-             </item>
-             <item row="1" column="4">
-              <widget class="QLabel" name="lbl_lbl_depa">
-               <property name="text">
-                <string>Departamento:</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="5">
-              <widget class="QLineEdit" name="ledit_depa"/>
-             </item>
-             <item row="2" column="0">
+             <item row="0" column="6">
               <widget class="QLabel" name="lbl_lbl_cargo">
                <property name="text">
                 <string>Cargo:</string>
                </property>
               </widget>
              </item>
-             <item row="2" column="1" colspan="3">
+             <item row="0" column="7">
               <widget class="QLineEdit" name="ledit_cargo"/>
              </item>
-             <item row="2" column="4" colspan="2">
+             <item row="1" column="0" colspan="2">
+              <widget class="QLabel" name="lbl_lbl_nombre">
+               <property name="text">
+                <string>Nombre Vendedor:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="6">
+              <widget class="QLabel" name="lbl_lbl_depa">
+               <property name="text">
+                <string>Departamento:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="7">
+              <widget class="QLineEdit" name="ledit_depa"/>
+             </item>
+             <item row="2" column="0" colspan="3">
+              <widget class="QLabel" name="lbl_lbl_depaventa">
+               <property name="text">
+                <string>Departamento Venta:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="2" colspan="4">
+              <widget class="QLineEdit" name="ledit_nombrevendedor"/>
+             </item>
+             <item row="2" column="6" colspan="2">
               <layout class="QGridLayout" name="gridLayout">
+               <item row="0" column="0">
+                <widget class="QRadioButton" name="rb_actualizar">
+                 <property name="cursor">
+                  <cursorShape>PointingHandCursor</cursorShape>
+                 </property>
+                 <property name="text">
+                  <string>Actualizar</string>
+                 </property>
+                </widget>
+               </item>
                <item row="0" column="1">
                 <widget class="QRadioButton" name="rb_eliminar">
                  <property name="cursor">
@@ -208,17 +225,10 @@
                  </property>
                 </widget>
                </item>
-               <item row="0" column="0">
-                <widget class="QRadioButton" name="rb_actualizar">
-                 <property name="cursor">
-                  <cursorShape>PointingHandCursor</cursorShape>
-                 </property>
-                 <property name="text">
-                  <string>Actualizar</string>
-                 </property>
-                </widget>
-               </item>
               </layout>
+             </item>
+             <item row="2" column="3" colspan="3">
+              <widget class="QLineEdit" name="ledit_depaventa"/>
              </item>
             </layout>
            </widget>
@@ -235,6 +245,11 @@
             <layout class="QHBoxLayout" name="horizontalLayout_2">
              <item>
               <widget class="QTableWidget" name="tabla_vendedoresrefacciones">
+               <column>
+                <property name="text">
+                 <string>Id</string>
+                </property>
+               </column>
                <column>
                 <property name="text">
                  <string>Vendedor</string>
@@ -294,36 +309,46 @@
             </property>
             <layout class="QGridLayout" name="gridLayout_3">
              <item row="0" column="0">
+              <widget class="QLabel" name="lbl_lbl_idservicio">
+               <property name="text">
+                <string>Id:</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1" colspan="2">
+              <widget class="QLineEdit" name="ledit_idservicio"/>
+             </item>
+             <item row="0" column="3">
               <widget class="QLabel" name="lbl_lbl_nombre_servicio">
                <property name="text">
                 <string>Nombre Vendedor:</string>
                </property>
               </widget>
              </item>
-             <item row="0" column="1" colspan="2">
+             <item row="0" column="4">
               <widget class="QLineEdit" name="ledit_nombrevendedor_servicio"/>
              </item>
-             <item row="1" column="0" colspan="2">
+             <item row="0" column="5" colspan="2">
               <widget class="QLabel" name="lbl_lbl_depaventa_servicio">
                <property name="text">
                 <string>Departamento Venta:</string>
                </property>
               </widget>
              </item>
-             <item row="1" column="2">
+             <item row="0" column="7">
               <widget class="QLineEdit" name="ledit_depaventa_servicio"/>
              </item>
-             <item row="2" column="0">
+             <item row="1" column="0" colspan="2">
               <widget class="QLabel" name="lbl_lbl_depa_servicio">
                <property name="text">
                 <string>Departamento:</string>
                </property>
               </widget>
              </item>
-             <item row="2" column="1" colspan="2">
+             <item row="1" column="2" colspan="4">
               <widget class="QLineEdit" name="ledit_depa_servicio"/>
              </item>
-             <item row="3" column="0" colspan="3">
+             <item row="1" column="6" colspan="2">
               <layout class="QGridLayout" name="gridLayout_4">
                <item row="0" column="1">
                 <widget class="QRadioButton" name="rb_eliminar_servicio">
@@ -372,6 +397,11 @@
             <layout class="QGridLayout" name="gridLayout_5">
              <item row="0" column="0">
               <widget class="QTableWidget" name="tabla_vendedoresrefacciones_servicio">
+               <column>
+                <property name="text">
+                 <string>Id</string>
+                </property>
+               </column>
                <column>
                 <property name="text">
                  <string>Vendedor</string>
