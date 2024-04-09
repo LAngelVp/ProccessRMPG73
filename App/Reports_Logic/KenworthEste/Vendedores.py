@@ -123,15 +123,12 @@ class Vendedores(QWidget, Variables, ):
                             QMessageBox.Warning,  # Aquí se pasa el tipo de ícono
                             [("Aceptar", QMessageBox.AcceptRole)]
                         )
-                    self.ui.ledit_nombrevendedor.clear()
-                    self.ui.ledit_sucursal.clear()
-                    self.ui.ledit_depaventa.clear()
-                    self.ui.ledit_depa.clear()
-                    self.ui.ledit_cargo.clear()
+                    self.lineas_en_blanco()
                     self.Actualizar_tablas()
                 elif getattr(self.ui,f'rb_{accion}').isChecked() and accion == "eliminar":
                     indice = self.ui.ledit_idrefacciones.text()
                     funcion(indice)
+                    self.lineas_en_blanco()
                     self.Actualizar_tablas()
                 elif getattr(self.ui, f'rb_{accion}').isChecked() and accion == "actualizar":
                     indice = self.ui.ledit_idrefacciones.text()
@@ -141,10 +138,17 @@ class Vendedores(QWidget, Variables, ):
                     departamento = self.ui.ledit_depa.text()
                     cargo = self.ui.ledit_cargo.text()
                     funcion(indice, nombre, sucursal,departamento_venta,departamento,cargo)
+                    self.lineas_en_blanco()
                     self.Actualizar_tablas()
                 elif getattr(self.ui, f"rb_{accion}").isChecked():
                     funcion()
-
+    def lineas_en_blanco(self):
+        self.ui.ledit_idrefacciones.clear()
+        self.ui.ledit_nombrevendedor.clear()
+        self.ui.ledit_sucursal.clear()
+        self.ui.ledit_depaventa.clear()
+        self.ui.ledit_depa.clear()
+        self.ui.ledit_cargo.clear()
 
 class funciones_vendedores_refacciones(Variables):
     def __init__(self):
