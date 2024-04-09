@@ -23,6 +23,7 @@ import webbrowser
 class my_app(QMainWindow, Variables):
     def __init__(self):
         super(my_app, self).__init__()
+        
         self.ui = Ui_VPrincipal()
         self.ui.setupUi(self)
         self.setWindowFlags(self.windowFlags() | Qt.FramelessWindowHint)
