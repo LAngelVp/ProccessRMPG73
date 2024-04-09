@@ -19,7 +19,11 @@ class Variables():
         self.documentos_originales = "Original"
         self.documentos_Errores = "Errores"
         self.documentos_Procesados = "Exitosos"
+#{{{{{{{{{{{{{{{{{{{{{{{{{}}}}}}}}}}}}}}}}}}}}}}}}}        
+#COMMENT: NOMBRE DE LOS DOCUMENTOS DE APOYO
         self.nombre_documento_clasificacion_vendedores_refacciones = "Vendedores_refacciones_departamentos.json"
+        self.nombre_documento_clasificacion_vendedores_servicio = "Vendedores_servicio_departamentos.json"
+#{{{{{{{{{{{{{{{{{{{{{{{{{}}}}}}}}}}}}}}}}}}}}}}}}}        
 
         self.directorio_raiz = os.path.expanduser(f'~{self.separador}') #NOTE Obtenemos la ruta raiz del sistema, con raiz en el usuario.
         self.ruta_Kenworth = os.path.join(self.directorio_raiz, self.carpeta_documentos_trabajos)

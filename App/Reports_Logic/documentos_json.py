@@ -18,7 +18,7 @@ class creacion_json():
     def comprobar_existencia(self):
         if os.path.exists(self.direccion):
             try:
-                with open(self.direccion, "r") as documento:
+                with open(self.direccion, "r",encoding='utf-8') as documento:
                     self.documento_existe = json.load(documento)
             except FileNotFoundError:
                 print("EL DOCUMENTO NO PUEDE ABRIRSE")
@@ -31,8 +31,8 @@ class creacion_json():
                 self.comprobar_existencia
         else:
             self.documento_existe = self.__contenido_vacio_json
-            with open(self.direccion, "w") as documento:
-                json.dump(self.documento_existe, documento)
+            with open(self.direccion, "w", encoding='utf-8') as documento:
+                json.dump(self.documento_existe, documento,ensure_ascii=False)
 
             with open(self.direccion, "r") as documento:
                 self.documento_existe = json.load(documento)
@@ -90,8 +90,8 @@ class creacion_json():
         self.sobre_escribir_json(datos)
     
     def sobre_escribir_json(self,documento):
-        with open(self.direccion, "w", encoding='utf-8', errors='ignore') as archivo:
-            json.dump(documento, archivo, indent=4)
+        with open(self.direccion, "w", encoding='utf-8') as archivo:
+            json.dump(documento, archivo, indent=4, ensure_ascii=False)
 
 
     def Mensaje(self, mensaje, titulo, icono = QMessageBox.Information, botones = [QMessageBox.Ok]):
