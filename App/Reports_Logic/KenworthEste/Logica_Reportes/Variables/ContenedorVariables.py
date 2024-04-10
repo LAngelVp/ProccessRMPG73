@@ -21,8 +21,7 @@ class Variables():
         self.documentos_Procesados = "Exitosos"
 #{{{{{{{{{{{{{{{{{{{{{{{{{}}}}}}}}}}}}}}}}}}}}}}}}}        
 #COMMENT: NOMBRE DE LOS DOCUMENTOS DE APOYO
-        self.nombre_documento_clasificacion_vendedores_refacciones = "Vendedores_refacciones_departamentos.json"
-        self.nombre_documento_clasificacion_vendedores_servicio = "Vendedores_servicio_departamentos.json"
+        
 #{{{{{{{{{{{{{{{{{{{{{{{{{}}}}}}}}}}}}}}}}}}}}}}}}}        
 
         self.directorio_raiz = os.path.expanduser(f'~{self.separador}') #NOTE Obtenemos la ruta raiz del sistema, con raiz en el usuario.
@@ -34,9 +33,9 @@ class Variables():
         self.ruta_documentos = os.path.join(self.ruta_Kenworth, "Documentos")
         self.route_file_date = os.path.join(self.ruta_documentos, "Config_Document.json")
         self.ruta_documentos_rutas = os.path.join(self.ruta_documentos, "Rutas_Envio.json")
-        self.vendedores_servicio_detallado_este = os.path.join(self.ruta_documentos, "Vendedores_Servicio_Detallado_Este.json")
+        self.nombre_documento_clasificacion_vendedores_servicio = os.path.join(self.ruta_documentos, "Vendedores_servicio_departamentos.json")
     
-        self.clasif_vendedores_refacciones = os.path.join(self.ruta_documentos, "Clasificacion_Vendedores_refacc.json")
+        self.nombre_documento_clasificacion_vendedores_refacciones = os.path.join(self.ruta_documentos, "Vendedores_refacciones_departamentos.json")
         self.tamaño_clientes_refacciones = os.path.join(self.ruta_documentos, "clientes_grandes.json")
         self.marcas_refacciones = os.path.join(self.ruta_documentos, "marcas_refacciones")
 
@@ -50,9 +49,9 @@ class Variables():
         self.ruta_deapoyo = self.ruta_documentos.replace('\\','/')
         self.route_file_date_movement  = self.route_file_date.replace('\\','/')
         self.ruta_envio_documentos  = self.ruta_documentos_rutas.replace('\\','/')
-        self.ruta_vendedores_servicio_detallado_este  = self.vendedores_servicio_detallado_este.replace('\\','/')
+        self.ruta_vendedores_servicio_detallado_este  = self.nombre_documento_clasificacion_vendedores_servicio.replace('\\','/')
 
-        self.clasif_de_vendedores_refacciones  = self.clasif_vendedores_refacciones.replace('\\','/')
+        self.clasif_de_vendedores_refacciones  = self.nombre_documento_clasificacion_vendedores_refacciones.replace('\\','/')
         self.tamaño_de_clientes_refacciones  = self.tamaño_clientes_refacciones.replace('\\','/')
         self.marcas_de_refacciones  = self.marcas_refacciones.replace('\\','/')
         

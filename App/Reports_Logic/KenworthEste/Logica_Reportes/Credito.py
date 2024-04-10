@@ -73,3 +73,15 @@ class Credito(Variables):
             df2.to_excel(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), index=False )
         else:
             df2.to_csv(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), encoding="utf-8", index=False )
+
+
+        self.nombre_doc2 = "CEG.xlsx"
+        CreditoGlobal = df2.copy()
+        CreditoGlobal.drop(["Clasificacion","Semana", "Estado Vencimiento"], axis=1, inplace=True)
+        CreditoGlobal["Mes"] = Variables().nombre_mes_actual_abreviado()
+        
+        # exportamos el documento
+        if (os.path.basename(Variables().comprobar_reporte_documento_rutas(self.nombre_doc2)).split(".")[1] == self.nombre_doc2.split(".")[1]):
+            CreditoGlobal.to_excel(Variables().comprobar_reporte_documento_rutas(self.nombre_doc2), index=False )
+        else:
+            CreditoGlobal.to_csv(Variables().comprobar_reporte_documento_rutas(self.nombre_doc2), encoding="utf-8", index=False )

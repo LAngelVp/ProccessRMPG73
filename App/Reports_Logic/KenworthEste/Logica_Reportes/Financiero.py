@@ -43,7 +43,7 @@ class ResultadosFinancieros(Variables):
         # OBTENEMOS LA RUTA DEL ARCHIVO Y PARSEAMOS SU CONTENIDO Y SUS CABECERAS.
         self.nombre_doc = 'RFE.xlsx'
         path = os.path.join(Variables().ruta_Trabajo,self.nombre_doc)
-        df = pd.read_excel(path, sheet_name='Hoja1')
+        df = pd.read_excel(path, sheet_name='Hoja2')
         df = df.replace(to_replace=';', value='-', regex=True)
         df.columns = df.columns.str.replace(" ", "_")
         
@@ -68,15 +68,15 @@ class ResultadosFinancieros(Variables):
             Variables().guardar_datos_dataframe(self.nombre_doc, df_unidades_facturadas_ordenado)
 
         else:
-            df_unidades_facturadas_ordenado.insert(
-                loc = 1,
-                column = "ZonaVenta",
-                value = df_unidades_facturadas_ordenado["Sucursal"],
-                allow_duplicates=True
-            )
+            # df_unidades_facturadas_ordenado.insert(
+            #     loc = 1,
+            #     column = "ZonaVenta",
+            #     value = df_unidades_facturadas_ordenado["Sucursal"],
+            #     allow_duplicates=True
+            # )
 
             df_unidades_facturadas_ordenado.insert(
-                loc = 16,
+                loc = 15,
                 column = "Margen(%)",
                 value = df_unidades_facturadas_ordenado["UtilidadBruta"] / df_unidades_facturadas_ordenado["VentasNetas"],
                 allow_duplicates=False
@@ -89,18 +89,51 @@ class ResultadosFinancieros(Variables):
             df_unidades_facturadas_ordenado["Numarticulo"] = col_numero_articulo
             df_unidades_facturadas_ordenado["Modelo"] = col_modelo
 
-            df_unidades_facturadas_ordenado["Fecha"] = Variables().date_movement_config_document().replace(day=1)
-            df_unidades_facturadas_ordenado["Ciudad"] = "Pendiente"
-            df_unidades_facturadas_ordenado["Estado"] = "Pendiente"
-
+            df_unidades_facturadas_ordenado["Fecha"] = Variables().date_movement_config_document()
+            df_unidades_facturadas_ordenado["Ciudad"] = ""
+            df_unidades_facturadas_ordenado["Estado"] = ""
+            df_unidades_facturadas_ordenado["Status"] = ""
+            df_unidades_facturadas_ordenado["Mes"] = Variables().nombre_mes()
+            df_unidades_facturadas_ordenado["Latitud"] = ""
+            df_unidades_facturadas_ordenado["Longitud"] = ""
 
 
             df_unidades_facturadas_ordenado.insert(
                 loc = 0,
-                column = "Departamento",
+                column = "Categoria",
+                value = "Facturacion",
+                allow_duplicates = False
+            )
+
+            df_unidades_facturadas_ordenado.insert(
+                loc = 1,
+                column = "Area",
                 value = departamento,
                 allow_duplicates = False
             )
+
+            df_unidades_facturadas_ordenado.insert(
+                loc = 2,
+                column = "Departamento",
+                value = df_unidades_facturadas_ordenado["Area"].str.upper(),
+                allow_duplicates = False
+            )
+            
+            df_unidades_facturadas_ordenado.insert(
+                loc = 4,
+                column = "Fecha Vta",
+                value = "",
+                allow_duplicates = False
+            )
+            
+            df_unidades_facturadas_ordenado.insert(
+                loc = 5,
+                column = "Zona Vta",
+                value = "",
+                allow_duplicates = False
+            )
+            
+
 
     # TERMINAMOS DE INSERTAR COLUMNAS ------------------
 
@@ -127,6 +160,6 @@ class ResultadosFinancieros(Variables):
     def obtenerDepartamento(self, valor):
             currentYear = datetime.now().year
             if (valor < currentYear):
-                return "Unidades Seminuevas"
+                return "Venta de Unidades Usadas"
             else:
-                return "Unidades Nuevas"
+                return "Venta de Unidades Nuevas"

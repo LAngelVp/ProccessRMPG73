@@ -8,6 +8,7 @@ from .Variables.ContenedorVariables import Variables
 class Credito(Variables):
     def __init__(self):
         self.nombre_doc = 'CR.xlsx'
+        
         path = os.path.join(Variables().ruta_Trabajo, self.nombre_doc)
         df = pd.read_excel(path, sheet_name = 'Hoja2')
         df = df.replace(to_replace=';', value='-', regex=True)
@@ -51,9 +52,21 @@ class Credito(Variables):
                 pass
         columnas_bol=df_complete.select_dtypes(include=bool).columns.tolist()
         df_complete[columnas_bol] = df_complete[columnas_bol].astype(str)
+
         
         # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
         if (os.path.basename(Variables().comprobar_reporte_documento_rutas(self.nombre_doc)).split(".")[1] == self.nombre_doc.split(".")[1]):
             df_complete.to_excel(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), index=False )
         else:
             df_complete.to_csv(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), encoding="utf-8", index=False )
+
+        self.nombre_doc2 = 'CRG.xlsx'
+        CreditoGlobal = df_complete.copy()
+        CreditoGlobal.drop(["Clasificacion"], axis=1, inplace=True)
+        CreditoGlobal["Mes"] = Variables().nombre_mes_actual_abreviado()
+
+        # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
+        if (os.path.basename(Variables().comprobar_reporte_documento_rutas(self.nombre_doc2)).split(".")[1] == self.nombre_doc2.split(".")[1]):
+            CreditoGlobal.to_excel(Variables().comprobar_reporte_documento_rutas(self.nombre_doc2), index=False )
+        else:
+            CreditoGlobal.to_csv(Variables().comprobar_reporte_documento_rutas(self.nombre_doc2), encoding="utf-8", index=False )
