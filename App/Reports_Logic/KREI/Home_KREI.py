@@ -24,6 +24,7 @@ import subprocess
 #----------------------------------------
 
 class Home_KREI(QMainWindow, QDialog, Variables):
+    closed = pyqtSignal()
     def __init__(self):
         super(Home_KREI,self).__init__()
         # variables a las rutas de los iconos e imagenes
@@ -81,7 +82,11 @@ class Home_KREI(QMainWindow, QDialog, Variables):
         Home_DateMovement()
         self.Show_Data_Trabajos()
         self.Show_Data_Procesado()
-
+        
+    def closeEvent(self, event):
+        super().closeEvent(event)
+        self.closed.emit()
+        
     def FechaMovimiento(self):
         self.ventana_obj = Home_DateMovement()
         self.ventana_obj.show()
@@ -141,7 +146,6 @@ class Home_KREI(QMainWindow, QDialog, Variables):
         self.Show_Data_Trabajos()
         self.Show_Data_Procesado()
 #-------------------------------------------------
-
 
     def mensajeArchivoErroneo(self, mensaje):
         Mensajes_Alertas(
@@ -290,10 +294,10 @@ class Home_KREI(QMainWindow, QDialog, Variables):
     # REALIZAR PROCESO
     # HILO DEL TRABAJO DE " KWESTE "
     def ComenzarProceso(self):
-        if self.Hilo.isRunning():
-            self.Hilo.requestInterruption()
-        else:
-            self.Hilo.start()
+        # if self.Hilo.isRunning():
+        #     self.Hilo.requestInterruption()
+        # else:
+        self.Hilo.start()
 
     def eliminar(self):
         carpeta_contenido_eliminar = os.listdir(Variables().ruta_procesados)

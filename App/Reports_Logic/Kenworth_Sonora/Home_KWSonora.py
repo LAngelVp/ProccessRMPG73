@@ -16,6 +16,7 @@ from .Home_rutas import *
 from ..mensajes_alertas import Mensajes_Alertas
 
 class Home_KenworthSonora(QMainWindow, Variables):
+    closed = pyqtSignal()
     def __init__(self):
         super(Home_KenworthSonora,self).__init__()
         self.ui = Ui_Kenworth_Sonora()
@@ -74,6 +75,11 @@ class Home_KenworthSonora(QMainWindow, Variables):
         Home_DateMovement()
         self.Show_Data_Trabajos()
         self.Show_Data_Procesado()
+
+    def closeEvent(self, event):
+        super().closeEvent(event)
+        self.closed.emit()
+
 
     def direcciones_envio(self):
         self.ventana_rutas = rutas()
@@ -290,10 +296,10 @@ class Home_KenworthSonora(QMainWindow, Variables):
     # REALIZAR PROCESO
     # HILO DEL TRABAJO DE " KWESTE "
     def ComenzarProceso(self):
-        if self.Hilo.isRunning():
-            self.Hilo.requestInterruption()
-        else:
-            self.Hilo.start()
+        # if self.Hilo.isRunning():
+        #     self.Hilo.requestInterruption()
+        # else:
+        self.Hilo.start()
 
     def eliminar(self):
         carpeta_contenido_eliminar = os.listdir(Variables().ruta_procesados)

@@ -23,6 +23,7 @@ from ..mensajes_alertas import Mensajes_Alertas
 import subprocess
 
 class Home_KWESTE(QMainWindow, QDialog, Variables):
+    closed = pyqtSignal()
     def __init__(self):
         super(Home_KWESTE,self).__init__()
         # variables a las rutas de los iconos e imagenes
@@ -85,6 +86,9 @@ class Home_KWESTE(QMainWindow, QDialog, Variables):
         self.Show_Data_Trabajos()
         self.Show_Data_Procesado()
     
+    def closeEvent(self, event):
+        super().closeEvent(event)
+        self.closed.emit()
 
     def Aceptar_callback(self):
         pass
@@ -310,10 +314,10 @@ class Home_KWESTE(QMainWindow, QDialog, Variables):
     # REALIZAR PROCESO
     # HILO DEL TRABAJO DE " KWESTE "
     def ComenzarProceso(self):
-        if self.Hilo.isRunning():
-            self.Hilo.requestInterruption()
-        else:
-            self.Hilo.start()
+        # if self.Hilo.isRunning():
+        #     self.Hilo.requestInterruption()
+        # else:
+        self.Hilo.start()
 
     def eliminar(self):
         carpeta_contenido_eliminar = os.listdir(Variables().ruta_procesados)

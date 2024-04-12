@@ -22,6 +22,7 @@ from .Home_rutas import *
 from ..mensajes_alertas import Mensajes_Alertas
 import subprocess
 class Home_KWRB(QMainWindow, Variables):
+    closed = pyqtSignal()
     def __init__(self):
         super(Home_KWRB, self).__init__()
         self.Creacion_Carpetas()
@@ -77,6 +78,10 @@ class Home_KWRB(QMainWindow, Variables):
         self.Show_Data_Trabajos()
         self.Show_Data_Procesado()
 
+    def closeEvent(self, event):
+        super().closeEvent(event)
+        self.closed.emit()
+
     def ObjetivosPagoClientes(self):
         self.ventana_obj = ClassPrincipalObjPagos()
         self.ventana_obj.show()
@@ -90,10 +95,10 @@ class Home_KWRB(QMainWindow, Variables):
         self.ventana_rutas.show()
 #-------------------------------------------------------
     def inicialHilo(self):
-        if self.Hilo.isRunning():
-            self.Hilo.requestInterruption()
-        else:
-            self.Hilo.start()
+        # if self.Hilo.isRunning():
+        #     self.Hilo.requestInterruption()
+        # else:
+        self.Hilo.start()
 #-----------------------------------------------------
 
     def abrir_ruta_errores(self):
@@ -413,7 +418,7 @@ class trabajohilo(QThread, Variables):
                 continue
             self.signalShowTrabajos.emit()
             self.signalShowProcesados.emit()
-
+            
 #--------------------------------------------------
 
 
