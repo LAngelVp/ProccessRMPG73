@@ -41,7 +41,7 @@ class Variables():
         self.ruta_envio_documentos  = self.ruta_documentos_rutas.replace('\\','/')
         #________________________________________________
 
-        self.pdf = 'https://onedrive.live.com/?cid=C903C3E707BD874A&id=C903C3E707BD874A%21220&parId=root&o=OneUp' #NOTE Direccion en donde se encuentra el archivo de apoyo
+        self.pdf = 'https://docs.google.com/document/d/1-TeaeWdGAXUGls18b_hH6qG-Ur1PqDznsWS8X9FPD_M/edit?usp=sharing' #NOTE Direccion en donde se encuentra el archivo de apoyo
 
         #________________________________________________
         #NOTE VARIABLES PARA PROCESOS CON LA FECHA.

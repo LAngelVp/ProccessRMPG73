@@ -161,12 +161,15 @@ class Vendedores(QWidget, Variables, ):
                     if (nombre and sucursal and departamento_venta and departamento and cargo):
                         funcion(nombre, sucursal,departamento_venta,departamento,cargo)
                     else:
-                        Mensajes_Alertas.mostrar(
+                        Mensajes_Alertas(
                             "Datos Incompletos.",
                             "Para completar la operación, deberá de ingresar obligatoriamente todos los campos.",
                             QMessageBox.Warning,  # Aquí se pasa el tipo de ícono
-                            [("Aceptar", QMessageBox.AcceptRole)]
-                        )
+                            "Algunos reportes necesitan de algunos apartados en especifico, es por ello que es necesario que se llenen todos los campos ",
+                            botones = [
+                                ("Aceptar", self.aceptar_callback)
+                            ]
+                        ).mostrar
                     self.lineas_en_blanco()
                     self.Actualizar_tablas()
                 elif getattr(self.ui,f'rb_{accion}').isChecked() and accion == "eliminar": #COMMENTLINE: METODO PARA ELIMINAR REFACCIONES
@@ -191,12 +194,15 @@ class Vendedores(QWidget, Variables, ):
                     if (nombre and departamento_venta and departamento):
                         funcion(nombre,departamento_venta,departamento)
                     else:
-                        Mensajes_Alertas.mostrar(
+                        Mensajes_Alertas(
                             "Datos Incompletos.",
                             "Para completar la operación, deberá de ingresar obligatoriamente todos los campos.",
                             QMessageBox.Warning,  # Aquí se pasa el tipo de ícono
-                            [("Aceptar", QMessageBox.AcceptRole)]
-                        )
+                            "Algunos reportes necesitan de algunos apartados en especifico, es por ello que es necesario que se llenen todos los campos ",
+                            botones = [
+                                ("Aceptar", self.aceptar_callback)
+                            ]
+                        ).mostrar
                     self.lineas_en_blanco()
                     self.Actualizar_tablas()
                 elif getattr(self.ui,f'rb_{accion}').isChecked() and accion == "eliminar_servicio": #COMMENTLINE: METODO PARA ELIMINAR SERVICIO
@@ -228,6 +234,9 @@ class Vendedores(QWidget, Variables, ):
             self.ui.ledit_nombrevendedor_servicio.clear()
             self.ui.ledit_depaventa_servicio.clear()
             self.ui.ledit_depa_servicio.clear()
+
+    def aceptar_callback(self):
+        pass
 #{{{{{{{{{{{{{{{{{}}}}}}}}}}}}}}}}}
 
 #COMMENT:CLASE PARA LA LOGICA DE LA PESTAÑA DE REFACCIONES
