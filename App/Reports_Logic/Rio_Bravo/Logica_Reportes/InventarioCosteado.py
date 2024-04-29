@@ -23,7 +23,7 @@ class InventarioCosteado(Variables):
         #obtener solo las celdas que vamos a trabajar.
         df2 = df[df.columns[0:33]].copy()
         #insertar la columna de fecha actual, con el fin de sacar la antiguedad.
-        df2.insert(loc=28,column="Fecha_Hoy",value=Variables().date_movement_config_document(), allow_duplicates=False)
+        df2.insert(loc=27,column="Fecha_Hoy",value=Variables().date_movement_config_document(), allow_duplicates=False)
         #iterar en las cabeceras del dataframe para obtener las columnas de fecha.
         for column_title in df2:
             if ("Fecha" in column_title):
@@ -35,7 +35,7 @@ class InventarioCosteado(Variables):
                 pass
         #crear la columna que contendra el valor de la antiguedad.
         Antiguedad = df2["Fecha_Hoy"] - df2["Fecha Entrada"]    #variable de la operacion.
-        df2.insert(loc=29,column="Antigüedad",value=Antiguedad,allow_duplicates=False)
+        df2.insert(loc=28,column="Antigüedad",value=Antiguedad,allow_duplicates=False)
         #convertir la columna deantiguedad en numero.
         df2["Antigüedad"] = pd.to_numeric(df2["Antigüedad"].dt.days,downcast="integer")
         #ordenar el dataframe de manera descendente conforme a la columna de antiguedad.
