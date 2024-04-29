@@ -16,6 +16,7 @@ from Reports_Logic.Rio_Bravo.Home_KWRB import *
 from Reports_Logic.KenworthEste.Home_KWESTE import *
 from Reports_Logic.KREI.Home_KREI import *
 from Reports_Logic.Kenworth_Sonora.Home_KWSonora import *
+from Reports_Logic.globalModulesShare.ContenedorVariables import Variables
 #------------
 from datetime import *
 import webbrowser
@@ -50,6 +51,13 @@ class my_app(QMainWindow, Variables):
 
         self.ui.btc_btc_cerrar.clicked.connect(self.cerrar)
         self.ui.btc_btc_minimizar.clicked.connect(self.minimizar)
+
+        
+        if not os.path.exists(Variables().global_route_project):
+            os.mkdir(Variables().global_route_project)
+            os.mkdir(Variables().help_directory)
+        else:
+            pass
 
     def abrir_ventana(self, titulo, clase_ventana):
         if clase_ventana.__name__ not in self.ventanas_abiertas:

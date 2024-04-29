@@ -1,6 +1,6 @@
 import os
 import json
-from .Logica_Reportes.Variables.ContenedorVariables import Variables
+from ..globalModulesShare.ContenedorVariables import Variables
 class CreacionJson(Variables):
     def __init__(self, nombre_documento=None, ruta_destino_documento=None, extension = None):
         self.nombre_documento = nombre_documento

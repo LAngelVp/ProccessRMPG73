@@ -26,7 +26,6 @@ class Variables():
 #? global folder
         self.folder_global = 'KWDataProcessRMPG73'
 #? folder name branch
-        self.carpeta_documentos_trabajos = 'SDR_Documentos_Kenworth_RioBravo'
         self.folder_name_kwrb = 'SDR_Documentos_Kenworth_RioBravo'
         self.folder_name_kwe = 'SDR_Documentos_Kenworth_DelEste'
 #{{{{{{{{{{{{{{{{{{{{{{{{{}}}}}}}}}}}}}}}}}}}}}}}}}
@@ -62,7 +61,7 @@ class Variables():
 #? global documents
         self.help_directory = os.path.join(self.global_route_project, self.help_documents_directory).replace('\\','/')
         #fecha movimiento
-        self.movement_date_document = os.path.join(self.help_directory, 'DateMovemment').replace('\\','/')
+        self.movement_date_document = os.path.join(self.help_directory, 'DateMovemment.json').replace('\\','/')
         #kwrb
         self.ruta_documentos_rutas_kwrb = os.path.join(self.help_directory, "Rutas_Envio.json").replace('\\','/')
         #kwe
