@@ -71,27 +71,21 @@ class TrabajosPorEstado(Variables):
         Tramitadas = claficicacion_tipo_servicio.query("~(Clasificacion_Cliente == ['GARANTIA'] and Estado_Trabajo != ['Cancelado', 'Facturado'] and Estado_Reclamo.isna())")
         Completo = pd.concat([SinTramitar, Tramitadas], join="inner")
 
-        for i in Completo:
-            if ("fecha" in i.lower()):
-                Completo[i] = pd.to_datetime(Completo[i] , errors = 'coerce')
+        for column_name in Completo.columns:
+            if "Fecha" in column_name:
+                Completo = Variables().global_date_format_america(Completo, column_name)
             else:
                 pass
         
-        Antiguedad = Variables().fecha_hoy - Completo["Fecha_Trabajo"]
+        Antiguedad = (Variables().date_movement_config_document() - Completo["Fecha_Trabajo"]).apply(lambda x : x.days)
 
         Completo.insert(loc = 3,column = 'Antigüedad',value = Antiguedad,allow_duplicates = False)
-        Completo['Antigüedad'] = pd.to_numeric(Completo['Antigüedad'].dt.days, downcast='integer')
 
-
-
-        for col_fecha in Completo:
-            if ("fecha" in col_fecha.lower()):
-                try:
-                    Completo[col_fecha] = Completo[col_fecha].dt.strftime("%d/%m/%Y")
-                except:
-                    pass
-        
-        
+        for column_name in Completo.columns:
+            if "Fecha" in column_name:
+                Completo = Variables().global_date_format_dmy_mexican(Completo, column_name)
+            else:
+                pass
 
         Completo.columns = Completo.columns.str.replace('_', ' ')
 
@@ -118,3 +112,4 @@ class TrabajosPorEstado(Variables):
             return "Sin Tramitar"
         else:
             return row["Estado_Reclamo"]
+        

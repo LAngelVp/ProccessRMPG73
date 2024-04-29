@@ -1,6 +1,6 @@
 #########################
 # DESARROLLADOR
-# RMPG - LUIS ANGEL VALLEJO PEREZ
+# RMPG - LUIS ANGEL VALLEJO PEREZ 
 #########################
 # importamos librerias
 import os
@@ -34,7 +34,7 @@ class BackOrders(Variables):
 
         for column_name in df2.columns:
             if "Fecha" in column_name:
-                print(f'columna : {column_name} tipo : {df2[column_name].dtype}')
+                df2 = Variables().global_date_format_dmy_mexican(df2, column_name)
             else:
                 pass
 

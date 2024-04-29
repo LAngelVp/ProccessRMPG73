@@ -3,7 +3,7 @@ from .Logica_Reportes.Variables.ContenedorVariables import Variables
 class CreateJson(Variables):
     def __init__(self, route=None):
         if route is None:
-            self.route_document = Variables().route_file_date_movement
+            self.route_document = Variables().movement_date_document
         else:
             self.route_document = route
     # Create Json with new date
