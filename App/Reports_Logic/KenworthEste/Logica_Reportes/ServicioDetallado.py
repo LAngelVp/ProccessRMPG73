@@ -16,7 +16,7 @@ class ServicioDetallado(Variables):
         self.columnas_after_cliente = ['ObjRefacc','ObjUBTRef','ObjMO', 'ObjUTBMO', 'Clasificacion Cliente']
 
         #COMMENT: LECTURA DE ARCHIVOS
-        self.json_vendedores = Variables().vendedores_y_depas_este()
+        self.json_vendedores = Variables().vendedores_y_depas_este_servicio()
         path = os.path.join(Variables().ruta_Trabajo,self.nombre_doc)
         d = pd.read_excel(path, sheet_name='Hoja2')
 

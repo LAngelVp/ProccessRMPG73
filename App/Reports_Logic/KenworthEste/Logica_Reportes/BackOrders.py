@@ -1,11 +1,12 @@
 #########################
 # DESARROLLADOR
-# RMPG - LUIS ANGEL VALLEJO PEREZ
+# RMPG - LUIS ANGEL VALLEJO PEREZ 
 #########################
 # importamos librerias
 import os
 import pandas as pd
 import numpy as np
+import datetime
 from .Variables.ContenedorVariables import Variables
 class BackOrders(Variables):
     def __init__(self):
@@ -14,6 +15,8 @@ class BackOrders(Variables):
         self.nombre_doc = 'BOE.xlsx'
         path = os.path.join(Variables().ruta_Trabajo,self.nombre_doc)
         df = pd.read_excel(path, sheet_name='Hoja2')
+
+
         df = df.replace(to_replace=';', value='-', regex=True)
         # copiamos el dataframe
         df2 = df.copy()
@@ -26,40 +29,35 @@ class BackOrders(Variables):
             value = 'BO' + df2['num'].map(str),
             allow_duplicates = True
         )
-        df2['FechaHoy'] = Variables().date_movement_config_document()
+        
+        df2['Fecha_Hoy'] = Variables().date_movement_config_document()
 
-        self.columnas_fecha = df2.select_dtypes(include=['datetime64']).columns
-        
-        for column_title in self.columnas_fecha:
-            try:
-                df2[column_title] = pd.to_datetime(df2[column_title], format='%d/%m/%Y', errors = 'coerce')
-            except:
+        for column_name in df2.columns:
+            if "Fecha" in column_name:
+                df2 = Variables().global_date_format_dmy_mexican(df2, column_name)
+            else:
                 pass
-        
-        # df2["Fecha_Promesa"] = pd.to_datetime(df2["Fecha_Promesa"])
-        # df2['Fecha_Promesa'] = df2['Fecha_Promesa'].dt.date + "/" + df2['Fecha_Promesa'].dt.month + "/" + df2['Fecha_Promesa'].dt.year
+
         # cambiamos el titulo de las columnas a trabajar.
         df_no_nat = df2.query("Fecha_Alta_FC != ['NaT']").copy()
-        df_no_nat["Antigüedad"] = (df_no_nat["FechaHoy"] - df_no_nat["Fecha_Alta_FC"])
+        df_no_nat["Antigüedad"] = (df_no_nat["Fecha_Hoy"] - df_no_nat["Fecha_Alta_FC"]).apply(lambda x : x.days)
+
         df_nat = df2.query("Fecha_Alta_FC == ['NaT']").copy()
-        df_nat["Antigüedad"] = (df_nat["FechaHoy"] - df_nat["Fecha_Alta"])
+        df_nat["Antigüedad"] = (df_nat["Fecha_Hoy"] - df_nat["Fecha_Alta"]).apply(lambda x : x.days)
         df_resta_fechas = pd.concat([df_no_nat, df_nat], join="inner")
 
-        # COLOCAMOS EL FORMATO A TODA COLUMNA QUE SEA TIPO FECHA.
-        for column_title in self.columnas_fecha:
-            try:
-                df_resta_fechas[column_title] = df_resta_fechas[column_title].dt.strftime('%d/%m/%Y')
-            except:
-                pass
-        
-        df_resta_fechas["Fecha_Promesa"] = pd.to_datetime(df_resta_fechas["Fecha_Promesa"], format='%d/%m/%Y', errors = 'coerce')
-        df_resta_fechas["Fecha_Promesa"] = df_resta_fechas["Fecha_Promesa"].dt.strftime('%d/%m/%Y')
         # cambiamos el formato de las columnas de fecha a trabajar.
-        df_resta_fechas.drop(['Folio','FechaHoy','Unidad_Relacionada', 'num'], axis=1, inplace=True)
+        df_resta_fechas.drop(['Folio','Fecha_Hoy','Unidad_Relacionada', 'num'], axis=1, inplace=True)
+
+        for column_name in df_resta_fechas.columns:
+            if "Fecha" in column_name:
+                df_resta_fechas = Variables().global_date_format_dmy_mexican(df_resta_fechas, column_name)
+            else:
+                pass
         
         columnas_bol=df_resta_fechas.select_dtypes(include=bool).columns.tolist()
         df_resta_fechas[columnas_bol] = df_resta_fechas[columnas_bol].astype(str)
-        df_resta_fechas['Antigüedad'] = pd.to_numeric(df_resta_fechas['Antigüedad'].dt.days, downcast='integer')
+        # df_resta_fechas['Antigüedad'] = pd.to_numeric(df_resta_fechas['Antigüedad'].dt.days, downcast='integer')
 
         for column in df_resta_fechas['Antigüedad']:
             if (column < (0)):
@@ -74,4 +72,3 @@ class BackOrders(Variables):
             df_resta_fechas.to_excel(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), index=False )
         else:
             df_resta_fechas.to_csv(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), encoding="utf-8", index=False )
-

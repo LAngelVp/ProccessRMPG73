@@ -8,6 +8,7 @@ from webbrowser import *
 import calendar
 import pandas as pd
 import locale
+import json
 locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
 class Variables():
     def __init__(self):
@@ -18,6 +19,11 @@ class Variables():
         self.documentos_originales = "Original"
         self.documentos_Errores = "Errores"
         self.documentos_Procesados = "Exitosos"
+#{{{{{{{{{{{{{{{{{{{{{{{{{}}}}}}}}}}}}}}}}}}}}}}}}}        
+#COMMENT: NOMBRE DE LOS DOCUMENTOS DE APOYO
+        
+#{{{{{{{{{{{{{{{{{{{{{{{{{}}}}}}}}}}}}}}}}}}}}}}}}}        
+
         self.directorio_raiz = os.path.expanduser(f'~{self.separador}') #NOTE Obtenemos la ruta raiz del sistema, con raiz en el usuario.
         self.ruta_Kenworth = os.path.join(self.directorio_raiz, self.carpeta_documentos_trabajos)
         self.ruta_Trabajos = os.path.join(self.ruta_Kenworth, self.documentos_Trabajos)
@@ -27,9 +33,9 @@ class Variables():
         self.ruta_documentos = os.path.join(self.ruta_Kenworth, "Documentos")
         self.route_file_date = os.path.join(self.ruta_documentos, "Config_Document.json")
         self.ruta_documentos_rutas = os.path.join(self.ruta_documentos, "Rutas_Envio.json")
-        self.vendedores_servicio_detallado_este = os.path.join(self.ruta_documentos, "Vendedores_Servicio_Detallado_Este.json")
-
-        self.clasif_vendedores_refacciones = os.path.join(self.ruta_documentos, "Clasificacion_Vendedores_refacc.json")
+        self.nombre_documento_clasificacion_vendedores_servicio = os.path.join(self.ruta_documentos, "Vendedores_servicio_departamentos.json")
+    
+        self.nombre_documento_clasificacion_vendedores_refacciones = os.path.join(self.ruta_documentos, "Vendedores_refacciones_departamentos.json")
         self.tamaño_clientes_refacciones = os.path.join(self.ruta_documentos, "clientes_grandes.json")
         self.marcas_refacciones = os.path.join(self.ruta_documentos, "marcas_refacciones")
 
@@ -43,15 +49,15 @@ class Variables():
         self.ruta_deapoyo = self.ruta_documentos.replace('\\','/')
         self.route_file_date_movement  = self.route_file_date.replace('\\','/')
         self.ruta_envio_documentos  = self.ruta_documentos_rutas.replace('\\','/')
-        self.ruta_vendedores_servicio_detallado_este  = self.vendedores_servicio_detallado_este.replace('\\','/')
+        self.ruta_vendedores_servicio_detallado_este  = self.nombre_documento_clasificacion_vendedores_servicio.replace('\\','/')
 
-        self.clasif_de_vendedores_refacciones  = self.clasif_vendedores_refacciones.replace('\\','/')
+        self.clasif_de_vendedores_refacciones  = self.nombre_documento_clasificacion_vendedores_refacciones.replace('\\','/')
         self.tamaño_de_clientes_refacciones  = self.tamaño_clientes_refacciones.replace('\\','/')
         self.marcas_de_refacciones  = self.marcas_refacciones.replace('\\','/')
         
         #________________________________________________
 
-        self.pdf = 'https://onedrive.live.com/?cid=C903C3E707BD874A&id=C903C3E707BD874A%21220&parId=root&o=OneUp' #NOTE Direccion en donde se encuentra el archivo de apoyo
+        self.pdf = 'https://docs.google.com/document/d/1-TeaeWdGAXUGls18b_hH6qG-Ur1PqDznsWS8X9FPD_M/edit?usp=sharing' #NOTE Direccion en donde se encuentra el archivo de apoyo
 
         #________________________________________________
         #NOTE VARIABLES PARA PROCESOS CON LA FECHA.
@@ -91,7 +97,50 @@ class Variables():
         document = pd.read_json(self.route_file_date)
         date_movement = pd.to_datetime(document.loc[0,"Date_Movement"], format="%d/%m/%Y", errors="coerce") 
         return date_movement
+
+#! date format {{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}
+    # def global_date_format_america(self, data, name_column=None):
+    #     try:
+    #         data[name_column] = pd.to_datetime(data[name_column], errors="coerce").dt.date
+    #     except:
+    #         pass
+    #     return data
+    def global_date_format_america(self, data, name_column=None):
+        if name_column in data.columns:
+            if data[name_column].dtype == "datetime64[ns]":
+                data[name_column] = pd.to_datetime(data[name_column],errors="coerce").dt.date
+                data[name_column] = data[name_column].astype('datetime64[ns]')
+            else:
+                try:
+                    data[name_column] = pd.to_datetime(data[name_column], format='%d/%m/%Y')
+                except:
+                    try:
+                        data[name_column] = pd.to_datetime(data[name_column], format='%m/%d/%Y')
+                    except:
+                        try:
+                            data[name_column] = pd.to_datetime(data[name_column], format='%Y/%m/%d')
+                        except:
+                            pass
+        return data
     
+
+
+    def global_date_format_mdy_america(self, data, name_column=None):
+        if data[name_column].dtype == "datetime64[ns]":
+            try:
+                data[name_column] = pd.to_datetime(data[name_column], errors="coerce").dt.strftime("%m/%d/%Y")
+            except:
+                pass
+        return data
+    def global_date_format_dmy_mexican(self, data, name_column=None):
+        if data[name_column].dtype == "datetime64[ns]":
+            try:
+                data[name_column] = pd.to_datetime(data[name_column], errors="coerce").dt.strftime("%d/%m/%Y")
+            except:
+                pass
+        return data
+#{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}
+
     def comprobar_reporte_documento_rutas(self, nombre=None):
         archivo = pd.read_json(self.ruta_envio_documentos)
         nombre_arreglado_csv = f'KWESTE_{nombre.split(".")[0]}_RMPG_{self.FechaExternsionGuardar()}.csv'
@@ -108,10 +157,10 @@ class Variables():
         else:
             return os.path.join(self.ruta_procesados,nombre_arreglado_xlsx)
         
-    def vendedores_y_depas_este(self):
+    def vendedores_y_depas_este_servicio(self):
         documento = pd.read_json(self.ruta_vendedores_servicio_detallado_este)
         return documento
-#-----------
+# SEPARATOR: CLASIFICACIONES DE VENDEDORES KWESTE
     def clasificacion_vendedores_departamentos_refacciones(self):
         documento = pd.read_json(self.clasif_de_vendedores_refacciones)
         return documento
@@ -127,3 +176,4 @@ class Variables():
                 dataframe.to_excel(self.comprobar_reporte_documento_rutas(nombre_documento), index=False )
         else:
             dataframe.to_csv(self.comprobar_reporte_documento_rutas(nombre_documento), encoding="utf-8", index=False )
+

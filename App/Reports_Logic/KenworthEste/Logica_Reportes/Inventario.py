@@ -23,21 +23,18 @@ class Inventario(Variables):
         #obtener solo las celdas que vamos a trabajar.
         df2 = df[df.columns[0:33]].copy()
         #insertar la columna de fecha actual, con el fin de sacar la antiguedad.
-        df2.insert(loc=28,column="Fecha_Hoy",value=Variables().date_movement_config_document(), allow_duplicates=False)
+        df2.insert(loc=27,column="Fecha_Hoy",value=Variables().date_movement_config_document(), allow_duplicates=False)
         #iterar en las cabeceras del dataframe para obtener las columnas de fecha.
-        for column_title in df2:
-            if ("Fecha" in column_title):
-                try:
-                    df2[column_title] = pd.to_datetime(df2[column_title], errors="coerce")
-                except:
-                    pass
+        for column_name in df2.columns:
+            if "Fecha" in column_name:
+                df2 = Variables().global_date_format_america(df2, column_name)
             else:
                 pass
         #crear la columna que contendra el valor de la antiguedad.
-        Antiguedad = df2["Fecha_Hoy"] - df2["Fecha Entrada"]    #variable de la operacion.
-        df2.insert(loc=29,column="Antigüedad",value=Antiguedad,allow_duplicates=False)
+        Antiguedad = (df2["Fecha_Hoy"] - df2["Fecha Entrada"]).apply(lambda x : x.days)  #variable de la operacion.
+
+        df2.insert(loc=28,column="Antigüedad",value=Antiguedad,allow_duplicates=False)
         #convertir la columna deantiguedad en numero.
-        df2["Antigüedad"] = pd.to_numeric(df2["Antigüedad"].dt.days,downcast="integer")
         #ordenar el dataframe de manera descendente conforme a la columna de antiguedad.
         df2 = df2.sort_values(by=["Antigüedad"],ascending=True)
         #crear la columna de ClasDias.
@@ -55,16 +52,13 @@ class Inventario(Variables):
         #mandar a llamar la funcion dentro de una consulta.
         df2["ClasDias"] = df2["Antigüedad"].apply(lambda x:self.ClasDias(x))
         #cambiamos el formato de la columna de la "Fecha Entrada".
-        for i in df2:
-            try:
-                if ("Fecha Entrada" in i):
-                    df2[i] = df2[i].dt.strftime("%m/%d/%Y")
-                elif ("Fecha" in i and "Fecha Entrada" not in i):
-                    df2[i] = df2[i].dt.strftime("%d/%m/%Y")
-                else:
-                    pass
-            except:
-                pass
+        for column_name in df2.columns:
+            if "Fecha Entrada" in column_name:
+                df2 = Variables().global_date_format_mdy_america(df2, column_name)
+            elif "Fecha" in column_name:
+                df2 = Variables().global_date_format_dmy_mexican(df2, column_name)
+
+
         #eliminar las columnas no necesarias.
         df2.drop(["Fecha_Hoy"], axis=1, inplace=True)
         #mandar el dataframe a una variable.
@@ -75,15 +69,18 @@ class Inventario(Variables):
         else:
             df_inventarioCosteado.to_csv(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), encoding="utf-8", index=False )
 
-        #--------------------------------------------------------------
-        # INVENTARIO COSTEADO POR DIA
-        #---------------------------------------------------------------
+#         #--------------------------------------------------------------
+#         # INVENTARIO COSTEADO POR DIA
+#         #---------------------------------------------------------------
         #realizamos ahora el inventario costeado por dia.
         df_inventarioCosteadoxDia = df2.copy()
         #eliminar columnas que no se ocuparan.
-        df_inventarioCosteadoxDia["Fecha Entrada"] = pd.to_datetime(df_inventarioCosteadoxDia["Fecha Entrada"], errors="coerce")
-        df_inventarioCosteadoxDia["Fecha Entrada"] = df_inventarioCosteadoxDia["Fecha Entrada"].dt.strftime("%d/%m/%Y")
-        df_inventarioCosteadoxDia.drop(["Antigüedad","ClasDias"],axis=1,inplace=True)
+        # df_inventarioCosteadoxDia["Fecha Entrada"] = pd.to_datetime(df_inventarioCosteadoxDia["Fecha Entrada"])
+        df_inventarioCosteadoxDia= Variables().global_date_format_america(df_inventarioCosteadoxDia, "Fecha Entrada")
+        df_inventarioCosteadoxDia= Variables().global_date_format_dmy_mexican(df_inventarioCosteadoxDia, "Fecha Entrada")
+        
+        # df_inventarioCosteadoxDia["Fecha Entrada"] = df_inventarioCosteadoxDia["Fecha Entrada"].dt.strftime("%d/%m/%Y")
+        df_inventarioCosteadoxDia.drop(["ClasDias"],axis=1,inplace=True)
         df_inventarioCosteadoxDia["Fecha_Dias"] = Variables().date_movement_config_document()
         df_inventarioCosteadoxDia["ClasSF"] = ""
 
@@ -117,8 +114,8 @@ class Inventario(Variables):
         else:
             df_inventarioCosteadoxDia.to_csv(Variables().comprobar_reporte_documento_rutas(self.nombre_doc2), encoding="utf-8", index=False )
 
-    #clasificar ls registros conforme a su antiguedad.
-    #Creamos la funcion para encapsular el procedimiento.
+    # clasificar ls registros conforme a su antiguedad.
+    # Creamos la funcion para encapsular el procedimiento.
     def ClasDias(self, valor):
         if (valor >= 0 and valor <= 90):
             return "1 a 90"
@@ -178,3 +175,4 @@ class Inventario(Variables):
             ):
                 return valor_marca
         return "SM"
+    

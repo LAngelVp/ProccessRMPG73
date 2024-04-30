@@ -304,8 +304,6 @@ border-top-right-radius: 10px;
              <font>
               <family>Arial</family>
               <pointsize>-1</pointsize>
-              <weight>75</weight>
-              <bold>true</bold>
              </font>
             </property>
             <property name="text">
@@ -343,8 +341,6 @@ border-top-right-radius: 10px;
              <font>
               <family>Arial</family>
               <pointsize>-1</pointsize>
-              <weight>75</weight>
-              <bold>true</bold>
              </font>
             </property>
             <property name="text">
@@ -765,7 +761,7 @@ border-top-right-radius: 10px;
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>25</height>
+     <height>20</height>
     </rect>
    </property>
    <property name="font">
@@ -802,21 +798,8 @@ border-top-right-radius: 10px;
       </property>
       <addaction name="actionObjetivos_Mensuales_PagosClientes"/>
      </widget>
-     <widget class="QMenu" name="menuVentas_de_servicio_detallado">
-      <property name="title">
-       <string>Ventas de servicio detallado</string>
-      </property>
-      <addaction name="actionConfiguracion_ServicioDetallado"/>
-     </widget>
-     <widget class="QMenu" name="menuFacturas_de_ventas_de_refacciones">
-      <property name="title">
-       <string>Facturas de ventas de refacciones</string>
-      </property>
-      <addaction name="actionConfiguracion_FacturasVentasRefacciones"/>
-     </widget>
      <addaction name="menuPagos_de_facturas_de_clientes"/>
-     <addaction name="menuVentas_de_servicio_detallado"/>
-     <addaction name="menuFacturas_de_ventas_de_refacciones"/>
+     <addaction name="actionDepartamentos"/>
     </widget>
     <addaction name="menuPagosClientes"/>
     <addaction name="actionFechaMovimiento"/>
@@ -852,6 +835,11 @@ border-top-right-radius: 10px;
   <action name="actionConfiguracion_FacturasVentasRefacciones">
    <property name="text">
     <string>Configuración</string>
+   </property>
+  </action>
+  <action name="actionDepartamentos">
+   <property name="text">
+    <string>Departamentos</string>
    </property>
   </action>
  </widget>

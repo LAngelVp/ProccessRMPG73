@@ -6,12 +6,13 @@
 import os
 import pandas as pd
 import numpy as np
-from .Variables.ContenedorVariables import Variables
+from ...globalModulesShare.ContenedorVariables import Variables
 class BackOrder(Variables):
     def __init__(self):
         # obtenemos el path.
         # leemos el archivo.
         self.nombre_doc = "BOR.xlsx"
+        self.concesionario = "KWRB"
         path = os.path.join(Variables().ruta_Trabajo,self.nombre_doc)
 
         try:
@@ -69,7 +70,7 @@ class BackOrder(Variables):
         df_resta_fechas.columns = df_resta_fechas.columns.str.replace('_', ' ')
         
         # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
-        if (os.path.basename(Variables().comprobar_reporte_documento_rutas(self.nombre_doc)).split(".")[1] == self.nombre_doc.split(".")[1]):
-            df_resta_fechas.to_excel(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), index=False )
+        if (os.path.basename(Variables().comprobar_reporte_documento_rutas(self.nombre_doc,self.concesionario)).split(".")[1] == self.nombre_doc.split(".")[1]):
+            df_resta_fechas.to_excel(Variables().comprobar_reporte_documento_rutas(self.nombre_doc,self.concesionario), index=False )
         else:
-            df_resta_fechas.to_csv(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), encoding="utf-8", index=False )   
+            df_resta_fechas.to_csv(Variables().comprobar_reporte_documento_rutas(self.nombre_doc,self.concesionario), encoding="utf-8", index=False )   

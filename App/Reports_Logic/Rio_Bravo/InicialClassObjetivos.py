@@ -10,13 +10,13 @@ from resources import *
 from .UI.V_AgregarObjetivos import *
 from PyQt5.QtWidgets import *
 from PyQt5 import *
-from .Logica_Reportes.Variables.ContenedorVariables import Variables
+from ..globalModulesShare.ContenedorVariables import Variables
 
 class ClassPrincipalObjPagos(QMainWindow, Variables):
     def __init__(self):
         super(ClassPrincipalObjPagos, self).__init__()
         Icon_aceptar = QIcon(":/Source/comprobado.png")
-        self.rutaJSON = Variables().ruta_deapoyo
+        self.rutaJSON = Variables().help_directory
         self.jsonObjetivos = "JsonObjetivos.json"
         self.rutaJsonCompleta = os.path.join(self.rutaJSON,self.jsonObjetivos)
         self.UI = Ui_MainWindow()

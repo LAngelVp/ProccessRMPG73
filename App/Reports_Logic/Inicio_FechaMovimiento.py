@@ -1,0 +1,41 @@
+import os
+import sys
+from resources import *
+from PyQt5.QtWidgets import *
+from PyQt5.QtCore import QDate
+from PyQt5.QtGui import QIcon
+from .Rio_Bravo.UI.fecha import *
+from .Creacion_JSON_FechaMovimiento import *
+from .globalModulesShare.ContenedorVariables import Variables
+
+class Home_DateMovement(QWidget, Variables):
+    def __init__(self):
+        super(Home_DateMovement,self).__init__()
+        self.ui = Ui_Form_FechaMovimiento()
+        self.ui.setupUi(self)
+        self.setWindowIcon(QIcon(":/Source/LOGO_KREI_3.ico"))
+        self.setWindowTitle('Fecha Movimiento')
+        
+
+        # comment Colocamos la fecha actual a la caja de Fecha
+        self.current_date = QDate.currentDate()
+        self.ui.date_edit_date_movement.setDate(self.current_date)
+
+        #comment connect event, date select
+        self.ui.date_edit_date_movement.dateChanged.connect(self.update_json)
+
+        current_date = self.ui.date_edit_date_movement.date().toString("dd/MM/yyyy")
+        CreateJson().update_date(current_date)
+
+
+    def update_json(self):
+        # Obtener la fecha del QDateEdit y convertirla a una cadena con el formato deseado
+        current_date = self.ui.date_edit_date_movement.date().toString("dd/MM/yyyy")
+        CreateJson(Variables().movement_date_document).update_date(current_date)
+        
+
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    ventana = Home_DateMovement()
+    ventana.show()
+    sys.exit(app.exec_())

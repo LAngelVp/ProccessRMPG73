@@ -16,6 +16,7 @@ from Reports_Logic.Rio_Bravo.Home_KWRB import *
 from Reports_Logic.KenworthEste.Home_KWESTE import *
 from Reports_Logic.KREI.Home_KREI import *
 from Reports_Logic.Kenworth_Sonora.Home_KWSonora import *
+from Reports_Logic.globalModulesShare.ContenedorVariables import Variables
 #------------
 from datetime import *
 import webbrowser
@@ -23,6 +24,7 @@ import webbrowser
 class my_app(QMainWindow, Variables):
     def __init__(self):
         super(my_app, self).__init__()
+        
         self.ui = Ui_VPrincipal()
         self.ui.setupUi(self)
         self.setWindowFlags(self.windowFlags() | Qt.FramelessWindowHint)
@@ -34,31 +36,41 @@ class my_app(QMainWindow, Variables):
         self.ui.btc_btc_cerrar.setIcon(QIcon(":Source/Icon_Close.png"))
         self.ui.btc_btc_minimizar.setIcon(QIcon(":Source/Icon_Minimize.png"))
         self.ui.panel_encabezado.setStyleSheet("margin-top:5px;")
-        self.ui.btn_btn_kwrb.clicked.connect(self.VentanaRioBravo)
-        self.ui.btn_btn_kweste.clicked.connect(self.VentanaKWESTE)
-        self.ui.btn_btn_kwkrei.clicked.connect(self.VentanaKREI)
-        self.ui.btn_btn_kwsonora.clicked.connect(self.VentanaSonora)
+
+        self.ventanas_abiertas = {}
         
+        self.ui.btn_btn_kwrb.clicked.connect(lambda: self.abrir_ventana("Rio Bravo", Home_KWRB))
+        self.ui.btn_btn_kweste.clicked.connect(lambda: self.abrir_ventana("Kenworth del Este", Home_KWESTE))
+        self.ui.btn_btn_kwkrei.clicked.connect(lambda: self.abrir_ventana("KREI", Home_KREI))
+        self.ui.btn_btn_kwsonora.clicked.connect(lambda: self.abrir_ventana("Kenworth Sonora", Home_KenworthSonora))
+
+
         self.ui.btc_btc_cerrar.clicked.connect(self.cerrar)
         self.ui.btc_btc_minimizar.clicked.connect(self.minimizar)
 
-#-------------------------------------------------
-    def VentanaRioBravo(self):
-        self.Ventana = Home_KWRB()
-        self.Ventana.show() 
-#-------------------------------------------------
-    def VentanaKWESTE(self):
-        self.Ventana = Home_KWESTE()
-        self.Ventana.show()
-#-------------------------------------------------
-    def VentanaKREI(self):
-        self.Ventana = Home_KREI()
-        self.Ventana.show() 
-#-------------------------------------------------
-    def VentanaSonora(self):
-        self.Ventana = Home_KenworthSonora()
-        self.Ventana.show() 
-#-------------------------------------------------
+        self.createProjectDirectory()
+
+    def abrir_ventana(self, titulo, clase_ventana):
+        if clase_ventana.__name__ not in self.ventanas_abiertas:
+            ventana = clase_ventana()
+            ventana.setWindowTitle(titulo)
+            ventana.show()
+            self.ventanas_abiertas[clase_ventana.__name__] = ventana
+            ventana.closed.connect(lambda: self.ventanas_abiertas.pop(clase_ventana.__name__))
+
+        else:
+            QMessageBox.warning(self, "Advertencia", f"Ya hay una ventana de {titulo} abierta.")
+
+    def createProjectDirectory(self):
+        if not os.path.exists(Variables().global_route_project):
+            os.mkdir(Variables().global_route_project)
+        else:
+            if not os.path.exists(Variables().help_directory):
+                os.mkdir(Variables().help_directory)
+            else:
+                pass
+
+
     def cerrar(self):
         self.close()
 
