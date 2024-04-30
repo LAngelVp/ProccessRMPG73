@@ -7,7 +7,7 @@ import pandas as pd
 from datetime import*
 from openpyxl import Workbook
 from openpyxl.utils.dataframe import dataframe_to_rows
-from .Variables.ContenedorVariables import Variables
+from ...globalModulesShare.ContenedorVariables import Variables
 class Refacciones(Variables):
     def __init__(self):
         self.nombre_doc = 'RR.xlsx'

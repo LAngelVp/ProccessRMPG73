@@ -4,7 +4,7 @@
 #########################
 import os
 import pandas as pd
-from .Variables.ContenedorVariables import Variables
+from ...globalModulesShare.ContenedorVariables import Variables
 class ServicioDetalladoKWESTEKREI(Variables):
     def ServicioDetalladoKWESTE_KREI(self):
         path = os.path.join(Variables().ruta_Trabajo,"SDEKREI.xlsx")

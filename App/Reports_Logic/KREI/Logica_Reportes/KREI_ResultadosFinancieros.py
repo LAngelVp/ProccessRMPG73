@@ -4,7 +4,7 @@
 #########################
 import os
 import pandas as pd
-from .Variables.ContenedorVariables import Variables
+from ...globalModulesShare.ContenedorVariables import Variables
 class ResultadosFinancierosKREI(Variables):
     def __init__(self) -> None:
         super().__init__()

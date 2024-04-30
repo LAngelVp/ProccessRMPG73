@@ -9,6 +9,7 @@ from webbrowser import *
 import calendar
 import pandas as pd
 import locale
+
 locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
 class Variables():
     def __init__(self):
@@ -26,8 +27,10 @@ class Variables():
 #? global folder
         self.folder_global = 'KWDataProcessRMPG73'
 #? folder name branch
-        self.folder_name_kwrb = 'SDR_Documentos_Kenworth_RioBravo'
-        self.folder_name_kwe = 'SDR_Documentos_Kenworth_DelEste'
+        self.folder_name_kwrb = 'RMPG_ConcesionarioKenworthRioBravo'
+        self.folder_name_kwe = 'RMPG_ConcesionarioKenworthdelEste'
+        self.folder_name_kwkrei = 'RMPG_ConcesionarioKREI'
+        self.folder_name_kwsonora = 'RMPG_ConcesionarioKenworthSonora'
 #{{{{{{{{{{{{{{{{{{{{{{{{{}}}}}}}}}}}}}}}}}}}}}}}}}
         #? folder name for files (general branches)
         self.documentos_Trabajos = "Trabajos"
@@ -42,7 +45,9 @@ class Variables():
 #{{{{{{{{{{{{{{{{{{{{{{{{{{}}}}}}}}}}}}}}}}}}}}}}}}}}
 #! root directory kw
         self.route_kwrb = os.path.join(self.global_route_project, self.folder_name_kwrb).replace('\\','/')
-        self.route_kwe = os.path.join(self.global_route_project, self.folder_name_kwe)
+        self.route_kwe = os.path.join(self.global_route_project, self.folder_name_kwe).replace('\\','/')
+        self.route_kwkrei = os.path.join(self.global_route_project, self.folder_name_kwkrei).replace('\\','/')
+        self.route_kwsonora = os.path.join(self.global_route_project, self.folder_name_kwsonora).replace('\\','/')
 #{{{{{{{{{{{{{{{{{{{{{{{{{{}}}}}}}}}}}}}}}}}}}}}}}}}}
 #! work routes kwrb
         self.ruta_Trabajos_kwrb = os.path.join(self.route_kwrb, self.documentos_Trabajos).replace('\\','/')
@@ -57,15 +62,24 @@ class Variables():
         self.ruta_errores_kwe = os.path.join(self.route_kwe, self.documentos_Errores).replace('\\','/')
         self.ruta_exitosos_kwe = os.path.join(self.route_kwe, self.documentos_Procesados).replace('\\','/')
 
+#{{{{{{{{{{{{{{{{{{{{{{{{{{{{}}}}}}}}}}}}}}}}}}}}}}}}}}}}
+#! work routes krei
+        self.ruta_Trabajos_krei = os.path.join(self.route_kwkrei, self.documentos_Trabajos).replace('\\','/')
+        self.ruta_original_krei = os.path.join(self.route_kwkrei, self.documentos_originales).replace('\\','/')
+        self.ruta_errores_krei = os.path.join(self.route_kwkrei, self.documentos_Errores).replace('\\','/')
+        self.ruta_exitosos_krei = os.path.join(self.route_kwkrei, self.documentos_Procesados).replace('\\','/')
+#{{{{{{{{{{{{{{{{{{{{{{{{{{{{}}}}}}}}}}}}}}}}}}}}}}}}}}}}
+#! work routes sonora
+        self.ruta_Trabajos_kwsonora = os.path.join(self.route_kwsonora, self.documentos_Trabajos).replace('\\','/')
+        self.ruta_original_kwsonora = os.path.join(self.route_kwsonora, self.documentos_originales).replace('\\','/')
+        self.ruta_errores_kwsonora = os.path.join(self.route_kwsonora, self.documentos_Errores).replace('\\','/')
+        self.ruta_exitosos_kwsonora = os.path.join(self.route_kwsonora, self.documentos_Procesados).replace('\\','/')
 #{{{{{{{{{{{{{{{{{{{{{{{}}}}}}}}}}}}}}}}}}}}}}}
 #? global documents
         self.help_directory = os.path.join(self.global_route_project, self.help_documents_directory).replace('\\','/')
         #fecha movimiento
         self.movement_date_document = os.path.join(self.help_directory, 'DateMovemment.json').replace('\\','/')
-        #kwrb
-        self.ruta_documentos_rutas_kwrb = os.path.join(self.help_directory, "Rutas_Envio.json").replace('\\','/')
         #kwe
-        self.ruta_documentos_rutas_kwe = os.path.join(self.help_directory, "Rutas_Envio.json").replace('\\','/')
         self.nombre_documento_clasificacion_vendedores_servicio_kwe = os.path.join(self.help_directory, "Vendedores_servicio_departamentos.json").replace('\\','/')
         self.nombre_documento_clasificacion_vendedores_refacciones_kwe = os.path.join(self.help_directory, "Vendedores_refacciones_departamentos.json").replace('\\','/')
         self.tamaño_clientes_refacciones_kwe = os.path.join(self.help_directory, "clientes_grandes.json").replace('\\','/')
@@ -81,16 +95,13 @@ class Variables():
 #{{{{{{{{{{{{{{{{{{{{{{{{}}}}}}}}}}}}}}}}}}}}}}}}
 #? reading documents
     #lectura de la fecha movimiento
-    def date_movement_config_document_kwrb(self):
+    def date_movement_config_document(self):
         document = pd.read_json(self.movement_date_document)
         date_movement = pd.to_datetime(document.loc[0,"Date_Movement"], format="%d/%m/%Y") 
         return date_movement
     #comprobar existencia de rutas para procesar los reportes
-    def comprobar_reporte_documento_rutas(self, nombre=None, concesionario=None):
-        if concesionario:
-            ruta_concesionario = f'self.ruta_documentos_rutas_{concesionario.lower()}'
-        else:
-            pass
+    def comprobar_reporte_documento_rutas(self, nombre, concesionario):
+        ruta_concesionario = self.shippingRoutesDocument(concesionario)
         archivo = pd.read_json(os.path.join(ruta_concesionario))
         nombre_arreglado_csv = f'{concesionario}_{nombre.split(".")[0]}_RMPG_{self.FechaExternsionGuardar()}.csv'
         nombre_arreglado_xlsx = f'{concesionario}_{nombre.split(".")[0]}_RMPG_{self.FechaExternsionGuardar()}.xlsx'
@@ -116,6 +127,11 @@ class Variables():
 
 #{{{{{{{{{{{{{{{{{{{{{{{{{{{}}}}}}}}}}}}}}}}}}}}}}}}}}}
 #! functions
+    #self.ruta_documentos_rutas_kwrb = os.path.join(self.help_directory, "Rutas_Envio.json").replace('\\','/')
+
+    def shippingRoutesDocument(self, concesion):
+        return os.path.join(self.help_directory, f'DocumentSavingPaths{concesion}.json').replace('\\','/')
+
     def FechaExternsionGuardar(self):
         datoAdicional = datetime.now()
         fechaPath = datoAdicional.strftime('%d-%m-%Y-%H-%M-%S') #NOTE Fecha para adicionar al nombre del archivo procesado.
@@ -157,8 +173,6 @@ class Variables():
                             pass
         return data
     
-
-
     def global_date_format_mdy_america(self, data, name_column=None):
         if data[name_column].dtype == "datetime64[ns]":
             try:
@@ -166,6 +180,7 @@ class Variables():
             except:
                 pass
         return data
+    
     def global_date_format_dmy_mexican(self, data, name_column=None):
         if data[name_column].dtype == "datetime64[ns]":
             try:
@@ -174,9 +189,6 @@ class Variables():
                 pass
         return data
     
-    def vendedores_y_depas_este_servicio(self):
-        documento = pd.read_json(self.nombre_documento_clasificacion_vendedores_servicio_kwe)
-        return documento
 # SEPARATOR: CLASIFICACIONES DE VENDEDORES KWESTE
     def clasificacion_vendedores_departamentos_refacciones(self):
         documento = pd.read_json(self.nombre_documento_clasificacion_vendedores_refacciones_kwe)
@@ -186,4 +198,7 @@ class Variables():
         return documento
     def marcas_refacciones_fun(self):
         documento = pd.read_json(self.marcas_refacciones_kwe)
+        return documento
+    def vendedores_y_depas_este_servicio(self):
+        documento = pd.read_json(self.nombre_documento_clasificacion_vendedores_servicio_kwe)
         return documento

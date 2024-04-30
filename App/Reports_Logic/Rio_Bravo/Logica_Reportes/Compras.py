@@ -6,7 +6,7 @@
 import os
 import pandas as pd
 from datetime import *
-from .Variables.ContenedorVariables import Variables
+from ...globalModulesShare.ContenedorVariables import Variables
 class Compras(Variables):
     def __init__(self):
         # obtenemos la ruta del documento.

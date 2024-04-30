@@ -4,7 +4,7 @@
 #########################
 import os
 import pandas as pd
-from .Variables.ContenedorVariables import Variables
+from ...globalModulesShare.ContenedorVariables import Variables
 class InventarioKWESTEKREI(Variables):
     def InventarioKWESTE_KREI(self):
         #obtenemos el archivo

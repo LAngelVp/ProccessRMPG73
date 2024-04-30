@@ -5,7 +5,7 @@
 import os
 import pandas as pd
 from datetime import *
-from .Variables.ContenedorVariables import Variables
+from ...globalModulesShare.ContenedorVariables import Variables
 class TrabajosPorEstado(Variables):
     def __init__(self):
         # obtenemos el path.

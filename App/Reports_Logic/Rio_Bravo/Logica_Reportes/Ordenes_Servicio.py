@@ -9,7 +9,7 @@ import os
 import pandas as pd
 from datetime import *
 import numpy as np
-from .Variables.ContenedorVariables import Variables
+from ...globalModulesShare.ContenedorVariables import Variables
 class OrdenesServicio(Variables):
     def __init__(self):
         exceptoKenworth=["KENWORTH MEXICANA", "KENWORTH DEL ESTE"]

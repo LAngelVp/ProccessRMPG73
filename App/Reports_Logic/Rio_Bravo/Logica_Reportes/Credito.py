@@ -4,7 +4,7 @@
 #########################
 import os
 import pandas as pd
-from .Variables.ContenedorVariables import Variables
+from ...globalModulesShare.ContenedorVariables import Variables
 class Credito(Variables):
     def __init__(self):
         self.nombre_doc = 'CR.xlsx'
