@@ -8,7 +8,7 @@ class CreacionJson(Variables):
         self.extentension_documento = extension
         self.__contenido_vacio_json = []
         # Variables().comprobar_rutas_documentos_rutas
-        self.__ruta_base_documento_json = Variables().ruta_documentos_rutas_kwrb
+        self.__ruta_base_documento_json = Variables().documentSavingPaths
 
     @property
     def comprobar_existencia(self):

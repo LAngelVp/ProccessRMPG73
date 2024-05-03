@@ -37,7 +37,7 @@ class Home_KWRB(QMainWindow, Variables):
         Icon_Proccess = QIcon(":/Source/Icon_Proccess.png")
         Icon_Upload = QIcon(":/Source/Icon_Upload.png")
         self.setWindowIcon(QIcon(":/Source/LOGO_KREI_3.ico"))
-        
+        print (self.windowTitle())
         
         
         # Creamos el hilo

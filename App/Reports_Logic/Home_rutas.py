@@ -16,7 +16,9 @@ class rutas(QMainWindow):
         self.ui.setupUi(self)
         self.setWindowTitle("Registro de rutas")
         self.setWindowIcon(QIcon(":/Source/LOGO_KREI_3.ico"))
+
         self.ui.btn_btn_aceptar.clicked.connect(self.comprobar)
+
         self.ui.tabla_rutas.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.ui.tabla_rutas.horizontalHeader().setSectionResizeMode(
             0, self.ui.tabla_rutas.horizontalHeader().Custom
@@ -42,6 +44,20 @@ class rutas(QMainWindow):
             self.ingresar_datos()
         else:
             pass
+
+    def ingresar_datos(self):
+        nombre = self.ui.txt_nombre.text().strip()
+        ruta = self.ui.txt_ruta.text().strip()
+        extension = self.ui.txt_extension_documento.text()
+        if not (nombre and ruta):
+            print("Ambos están vacíos")
+        else:
+            CreacionJson(nombre, ruta, extension).Agregar_ruta
+            self.actualizar_tabla()
+            print("Al menos uno de ellos tiene contenido")
+        self.ui.txt_nombre.clear()
+        self.ui.txt_ruta.clear()
+        
 
     def clic_celda(self, item):
         fila = item.row()
@@ -72,19 +88,6 @@ class rutas(QMainWindow):
                 celda = self.ui.tabla_rutas.item(fila, columna)
                 if celda:
                     celda.setFlags(celda.flags() & ~Qt.ItemIsEditable)
-
-    def ingresar_datos(self):
-        nombre = self.ui.txt_nombre.text().strip()
-        ruta = self.ui.txt_ruta.text().strip()
-        extension = self.ui.txt_extension_documento.text()
-        if not (nombre and ruta):
-            print("Ambos están vacíos")
-        else:
-            CreacionJson(nombre, ruta, extension).Agregar_ruta
-            self.actualizar_tabla()
-            print("Al menos uno de ellos tiene contenido")
-        self.ui.txt_nombre.clear()
-        self.ui.txt_ruta.clear()
 
     def eliminar_datos(self):
         nombre = self.ui.txt_nombre.text() + self.ui.txt_extension_documento.text()

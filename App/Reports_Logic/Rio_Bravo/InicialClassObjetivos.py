@@ -17,7 +17,7 @@ class ClassPrincipalObjPagos(QMainWindow, Variables):
         super(ClassPrincipalObjPagos, self).__init__()
         Icon_aceptar = QIcon(":/Source/comprobado.png")
         self.rutaJSON = Variables().help_directory
-        self.jsonObjetivos = "JsonObjetivos.json"
+        self.jsonObjetivos = Variables().customerPaymentGoals
         self.rutaJsonCompleta = os.path.join(self.rutaJSON,self.jsonObjetivos)
         self.UI = Ui_MainWindow()
         self.UI.setupUi(self)

@@ -13,7 +13,7 @@ import locale
 locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
 class Variables():
     def __init__(self):
-#! variables for a date
+#comment: variables for a date
         # Fecha para insertar en columnas.
         # NOTE Obtenemos la fecha de hoy
         self.fecha_hoy = datetime.now()
@@ -21,85 +21,96 @@ class Variables():
         self.FechaHoy = f'{self.fecha_hoy.day}/{self.fecha_hoy.month}/{self.fecha_hoy.year}'
         # NOTE Damos a formato de fecha para pandas
         self.fechaInsertar = datetime.strptime(self.FechaHoy, "%d/%m/%Y")
-#! separator
+#comment: separator
         self.separador = os.sep
-#{{{{{{{{{{{{{{{{{{{{{{{}}}}}}}}}}}}}}}}}}}}}}}
-#? global folder
+#-----------------------------------------------------------
+#comment: global folder
         self.folder_global = 'KWDataProcessRMPG73'
-#? folder name branch
+#comment: folder name branch
         self.folder_name_kwrb = 'RMPG_ConcesionarioKenworthRioBravo'
         self.folder_name_kwe = 'RMPG_ConcesionarioKenworthdelEste'
         self.folder_name_kwkrei = 'RMPG_ConcesionarioKREI'
         self.folder_name_kwsonora = 'RMPG_ConcesionarioKenworthSonora'
-#{{{{{{{{{{{{{{{{{{{{{{{{{}}}}}}}}}}}}}}}}}}}}}}}}}
-        #? folder name for files (general branches)
+#-----------------------------------------------------------
+#comment: folder name for files (general branches)
         self.documentos_Trabajos = "Trabajos"
         self.documentos_originales = "Original"
         self.documentos_Errores = "Errores"
         self.documentos_Procesados = "Exitosos"
         self.help_documents_directory = "HelpDocumetsPrivate"
-#{{{{{{{{{{{{{{{{{{{{{{{{{{}}}}}}}}}}}}}}}}}}}}}}}}}}
-#! root directory system
+#-----------------------------------------------------------
+#comment: Global Document Names
+        self.customer_payment_goals_file = 'CustomerPaymentGoals.json'
+        self.document_saving_paths_file = 'DocumentSavingPaths.json'
+        self.movement_date_document_file = 'DateMovemment.json'
+        self.vendor_service_departments_file = 'Vendedores_servicio_departamentos.json'
+        self.vendor_parts_departments_file = 'Vendedores_refacciones_departamentos.json'
+        self.large_clients_parts_file = 'clientes_grandes.json'
+        self.parts_brands_file = 'marcas_refacciones.json'
+
+#-----------------------------------------------------------
+#comment: root directory system
         self.root_directory_system = os.path.expanduser(f'~{self.separador}') #NOTE Obtenemos la ruta raiz del sistema, con raiz en el usuario.
         self.global_route_project = os.path.join(self.root_directory_system, self.folder_global).replace('\\','/')
-#{{{{{{{{{{{{{{{{{{{{{{{{{{}}}}}}}}}}}}}}}}}}}}}}}}}}
-#! root directory kw
+#-----------------------------------------------------------
+#comment: root directory kw
         self.route_kwrb = os.path.join(self.global_route_project, self.folder_name_kwrb).replace('\\','/')
         self.route_kwe = os.path.join(self.global_route_project, self.folder_name_kwe).replace('\\','/')
         self.route_kwkrei = os.path.join(self.global_route_project, self.folder_name_kwkrei).replace('\\','/')
         self.route_kwsonora = os.path.join(self.global_route_project, self.folder_name_kwsonora).replace('\\','/')
-#{{{{{{{{{{{{{{{{{{{{{{{{{{}}}}}}}}}}}}}}}}}}}}}}}}}}
-#! work routes kwrb
+#-----------------------------------------------------------
+#comment: work routes kwrb
         self.ruta_Trabajos_kwrb = os.path.join(self.route_kwrb, self.documentos_Trabajos).replace('\\','/')
         self.ruta_original_kwrb = os.path.join(self.route_kwrb, self.documentos_originales).replace('\\','/')
         self.ruta_errores_kwrb = os.path.join(self.route_kwrb, self.documentos_Errores).replace('\\','/')
         self.ruta_exitosos_kwrb = os.path.join(self.route_kwrb, self.documentos_Procesados).replace('\\','/')
 
-#{{{{{{{{{{{{{{{{{{{{{{{{{{{{}}}}}}}}}}}}}}}}}}}}}}}}}}}}
-#! work routes kwe
+#-----------------------------------------------------------
+#comment: work routes kwe
         self.ruta_Trabajos_kwe = os.path.join(self.route_kwe, self.documentos_Trabajos).replace('\\','/')
         self.ruta_original_kwe = os.path.join(self.route_kwe, self.documentos_originales).replace('\\','/')
         self.ruta_errores_kwe = os.path.join(self.route_kwe, self.documentos_Errores).replace('\\','/')
         self.ruta_exitosos_kwe = os.path.join(self.route_kwe, self.documentos_Procesados).replace('\\','/')
 
-#{{{{{{{{{{{{{{{{{{{{{{{{{{{{}}}}}}}}}}}}}}}}}}}}}}}}}}}}
-#! work routes krei
+#-----------------------------------------------------------
+#comment: work routes krei
         self.ruta_Trabajos_krei = os.path.join(self.route_kwkrei, self.documentos_Trabajos).replace('\\','/')
         self.ruta_original_krei = os.path.join(self.route_kwkrei, self.documentos_originales).replace('\\','/')
         self.ruta_errores_krei = os.path.join(self.route_kwkrei, self.documentos_Errores).replace('\\','/')
         self.ruta_exitosos_krei = os.path.join(self.route_kwkrei, self.documentos_Procesados).replace('\\','/')
-#{{{{{{{{{{{{{{{{{{{{{{{{{{{{}}}}}}}}}}}}}}}}}}}}}}}}}}}}
-#! work routes sonora
+#-----------------------------------------------------------
+#comment: work routes sonora
         self.ruta_Trabajos_kwsonora = os.path.join(self.route_kwsonora, self.documentos_Trabajos).replace('\\','/')
         self.ruta_original_kwsonora = os.path.join(self.route_kwsonora, self.documentos_originales).replace('\\','/')
         self.ruta_errores_kwsonora = os.path.join(self.route_kwsonora, self.documentos_Errores).replace('\\','/')
         self.ruta_exitosos_kwsonora = os.path.join(self.route_kwsonora, self.documentos_Procesados).replace('\\','/')
-#{{{{{{{{{{{{{{{{{{{{{{{}}}}}}}}}}}}}}}}}}}}}}}
-#? global documents
+#-----------------------------------------------------------
+#comment: global documents
         self.help_directory = os.path.join(self.global_route_project, self.help_documents_directory).replace('\\','/')
+        self.customerPaymentGoals = os.path.join(self.help_directory, self.customer_payment_goals_file).replace('\\','/')
+        self.documentSavingPaths = os.path.join(self.help_directory, self.document_saving_paths_file).replace('\\','/')
         #fecha movimiento
-        self.movement_date_document = os.path.join(self.help_directory, 'DateMovemment.json').replace('\\','/')
+        self.movement_date_document = os.path.join(self.help_directory,  self.movement_date_document_file).replace('\\','/')
         #kwe
-        self.nombre_documento_clasificacion_vendedores_servicio_kwe = os.path.join(self.help_directory, "Vendedores_servicio_departamentos.json").replace('\\','/')
-        self.nombre_documento_clasificacion_vendedores_refacciones_kwe = os.path.join(self.help_directory, "Vendedores_refacciones_departamentos.json").replace('\\','/')
-        self.tamaño_clientes_refacciones_kwe = os.path.join(self.help_directory, "clientes_grandes.json").replace('\\','/')
-        self.marcas_refacciones_kwe = os.path.join(self.help_directory, "marcas_refacciones").replace('\\','/')
+        self.nombre_documento_clasificacion_vendedores_servicio_kwe = os.path.join(self.help_directory, self.vendor_service_departments_file).replace('\\','/')
+        self.nombre_documento_clasificacion_vendedores_refacciones_kwe = os.path.join(self.help_directory, self.vendor_parts_departments_file).replace('\\','/')
+        self.tamaño_clientes_refacciones_kwe = os.path.join(self.help_directory, self.large_clients_parts_file).replace('\\','/')
+        self.marcas_refacciones_kwe = os.path.join(self.help_directory, self.parts_brands_file).replace('\\','/')
 
 
 
 
-#! help document
+#comment: help document
         self.pdf = 'https://docs.google.com/document/d/1-TeaeWdGAXUGls18b_hH6qG-Ur1PqDznsWS8X9FPD_M/edit?usp=sharing' #NOTE Direccion en donde se encuentra el archivo de apoyo
-        #________________________________________________
 
-#{{{{{{{{{{{{{{{{{{{{{{{{}}}}}}}}}}}}}}}}}}}}}}}}
-#? reading documents
-    #lectura de la fecha movimiento
+#-----------------------------------------------------------
+#comment: reading documents
+    #* lectura de la fecha movimiento
     def date_movement_config_document(self):
         document = pd.read_json(self.movement_date_document)
         date_movement = pd.to_datetime(document.loc[0,"Date_Movement"], format="%d/%m/%Y") 
         return date_movement
-    #comprobar existencia de rutas para procesar los reportes
+    #* comprobar existencia de rutas para procesar los reportes
     def comprobar_reporte_documento_rutas(self, nombre, concesionario):
         ruta_concesionario = self.shippingRoutesDocument(concesionario)
         archivo = pd.read_json(os.path.join(ruta_concesionario))
@@ -116,21 +127,17 @@ class Variables():
             return os.path.join(self.docu,nombre_arreglado_csv)
         else:
             return os.path.join(self.ruta_procesados,nombre_arreglado_xlsx)
-#{{{{{{{{{{{{{{{{{{{{{{{{}}}}}}}}}}}}}}}}}}}}}}}}
+#-----------------------------------------------------------
     
-#! save document    
+#comment: save document    
     def guardar_datos_dataframe(self, nombre_documento, dataframe):
         if (os.path.basename(self.comprobar_reporte_documento_rutas(nombre_documento)).split(".")[1] == nombre_documento.split(".")[1]):
                 dataframe.to_excel(self.comprobar_reporte_documento_rutas(nombre_documento), index=False )
         else:
             dataframe.to_csv(self.comprobar_reporte_documento_rutas(nombre_documento), encoding="utf-8", index=False )
 
-#{{{{{{{{{{{{{{{{{{{{{{{{{{{}}}}}}}}}}}}}}}}}}}}}}}}}}}
-#! functions
-    #self.ruta_documentos_rutas_kwrb = os.path.join(self.help_directory, "Rutas_Envio.json").replace('\\','/')
-
-    def shippingRoutesDocument(self, concesion):
-        return os.path.join(self.help_directory, f'DocumentSavingPaths{concesion}.json').replace('\\','/')
+#-----------------------------------------------------------
+#comment: functions
 
     def FechaExternsionGuardar(self):
         datoAdicional = datetime.now()
@@ -188,8 +195,9 @@ class Variables():
             except:
                 pass
         return data
-    
-# SEPARATOR: CLASIFICACIONES DE VENDEDORES KWESTE
+#-----------------------------------------------------------
+
+# comment: CLASIFICACIONES DE VENDEDORES KWESTE
     def clasificacion_vendedores_departamentos_refacciones(self):
         documento = pd.read_json(self.nombre_documento_clasificacion_vendedores_refacciones_kwe)
         return documento
