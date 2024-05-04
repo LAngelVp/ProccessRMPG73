@@ -1,6 +1,6 @@
 import os
 import sys
-from resources import *
+from ..globalModulesShare.resources import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import QDate
 from PyQt5.QtGui import QIcon

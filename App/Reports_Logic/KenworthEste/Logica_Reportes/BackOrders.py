@@ -7,7 +7,7 @@ import os
 import pandas as pd
 import numpy as np
 import datetime
-from .Variables.ContenedorVariables import Variables
+from ...globalModulesShare.ContenedorVariables import Variables
 class BackOrders(Variables):
     def __init__(self):
         # obtenemos el path.

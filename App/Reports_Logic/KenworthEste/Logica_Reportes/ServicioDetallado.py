@@ -5,7 +5,7 @@
 import os
 import pandas as pd
 from datetime import datetime
-from .Variables.ContenedorVariables import Variables
+from ...globalModulesShare.ContenedorVariables import Variables
 
 class ServicioDetallado(Variables):
     def __init__(self):

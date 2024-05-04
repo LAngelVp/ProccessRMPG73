@@ -6,7 +6,7 @@
 import os
 import pandas as pd
 from datetime import *
-from .Variables.ContenedorVariables import Variables
+from ...globalModulesShare.ContenedorVariables import Variables
 # clase del reporte a realizar
 class Compras(Variables):
     def __init__(self):

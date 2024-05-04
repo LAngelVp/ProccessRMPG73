@@ -9,11 +9,11 @@ from PyQt5.QtGui import QIcon, QPixmap, QMouseEvent
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5 import *
-from resources import *
-from .Logica_Reportes.Variables.ContenedorVariables import *
+from ..globalModulesShare.resources import *
+from ..globalModulesShare.ContenedorVariables import *
 from .UI.IU_VENDEDORES import *
-from ..documentos_json import*
-from ..mensajes_alertas import *
+from ..globalModulesShare.documentos_json import*
+from ..globalModulesShare.mensajes_alertas import *
 
 class Vendedores(QWidget, Variables, ):
     def __init__(self):

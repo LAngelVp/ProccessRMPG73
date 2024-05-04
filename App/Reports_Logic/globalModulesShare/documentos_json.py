@@ -5,7 +5,7 @@ import string
 from PyQt5.QtWidgets import QMessageBox, QPushButton
 import pandas as pd
 class creacion_json():
-    def __init__(self, ruta = None, nombre = None, objeto = None):
+    def __init__(self, ruta = None, nombre = None, objeto = None): #// ingresamos la ruta del documento y el objeto a crear.
         super().__init__()
         self.ruta = ruta
         self.nombre = nombre
@@ -13,7 +13,7 @@ class creacion_json():
         self.objeto = objeto
         self.__contenido_vacio_json = []
 
-
+#comment: comprueba si existe un documento
     @property
     def comprobar_existencia(self):
         if os.path.exists(self.direccion):

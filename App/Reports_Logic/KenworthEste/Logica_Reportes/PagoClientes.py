@@ -5,7 +5,7 @@
 import os
 import pandas as pd
 import json
-from .Variables.ContenedorVariables import *
+from ...globalModulesShare.ContenedorVariables import *
 class PagoClientes(Variables):
     def __init__(self):
         super().__init__()

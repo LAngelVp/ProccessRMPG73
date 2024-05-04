@@ -5,7 +5,7 @@
 import os
 import pandas as pd
 from datetime import *
-from .Variables.ContenedorVariables import Variables
+from ...globalModulesShare.ContenedorVariables import Variables
 class Inventario(Variables):
     def __init__(self):
         self.m = Variables().marcas_refacciones_fun()
