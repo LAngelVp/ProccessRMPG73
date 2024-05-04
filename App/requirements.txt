@@ -1,7 +1,7 @@
 pandas
 numpy
 openpyxl
-PyQt5
+PyQt6
 PyInstaller
 virtualenv
 sqlalchemy
