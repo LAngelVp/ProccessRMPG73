@@ -1,12 +1,12 @@
 import os
 import sys
-from resources import *
+from Reports_Logic.globalModulesShare.resources import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import QDate
 from PyQt5.QtGui import QIcon
-from .Rio_Bravo.UI.fecha import *
+from ..Rio_Bravo.UI.fecha import *
 from .Creacion_JSON_FechaMovimiento import *
-from .globalModulesShare.ContenedorVariables import Variables
+from .ContenedorVariables import Variables
 
 class Home_DateMovement(QWidget, Variables):
     def __init__(self):

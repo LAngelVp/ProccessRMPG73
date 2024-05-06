@@ -6,20 +6,20 @@ import sys
 import os
 import shutil
 import threading
-from resources import *
+from ..globalModulesShare.resources import *
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QIcon, QPixmap, QMouseEvent
 from PyQt5.QtCore import Qt, QThread, pyqtSignal, pyqtSlot
 from webbrowser import *
-from .Logica_Reportes.Variables.ContenedorVariables import Variables
-from .Inicio_FechaMovimiento import *
+from ..globalModulesShare.ContenedorVariables import Variables
+from ..globalModulesShare.Inicio_FechaMovimiento import *
 from .KenworthConnect import *
 from .InicialClassObjetivos import *
 from .UI.V_KWESTE import *
 from .Home_rutas import *
 from .Vendedores import *
-from ..mensajes_alertas import Mensajes_Alertas
+from ..globalModulesShare.mensajes_alertas import Mensajes_Alertas
 import subprocess
 
 class Home_KWESTE(QMainWindow, QDialog, Variables):
@@ -115,7 +115,7 @@ class Home_KWESTE(QMainWindow, QDialog, Variables):
 
         options = QFileDialog.Options()
         options |= QFileDialog.ReadOnly
-        file_path, _ = QFileDialog.getOpenFileNames(self, 'Abrir Archivo Excel', Variables().ruta_errores, 'Excel Archivos (*.xlsx);; CSV Archivos (*.csv)',options=options)
+        file_path, _ = QFileDialog.getOpenFileNames(self, 'Abrir Archivo Excel', Variables().ruta_errores_kwe, 'Excel Archivos (*.xlsx);; CSV Archivos (*.csv)',options=options)
         
         if file_path:
             try:
@@ -128,7 +128,7 @@ class Home_KWESTE(QMainWindow, QDialog, Variables):
     def abrir_ruta_originales(self):
         options = QFileDialog.Options()
         options |= QFileDialog.ReadOnly
-        file_path, _ = QFileDialog.getOpenFileNames(self, 'Abrir Archivo Excel', Variables().ruta_origina, 'Excel Archivos (*.xlsx);; CSV Archivos (*.csv)',options=options)
+        file_path, _ = QFileDialog.getOpenFileNames(self, 'Abrir Archivo Excel', Variables().ruta_original_kwe, 'Excel Archivos (*.xlsx);; CSV Archivos (*.csv)',options=options)
         
         if file_path:
             try:
@@ -141,7 +141,7 @@ class Home_KWESTE(QMainWindow, QDialog, Variables):
     def abrir_ruta_procesados(self):
         options = QFileDialog.Options()
         options |= QFileDialog.ReadOnly
-        file_path, _ = QFileDialog.getOpenFileNames(self, 'Abrir Archivo Excel', Variables().ruta_procesados, 'Excel Archivos (*.xlsx);; CSV Archivos (*.csv)',options=options)
+        file_path, _ = QFileDialog.getOpenFileNames(self, 'Abrir Archivo Excel', Variables().ruta_exitosos_kwe, 'Excel Archivos (*.xlsx);; CSV Archivos (*.csv)',options=options)
         
         if file_path:
             try:
@@ -209,7 +209,7 @@ class Home_KWESTE(QMainWindow, QDialog, Variables):
     #-------------------------
     # mostrar el contenido de la carpeta en la tabla de trabajos.
     def Show_Data_Trabajos(self):
-        archivos_para_mostrar = os.listdir(Variables().ruta_Trabajo)
+        archivos_para_mostrar = os.listdir(Variables().ruta_Trabajos_kwe)
         self.ventKWESTE.Tabla_cola.setRowCount(len(archivos_para_mostrar))
         self.ventKWESTE.Tabla_cola.setColumnCount(1)
         self.ventKWESTE.Tabla_cola.setHorizontalHeaderLabels(["Nombre del archivo"])
@@ -227,7 +227,7 @@ class Home_KWESTE(QMainWindow, QDialog, Variables):
 
     # mostrar el contenido de la carpeta en la tabla de trabajos.
     def Show_Data_Procesado(self):
-        archivos_para_mostrar = os.listdir(Variables().ruta_procesados)
+        archivos_para_mostrar = os.listdir(Variables().ruta_exitosos_kwe)
         self.ventKWESTE.Tabla_Procesados.setRowCount(len(archivos_para_mostrar))
         self.ventKWESTE.Tabla_Procesados.setColumnCount(1)
         self.ventKWESTE.Tabla_Procesados.setHorizontalHeaderLabels(["Nombre del archivo"])

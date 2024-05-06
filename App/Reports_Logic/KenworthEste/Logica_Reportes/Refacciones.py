@@ -4,7 +4,7 @@
 #########################
 import os
 import pandas as pd
-from .Variables.ContenedorVariables import Variables
+from ...globalModulesShare.ContenedorVariables import Variables
 class Refacciones(Variables):
     def __init__(self):
 

@@ -6,7 +6,7 @@
 import sys
 import os
 import shutil
-from resources import *
+from ..globalModulesShare.resources import *
 import threading
 import typing
 from PyQt5.QtWidgets import QWidget
@@ -16,10 +16,10 @@ from PyQt5.QtGui import QIcon, QPixmap, QMouseEvent
 from PyQt5.QtCore import Qt, QThread, pyqtSignal, pyqtSlot
 from webbrowser import *
 from ..globalModulesShare.ContenedorVariables import Variables
-from ..Inicio_FechaMovimiento import *
+from ..globalModulesShare.Inicio_FechaMovimiento import *
 from .KenworthConnect import *
 from .UI.V_KREI import *
-from ..mensajes_alertas import Mensajes_Alertas
+from ..globalModulesShare.mensajes_alertas import Mensajes_Alertas
 import subprocess
 #----------------------------------------
 

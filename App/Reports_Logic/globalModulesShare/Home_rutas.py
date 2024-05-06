@@ -1,11 +1,11 @@
 import sys
-from resources import *
+from Reports_Logic.globalModulesShare.resources import *
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QIcon
 import os
-from .Rio_Bravo.UI.ventana_rutas import *
-from .Rio_Bravo.Documento_ligas import *
+from ..Rio_Bravo.UI.ventana_rutas import *
+from ..Rio_Bravo.Documento_ligas import *
 from .Inicio_FechaMovimiento import *
 
 

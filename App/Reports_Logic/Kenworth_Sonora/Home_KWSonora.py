@@ -1,7 +1,7 @@
 import sys
 import os
 import shutil
-from resources import *
+from ..globalModulesShare.resources import *
 from PyQt5.QtCore import Qt, QThread, pyqtSignal, pyqtSlot
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QIcon, QPixmap, QMouseEvent
@@ -13,7 +13,7 @@ import subprocess
 from .Logica_Reportes.Variables.ContenedorVariables import Variables
 from .Kenworth_Connect import *
 from .Home_rutas import *
-from ..mensajes_alertas import Mensajes_Alertas
+from ..globalModulesShare.mensajes_alertas import Mensajes_Alertas
 
 class Home_KenworthSonora(QMainWindow, Variables):
     closed = pyqtSignal()

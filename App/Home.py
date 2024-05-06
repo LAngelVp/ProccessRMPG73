@@ -5,7 +5,7 @@
 import sys
 import os
 import shutil
-from resources import *
+from Reports_Logic.globalModulesShare.resources import *
 from PyQt5 import  *
 from PyQt5.QtCore import QPropertyAnimation, Qt
 from PyQt5.QtWidgets import *
