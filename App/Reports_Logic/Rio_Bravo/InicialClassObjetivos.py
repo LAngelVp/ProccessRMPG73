@@ -5,11 +5,11 @@
 import sys
 import os
 import json
-from PyQt5.QtGui import QIcon, QPixmap, QMouseEvent
+from PyQt6.QtGui import QIcon, QPixmap, QMouseEvent
 from ..globalModulesShare.resources import *
-from .UI.V_AgregarObjetivos import *
-from PyQt5.QtWidgets import *
-from PyQt5 import *
+from ..ventanaspy.V_AgregarObjetivos import *
+from PyQt6.QtWidgets import *
+from PyQt6 import *
 from ..globalModulesShare.ContenedorVariables import Variables
 
 class ClassPrincipalObjPagos(QMainWindow, Variables):

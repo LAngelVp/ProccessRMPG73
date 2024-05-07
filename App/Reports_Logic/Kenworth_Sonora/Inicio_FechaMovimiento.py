@@ -1,10 +1,10 @@
 import os
 import sys
 from ..globalModulesShare.resources import *
-from PyQt5.QtWidgets import *
-from PyQt5.QtCore import QDate
-from PyQt5.QtGui import QIcon
-from .UI.fecha import *
+from PyQt6.QtWidgets import *
+from PyQt6.QtCore import QDate
+from PyQt6.QtGui import QIcon
+from ..ventanaspy.fecha import *
 from .Creacion_JSON_FechaMovimiento import *
 from .Logica_Reportes.Variables.ContenedorVariables import Variables
 

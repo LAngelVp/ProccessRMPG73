@@ -1,10 +1,10 @@
 import os
 import json
-from PyQt5.QtWidgets import QMessageBox, QPushButton
+from PyQt6.QtWidgets import QMessageBox, QPushButton
 import pandas as pd
 
 class Mensajes_Alertas:
-    def __init__(self=None, titulo=None, mensaje=None, icono = QMessageBox.Information,  texto_detallado=None, botones=[("Aceptar",QMessageBox.Ok)]):
+    def __init__(self=None, titulo=None, mensaje=None, icono = QMessageBox.information,  texto_detallado=None, botones=[("Aceptar",QMessageBox.StandardButton.Ok)]):
         self.Titutlo = titulo
         self.Mensaje = mensaje
         self.Icono = icono

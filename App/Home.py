@@ -6,10 +6,10 @@ import sys
 import os
 import shutil
 from Reports_Logic.globalModulesShare.resources import *
-from PyQt5 import  *
-from PyQt5.QtCore import QPropertyAnimation, Qt
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import QIcon, QPixmap, QMouseEvent
+from PyQt6 import  *
+from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import *
+from PyQt6.QtGui import QIcon, QPixmap, QMouseEvent
 from VPrincipal import *
 # comment importamos concesionarios
 from Reports_Logic.Rio_Bravo.Home_KWRB import *
@@ -27,8 +27,8 @@ class my_app(QMainWindow, Variables):
         
         self.ui = Ui_VPrincipal()
         self.ui.setupUi(self)
-        self.setWindowFlags(self.windowFlags() | Qt.FramelessWindowHint)
-        self.setAttribute(Qt.WA_TranslucentBackground)
+        # self.setWindowFlags(self.windowFlags() | Qt.FramelessWindowHint)
+        # self.setAttribute(Qt.WA_TranslucentBackground)
         self.setWindowTitle("Menu de Sucursales")
         # self.ui.centralwidget.setStyleSheet("background-color:rgb(255, 255, 255);")
         self.ui.imgPrincipalMenu.setPixmap(QPixmap(":/Source/LOGO_KREI.png"))
@@ -96,4 +96,4 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
     window = my_app()
     window.show()
-    sys.exit(app.exec_())
+    sys.exit(app.exec())

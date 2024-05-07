@@ -2,7 +2,7 @@ import os
 import json
 import random
 import string
-from PyQt5.QtWidgets import QMessageBox, QPushButton
+from PyQt6.QtWidgets import QMessageBox, QPushButton
 import pandas as pd
 class creacion_json():
     def __init__(self, ruta = None, nombre = None, objeto = None): #// ingresamos la ruta del documento y el objeto a crear.
@@ -94,7 +94,7 @@ class creacion_json():
             json.dump(documento, archivo, indent=4, ensure_ascii=False)
 
 
-    def Mensaje(self, mensaje, titulo, icono = QMessageBox.Information, botones = [QMessageBox.Ok]):
+    def Mensaje(self, mensaje, titulo, icono = QMessageBox.information, botones = [QMessageBox.StandardButton.Ok]):
         msg_box = QMessageBox()
         msg_box.setWindowTitle(titulo)
         msg_box.setIcon(icono)

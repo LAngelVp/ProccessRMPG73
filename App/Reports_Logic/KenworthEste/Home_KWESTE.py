@@ -7,16 +7,16 @@ import os
 import shutil
 import threading
 from ..globalModulesShare.resources import *
-from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import QIcon, QPixmap, QMouseEvent
-from PyQt5.QtCore import Qt, QThread, pyqtSignal, pyqtSlot
+from PyQt6 import QtCore, QtGui, QtWidgets
+from PyQt6.QtWidgets import *
+from PyQt6.QtGui import QIcon, QPixmap, QMouseEvent
+from PyQt6.QtCore import Qt, QThread, pyqtSignal, pyqtSlot
 from webbrowser import *
 from ..globalModulesShare.ContenedorVariables import Variables
 from ..globalModulesShare.Inicio_FechaMovimiento import *
 from .KenworthConnect import *
 from .InicialClassObjetivos import *
-from .UI.V_KWESTE import *
+from ..ventanaspy.V_KWESTE import *
 from .Home_rutas import *
 from .Vendedores import *
 from ..globalModulesShare.mensajes_alertas import Mensajes_Alertas

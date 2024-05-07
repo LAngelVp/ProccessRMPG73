@@ -2,10 +2,10 @@ import sys
 import os
 import shutil
 from ..globalModulesShare.resources import *
-from PyQt5.QtCore import Qt, QThread, pyqtSignal, pyqtSlot
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import QIcon, QPixmap, QMouseEvent
-from .UI.V_KWSonora import *
+from PyQt6.QtCore import Qt, QThread, pyqtSignal, pyqtSlot
+from PyQt6.QtWidgets import *
+from PyQt6.QtGui import QIcon, QPixmap, QMouseEvent
+from ..ventanaspy.V_KWSonora import *
 from .InicialClassObjetivos import *
 from .Inicio_FechaMovimiento import *
 from webbrowser import *

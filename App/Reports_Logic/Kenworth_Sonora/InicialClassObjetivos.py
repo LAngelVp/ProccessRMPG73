@@ -5,10 +5,10 @@
 import sys
 import os
 import json
-from PyQt5.QtGui import QIcon, QPixmap, QMouseEvent
-from .UI.V_AgregarObjetivos import *
-from PyQt5.QtWidgets import *
-from PyQt5 import *
+from PyQt6.QtGui import QIcon, QPixmap, QMouseEvent
+from ..ventanaspy.V_AgregarObjetivos import *
+from PyQt6.QtWidgets import *
+from PyQt6 import *
 from ..globalModulesShare.resources import *
 from .Logica_Reportes.Variables.ContenedorVariables import Variables
  

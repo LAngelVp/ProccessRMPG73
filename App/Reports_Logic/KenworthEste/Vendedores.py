@@ -5,13 +5,13 @@
 import sys
 import os
 import json
-from PyQt5.QtGui import QIcon, QPixmap, QMouseEvent
-from PyQt5.QtWidgets import *
-from PyQt5.QtCore import *
-from PyQt5 import *
+from PyQt6.QtGui import QIcon, QPixmap, QMouseEvent
+from PyQt6.QtWidgets import *
+from PyQt6.QtCore import *
+from PyQt6 import *
 from ..globalModulesShare.resources import *
 from ..globalModulesShare.ContenedorVariables import *
-from .UI.IU_VENDEDORES import *
+from ..ventanaspy.IU_VENDEDORES import *
 from ..globalModulesShare.documentos_json import*
 from ..globalModulesShare.mensajes_alertas import *
 
