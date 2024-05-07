@@ -4,31 +4,26 @@
 #########################
 import sys
 import os
-import shutil
 from Reports_Logic.globalModulesShare.resources import *
 from PyQt6 import  *
-from PyQt6.QtCore import Qt
-from PyQt6.QtWidgets import *
-from PyQt6.QtGui import QIcon, QPixmap, QMouseEvent
-from VPrincipal import *
+from PyQt6.QtCore import Qt, QPointF
+from PyQt6.QtWidgets import QMainWindow
+from PyQt6.QtGui import QIcon, QPixmap
 # comment importamos concesionarios
 from Reports_Logic.Rio_Bravo.Home_KWRB import *
 from Reports_Logic.KenworthEste.Home_KWESTE import *
 from Reports_Logic.KREI.Home_KREI import *
 from Reports_Logic.Kenworth_Sonora.Home_KWSonora import *
-from Reports_Logic.globalModulesShare.ContenedorVariables import Variables
 #------------
-from datetime import *
-import webbrowser
-
-class my_app(QMainWindow, Variables):
+from Reports_Logic.globalModulesShare.ContenedorVariables import Variables
+from Reports_Logic.ventanaspy.VPrincipal import Ui_VPrincipal
+class PrincipalWindow(QMainWindow):
     def __init__(self):
-        super(my_app, self).__init__()
-        
+        super().__init__()
         self.ui = Ui_VPrincipal()
         self.ui.setupUi(self)
-        # self.setWindowFlags(self.windowFlags() | Qt.FramelessWindowHint)
-        # self.setAttribute(Qt.WA_TranslucentBackground)
+        self.setWindowFlags(self.windowFlags() | Qt.WindowType.FramelessWindowHint)
+        self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
         self.setWindowTitle("Menu de Sucursales")
         # self.ui.centralwidget.setStyleSheet("background-color:rgb(255, 255, 255);")
         self.ui.imgPrincipalMenu.setPixmap(QPixmap(":/Source/LOGO_KREI.png"))
@@ -48,7 +43,7 @@ class my_app(QMainWindow, Variables):
         self.ui.btc_btc_cerrar.clicked.connect(self.cerrar)
         self.ui.btc_btc_minimizar.clicked.connect(self.minimizar)
 
-        self.createProjectDirectory()
+        # self.createProjectDirectory()
 
     def abrir_ventana(self, titulo, clase_ventana):
         if clase_ventana.__name__ not in self.ventanas_abiertas:
@@ -78,22 +73,22 @@ class my_app(QMainWindow, Variables):
         self.showMinimized()
 
     # EVENTOS DEL MOUSE
-    def mousePressEvent(self, event: QMouseEvent):
-        try:
-            if event.button() == Qt.LeftButton:
-                self.drag_start_position = event.globalPos() - self.frameGeometry().topLeft()
-        except:
-            pass
-#-----------------------------------------------------
-    def mouseMoveEvent(self, event: QMouseEvent):
-        try:
-            if event.buttons() == Qt.LeftButton:
-                self.move(event.globalPos() - self.drag_start_position)
-        except:
-            pass
+    def mousePressEvent(self, event):
+        if event.buttons() & Qt.MouseButton.LeftButton:
+            self.drag_start_position = event.globalPosition() - QPointF(self.pos())
+    
+    def mouseMoveEvent(self, event):
+        if event.buttons() & Qt.MouseButton.LeftButton:
+            if self.drag_start_position is not None:
+                new_pos = event.globalPosition() - self.drag_start_position
+                self.move(new_pos.toPoint())
 
-if __name__ == '__main__':
+
+def main():
     app = QApplication(sys.argv)
-    window = my_app()
-    window.show()
+    ventana_principal = PrincipalWindow()
+    ventana_principal.show()
     sys.exit(app.exec())
+
+if __name__ == "__main__":
+    main()

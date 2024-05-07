@@ -40,13 +40,13 @@ class Mensajes_Alertas:
         for texto, callback in self.Botones:
             texto_boton = QPushButton(texto)
             texto_boton.clicked.connect(callback)
-            self.Ventana.addButton(texto_boton, QMessageBox.ActionRole)
-        return self.Ventana.exec_()
+            self.Ventana.addButton(texto_boton, QMessageBox.ButtonRole.ActionRole)
+        return self.Ventana.exec()
     @property
     def Eliminar_vacio(self):
         self.Ventana.setWindowTitle("Eliminar")
         self.Ventana.setText("No se encuentran documentos en la direccion de archivos procesados.")
-        self.Ventana.setIcon(QMessageBox.Information)
+        self.Ventana.setIcon(QMessageBox.Icon.Information)
         if (self.Texto_Detallado != None):
             self.Ventana.setDetailedText(self.Texto_Detallado)
         else:
@@ -54,8 +54,8 @@ class Mensajes_Alertas:
         for texto, callback in self.Botones:
             texto_boton = QPushButton(texto)
             texto_boton.clicked.connect(callback)
-            self.Ventana.addButton(texto_boton, QMessageBox.ActionRole)
-        return self.Ventana.exec_()
+            self.Ventana.addButton(texto_boton, QMessageBox.ButtonRole.ActionRole)
+        return self.Ventana.exec()
     @property
     def Eliminar_lleno(self):
         self.Ventana.setWindowTitle("Eliminar")

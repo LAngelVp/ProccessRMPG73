@@ -5,10 +5,9 @@
 import sys
 import os
 import shutil
-from PyQt6.QtCore import Qt, QThread, pyqtSignal, pyqtSlot
+from PyQt6.QtCore import Qt, QThread, pyqtSignal, QPoint
 from ..globalModulesShare.resources import *
 from PyQt6 import  *
-from PyQt6.QtCore import QPropertyAnimation, Qt
 from PyQt6.QtWidgets import *
 from PyQt6.QtGui import QIcon, QPixmap, QMouseEvent
 from datetime import *
@@ -21,14 +20,14 @@ from ..ventanaspy.V_KWRB import *
 from ..globalModulesShare.Home_rutas import *
 from ..globalModulesShare.mensajes_alertas import Mensajes_Alertas
 import subprocess
-class Home_KWRB(QMainWindow, Variables):
+class Home_KWRB(QMainWindow):
     closed = pyqtSignal()
     def __init__(self):
         super(Home_KWRB, self).__init__()
         self.ventanaRioBravo = Ui_Kenworth_Rio_Bravo()
         self.ventanaRioBravo.setupUi(self)
-        self.setWindowFlags(self.windowFlags() | Qt.FramelessWindowHint)
-        self.setAttribute(Qt.WA_TranslucentBackground)
+        self.setWindowFlags(self.windowFlags() | Qt.WindowType.FramelessWindowHint)
+        self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
         self.ventanaRioBravo.btn_btn_Ayuda.setIcon(QIcon(":/Source/Icon_Help.png"))
         self.ventanaRioBravo.btc_btc_Minimizar.setIcon(QIcon(":/Source/Icon_Minimize.png"))
         self.ventanaRioBravo.btc_btc_Cerrar.setIcon(QIcon(":/Source/Icon_Close.png"))
@@ -63,7 +62,7 @@ class Home_KWRB(QMainWindow, Variables):
 
         # MENU DE OPCIONES
         self.ventanaRioBravo.actionObjetivos_Mensuales_PagosClientes.triggered.connect(self.ObjetivosPagoClientes)
-        self.ventanaRioBravo.actionFechaMovimiento.triggered.connect(self.FechaMovimiento)
+        # self.ventanaRioBravo.actionFechaMovimiento.triggered.connect(self.FechaMovimiento)
         self.ventanaRioBravo.actionDirecciones_de_envio.triggered.connect(self.direcciones_envio)
         #--------------------
         # Señales del hilo
@@ -80,7 +79,7 @@ class Home_KWRB(QMainWindow, Variables):
         
         self.Creacion_Carpetas()
 
-        Home_DateMovement()
+        # Home_DateMovement()
         self.Show_Data_Trabajos()
         self.Show_Data_Procesado()
     # -------------------------------------------------
@@ -107,9 +106,9 @@ class Home_KWRB(QMainWindow, Variables):
         self.ventana_obj = ClassPrincipalObjPagos()
         self.ventana_obj.show()
         
-    def FechaMovimiento(self):
-        self.ventana_obj = Home_DateMovement()
-        self.ventana_obj.show()
+    # def FechaMovimiento(self):
+    #     self.ventana_obj = Home_DateMovement()
+    #     self.ventana_obj.show()
 
     def direcciones_envio(self):
         self.ventana_rutas = rutas()
@@ -166,7 +165,7 @@ class Home_KWRB(QMainWindow, Variables):
         Mensajes_Alertas(
             "Trabajos Terminados",
             "Todos los trabajos que se comenzaron fueron insertados por el proceso lógico del sistema.",
-            QMessageBox.Information,
+            QMessageBox.Icon.Information,
             None,
             botones=[
                 ("Aceptar", self.Aceptar_callback)
@@ -202,18 +201,15 @@ class Home_KWRB(QMainWindow, Variables):
         self.Show_Data_Procesado()
 #--------------------------------------------
 # EVENTOS DEL MOUSE
-    def mousePressEvent(self, event: QMouseEvent):
-        if event.button() == Qt.LeftButton:
-            self.drag_start_position = event.globalPos() - self.frameGeometry().topLeft()
-        self.Show_Data_Trabajos()
-        self.Show_Data_Procesado()
-
-#-----------------------------------------------------
-    def mouseMoveEvent(self, event: QMouseEvent):
-        if event.buttons() == Qt.LeftButton:
-            self.move(event.globalPos() - self.drag_start_position)
-        self.Show_Data_Trabajos()
-        self.Show_Data_Procesado()
+    def mousePressEvent(self, event):
+        if event.buttons() & Qt.MouseButton.LeftButton:
+            self.drag_start_position = event.globalPosition() - QPointF(self.pos())
+    
+    def mouseMoveEvent(self, event):
+        if event.buttons() & Qt.MouseButton.LeftButton:
+            if self.drag_start_position is not None:
+                new_pos = event.globalPosition() - self.drag_start_position
+                self.move(new_pos.toPoint())
 
 
 
@@ -235,11 +231,11 @@ class Home_KWRB(QMainWindow, Variables):
         self.Show_Data_Trabajos()
         self.Show_Data_Procesado()
         ubicacion_carga = os.chdir(Variables().root_directory_system)
-        options = QFileDialog.Options()
+        options = QFileDialog().options()
         # options |= QFileDialog.DontUseNativeDialog  # Evitar el uso del diálogo nativo del sistema operativo (opcional)
-        options |= QFileDialog.ReadOnly  # Permite abrir los archivos solo en modo lectura (opcional)
-        options |= QFileDialog.HideNameFilterDetails  # Ocultar detalles del filtro (opcional)
-        options |= QFileDialog.DontResolveSymlinks  # No resolver enlaces simbólicos (opcional)
+        options |= QFileDialog.Option.ReadOnly  # Permite abrir los archivos solo en modo lectura (opcional)
+        options |= QFileDialog.Option.HideNameFilterDetails  # Ocultar detalles del filtro (opcional)
+        options |= QFileDialog.Option.DontResolveSymlinks  # No resolver enlaces simbólicos (opcional)
 
         selected_filter = "Hojas de Excel (*.xlsx);;Todos los archivos (*)"
         
@@ -300,7 +296,7 @@ class Home_KWRB(QMainWindow, Variables):
         self.Mensaje_Ayuda = Mensajes_Alertas(
             "Información de Ayuda",
             'Si tienes problemas con la aplicación debido a que no sabes como guardar tus archivos de excel para que puedan ser transformados.\nPuedes ver el manual de usuario dando click en el boton de "Ver"',
-            QMessageBox.Information,  # Aquí se pasa el tipo de ícono
+            QMessageBox.Icon.Information,  # Aquí se pasa el tipo de ícono
             None,
             botones = [
                 ("Aceptar", self.Aceptar_callback),
@@ -325,7 +321,7 @@ class Home_KWRB(QMainWindow, Variables):
             elemento.setForeground(QtGui.QColor(0, 0, 0))
             self.ventanaRioBravo.Tabla_Cola.setItem(fila, 0, elemento)
         header = self.ventanaRioBravo.Tabla_Cola.horizontalHeader()
-        header.setSectionResizeMode(0, QtWidgets.QHeaderView.Stretch)
+        header.setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeMode.Stretch)
 
 
 
@@ -340,7 +336,7 @@ class Home_KWRB(QMainWindow, Variables):
                 elemento.setForeground(QtGui.QColor(0, 0, 0))
                 self.ventanaRioBravo.Tabla_Procesados.setItem(fila, 0, elemento)
             header = self.ventanaRioBravo.Tabla_Procesados.horizontalHeader()
-            header.setSectionResizeMode(0, QtWidgets.QHeaderView.Stretch)
+            header.setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeMode.Stretch)
 #--------------------------------------------------
 
 
