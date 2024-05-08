@@ -5,7 +5,7 @@ from PyQt6.QtWidgets import *
 from PyQt6.QtGui import QIcon
 import os
 from ..ventanaspy.ventana_rutas import *
-from ..Rio_Bravo.Documento_ligas import *
+from .Documento_ligas import *
 from .Inicio_FechaMovimiento import *
 
 
@@ -19,13 +19,13 @@ class rutas(QMainWindow):
 
         self.ui.btn_btn_aceptar.clicked.connect(self.comprobar)
 
-        self.ui.tabla_rutas.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        self.ui.tabla_rutas.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         self.ui.tabla_rutas.horizontalHeader().setSectionResizeMode(
-            0, self.ui.tabla_rutas.horizontalHeader().Custom
+            0, QHeaderView.ResizeMode.Custom
         )
         self.ui.tabla_rutas.setColumnWidth(0, 150)
         self.ui.tabla_rutas.horizontalHeader().setSectionResizeMode(
-            1, self.ui.tabla_rutas.horizontalHeader().Stretch
+            1, QHeaderView.ResizeMode.Stretch
         )
 
         # self.actualizar_tabla()

@@ -9,7 +9,7 @@ from PyQt6.QtCore import Qt, QThread, pyqtSignal, QPoint
 from ..globalModulesShare.resources import *
 from PyQt6 import  *
 from PyQt6.QtWidgets import *
-from PyQt6.QtGui import QIcon, QPixmap, QMouseEvent
+from PyQt6.QtGui import QIcon, QPixmap
 from datetime import *
 from webbrowser import *
 from ..globalModulesShare.ContenedorVariables import Variables
@@ -36,8 +36,9 @@ class Home_KWRB(QMainWindow):
         Icon_Proccess = QIcon(":/Source/Icon_Proccess.png")
         Icon_Upload = QIcon(":/Source/Icon_Upload.png")
         self.setWindowIcon(QIcon(":/Source/LOGO_KREI_3.ico"))
-        print (self.windowTitle())
+       
         
+        self.variables = Variables()
         
         # Creamos el hilo
         self.Hilo = trabajohilo()
@@ -62,7 +63,7 @@ class Home_KWRB(QMainWindow):
 
         # MENU DE OPCIONES
         self.ventanaRioBravo.actionObjetivos_Mensuales_PagosClientes.triggered.connect(self.ObjetivosPagoClientes)
-        # self.ventanaRioBravo.actionFechaMovimiento.triggered.connect(self.FechaMovimiento)
+        self.ventanaRioBravo.actionFechaMovimiento.triggered.connect(self.FechaMovimiento)
         self.ventanaRioBravo.actionDirecciones_de_envio.triggered.connect(self.direcciones_envio)
         #--------------------
         # Señales del hilo
@@ -72,29 +73,29 @@ class Home_KWRB(QMainWindow):
         self.Hilo.signalShowTrabajos.connect(self.Show_Data_Trabajos)
         self.Hilo.signalShowProcesados.connect(self.Show_Data_Procesado)
 
-        # if not os.path.exists(Variables().route_kwrb):
-        #     os.mkdir(Variables().route_kwrb)
+        # if not os.path.exists(self.variables.route_kwrb):
+        #     os.mkdir(self.variables.route_kwrb)
         # else:
         #     pass
         
         self.Creacion_Carpetas()
 
-        # Home_DateMovement()
+        Home_DateMovement()
         self.Show_Data_Trabajos()
         self.Show_Data_Procesado()
     # -------------------------------------------------
 # CREAR CARPETAS DE TRABAJO
     def Creacion_Carpetas(self):
-        directorio = os.listdir(Variables().global_route_project)
+        directorio = os.listdir(self.variables.global_route_project)
         while directorio:
-            if not os.path.exists(f'{Variables().ruta_Trabajos_kwrb}'):
-                os.makedirs(f'{Variables().ruta_Trabajos_kwrb}')
-            elif not os.path.exists(f'{Variables().ruta_original_kwrb}'):
-                os.makedirs(f'{Variables().ruta_original_kwrb}')
-            elif not os.path.isdir(f'{Variables().ruta_errores_kwrb}'):
-                os.makedirs(f'{Variables().ruta_errores_kwrb}')
-            elif not os.path.isdir(f'{Variables().ruta_exitosos_kwrb}'):
-                os.makedirs(f'{Variables().ruta_exitosos_kwrb}')
+            if not os.path.exists(f'{self.variables.ruta_Trabajos_kwrb}'):
+                os.makedirs(f'{self.variables.ruta_Trabajos_kwrb}')
+            elif not os.path.exists(f'{self.variables.ruta_original_kwrb}'):
+                os.makedirs(f'{self.variables.ruta_original_kwrb}')
+            elif not os.path.isdir(f'{self.variables.ruta_errores_kwrb}'):
+                os.makedirs(f'{self.variables.ruta_errores_kwrb}')
+            elif not os.path.isdir(f'{self.variables.ruta_exitosos_kwrb}'):
+                os.makedirs(f'{self.variables.ruta_exitosos_kwrb}')
             else:
                 return
 #-------------------------------------------------
@@ -106,25 +107,25 @@ class Home_KWRB(QMainWindow):
         self.ventana_obj = ClassPrincipalObjPagos()
         self.ventana_obj.show()
         
-    # def FechaMovimiento(self):
-    #     self.ventana_obj = Home_DateMovement()
-    #     self.ventana_obj.show()
+    def FechaMovimiento(self):
+        self.ventana_obj = Home_DateMovement()
+        self.ventana_obj.show()
 
     def direcciones_envio(self):
         self.ventana_rutas = rutas()
         self.ventana_rutas.show()
 #-------------------------------------------------------
     def inicialHilo(self):
-        # if self.Hilo.isRunning():
-        #     self.Hilo.requestInterruption()
-        # else:
-        self.Hilo.start()
+        if self.Hilo.isRunning():
+            self.Hilo.requestInterruption()
+        else:
+            self.Hilo.start()
 #-----------------------------------------------------
 
     def abrir_ruta_errores(self):
-        options = QFileDialog.Options()
-        options |= QFileDialog.ReadOnly
-        file_path, _ = QFileDialog.getOpenFileNames(self, 'Abrir Archivo Excel', Variables().ruta_errores_kwrb, 'Excel Archivos (*.xlsx);; CSV Archivos (*.csv)',options=options)
+        options = QFileDialog().options()
+        options |= QFileDialog.Option.ReadOnly
+        file_path, _ = QFileDialog.getOpenFileNames(self, 'Abrir Archivo Excel', self.variables.ruta_errores_kwrb, 'Excel Archivos (*.xlsx);; CSV Archivos (*.csv)',options=options)
         
         if file_path:
             try:
@@ -135,9 +136,9 @@ class Home_KWRB(QMainWindow):
         self.Show_Data_Trabajos()
         self.Show_Data_Procesado()
     def abrir_ruta_originales(self):
-        options = QFileDialog.Options()
-        options |= QFileDialog.ReadOnly
-        file_path, _ = QFileDialog.getOpenFileNames(self, 'Abrir Archivo Excel', Variables().ruta_original_kwrb, 'Excel Archivos (*.xlsx);; CSV Archivos (*.csv)',options=options)
+        options = QFileDialog().options()
+        options |= QFileDialog.Option.ReadOnly
+        file_path, _ = QFileDialog.getOpenFileNames(self, 'Abrir Archivo Excel', self.variables.ruta_original_kwrb, 'Excel Archivos (*.xlsx);; CSV Archivos (*.csv)',options=options)
         
         if file_path:
             try:
@@ -148,9 +149,9 @@ class Home_KWRB(QMainWindow):
         self.Show_Data_Trabajos()
         self.Show_Data_Procesado()
     def abrir_ruta_procesados(self):
-        options = QFileDialog.Options()
-        options |= QFileDialog.ReadOnly
-        file_path, _ = QFileDialog.getOpenFileNames(self, 'Abrir Archivo Excel', Variables().ruta_exitosos_kwrb, 'Excel Archivos (*.xlsx);; CSV Archivos (*.csv)',options=options)
+        options = QFileDialog().options()
+        options |= QFileDialog.Option.ReadOnly
+        file_path, _ = QFileDialog.getOpenFileNames(self, 'Abrir Archivo Excel', self.variables.ruta_exitosos_kwrb, 'Excel Archivos (*.xlsx);; CSV Archivos (*.csv)',options=options)
         
         if file_path:
             try:
@@ -178,8 +179,8 @@ class Home_KWRB(QMainWindow):
     def mensajeArchivoErroneo(self, mensaje):
         Mensajes_Alertas(
             "Errores durante el proceso",
-            f'Los documentos que no se lograron procesar son:\n{mensaje}\nLa ruta de los errores es:\n {Variables().ruta_error}',
-            QMessageBox.Critical,
+            f'Los documentos que no se lograron procesar son:\n{mensaje}\nLa ruta de los errores es:\n {self.variables.ruta_errores_kwrb}',
+            QMessageBox.Icon.Critical,
             "Cuando el sistema muestra un error como este, existen algunos factores que se tienen que tomar en cuenta:\n1.- El nombre del documento no tiene la nomenclatura correcta.\n2.- El documento original no contiene las columnas a trabajar o su contendo es incorrecto.\n3.- EL documento no es el correcto o esta corrupto.",
             botones=[
                 ("Aceptar", self.Aceptar_callback)
@@ -230,7 +231,7 @@ class Home_KWRB(QMainWindow):
         self.Creacion_Carpetas()
         self.Show_Data_Trabajos()
         self.Show_Data_Procesado()
-        ubicacion_carga = os.chdir(Variables().root_directory_system)
+        ubicacion_carga = os.chdir(self.variables.root_directory_system)
         options = QFileDialog().options()
         # options |= QFileDialog.DontUseNativeDialog  # Evitar el uso del diálogo nativo del sistema operativo (opcional)
         options |= QFileDialog.Option.ReadOnly  # Permite abrir los archivos solo en modo lectura (opcional)
@@ -239,7 +240,7 @@ class Home_KWRB(QMainWindow):
 
         selected_filter = "Hojas de Excel (*.xlsx);;Todos los archivos (*)"
         
-        if os.path.isdir(Variables().ruta_Trabajos_kwrb) == True:
+        if os.path.isdir(self.variables.ruta_Trabajos_kwrb) == True:
             try:
                 file_names, filter_selected = QFileDialog.getOpenFileNames(
                     self,
@@ -249,11 +250,11 @@ class Home_KWRB(QMainWindow):
                     options=options
                 )
                 for nombre_archivo in file_names:
-                    shutil.move(nombre_archivo, Variables().ruta_Trabajos_kwrb)
+                    shutil.move(nombre_archivo, self.variables.ruta_Trabajos_kwrb)
             except:
                 pass
         else:
-            os.makedirs(Variables().ruta_Trabajos_kwrb)
+            os.makedirs(self.variables.ruta_Trabajos_kwrb)
             try:
                 file_names, filter_selected = QFileDialog.getOpenFileNames(
                     self,
@@ -263,18 +264,18 @@ class Home_KWRB(QMainWindow):
                     options=options
                 )
                 for nombre_archivo in file_names:
-                    shutil.move(nombre_archivo, Variables().ruta_Trabajos_kwrb)
+                    shutil.move(nombre_archivo, self.variables.ruta_Trabajos_kwrb)
             except:
                 pass
         self.Show_Data_Trabajos()
         self.Show_Data_Procesado()
 # ---------------------------------------
     def eliminar(self):
-        carpeta_contenido_eliminar = os.listdir(Variables().ruta_exitosos_kwrb)
+        carpeta_contenido_eliminar = os.listdir(self.variables.ruta_exitosos_kwrb)
         for archivo in carpeta_contenido_eliminar:
             if (len(carpeta_contenido_eliminar) != 0):
                 try:
-                    archivo_completo = os.path.join(Variables().ruta_exitosos_kwrb, archivo)
+                    archivo_completo = os.path.join(self.variables.ruta_exitosos_kwrb, archivo)
                     os.remove(archivo_completo)
                 except:
                     pass
@@ -284,7 +285,7 @@ class Home_KWRB(QMainWindow):
 # eliminamos los trabajos realizados de la carpeta de exitosos.
     def RemoveProcessed(self):
         self.Creacion_Carpetas()
-        ruta_trabajos_procesados = os.listdir(Variables().ruta_exitosos_kwrb)
+        ruta_trabajos_procesados = os.listdir(self.variables.ruta_exitosos_kwrb)
         if (len(ruta_trabajos_procesados) == 0):
             Mensajes_Alertas(None,None,None,None,botones=[("Aceptar", self.Aceptar_callback)]).Eliminar_vacio
         else:
@@ -307,17 +308,17 @@ class Home_KWRB(QMainWindow):
     def Aceptar_callback(self):
         pass
     def Ayuda_callback(self):
-        open_new(Variables().pdf)
+        open_new(self.variables.pdf)
 #-------------------------------------------------------
 # mostrar el contenido de la carpeta en la tabla de trabajos.
     def Show_Data_Trabajos(self):
-        archivos_para_mostrar = os.listdir(Variables().ruta_Trabajos_kwrb)
+        archivos_para_mostrar = os.listdir(self.variables.ruta_Trabajos_kwrb)
         self.ventanaRioBravo.Tabla_Cola.setRowCount(len(archivos_para_mostrar))
         self.ventanaRioBravo.Tabla_Cola.setColumnCount(1)
         self.ventanaRioBravo.Tabla_Cola.setHorizontalHeaderLabels(["Nombre del archivo"])
         for fila, archivo in enumerate(archivos_para_mostrar):
             elemento = QTableWidgetItem(archivo)
-            elemento.setFlags(QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled)  # Bloqueamos la edición
+            elemento.setFlags(QtCore.Qt.ItemFlag.ItemIsSelectable | QtCore.Qt.ItemFlag.ItemIsEnabled)  # Bloqueamos la edición
             elemento.setForeground(QtGui.QColor(0, 0, 0))
             self.ventanaRioBravo.Tabla_Cola.setItem(fila, 0, elemento)
         header = self.ventanaRioBravo.Tabla_Cola.horizontalHeader()
@@ -326,13 +327,13 @@ class Home_KWRB(QMainWindow):
 
 
     def Show_Data_Procesado(self):
-            archivos_para_mostrar = os.listdir(Variables().ruta_exitosos_kwrb)
+            archivos_para_mostrar = os.listdir(self.variables.ruta_exitosos_kwrb)
             self.ventanaRioBravo.Tabla_Procesados.setRowCount(len(archivos_para_mostrar))
             self.ventanaRioBravo.Tabla_Procesados.setColumnCount(1)
             self.ventanaRioBravo.Tabla_Procesados.setHorizontalHeaderLabels(["Nombre del archivo"])
             for fila, archivo in enumerate(archivos_para_mostrar):
                 elemento = QTableWidgetItem(archivo)
-                elemento.setFlags(QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled)  # Bloqueamos la edición
+                elemento.setFlags(QtCore.Qt.ItemFlag.ItemIsSelectable | QtCore.Qt.ItemFlag.ItemIsEnabled)  # Bloqueamos la edición
                 elemento.setForeground(QtGui.QColor(0, 0, 0))
                 self.ventanaRioBravo.Tabla_Procesados.setItem(fila, 0, elemento)
             header = self.ventanaRioBravo.Tabla_Procesados.horizontalHeader()
@@ -348,17 +349,18 @@ class Home_KWRB(QMainWindow):
 
 
 # CLASE DEL HILO----------------------
-class trabajohilo(QThread, Variables):
+class trabajohilo(QThread):
 # agregamos una variable de tipo señal
     signal = pyqtSignal()
     signalDocumentosErroneos = pyqtSignal(str)
     signalShowTrabajos = pyqtSignal()
     signalShowProcesados = pyqtSignal()
     signalNombreArchivo =  pyqtSignal(str)
-
-
+    def __init__(self):
+        super().__init__()
+        self.variables = Variables()
 # COMENZAR EL PROCESO DE TRABAJO.
-    # HILO DEL TRABAJO DE "RIO BRAVO"  
+    # HILO DEL TRABAJO DE "RIO BRAVO"
     def run(self):
         array_errores = []
         #---------------------------------------
@@ -379,7 +381,7 @@ class trabajohilo(QThread, Variables):
         }
         #-----------------------------------------------
         while True:
-            carpeta_de_trabajos = os.listdir(Variables().ruta_Trabajos_kwrb)
+            carpeta_de_trabajos = os.listdir(self.variables.ruta_Trabajos_kwrb)
             if not carpeta_de_trabajos:
                 nombre_documento = ""
                 self.signalNombreArchivo.emit(nombre_documento)
@@ -424,25 +426,25 @@ class trabajohilo(QThread, Variables):
 
 # COMPROBAR SI EXISTE EL DOCUMENTO ORIGINAL EN EL DESTINO
     def Comprobacion_Originales(self, file_name):
-        ruta_origen = os.path.join(Variables().ruta_Trabajos_kwrb, file_name)
-        destino_archivoOriginal = os.path.join(Variables().ruta_original_kwrb, file_name)
+        ruta_origen = os.path.join(self.variables.ruta_Trabajos_kwrb, file_name)
+        destino_archivoOriginal = os.path.join(self.variables.ruta_original_kwrb, file_name)
         if not os.path.exists(destino_archivoOriginal):
-            shutil.move(ruta_origen, Variables().ruta_original_kwrb)
+            shutil.move(ruta_origen, self.variables.ruta_original_kwrb)
         else:
             os.remove(destino_archivoOriginal)
-            shutil.move(ruta_origen, Variables().ruta_original_kwrb)
+            shutil.move(ruta_origen, self.variables.ruta_original_kwrb)
 #--------------------------------------------------
 
-
+    
 # COMPRROBAR SI EXISTE EL DOCUMENTO ERRONEO EN EL DESTINO
     def Comprobacion_Errores(self, file_name):
-        ruta_origen = os.path.join(Variables().ruta_Trabajos_kwrb, file_name)
-        destino_archivoOriginal = os.path.join(Variables().ruta_errores_kwrb, file_name)
+        ruta_origen = os.path.join(self.variables.ruta_Trabajos_kwrb, file_name)
+        destino_archivoOriginal = os.path.join(self.variables.ruta_errores_kwrb, file_name)
         if not os.path.exists(destino_archivoOriginal):
-            shutil.move(ruta_origen, Variables().ruta_errores_kwrb)
+            shutil.move(ruta_origen, self.variables.ruta_errores_kwrb)
         else:
             os.remove(destino_archivoOriginal)
-            shutil.move(ruta_origen, Variables().ruta_errores_kwrb)
+            shutil.move(ruta_origen, self.variables.ruta_errores_kwrb)
 #--------------------------------------------------------
 
 if __name__ == '__main__':

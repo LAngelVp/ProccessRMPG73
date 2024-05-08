@@ -10,15 +10,18 @@ import pandas as pd
 from datetime import *
 import numpy as np
 from ...globalModulesShare.ContenedorVariables import Variables
+from ...globalModulesShare.ConcesionariosModel import Concesionarios
 class OrdenesServicio(Variables):
     def __init__(self):
         exceptoKenworth=["KENWORTH MEXICANA", "KENWORTH DEL ESTE"]
         registroos_tallerMovil = ['TM', 'Taller Movil']
         registroos_exceptoTipoServicio = ['Rescate Avalado','Rescate Carretero','TM', 'Taller Movil']
         registros_excluir = ['KENWORTH', 'PACCAR PARTS MEXICO','ALESSO','PACCAR FINANCIAL MEXICO','PACLEASE MEXICANA']
+        
         self.nombre_doc = 'OSR.xlsx'
         self.nombre_doc1 = 'OSR1.xlsx'
-        path = os.path.join(Variables().ruta_Trabajo,self.nombre_doc)
+        self.concesionario = Concesionarios().concesionarioRioBravo
+        path = os.path.join(Variables().ruta_Trabajos_kwrb,self.nombre_doc)
 
         # FIXME OBTENEMOS EL DOCUMENTO
         df = pd.read_excel(path, sheet_name='Hoja2')
@@ -113,8 +116,5 @@ class OrdenesServicio(Variables):
         
         df_clasificadoPorTiposervicio = df_clasificadoPorTiposervicio.iloc[:,:ultima_columna + 1]
 
-        # Guardar el libro de Excel
-        if (os.path.basename(Variables().comprobar_reporte_documento_rutas(self.nombre_doc)).split(".")[1] == self.nombre_doc.split(".")[1]):
-            df_clasificadoPorTiposervicio.to_excel(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), index=False )
-        else:
-            df_clasificadoPorTiposervicio.to_csv(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), encoding="utf-8", index=False )
+        # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
+        Variables().guardar_datos_dataframe(self.nombre_doc, df_clasificadoPorTiposervicio, self.concesionario)

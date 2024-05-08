@@ -8,10 +8,13 @@ from datetime import*
 from openpyxl import Workbook
 from openpyxl.utils.dataframe import dataframe_to_rows
 from ...globalModulesShare.ContenedorVariables import Variables
+from ...globalModulesShare.ConcesionariosModel import Concesionarios
+
 class Refacciones(Variables):
     def __init__(self):
         self.nombre_doc = 'RR.xlsx'
-        path = os.path.join(Variables().ruta_Trabajo, self.nombre_doc)
+        self.concesionario = Concesionarios().concesionarioRioBravo
+        path = os.path.join(Variables().ruta_Trabajos_kwrb, self.nombre_doc)
 
         df = pd.read_excel(path, sheet_name='Hoja2')
         df = df.replace(to_replace=';', value='-', regex=True)
@@ -47,10 +50,9 @@ class Refacciones(Variables):
         columnas_bol=df.select_dtypes(include=bool).columns.tolist()
         df[columnas_bol] = df[columnas_bol].astype(str)
 
-        if (os.path.basename(Variables().comprobar_reporte_documento_rutas(self.nombre_doc)).split(".")[1] == self.nombre_doc.split(".")[1]):
-            df.to_excel(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), index=False )
-        else:
-            df.to_csv(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), encoding="utf-8", index=False )
+        # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
+        Variables().guardar_datos_dataframe(self.nombre_doc, df, self.concesionario)
+
 
     def Clasificacion_departamentos_refacciones(self, valor_sucursal, valor_departamento_documento):
         departamento_venta = None

@@ -6,10 +6,13 @@ import os
 import pandas as pd
 from datetime import *
 from ...globalModulesShare.ContenedorVariables import Variables
-class InventarioUnidades(Variables):
+from ...globalModulesShare.ConcesionariosModel import Concesionarios
+class InventarioUnidades():
     def __init__(self):
         self.nombre_doc = 'IUR.xlsx'
-        path = os.path.join(Variables().ruta_Trabajo,self.nombre_doc)
+        self.concesionario = Concesionarios().concesionarioRioBravo
+        print("Hola")
+        path = os.path.join(Variables().ruta_Trabajos_kwrb,self.nombre_doc)
         df = pd.read_excel(path, sheet_name="Hoja2")
         df1 = df.copy()
         df1.columns = df1.columns.str.replace(" ", "_")
@@ -38,11 +41,10 @@ class InventarioUnidades(Variables):
         columnas_bol=df1.select_dtypes(include=bool).columns.tolist()
         df1[columnas_bol] = df1[columnas_bol].astype(str)
         df1.columns = df1.columns.str.replace("_", " ")
+
         # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
-        if (os.path.basename(Variables().comprobar_reporte_documento_rutas(self.nombre_doc)).split(".")[1] == self.nombre_doc.split(".")[1]):
-            df1.to_excel(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), index=False )
-        else:
-            df1.to_csv(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), encoding="utf-8", index=False )
+        Variables().guardar_datos_dataframe(self.nombre_doc, df1, self.concesionario)
+        
 
     def ClasificacionTipoInv(self, valor):
         if (valor == "Factura"):

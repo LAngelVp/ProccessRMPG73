@@ -1,6 +1,9 @@
 import os
 import json
+from Reports_Logic.globalModulesShare.resources import *
 from PyQt6.QtWidgets import QMessageBox, QPushButton
+from PyQt6.QtGui import QIcon
+
 import pandas as pd
 
 class Mensajes_Alertas:
@@ -14,6 +17,7 @@ class Mensajes_Alertas:
         
     @property
     def mostrar(self):
+        self.Ventana.setWindowIcon(QIcon(":/Source/LOGO_KREI_3.ico"))
         self.Ventana.setWindowTitle(self.Titutlo)
         self.Ventana.setText(self.Mensaje)
         self.Ventana.setIcon(self.Icono)
@@ -24,10 +28,11 @@ class Mensajes_Alertas:
         for texto, callback in self.Botones:
             texto_boton = QPushButton(texto)
             texto_boton.clicked.connect(callback)
-            self.Ventana.addButton(texto_boton, QMessageBox.ActionRole)
-        return self.Ventana.exec_()
+            self.Ventana.addButton(texto_boton, QMessageBox.ButtonRole.ActionRole)
+        return self.Ventana.exec()
     @property
     def Apartado_Ayuda(self):
+        self.Ventana.setWindowIcon(QIcon(":/Source/LOGO_KREI_3.ico"))
         self.Ventana.setWindowTitle(self.Titutlo)
         self.Ventana.setText(self.Mensaje)
         self.Ventana.setIcon(self.Icono)
@@ -44,6 +49,7 @@ class Mensajes_Alertas:
         return self.Ventana.exec()
     @property
     def Eliminar_vacio(self):
+        self.Ventana.setWindowIcon(QIcon(":/Source/LOGO_KREI_3.ico"))
         self.Ventana.setWindowTitle("Eliminar")
         self.Ventana.setText("No se encuentran documentos en la direccion de archivos procesados.")
         self.Ventana.setIcon(QMessageBox.Icon.Information)
@@ -58,9 +64,10 @@ class Mensajes_Alertas:
         return self.Ventana.exec()
     @property
     def Eliminar_lleno(self):
+        self.Ventana.setWindowIcon(QIcon(":/Source/LOGO_KREI_3.ico"))
         self.Ventana.setWindowTitle("Eliminar")
         self.Ventana.setText("Al aceptar, se eliminará todo el contenido de los documentos procesados sin tener la posibilidad de recuperarlo.")
-        self.Ventana.setIcon(QMessageBox.Warning)
+        self.Ventana.setIcon(QMessageBox.Icon.Warning)
         if (self.Texto_Detallado != None):
             self.Ventana.setDetailedText(self.Texto_Detallado)
         else:
@@ -68,6 +75,6 @@ class Mensajes_Alertas:
         for texto, callback in self.Botones:
             texto_boton = QPushButton(texto)
             texto_boton.clicked.connect(callback)
-            self.Ventana.addButton(texto_boton, QMessageBox.ActionRole)
-        return self.Ventana.exec_()
+            self.Ventana.addButton(texto_boton, QMessageBox.ButtonRole.ActionRole)
+        return self.Ventana.exec()
     

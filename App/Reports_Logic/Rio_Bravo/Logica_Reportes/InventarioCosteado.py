@@ -6,13 +6,15 @@ import os
 import pandas as pd
 from datetime import *
 from ...globalModulesShare.ContenedorVariables import Variables
+from ...globalModulesShare.ConcesionariosModel import Concesionarios
 class InventarioCosteado(Variables):
     def __init__(self):
         pass
         #obtenemos el archivo
         self.nombre_doc = 'ICR.xlsx'
         self.nombre_doc2 = 'ICDR.xlsx'
-        path = os.path.join(Variables().ruta_Trabajo,self.nombre_doc)
+        self.concesionario = Concesionarios().concesionarioRioBravo
+        path = os.path.join(Variables().ruta_Trabajos_kwrb,self.nombre_doc)
         #leer el documento con pandas
         df = pd.read_excel(path, sheet_name="Hoja2")
         #reemplazar el ";" de los registros que lo contengan por un "-"
@@ -74,12 +76,8 @@ class InventarioCosteado(Variables):
         columnas_bol=df_inventarioCosteado.select_dtypes(include=bool).columns.tolist()
         df_inventarioCosteado[columnas_bol] = df_inventarioCosteado[columnas_bol].astype(str)
 
-        #exportamos el dataframe del inventario costeado.
         # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
-        if (os.path.basename(Variables().comprobar_reporte_documento_rutas(self.nombre_doc)).split(".")[1] == self.nombre_doc.split(".")[1]):
-            df_inventarioCosteado.to_excel(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), index=False )
-        else:
-            df_inventarioCosteado.to_csv(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), encoding="utf-8", index=False )
+        Variables().guardar_datos_dataframe(self.nombre_doc, df_inventarioCosteado, self.concesionario)
 
         #--------------------------------------------------------------
         # INVENTARIO COSTEADO POR DIA
@@ -111,10 +109,8 @@ class InventarioCosteado(Variables):
         df_inventarioCosteadoxDia[columnas_bol] = df_inventarioCosteadoxDia[columnas_bol].astype(str)
 
         # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
-        if (os.path.basename(Variables().comprobar_reporte_documento_rutas(self.nombre_doc2)).split(".")[1] == self.nombre_doc2.split(".")[1]):
-            df_inventarioCosteadoxDia.to_excel(Variables().comprobar_reporte_documento_rutas(self.nombre_doc2), index=False )
-        else:
-            df_inventarioCosteadoxDia.to_csv(Variables().comprobar_reporte_documento_rutas(self.nombre_doc2), encoding="utf-8", index=False )
+        Variables().guardar_datos_dataframe(self.nombre_doc2, df_inventarioCosteadoxDia, self.concesionario)
+
     #clasificar ls registros conforme a su antiguedad.
     #Creamos la funcion para encapsular el procedimiento.
     def ClasDias(self, valor):

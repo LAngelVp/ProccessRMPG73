@@ -16,10 +16,11 @@ from Reports_Logic.KREI.Home_KREI import *
 from Reports_Logic.Kenworth_Sonora.Home_KWSonora import *
 #------------
 from Reports_Logic.globalModulesShare.ContenedorVariables import Variables
-from Reports_Logic.ventanaspy.VPrincipal import Ui_VPrincipal
+from Reports_Logic.ventanaspy.VPrincipal import Ui_VPrincipal 
 class PrincipalWindow(QMainWindow):
     def __init__(self):
         super().__init__()
+        self.variables = Variables()
         self.ui = Ui_VPrincipal()
         self.ui.setupUi(self)
         self.setWindowFlags(self.windowFlags() | Qt.WindowType.FramelessWindowHint)
@@ -43,7 +44,7 @@ class PrincipalWindow(QMainWindow):
         self.ui.btc_btc_cerrar.clicked.connect(self.cerrar)
         self.ui.btc_btc_minimizar.clicked.connect(self.minimizar)
 
-        # self.createProjectDirectory()
+        self.createProjectDirectory()
 
     def abrir_ventana(self, titulo, clase_ventana):
         if clase_ventana.__name__ not in self.ventanas_abiertas:
@@ -57,11 +58,11 @@ class PrincipalWindow(QMainWindow):
             QMessageBox.warning(self, "Advertencia", f"Ya hay una ventana de {titulo} abierta.")
 
     def createProjectDirectory(self):
-        if not os.path.exists(Variables().global_route_project):
-            os.mkdir(Variables().global_route_project)
+        if not os.path.exists(self.variables.global_route_project):
+            os.mkdir(self.variables.global_route_project)
         else:
             if not os.path.exists(Variables().help_directory):
-                os.mkdir(Variables().help_directory)
+                os.mkdir(self.variables.help_directory)
             else:
                 pass
 

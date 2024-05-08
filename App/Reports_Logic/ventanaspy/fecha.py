@@ -13,8 +13,8 @@ class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
         Form.resize(200, 100)
-        Form.setMinimumSize(QtCore.QSize(200, 100))
-        Form.setMaximumSize(QtCore.QSize(200, 16777215))
+        Form.setMinimumSize(QtCore.QSize(350, 100))
+        Form.setMaximumSize(QtCore.QSize(350, 16777215))
         Form.setStyleSheet("#w_principal{\n"
 "    background-color: rgb(255, 255, 255);\n"
 "}")

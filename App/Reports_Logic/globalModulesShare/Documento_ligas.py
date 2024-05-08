@@ -1,7 +1,7 @@
 import os
 import json
-from ..globalModulesShare.ContenedorVariables import Variables
-class CreacionJson(Variables):
+from .ContenedorVariables import Variables
+class CreacionJson():
     def __init__(self, nombre_documento=None, ruta_destino_documento=None, extension = None):
         self.nombre_documento = nombre_documento
         self.ruta_destino_documento = ruta_destino_documento

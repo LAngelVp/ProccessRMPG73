@@ -11,8 +11,9 @@ import pandas as pd
 import locale
 
 locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
-class Variables():
+class Variables:
     def __init__(self):
+
 #comment: variables for a date
         # Fecha para insertar en columnas.
         # NOTE Obtenemos la fecha de hoy
@@ -105,15 +106,14 @@ class Variables():
 
 #-----------------------------------------------------------
 #comment: reading documents
-    #* lectura de la fecha movimiento
+    #* lectura de la fecha movimiento 
     def date_movement_config_document(self):
         document = pd.read_json(self.movement_date_document)
         date_movement = pd.to_datetime(document.loc[0,"Date_Movement"], format="%d/%m/%Y") 
         return date_movement
     #* comprobar existencia de rutas para procesar los reportes
-    def comprobar_reporte_documento_rutas(self, nombre, concesionario):
-        ruta_concesionario = self.shippingRoutesDocument(concesionario)
-        archivo = pd.read_json(os.path.join(ruta_concesionario))
+    def comprobar_reporte_documento_rutas(self, nombre = None, concesionario = None):
+        archivo = pd.read_json(self.documentSavingPaths)
         nombre_arreglado_csv = f'{concesionario}_{nombre.split(".")[0]}_RMPG_{self.FechaExternsionGuardar()}.csv'
         nombre_arreglado_xlsx = f'{concesionario}_{nombre.split(".")[0]}_RMPG_{self.FechaExternsionGuardar()}.xlsx'
         self.docu =None
@@ -126,15 +126,15 @@ class Variables():
         if (self.docu is not None) | (self.docu_nombre == nombre):
             return os.path.join(self.docu,nombre_arreglado_csv)
         else:
-            return os.path.join(self.ruta_procesados,nombre_arreglado_xlsx)
+            return os.path.join(self.ruta_exitosos_kwrb,nombre_arreglado_xlsx)
 #-----------------------------------------------------------
-    
+
 #comment: save document    
-    def guardar_datos_dataframe(self, nombre_documento, dataframe):
+    def guardar_datos_dataframe(self, nombre_documento, dataframe, concesionario = None):
         if (os.path.basename(self.comprobar_reporte_documento_rutas(nombre_documento)).split(".")[1] == nombre_documento.split(".")[1]):
-                dataframe.to_excel(self.comprobar_reporte_documento_rutas(nombre_documento), index=False )
+                dataframe.to_excel(self.comprobar_reporte_documento_rutas(nombre_documento, concesionario), index=False )
         else:
-            dataframe.to_csv(self.comprobar_reporte_documento_rutas(nombre_documento), encoding="utf-8", index=False )
+            dataframe.to_csv(self.comprobar_reporte_documento_rutas(nombre_documento, concesionario), encoding="utf-8", index=False )
 
 #-----------------------------------------------------------
 #comment: functions

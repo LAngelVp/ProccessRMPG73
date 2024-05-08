@@ -6,9 +6,12 @@ import os
 import pandas as pd
 from datetime import *
 from ...globalModulesShare.ContenedorVariables import Variables
+from ...globalModulesShare.ConcesionariosModel import Concesionarios
 class TrabajosPorEstado(Variables):
     def __init__(self):
         # obtenemos el path.
+        self.nombre_doc = 'TER.xlsx'
+        self.concesionario = Concesionarios().concesionarioRioBravo
         # leemos el documento.
         exceptoKenworth=["KENWORTH MEXICANA", "KENWORTH DEL ESTE"]
         registros_excluir = ['KENWORTH', 'PACCAR PARTS MEXICO','ALESSO','PACCAR FINANCIAL MEXICO','PACLEASE MEXICANA']
@@ -16,8 +19,7 @@ class TrabajosPorEstado(Variables):
         registroos_exceptoTipoServicio = ['Rescate Avalado','Rescate Carretero','TM', 'Taller Movil']
         excepto_estadoTrabajo = ["Facturado", "Cancelado"]
         #------------------------------------------------------
-        self.nombre_doc = 'TER.xlsx'
-        path = os.path.join(Variables().ruta_Trabajo, self.nombre_doc)
+        path = os.path.join(Variables().ruta_Trabajos_kwrb, self.nombre_doc)
         df = pd.read_excel(path, sheet_name = "Hoja2")
 
         df1 = df.copy()
@@ -96,7 +98,5 @@ class TrabajosPorEstado(Variables):
         columnas_bol=df_clasificadoPorTiposervicio.select_dtypes(include=bool).columns.tolist()
         df_clasificadoPorTiposervicio[columnas_bol] = df_clasificadoPorTiposervicio[columnas_bol].astype(str)
         
-        if (os.path.basename(Variables().comprobar_reporte_documento_rutas(self.nombre_doc)).split(".")[1] == self.nombre_doc.split(".")[1]):
-            df_clasificadoPorTiposervicio.to_excel(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), index=False )
-        else:
-            df_clasificadoPorTiposervicio.to_csv(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), encoding="utf-8", index=False )
+        # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
+        Variables().guardar_datos_dataframe(self.nombre_doc, df_clasificadoPorTiposervicio, self.concesionario)

@@ -7,9 +7,12 @@ import os
 import pandas as pd
 from datetime import *
 from ...globalModulesShare.ContenedorVariables import Variables
+from ...globalModulesShare.ConcesionariosModel import Concesionarios
 class PagosClientes(Variables):
     def __init__(self):
 
+        self.nombre_doc = 'PCR.xlsx'
+        self.concesionario = Concesionarios().concesionarioRioBravo
         self.ruta = os.path.join(Variables().ruta_deapoyo, "JsonObjetivos.json")
         
 
@@ -17,8 +20,7 @@ class PagosClientes(Variables):
         self.objetivos = pd.DataFrame()
         #obtenemos el parth.
         #leemos el documento.
-        self.nombre_doc = 'PCR.xlsx'
-        path = os.path.join(Variables().ruta_Trabajo, self.nombre_doc)
+        path = os.path.join(Variables().ruta_Trabajos_kwrb, self.nombre_doc)
         df = pd.read_excel(path, sheet_name='Hoja2')
         df = df.replace(to_replace=';', value='-', regex=True)
         #copiamos la data para no afectar la original.
@@ -238,10 +240,8 @@ class PagosClientes(Variables):
 
 
         
-        if (os.path.basename(Variables().comprobar_reporte_documento_rutas(self.nombre_doc)).split(".")[1] == self.nombre_doc.split(".")[1]):
-            data.to_excel(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), index=False )
-        else:
-            data.to_csv(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), encoding="utf-8", index=False )
+        # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
+        Variables().guardar_datos_dataframe(self.nombre_doc, data, self.concesionario)
 
         #---------------------------Terminamos de filtrar contado-------------------------
 
