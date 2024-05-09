@@ -98,18 +98,18 @@ class Variables:
         self.tamaño_clientes_refacciones_kwe = os.path.join(self.help_directory, self.large_clients_parts_file).replace('\\','/')
         self.marcas_refacciones_kwe = os.path.join(self.help_directory, self.parts_brands_file).replace('\\','/')
 
-
-
-
-#comment: help document
-        self.pdf = 'https://docs.google.com/document/d/1-TeaeWdGAXUGls18b_hH6qG-Ur1PqDznsWS8X9FPD_M/edit?usp=sharing' #NOTE Direccion en donde se encuentra el archivo de apoyo
-
         self.successfulPathDirectory = {
             "KWRB" : self.ruta_exitosos_kwrb,
             "KWESTE" : self.ruta_exitosos_kwe,
             "KWKREI" : self.ruta_exitosos_krei,
             "KWSON" : self.ruta_exitosos_kwsonora,
         }
+
+
+
+#comment: help document
+        self.pdf = 'https://docs.google.com/document/d/1-TeaeWdGAXUGls18b_hH6qG-Ur1PqDznsWS8X9FPD_M/edit?usp=sharing' #NOTE Direccion en donde se encuentra el archivo de apoyo
+
 
 #-----------------------------------------------------------
 #comment: reading documents

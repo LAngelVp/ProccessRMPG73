@@ -10,12 +10,12 @@ from PyQt6.QtWidgets import *
 from PyQt6.QtCore import *
 from PyQt6 import *
 from ..globalModulesShare.resources import *
-from ..globalModulesShare.ContenedorVariables import *
+from ..globalModulesShare.ContenedorVariables import Variables
 from ..ventanaspy.IU_VENDEDORES import *
 from ..globalModulesShare.documentos_json import*
 from ..globalModulesShare.mensajes_alertas import *
 
-class Vendedores(QWidget, Variables, ):
+class Vendedores(QWidget):
     def __init__(self):
         super(Vendedores,self).__init__()
 
