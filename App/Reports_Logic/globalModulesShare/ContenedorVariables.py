@@ -104,6 +104,13 @@ class Variables:
 #comment: help document
         self.pdf = 'https://docs.google.com/document/d/1-TeaeWdGAXUGls18b_hH6qG-Ur1PqDznsWS8X9FPD_M/edit?usp=sharing' #NOTE Direccion en donde se encuentra el archivo de apoyo
 
+        self.successfulPathDirectory = {
+            "KWRB" : self.ruta_exitosos_kwrb,
+            "KWESTE" : self.ruta_exitosos_kwe,
+            "KWKREI" : self.ruta_exitosos_krei,
+            "KWSON" : self.ruta_exitosos_kwsonora,
+        }
+
 #-----------------------------------------------------------
 #comment: reading documents
     #* lectura de la fecha movimiento 
@@ -113,9 +120,10 @@ class Variables:
         return date_movement
     #* comprobar existencia de rutas para procesar los reportes
     def comprobar_reporte_documento_rutas(self, nombre = None, concesionario = None):
+        normalName = nombre.split(".")[0]
         archivo = pd.read_json(self.documentSavingPaths)
-        nombre_arreglado_csv = f'{concesionario}_{nombre.split(".")[0]}_RMPG_{self.FechaExternsionGuardar()}.csv'
-        nombre_arreglado_xlsx = f'{concesionario}_{nombre.split(".")[0]}_RMPG_{self.FechaExternsionGuardar()}.xlsx'
+        nombre_arreglado_csv = f'{concesionario}_{normalName}_RMPG_{self.FechaExternsionGuardar()}.csv'
+        nombre_arreglado_xlsx = f'{concesionario}_{normalName}_RMPG_{self.FechaExternsionGuardar()}.xlsx'
         self.docu =None
         self.docu_nombre = None
         for index, fila in archivo.iterrows():
@@ -126,12 +134,15 @@ class Variables:
         if (self.docu is not None) | (self.docu_nombre == nombre):
             return os.path.join(self.docu,nombre_arreglado_csv)
         else:
-            return os.path.join(self.ruta_exitosos_kwrb,nombre_arreglado_xlsx)
+            if (concesionario in self.successfulPathDirectory):
+                return os.path.join(self.successfulPathDirectory[concesionario],nombre_arreglado_xlsx)
+            else:
+                pass
 #-----------------------------------------------------------
 
 #comment: save document    
     def guardar_datos_dataframe(self, nombre_documento, dataframe, concesionario = None):
-        if (os.path.basename(self.comprobar_reporte_documento_rutas(nombre_documento)).split(".")[1] == nombre_documento.split(".")[1]):
+        if (os.path.basename(self.comprobar_reporte_documento_rutas(nombre_documento, concesionario)).split(".")[1] == nombre_documento.split(".")[1]):
                 dataframe.to_excel(self.comprobar_reporte_documento_rutas(nombre_documento, concesionario), index=False )
         else:
             dataframe.to_csv(self.comprobar_reporte_documento_rutas(nombre_documento, concesionario), encoding="utf-8", index=False )

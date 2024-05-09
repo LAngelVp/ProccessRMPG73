@@ -6,10 +6,12 @@ import os
 import pandas as pd
 from datetime import *
 from ...globalModulesShare.ContenedorVariables import Variables
+from ...globalModulesShare.ConcesionariosModel import Concesionarios
 class ResultadosFinancieros(Variables):
     def __init__(self):
         # FUNCION PARA OBTENER EL DEPARTAMENTO
-            
+        self.nombre_doc = 'RFE.xlsx'
+        self.concesionario = Concesionarios().concesionarioEste
         # CREAMOS UN ARRAY CON EL NOMBRE DE LAS COLUMNAS QUE VAMOS A OCUPAR DEL DATAFRAME ORIGINAL
         # ESTE ARRAY SE VA A OCUPAR MAS ADELANTE PARA CREAR EL DATAFRAME FINAL.
             
@@ -41,8 +43,8 @@ class ResultadosFinancieros(Variables):
         ]
 
         # OBTENEMOS LA RUTA DEL ARCHIVO Y PARSEAMOS SU CONTENIDO Y SUS CABECERAS.
-        self.nombre_doc = 'RFE.xlsx'
-        path = os.path.join(Variables().ruta_Trabajo,self.nombre_doc)
+        
+        path = os.path.join(Variables().ruta_Trabajos_kwe,self.nombre_doc)
         df = pd.read_excel(path, sheet_name='Hoja2')
         df = df.replace(to_replace=';', value='-', regex=True)
         df.columns = df.columns.str.replace(" ", "_")
@@ -65,7 +67,7 @@ class ResultadosFinancieros(Variables):
         if (len(df_unidades_facturadas_ordenado) == 0):
             # GUARDAMOS EL ARCHIVO
             # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
-            Variables().guardar_datos_dataframe(self.nombre_doc, df_unidades_facturadas_ordenado)
+            Variables().guardar_datos_dataframe(self.nombre_doc, df_unidades_facturadas_ordenado, self.concesionario)
 
         else:
             # df_unidades_facturadas_ordenado.insert(
@@ -154,8 +156,8 @@ class ResultadosFinancieros(Variables):
             columnas_bol=df_unidades_facturadas_ordenado.select_dtypes(include=bool).columns.tolist()
             df_unidades_facturadas_ordenado[columnas_bol] = df_unidades_facturadas_ordenado[columnas_bol].astype(str)
 
-            # GUARDAMOS EL ARCHIVO
-            Variables().guardar_datos_dataframe(self.nombre_doc, df_unidades_facturadas_ordenado)
+            # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
+            Variables().guardar_datos_dataframe(self.nombre_doc, df_unidades_facturadas_ordenado, self.concesionario)
         
     def obtenerDepartamento(self, valor):
             currentYear = datetime.now().year

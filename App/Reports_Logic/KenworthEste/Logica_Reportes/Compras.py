@@ -7,6 +7,7 @@ import os
 import pandas as pd
 from datetime import *
 from ...globalModulesShare.ContenedorVariables import Variables
+from ...globalModulesShare.ConcesionariosModel import Concesionarios
 # clase del reporte a realizar
 class Compras(Variables):
     def __init__(self):
@@ -14,7 +15,8 @@ class Compras(Variables):
         # obtenemos la ruta del documento.
         # leemos el archivo.
         self.nombre_doc = 'CDE.xlsx'
-        path = os.path.join(Variables().ruta_Trabajo,self.nombre_doc)
+        self.concesionario = Concesionarios().concesionarioEste
+        path = os.path.join(Variables().ruta_Trabajos_kwe,self.nombre_doc)
         df = pd.read_excel(path, sheet_name='Hoja2')
         df = df.replace(to_replace=';', value='-', regex=True)
 
@@ -77,7 +79,4 @@ class Compras(Variables):
         df2[columnas_bol] = df2[columnas_bol].astype(str)
     
         # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
-        if (os.path.basename(Variables().comprobar_reporte_documento_rutas(self.nombre_doc)).split(".")[1] == self.nombre_doc.split(".")[1]):
-            df2.to_excel(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), index=False )
-        else:
-            df2.to_csv(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), encoding="utf-8", index=False )
+        Variables().guardar_datos_dataframe(self.nombre_doc, df2, self.concesionario)

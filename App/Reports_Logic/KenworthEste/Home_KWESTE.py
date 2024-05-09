@@ -5,27 +5,27 @@
 import sys
 import os
 import shutil
-import threading
 from ..globalModulesShare.resources import *
 from PyQt6 import QtCore, QtGui, QtWidgets
 from PyQt6.QtWidgets import *
 from PyQt6.QtGui import QIcon, QPixmap, QMouseEvent
-from PyQt6.QtCore import Qt, QThread, pyqtSignal, pyqtSlot
+from PyQt6.QtCore import Qt, QThread, pyqtSignal
 from webbrowser import *
 from ..globalModulesShare.ContenedorVariables import Variables
 from ..globalModulesShare.Inicio_FechaMovimiento import *
 from .KenworthConnect import *
 from .InicialClassObjetivos import *
 from ..ventanaspy.V_KWESTE import *
-from .Home_rutas import *
+from ..globalModulesShare.Home_rutas import *
 from .Vendedores import *
 from ..globalModulesShare.mensajes_alertas import Mensajes_Alertas
 import subprocess
 
-class Home_KWESTE(QMainWindow, QDialog, Variables):
+class Home_KWESTE(QMainWindow, QDialog):
     closed = pyqtSignal()
     def __init__(self):
         super(Home_KWESTE,self).__init__()
+        self.variables = Variables()
         # variables a las rutas de los iconos e imagenes
         Icon_Cerrar = QIcon(":/Source/Icon_Close.png")
         Icon_Minimizar = QIcon(":/Source/Icon_Minimize.png")
@@ -39,8 +39,8 @@ class Home_KWESTE(QMainWindow, QDialog, Variables):
         # llamamos el metodo de creacion de carpetas
         self.Creacion_Carpetas()
         # quitamos la barra superior
-        self.setWindowFlags(self.windowFlags() | Qt.FramelessWindowHint)
-        self.setAttribute(Qt.WA_TranslucentBackground)
+        self.setWindowFlags(self.windowFlags() | Qt.WindowType.FramelessWindowHint)
+        self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
         # Crear la instancia de la ventana y configurarla
         self.ventKWESTE = Ui_Kenworth_del_Este()
         self.ventKWESTE.setupUi(self)
@@ -93,7 +93,7 @@ class Home_KWESTE(QMainWindow, QDialog, Variables):
     def Aceptar_callback(self):
         pass
     def Ayuda_callback(self):
-        open_new(Variables().pdf)
+        open_new(self.variables.pdf)
 
     def departamentos_vendedores(self):
         self.ventana_departamentos = Vendedores()
@@ -113,9 +113,9 @@ class Home_KWESTE(QMainWindow, QDialog, Variables):
 
     def abrir_ruta_errores(self):
 
-        options = QFileDialog.Options()
-        options |= QFileDialog.ReadOnly
-        file_path, _ = QFileDialog.getOpenFileNames(self, 'Abrir Archivo Excel', Variables().ruta_errores_kwe, 'Excel Archivos (*.xlsx);; CSV Archivos (*.csv)',options=options)
+        options = QFileDialog().options()
+        options |= QFileDialog.Option.ReadOnly
+        file_path, _ = QFileDialog.getOpenFileNames(self, 'Abrir Archivo Excel', self.variables.ruta_errores_kwe, 'Excel Archivos (*.xlsx);; CSV Archivos (*.csv)',options=options)
         
         if file_path:
             try:
@@ -126,9 +126,9 @@ class Home_KWESTE(QMainWindow, QDialog, Variables):
         self.Show_Data_Trabajos()
         self.Show_Data_Procesado()
     def abrir_ruta_originales(self):
-        options = QFileDialog.Options()
-        options |= QFileDialog.ReadOnly
-        file_path, _ = QFileDialog.getOpenFileNames(self, 'Abrir Archivo Excel', Variables().ruta_original_kwe, 'Excel Archivos (*.xlsx);; CSV Archivos (*.csv)',options=options)
+        options = QFileDialog().options()
+        options |= QFileDialog.Option.ReadOnly
+        file_path, _ = QFileDialog.getOpenFileNames(self, 'Abrir Archivo Excel', self.variables.ruta_original_kwe, 'Excel Archivos (*.xlsx);; CSV Archivos (*.csv)',options=options)
         
         if file_path:
             try:
@@ -139,9 +139,9 @@ class Home_KWESTE(QMainWindow, QDialog, Variables):
         self.Show_Data_Trabajos()
         self.Show_Data_Procesado()
     def abrir_ruta_procesados(self):
-        options = QFileDialog.Options()
-        options |= QFileDialog.ReadOnly
-        file_path, _ = QFileDialog.getOpenFileNames(self, 'Abrir Archivo Excel', Variables().ruta_exitosos_kwe, 'Excel Archivos (*.xlsx);; CSV Archivos (*.csv)',options=options)
+        options = QFileDialog().options()
+        options |= QFileDialog.Option.ReadOnly
+        file_path, _ = QFileDialog.getOpenFileNames(self, 'Abrir Archivo Excel', self.variables.ruta_exitosos_kwe, 'Excel Archivos (*.xlsx);; CSV Archivos (*.csv)',options=options)
         
         if file_path:
             try:
@@ -156,7 +156,7 @@ class Home_KWESTE(QMainWindow, QDialog, Variables):
         Mensajes_Alertas(
             "Trabajos Terminados",
             "Todos los trabajos que se comenzaron fueron insertados por el proceso lógico del sistema.",
-            QMessageBox.Information,
+            QMessageBox.Icon.Information,
             None,
             botones=[
                 ("Aceptar", self.Aceptar_callback)
@@ -172,8 +172,8 @@ class Home_KWESTE(QMainWindow, QDialog, Variables):
     def mensajeArchivoErroneo(self, mensaje):
         Mensajes_Alertas(
             "Errores durante el proceso",
-            f'Los documentos que no se lograron procesar son:\n{mensaje}\nLa ruta de los errores es:\n {Variables().ruta_error}',
-            QMessageBox.Critical,
+            f'Los documentos que no se lograron procesar son:\n{mensaje}\nLa ruta de los errores es:\n {self.variables.ruta_errores_kwe}',
+            QMessageBox.Icon.Critical,
             "Cuando el sistema muestra un error como este, existen algunos factores que se tienen que tomar en cuenta:\n1.- El nombre del documento no tiene la nomenclatura correcta.\n2.- El documento original no contiene las columnas a trabajar o su contendo es incorrecto.\n3.- EL documento no es el correcto o esta corrupto.",
             botones=[
                 ("Aceptar", self.Aceptar_callback)
@@ -195,70 +195,59 @@ class Home_KWESTE(QMainWindow, QDialog, Variables):
 #--------------------------------------------
 #-------------------------------------------------------
 # EVENTOS DEL MOUSE
-    def mousePressEvent(self, event: QMouseEvent):
-        if event.button() == Qt.LeftButton:
-            self.drag_start_position = event.globalPos() - self.frameGeometry().topLeft()
-        self.Show_Data_Trabajos()
-        self.Show_Data_Procesado()
-    def mouseMoveEvent(self, event: QMouseEvent):
-        if event.buttons() == Qt.LeftButton:
-            self.move(event.globalPos() - self.drag_start_position)
-        self.Show_Data_Trabajos()
-        self.Show_Data_Procesado()
+    def mousePressEvent(self, event):
+        if event.buttons() & Qt.MouseButton.LeftButton:
+            self.drag_start_position = event.globalPosition() - QPointF(self.pos())
+    
+    def mouseMoveEvent(self, event):
+        if event.buttons() & Qt.MouseButton.LeftButton:
+            if self.drag_start_position is not None:
+                new_pos = event.globalPosition() - self.drag_start_position
+                self.move(new_pos.toPoint())
     # Apartado de funciones
     #-------------------------
     # mostrar el contenido de la carpeta en la tabla de trabajos.
     def Show_Data_Trabajos(self):
-        archivos_para_mostrar = os.listdir(Variables().ruta_Trabajos_kwe)
+        archivos_para_mostrar = os.listdir(self.variables.ruta_Trabajos_kwe)
         self.ventKWESTE.Tabla_cola.setRowCount(len(archivos_para_mostrar))
         self.ventKWESTE.Tabla_cola.setColumnCount(1)
         self.ventKWESTE.Tabla_cola.setHorizontalHeaderLabels(["Nombre del archivo"])
         for fila, archivo in enumerate(archivos_para_mostrar):
             elemento = QTableWidgetItem(archivo)
-            elemento.setFlags(QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled)  # Bloqueamos la edición
+            elemento.setFlags(QtCore.Qt.ItemFlag.ItemIsSelectable | QtCore.Qt.ItemFlag.ItemIsEnabled)  # Bloqueamos la edición
             elemento.setForeground(QtGui.QColor(0, 0, 0))
             self.ventKWESTE.Tabla_cola.setItem(fila, 0, elemento)
-            # font = QtGui.QFont()
-            # font.setPointSize(30)  # Establece el tamaño de la letra a 14 puntos
-            # elemento.setFont(font)
-        # self.ventKWESTE.Tabla_cola.setColumnWidth(0, 415)
         header = self.ventKWESTE.Tabla_cola.horizontalHeader()
-        header.setSectionResizeMode(0, QtWidgets.QHeaderView.Stretch)
+        header.setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeMode.Stretch)
 
     # mostrar el contenido de la carpeta en la tabla de trabajos.
     def Show_Data_Procesado(self):
-        archivos_para_mostrar = os.listdir(Variables().ruta_exitosos_kwe)
+        archivos_para_mostrar = os.listdir(self.variables.ruta_exitosos_kwe)
         self.ventKWESTE.Tabla_Procesados.setRowCount(len(archivos_para_mostrar))
         self.ventKWESTE.Tabla_Procesados.setColumnCount(1)
         self.ventKWESTE.Tabla_Procesados.setHorizontalHeaderLabels(["Nombre del archivo"])
         for fila, archivo in enumerate(archivos_para_mostrar):
             elemento = QTableWidgetItem(archivo)
-            elemento.setFlags(QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled)  # Bloqueamos la edición
+            elemento.setFlags(QtCore.Qt.ItemFlag.ItemIsSelectable | QtCore.Qt.ItemFlag.ItemIsEnabled)  # Bloqueamos la edición
             elemento.setForeground(QtGui.QColor(0, 0, 0))
             self.ventKWESTE.Tabla_Procesados.setItem(fila, 0, elemento)
-            # font = QtGui.QFont()
-            # font.setPointSize(30)  # Establece el tamaño de la letra a 14 puntos
-            # elemento.setFont(font)
-        # self.ventKWESTE.Tabla_Procesados.setColumnWidth(0, 415)
         header = self.ventKWESTE.Tabla_Procesados.horizontalHeader()
-        header.setSectionResizeMode(0, QtWidgets.QHeaderView.Stretch)
+        header.setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeMode.Stretch)
 
 
     def Creacion_Carpetas(self):
-        directorio = os.listdir(Variables().directorio_raiz)
+        directorio = os.listdir(self.variables.global_route_project)
         for i in directorio:
-            if not os.path.exists(f'{Variables().ruta_Trabajo}'):
-                os.makedirs(f'{Variables().ruta_Trabajo}')
-            elif not os.path.exists(f'{Variables().ruta_origina}'):
-                os.makedirs(f'{Variables().ruta_origina}')
-            elif not os.path.isdir(f'{Variables().ruta_error}'):
-                os.makedirs(f'{Variables().ruta_error}')
-            elif not os.path.isdir(f'{Variables().ruta_procesados}'):
-                os.makedirs(f'{Variables().ruta_procesados}')
-            elif not os.path.isdir(f'{Variables().ruta_deapoyo}'):
-                os.makedirs(f'{Variables().ruta_deapoyo}')
+            if not os.path.exists(f'{self.variables.ruta_Trabajos_kwe}'):
+                os.makedirs(f'{self.variables.ruta_Trabajos_kwe}')
+            elif not os.path.exists(f'{self.variables.ruta_original_kwe}'):
+                os.makedirs(f'{self.variables.ruta_original_kwe}')
+            elif not os.path.isdir(f'{self.variables.ruta_errores_kwe}'):
+                os.makedirs(f'{self.variables.ruta_errores_kwe}')
+            elif not os.path.isdir(f'{self.variables.ruta_exitosos_kwe}'):
+                os.makedirs(f'{self.variables.ruta_exitosos_kwe}')
             else:
-                pass
+                break
     # cerrar la ventana
     def Cerrar(self):
         self.close()
@@ -272,16 +261,16 @@ class Home_KWESTE(QMainWindow, QDialog, Variables):
         self.Creacion_Carpetas()
         self.Show_Data_Trabajos()
         self.Show_Data_Procesado()
-        ubicacion_carga = os.chdir(Variables().directorio_raiz)
-        options = QFileDialog.Options()
+        ubicacion_carga = os.chdir(self.variables.root_directory_system)
+        options = QFileDialog().options()
         # options |= QFileDialog.DontUseNativeDialog  # Evitar el uso del diálogo nativo del sistema operativo (opcional)
-        options |= QFileDialog.ReadOnly  # Permite abrir los archivos solo en modo lectura (opcional)
-        options |= QFileDialog.HideNameFilterDetails  # Ocultar detalles del filtro (opcional)
-        options |= QFileDialog.DontResolveSymlinks  # No resolver enlaces simbólicos (opcional)
+        options |= QFileDialog.Option.ReadOnly  # Permite abrir los archivos solo en modo lectura (opcional)
+        options |= QFileDialog.Option.HideNameFilterDetails  # Ocultar detalles del filtro (opcional)
+        options |= QFileDialog.Option.DontResolveSymlinks  # No resolver enlaces simbólicos (opcional)
 
         selected_filter = "Hojas de Excel (*.xlsx);;Todos los archivos (*)"
         
-        if os.path.isdir(Variables().ruta_Trabajo) == True:
+        if os.path.isdir(self.variables.ruta_Trabajos_kwe) == True:
             try:
                 file_names, filter_selected = QFileDialog.getOpenFileNames(
                     self,
@@ -291,11 +280,11 @@ class Home_KWESTE(QMainWindow, QDialog, Variables):
                     options=options
                 )
                 for nombre_archivo in file_names:
-                    shutil.move(nombre_archivo, Variables().ruta_Trabajo)
+                    shutil.move(nombre_archivo, self.variables.ruta_Trabajos_kwe)
             except:
                 pass
         else:
-            os.makedirs(Variables().ruta_Trabajo)
+            os.makedirs(self.variables.ruta_Trabajos_kwe)
             try:
                 file_names, filter_selected = QFileDialog.getOpenFileNames(
                     self,
@@ -305,7 +294,7 @@ class Home_KWESTE(QMainWindow, QDialog, Variables):
                     options=options
                 )
                 for nombre_archivo in file_names:
-                    shutil.move(nombre_archivo, Variables().ruta_Trabajo)
+                    shutil.move(nombre_archivo, self.variables.ruta_Trabajos_kwe)
             except:
                 pass
         self.Show_Data_Trabajos()
@@ -320,11 +309,11 @@ class Home_KWESTE(QMainWindow, QDialog, Variables):
         self.Hilo.start()
 
     def eliminar(self):
-        carpeta_contenido_eliminar = os.listdir(Variables().ruta_procesados)
+        carpeta_contenido_eliminar = os.listdir(self.variables.ruta_exitosos_kwe)
         for archivo in carpeta_contenido_eliminar:
             if (len(carpeta_contenido_eliminar) != 0):
                 try:
-                    archivo_completo = os.path.join(Variables().ruta_procesados, archivo)
+                    archivo_completo = os.path.join(self.variables.ruta_exitosos_kwe, archivo)
                     os.remove(archivo_completo)
                 except:
                     pass
@@ -334,7 +323,7 @@ class Home_KWESTE(QMainWindow, QDialog, Variables):
     # eliminamos los trabajos realizados de la carpeta de exitosos.
     def RemoveProcessed(self):
         self.Creacion_Carpetas()
-        ruta_trabajos_procesados = os.listdir(Variables().ruta_procesados)
+        ruta_trabajos_procesados = os.listdir(self.variables.ruta_exitosos_kwe)
         if (len(ruta_trabajos_procesados) == 0):
             Mensajes_Alertas(None,None,None,None,botones=[("Aceptar", self.Aceptar_callback)]).Eliminar_vacio
         else:
@@ -347,7 +336,7 @@ class Home_KWESTE(QMainWindow, QDialog, Variables):
         Mensajes_Alertas(
             "Información de Ayuda",
             'Si tienes problemas con la aplicación debido a que no sabes como guardar tus archivos de excel para que puedan ser transformados.\nPuedes ver el manual de usuario dando click en el boton de "Ver"',
-            QMessageBox.Information,  # Aquí se pasa el tipo de ícono
+            QMessageBox.Icon.Information,  # Aquí se pasa el tipo de ícono
             None,
             botones = [
                 ("Aceptar", self.Aceptar_callback),
@@ -365,6 +354,10 @@ class trabajohilo(QThread, Variables):
     signalShowTrabajos = pyqtSignal()
     signalShowProcesados = pyqtSignal()
     signalNombreArchivo =  pyqtSignal(str)
+
+    def __init__(self):
+        super().__init__()
+        self.variables = Variables()
 
     def run(self):
         array_errores = []
@@ -387,7 +380,7 @@ class trabajohilo(QThread, Variables):
         }
         #-----------------------------------------------
         while True:
-            carpeta_de_trabajos = os.listdir(Variables().ruta_Trabajo)
+            carpeta_de_trabajos = os.listdir(self.variables.ruta_Trabajos_kwe)
             if not carpeta_de_trabajos:
                 nombre_documento = ""
                 self.signalNombreArchivo.emit(nombre_documento)
@@ -431,30 +424,29 @@ class trabajohilo(QThread, Variables):
 #--------------------------------------------------
 # COMPROBAR SI EXISTE EL DOCUMENTO ORIGINAL EN EL DESTINO
     def Comprobacion_Originales(self, file_name):
-        ruta_origen = os.path.join(Variables().ruta_Trabajo, file_name)
-        destino_archivoOriginal = os.path.join(Variables().ruta_origina, file_name)
+        ruta_origen = os.path.join(self.variables.ruta_Trabajos_kwe, file_name)
+        destino_archivoOriginal = os.path.join(self.variables.ruta_original_kwe, file_name)
         if not os.path.exists(destino_archivoOriginal):
-            shutil.move(ruta_origen, Variables().ruta_origina)
+            shutil.move(ruta_origen, self.variables.ruta_original_kwe)
         else:
             os.remove(destino_archivoOriginal)
-            shutil.move(ruta_origen, Variables().ruta_origina)
+            shutil.move(ruta_origen, self.variables.ruta_original_kwe)
 #--------------------------------------------------
 #--------------------------------------------------
 # COMPRROBAR SI EXISTE EL DOCUMENTO ERRONEO EN EL DESTINO
     def Comprobacion_Errores(self, file_name):
-        ruta_origen = os.path.join(Variables().ruta_Trabajo, file_name)
-        destino_archivoOriginal = os.path.join(Variables().ruta_error, file_name)
+        ruta_origen = os.path.join(self.variables.ruta_Trabajos_kwe, file_name)
+        destino_archivoOriginal = os.path.join(self.variables.ruta_errores_kwe, file_name)
         if not os.path.exists(destino_archivoOriginal):
-            shutil.move(ruta_origen, Variables().ruta_error)
+            shutil.move(ruta_origen, self.variables.ruta_errores_kwe)
         else:
             os.remove(destino_archivoOriginal)
-            shutil.move(ruta_origen, Variables().ruta_error)
+            shutil.move(ruta_origen, self.variables.ruta_errores_kwe)
 #--------------------------------------------------------
 
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    # Crear una instancia de la clase MyDialog y mostrarla
     Ventana = Home_KWESTE()
     Ventana.show()
     sys.exit(app.exec_())

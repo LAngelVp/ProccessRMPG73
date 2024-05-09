@@ -6,6 +6,8 @@ import os
 import pandas as pd
 from datetime import *
 from ...globalModulesShare.ContenedorVariables import Variables
+from ...globalModulesShare.ConcesionariosModel import Concesionarios
+
 
 class TrabajosPorEstado(Variables):
     def __init__(self):
@@ -15,7 +17,9 @@ class TrabajosPorEstado(Variables):
         array_PLM = ["PACCAR FINANCIAL MEXICO", "PACLEASE MEXICANA"]
 
         self.nombre_doc = 'TEE.xlsx'
-        path = os.path.join(Variables().ruta_Trabajo,self.nombre_doc)
+        self.concesionario = Concesionarios().concesionarioEste
+
+        path = os.path.join(Variables().ruta_Trabajos_kwe,self.nombre_doc)
 
         df = pd.read_excel(path, sheet_name="Hoja2")
         df = df.replace(to_replace=';', value='-', regex=True)
@@ -93,10 +97,7 @@ class TrabajosPorEstado(Variables):
         Completo[columnas_bol] = Completo[columnas_bol].astype(str)
 
         # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
-        if (os.path.basename(Variables().comprobar_reporte_documento_rutas(self.nombre_doc)).split(".")[1] == self.nombre_doc.split(".")[1]):
-            Completo.to_excel(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), index=False )
-        else:
-            Completo.to_csv(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), encoding="utf-8", index=False )
+        Variables().guardar_datos_dataframe(self.nombre_doc, Completo, self.concesionario)
 
 
     # CREAMOS LA FUNCION PARA LAS CLASIFICACIONES POR NUMERO DE ORDEN

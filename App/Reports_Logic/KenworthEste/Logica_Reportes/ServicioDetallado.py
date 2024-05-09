@@ -6,18 +6,21 @@ import os
 import pandas as pd
 from datetime import datetime
 from ...globalModulesShare.ContenedorVariables import Variables
+from ...globalModulesShare.ConcesionariosModel import Concesionarios
 
 class ServicioDetallado(Variables):
     def __init__(self):
         #COMMENT: VARIABLE AUXIALIARES PARA EL CODIGO
         self.nombre_doc = "SDE.xlsx"
+        self.concesionario = Concesionarios().concesionarioEste
         self.clientes_plm = ["PACCAR FINANCIAL MEXICO", "PACLEASE MEXICANA"]
         self.clientes_garantia = ["KENWORTH MEXICANA", "PACCAR PARTS MEXICO", "DISTRIBUIDORA MEGAMAK"]
         self.columnas_after_cliente = ['ObjRefacc','ObjUBTRef','ObjMO', 'ObjUTBMO', 'Clasificacion Cliente']
 
         #COMMENT: LECTURA DE ARCHIVOS
         self.json_vendedores = Variables().vendedores_y_depas_este_servicio()
-        path = os.path.join(Variables().ruta_Trabajo,self.nombre_doc)
+
+        path = os.path.join(Variables().ruta_Trabajos_kwe,self.nombre_doc)
         d = pd.read_excel(path, sheet_name='Hoja2')
 
         #COMMENT: CREAR COLUMNAS DE OBJETIVOS Y CLASIFICACION CLENTE
@@ -151,10 +154,7 @@ class ServicioDetallado(Variables):
 #//////////////////////////////////////////////////////////////////////////////////////
 
         # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
-        if (os.path.basename(Variables().comprobar_reporte_documento_rutas(self.nombre_doc)).split(".")[1] == self.nombre_doc.split(".")[1]):
-            d.to_excel(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), index=False )
-        else:
-            d.to_csv(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), encoding="utf-8", index=False )
+        Variables().guardar_datos_dataframe(self.nombre_doc, d, self.concesionario)
 
 #//////////////////////////////////////////////////////////////////////////////////////
     #COMMENT_FUNCTION: FUNCION PARA CONCATENAR UNIDAD

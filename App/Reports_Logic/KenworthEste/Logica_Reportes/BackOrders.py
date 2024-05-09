@@ -5,15 +5,15 @@
 # importamos librerias
 import os
 import pandas as pd
-import numpy as np
-import datetime
 from ...globalModulesShare.ContenedorVariables import Variables
+from ...globalModulesShare.ConcesionariosModel import Concesionarios
 class BackOrders(Variables):
     def __init__(self):
         # obtenemos el path.
         # leemos el archivo.
         self.nombre_doc = 'BOE.xlsx'
-        path = os.path.join(Variables().ruta_Trabajo,self.nombre_doc)
+        self.concesionario = Concesionarios().concesionarioEste
+        path = os.path.join(Variables().ruta_Trabajos_kwe,self.nombre_doc)
         df = pd.read_excel(path, sheet_name='Hoja2')
 
 
@@ -68,7 +68,4 @@ class BackOrders(Variables):
         df_resta_fechas.columns = df_resta_fechas.columns.str.replace('_', ' ')
 
         # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
-        if (os.path.basename(Variables().comprobar_reporte_documento_rutas(self.nombre_doc)).split(".")[1] == self.nombre_doc.split(".")[1]):
-            df_resta_fechas.to_excel(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), index=False )
-        else:
-            df_resta_fechas.to_csv(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), encoding="utf-8", index=False )
+        Variables().guardar_datos_dataframe(self.nombre_doc, df_resta_fechas, self.concesionario)

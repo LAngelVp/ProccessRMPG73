@@ -10,6 +10,7 @@ from ...globalModulesShare.ConcesionariosModel import Concesionarios
 class InventarioUnidades():
     def __init__(self):
         self.nombre_doc = 'IUR.xlsx'
+        
         self.concesionario = Concesionarios().concesionarioRioBravo
         print("Hola")
         path = os.path.join(Variables().ruta_Trabajos_kwrb,self.nombre_doc)

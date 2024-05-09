@@ -5,19 +5,23 @@
 import os
 import pandas as pd
 import json
-from ...globalModulesShare.ContenedorVariables import *
+from ...globalModulesShare.ContenedorVariables import Variables
+from ...globalModulesShare.ConcesionariosModel import Concesionarios
+
 class PagoClientes(Variables):
     def __init__(self):
         super().__init__()
         #obtenemos el parth.
         #leemos el documento.
-        self.ruta = os.path.join(Variables().ruta_deapoyo, "JsonObjetivos.json")
+        self.ruta = Variables().customerPaymentGoals
         
 
         self.columnas_objetivo = []
         self.objetivos = pd.DataFrame()
         self.nombre_doc = 'PCE.xlsx'
-        path = os.path.join(Variables().ruta_Trabajo,self.nombre_doc)
+        self.concesionario = Concesionarios().concesionarioEste
+
+        path = os.path.join(Variables().ruta_Trabajos_kwe,self.nombre_doc)
         df = pd.read_excel(path, sheet_name='Hoja2')
         df = df.replace(to_replace=';', value='-', regex=True)
         #copiamos la data para no afectar la original.
@@ -121,7 +125,4 @@ class PagoClientes(Variables):
         df_completo["Area"] = "Pago Clientes"
 
         # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
-        if (os.path.basename(Variables().comprobar_reporte_documento_rutas(self.nombre_doc)).split(".")[1] == self.nombre_doc.split(".")[1]):
-            df_completo.to_excel(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), index=False )
-        else:
-            df_completo.to_csv(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), encoding="utf-8", index=False )
+        Variables().guardar_datos_dataframe(self.nombre_doc, df_completo, self.concesionario)

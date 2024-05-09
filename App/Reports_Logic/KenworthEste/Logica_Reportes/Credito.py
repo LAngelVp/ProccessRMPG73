@@ -6,11 +6,14 @@ import os
 import pandas as pd
 from datetime import *
 from ...globalModulesShare.ContenedorVariables import Variables
+from ...globalModulesShare.ConcesionariosModel import Concesionarios
 class Credito(Variables):
     def __init__(self):
         # obtenemos el path del archivo
         self.nombre_doc = 'CE.xlsx'
-        path =  os.path.join(Variables().ruta_Trabajo,'CE.xlsx')
+        self.nombre_doc2 = "CEG.xlsx"
+        self.concesionario = Concesionarios().concesionarioEste
+        path =  os.path.join(Variables().ruta_Trabajos_kwe,self.nombre_doc)
         # leer el documento.
         df = pd.read_excel(path, sheet_name="Hoja2")
         # obtenemos las columnas que se van a utilizar
@@ -68,20 +71,14 @@ class Credito(Variables):
         columnas_bol=df2.select_dtypes(include=bool).columns.tolist()
         df2[columnas_bol] = df2[columnas_bol].astype(str)
 
-        # exportamos el documento
-        if (os.path.basename(Variables().comprobar_reporte_documento_rutas(self.nombre_doc)).split(".")[1] == self.nombre_doc.split(".")[1]):
-            df2.to_excel(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), index=False )
-        else:
-            df2.to_csv(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), encoding="utf-8", index=False )
+# COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
+        Variables().guardar_datos_dataframe(self.nombre_doc, df2, self.concesionario)
 
 
-        self.nombre_doc2 = "CEG.xlsx"
+        
         CreditoGlobal = df2.copy()
         CreditoGlobal.drop(["Clasificacion","Semana", "Estado Vencimiento"], axis=1, inplace=True)
         CreditoGlobal["Mes"] = Variables().nombre_mes_actual_abreviado()
         
-        # exportamos el documento
-        if (os.path.basename(Variables().comprobar_reporte_documento_rutas(self.nombre_doc2)).split(".")[1] == self.nombre_doc2.split(".")[1]):
-            CreditoGlobal.to_excel(Variables().comprobar_reporte_documento_rutas(self.nombre_doc2), index=False )
-        else:
-            CreditoGlobal.to_csv(Variables().comprobar_reporte_documento_rutas(self.nombre_doc2), encoding="utf-8", index=False )
+# COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
+        Variables().guardar_datos_dataframe(self.nombre_doc2, CreditoGlobal, self.concesionario)

@@ -5,19 +5,22 @@
 import os
 import pandas as pd
 from ...globalModulesShare.ContenedorVariables import Variables
+from ...globalModulesShare.ConcesionariosModel import Concesionarios
 class Refacciones(Variables):
     def __init__(self):
 
 #COMMENT: APARTADO DE DOCUMENTOS DE APOYO
 
         self.nombre_doc = 'RE.xlsx'
+        self.concesionario = Concesionarios().concesionarioEste
+
         self.j = Variables().clasificacion_vendedores_departamentos_refacciones()
         self.c = Variables().clasificacion_tamaño_clientes_refacciones()
         self.m = Variables().marcas_refacciones_fun()
 
 
 #COMMENT: LEER EL DOCUMENTO
-        path = os.path.join(Variables().ruta_Trabajo,self.nombre_doc)
+        path = os.path.join(Variables().ruta_Trabajos_kwe,self.nombre_doc)
         df = pd.read_excel(path, sheet_name='Hoja2')
         df = df.replace(to_replace=';', value='-', regex=True)
 
@@ -141,10 +144,7 @@ class Refacciones(Variables):
         a.insert(67, "Columna_movimiento", columna_movimiento)
 
         # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
-        if (os.path.basename(Variables().comprobar_reporte_documento_rutas(self.nombre_doc)).split(".")[1] == self.nombre_doc.split(".")[1]):
-            a.to_excel(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), index=False )
-        else:
-            a.to_csv(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), encoding="utf-8", index=False )
+        Variables().guardar_datos_dataframe(self.nombre_doc, a, self.concesionario)
 
 
 #SEPARATOR ---------------------------------------------------------------------------------

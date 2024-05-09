@@ -1,6 +1,6 @@
 #########################
 # DESARROLLADOR
-# RMPG - LUIS ANGEL VALLEJO PEREZ
+# RMPG - LUIS ANGEL VALLEJO PEREZ 
 #########################
 import sys
 import os
