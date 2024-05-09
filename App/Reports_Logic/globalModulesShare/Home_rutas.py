@@ -87,7 +87,7 @@ class rutas(QMainWindow):
             for columna in range(self.ui.tabla_rutas.columnCount()):
                 celda = self.ui.tabla_rutas.item(fila, columna)
                 if celda:
-                    celda.setFlags(celda.flags() & ~Qt.ItemIsEditable)
+                    celda.setFlags(celda.flags() & ~Qt.ItemFlag.ItemIsEditable)
 
     def eliminar_datos(self):
         nombre = self.ui.txt_nombre.text() + self.ui.txt_extension_documento.text()

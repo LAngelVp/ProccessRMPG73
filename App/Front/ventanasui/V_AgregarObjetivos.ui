@@ -216,6 +216,18 @@ background-color: rgb(203, 203, 203);
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_4">
              <item>
+              <widget class="QComboBox" name="CB_Sucursales">
+               <property name="font">
+                <font>
+                 <family>Arial Narrow</family>
+                 <pointsize>12</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+              </widget>
+             </item>
+             <item>
               <widget class="QLabel" name="label">
                <property name="font">
                 <font>

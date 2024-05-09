@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'c:\Users\OEM\Documents\KENWORT_DEL_ESTE\programakw\App\Front\V_AgregarObjetivos.ui'
+# Form implementation generated from reading ui file 'V_AgregarObjetivos.ui'
 #
 # Created by: PyQt6 UI code generator 6.7.0
 #
@@ -103,6 +103,15 @@ class Ui_MainWindow(object):
         self.WContenidoObjetivos.setObjectName("WContenidoObjetivos")
         self.verticalLayout_4 = QtWidgets.QVBoxLayout(self.WContenidoObjetivos)
         self.verticalLayout_4.setObjectName("verticalLayout_4")
+        self.CB_Sucursales = QtWidgets.QComboBox(parent=self.WContenidoObjetivos)
+        font = QtGui.QFont()
+        font.setFamily("Arial Narrow")
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.CB_Sucursales.setFont(font)
+        self.CB_Sucursales.setObjectName("CB_Sucursales")
+        self.verticalLayout_4.addWidget(self.CB_Sucursales)
         self.label = QtWidgets.QLabel(parent=self.WContenidoObjetivos)
         font = QtGui.QFont()
         font.setFamily("Arial")
@@ -148,7 +157,7 @@ class Ui_MainWindow(object):
         self.btn_Aceptar.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         self.btn_Aceptar.setStyleSheet("")
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("c:\\Users\\OEM\\Documents\\KENWORT_DEL_ESTE\\programakw\\App\\Front\\../../../PruebaPagos/comprobado.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        icon.addPixmap(QtGui.QPixmap("../../../PruebaPagos/comprobado.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         self.btn_Aceptar.setIcon(icon)
         self.btn_Aceptar.setObjectName("btn_Aceptar")
         self.gridLayout.addWidget(self.btn_Aceptar, 0, 0, 1, 1)
