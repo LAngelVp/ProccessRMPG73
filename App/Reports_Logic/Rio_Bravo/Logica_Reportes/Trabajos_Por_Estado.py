@@ -10,8 +10,9 @@ from ...globalModulesShare.ConcesionariosModel import Concesionarios
 class TrabajosPorEstado(Variables):
     def __init__(self):
         # obtenemos el path.
-        self.nombre_doc = 'TER.xlsx'
         self.concesionario = Concesionarios().concesionarioRioBravo
+        self.variables = Variables()
+        self.nombre_doc = 'TER.xlsx'
         # leemos el documento.
         exceptoKenworth=["KENWORTH MEXICANA", "KENWORTH DEL ESTE"]
         registros_excluir = ['KENWORTH', 'PACCAR PARTS MEXICO','ALESSO','PACCAR FINANCIAL MEXICO','PACLEASE MEXICANA']
@@ -19,7 +20,7 @@ class TrabajosPorEstado(Variables):
         registroos_exceptoTipoServicio = ['Rescate Avalado','Rescate Carretero','TM', 'Taller Movil']
         excepto_estadoTrabajo = ["Facturado", "Cancelado"]
         #------------------------------------------------------
-        path = os.path.join(Variables().ruta_Trabajos_kwrb, self.nombre_doc)
+        path = os.path.join(self.variables.ruta_Trabajos_kwrb, self.nombre_doc)
         df = pd.read_excel(path, sheet_name = "Hoja2")
 
         df1 = df.copy()
@@ -78,7 +79,7 @@ class TrabajosPorEstado(Variables):
 
         df_clasificadoPorTiposervicio = pd.concat([df_Estado_Trabajo_GarantiaFiltrada,df_rescateAvalado,df_rescateCarretero,df_tallerMovil,df_noClasificadosTipoServicio], join="inner")
 
-        df_clasificadoPorTiposervicio.insert(loc = 3,column = "Hoy",value = Variables().fechaInsertar,allow_duplicates = False)
+        df_clasificadoPorTiposervicio.insert(loc = 3,column = "Hoy",value = self.variables.fechaInsertar,allow_duplicates = False)
         df_clasificadoPorTiposervicio['FT'] = pd.to_datetime(df_clasificadoPorTiposervicio.FT, format='%d/%m/%Y')
         df_clasificadoPorTiposervicio['Hoy'] = pd.to_datetime(df_clasificadoPorTiposervicio.Hoy, format='%d/%m/%Y')
         df_clasificadoPorTiposervicio.insert(loc = 4,column = 'Antigüedad',value = df_clasificadoPorTiposervicio['Hoy'] - df_clasificadoPorTiposervicio['FT'],allow_duplicates = False)
@@ -99,4 +100,4 @@ class TrabajosPorEstado(Variables):
         df_clasificadoPorTiposervicio[columnas_bol] = df_clasificadoPorTiposervicio[columnas_bol].astype(str)
         
         # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
-        Variables().guardar_datos_dataframe(self.nombre_doc, df_clasificadoPorTiposervicio, self.concesionario)
+        self.variables.guardar_datos_dataframe(self.nombre_doc, df_clasificadoPorTiposervicio, self.concesionario)

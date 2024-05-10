@@ -10,11 +10,12 @@ from ...globalModulesShare.ContenedorVariables import Variables
 from ...globalModulesShare.ConcesionariosModel import Concesionarios
 class Compras(Variables):
     def __init__(self):
+        self.concesionario = Concesionarios().concesionarioRioBravo
+        self.variables = Variables()
         # obtenemos la ruta del documento.
         # leemos el archivo.
         self.nombre_doc = 'CDR.xlsx'
-        self.concesionario = Concesionarios().concesionarioRioBravo
-        path = os.path.join(Variables().ruta_Trabajos_kwrb, self.nombre_doc)
+        path = os.path.join(self.variables.ruta_Trabajos_kwrb, self.nombre_doc)
         df = pd.read_excel(path, sheet_name='Hoja2')
         df = df.replace(to_replace=';', value='-', regex=True)
         # copiamos el data original.
@@ -28,7 +29,7 @@ class Compras(Variables):
         df2.insert(
             loc = 6,
             column = "Hoy",
-            value = Variables().date_movement_config_document(),
+            value = self.variables.date_movement_config_document(),
             allow_duplicates = False
         )
         # formateamos las columnas de fecha a trabajar, para poder hacer operaciones 
@@ -86,5 +87,5 @@ class Compras(Variables):
         df2[columnas_bol] = df2[columnas_bol].astype(str)
 
         # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
-        Variables().guardar_datos_dataframe(self.nombre_doc, df2, self.concesionario)
+        self.variables.guardar_datos_dataframe(self.nombre_doc, df2, self.concesionario)
         

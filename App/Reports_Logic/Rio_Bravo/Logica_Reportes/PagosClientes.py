@@ -10,17 +10,18 @@ from ...globalModulesShare.ContenedorVariables import Variables
 from ...globalModulesShare.ConcesionariosModel import Concesionarios
 class PagosClientes(Variables):
     def __init__(self):
+        self.concesionario = Concesionarios().concesionarioRioBravo
+        self.variables = Variables()
 
         self.nombre_doc = 'PCR.xlsx'
-        self.concesionario = Concesionarios().concesionarioRioBravo
-        self.ruta = os.path.join(Variables().ruta_deapoyo, "JsonObjetivos.json")
+        self.ruta = os.path.join(self.variables.ruta_deapoyo, "JsonObjetivos.json")
         
 
         self.columnas_objetivo = []
         self.objetivos = pd.DataFrame()
         #obtenemos el parth.
         #leemos el documento.
-        path = os.path.join(Variables().ruta_Trabajos_kwrb, self.nombre_doc)
+        path = os.path.join(self.variables.ruta_Trabajos_kwrb, self.nombre_doc)
         df = pd.read_excel(path, sheet_name='Hoja2')
         df = df.replace(to_replace=';', value='-', regex=True)
         #copiamos la data para no afectar la original.
@@ -38,7 +39,7 @@ class PagosClientes(Variables):
         d.insert(
             loc=4,
             column='Fecha_Movimiento',
-            value=Variables().date_movement_config_document(),
+            value=self.variables.date_movement_config_document(),
             allow_duplicates=False
             )
 
@@ -241,7 +242,7 @@ class PagosClientes(Variables):
 
         
         # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
-        Variables().guardar_datos_dataframe(self.nombre_doc, data, self.concesionario)
+        self.variables.guardar_datos_dataframe(self.nombre_doc, data, self.concesionario)
 
         #---------------------------Terminamos de filtrar contado-------------------------
 
@@ -264,10 +265,10 @@ class PagosClientes(Variables):
                 self.objetivos[nombre_columna] = ['0.0']
 
             elif (nombre_columna == "Mes"):
-                self.objetivos[nombre_columna] = Variables().nombre_mes()
+                self.objetivos[nombre_columna] = self.variables.nombre_mes()
 
             elif (nombre_columna == "Fecha_Pago") or (nombre_columna == "Fecha_Movimiento"):
-                self.objetivos[nombre_columna] = [Variables().date_movement_config_document()]
+                self.objetivos[nombre_columna] = [self.variables.date_movement_config_document()]
 
             else:
                 self.objetivos[nombre_columna] = ['']

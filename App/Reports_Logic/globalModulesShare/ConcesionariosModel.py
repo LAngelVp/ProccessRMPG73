@@ -4,4 +4,4 @@ class Concesionarios:
         self.concesionarioEste = "KWESTE"
         self.concesionarioSur = "KWSUR"
         self.concesionarioSonora = "KWSON"
-        self.concesionarioSonora = "KWKREI"
+        self.concesionarioKREI = "KWKREI"

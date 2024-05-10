@@ -9,10 +9,11 @@ from ...globalModulesShare.ContenedorVariables import Variables
 from ...globalModulesShare.ConcesionariosModel import Concesionarios
 class SalidasEnVale(Variables):
     def __init__(self):
-        self.nombre_doc = 'SVE.xlsx'
         self.concesionario = Concesionarios().concesionarioEste
+        self.variables = Variables()
+        self.nombre_doc = 'SVE.xlsx'
 
-        path = os.path.join(Variables().ruta_Trabajos_kwe,self.nombre_doc)
+        path = os.path.join(self.variables.ruta_Trabajos_kwe,self.nombre_doc)
         df = pd.read_excel(path, sheet_name="Hoja2")
         # NOTE Guardamos una copia del documeto en una variable, haciendo uso de el en memoria para no gastar almacenamiento.
         #  SOLO TOMAMOS LAS COLUMNAS QUE VAMOS A UTILIZAR
@@ -38,4 +39,4 @@ class SalidasEnVale(Variables):
         df_format1[columnas_bol] = df_format1[columnas_bol].astype(str)
         
         # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
-        Variables().guardar_datos_dataframe(self.nombre_doc, df_format1, self.concesionario)
+        self.variables.guardar_datos_dataframe(self.nombre_doc, df_format1, self.concesionario)

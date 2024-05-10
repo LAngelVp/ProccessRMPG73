@@ -9,9 +9,10 @@ from ...globalModulesShare.ContenedorVariables import Variables
 from ...globalModulesShare.ConcesionariosModel import Concesionarios
 class SalidasVale(Variables):
     def __init__(self):
-        self.nombre_doc = 'SVR.xlsx'
         self.concesionario = Concesionarios().concesionarioRioBravo
-        path = os.path.join(Variables().ruta_Trabajos_kwrb,self.nombre_doc)
+        self.variables = Variables()
+        self.nombre_doc = 'SVR.xlsx'
+        path = os.path.join(self.variables.ruta_Trabajos_kwrb,self.nombre_doc)
 
         df = pd.read_excel(path, sheet_name="Hoja2")
 
@@ -39,4 +40,4 @@ class SalidasVale(Variables):
         df_format1[columnas_bol] = df_format1[columnas_bol].astype(str)
         
         # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
-        Variables().guardar_datos_dataframe(self.nombre_doc, df_format1, self.concesionario)
+        self.variables.guardar_datos_dataframe(self.nombre_doc, df_format1, self.concesionario)

@@ -8,9 +8,10 @@ from ...globalModulesShare.ContenedorVariables import Variables
 from ...globalModulesShare.ConcesionariosModel import Concesionarios
 class Credito(Variables):
     def __init__(self):
-        self.nombre_doc = 'CR.xlsx'
         self.concesionario = Concesionarios().concesionarioRioBravo
-        path = os.path.join(Variables().ruta_Trabajos_kwrb, self.nombre_doc)
+        self.variables = Variables()
+        self.nombre_doc = 'CR.xlsx'
+        path = os.path.join(self.variables.ruta_Trabajos_kwrb, self.nombre_doc)
         df = pd.read_excel(path, sheet_name = 'Hoja2')
         df = df.replace(to_replace=';', value='-', regex=True)
         df2 = df[df.columns[0:52]].copy()
@@ -56,13 +57,13 @@ class Credito(Variables):
 
         
         # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
-        Variables().guardar_datos_dataframe(self.nombre_doc, df_complete, self.concesionario)
+        self.variables.guardar_datos_dataframe(self.nombre_doc, df_complete, self.concesionario)
         print(12)
         
         self.nombre_doc2 = 'CRG.xlsx'
         CreditoGlobal = df_complete.copy()
         CreditoGlobal.drop(["Clasificacion"], axis=1, inplace=True)
-        CreditoGlobal["Mes"] = Variables().nombre_mes_actual_abreviado()
+        CreditoGlobal["Mes"] = self.variables.nombre_mes_actual_abreviado()
 
         # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
-        Variables().guardar_datos_dataframe(self.nombre_doc, CreditoGlobal, self.concesionario)
+        self.variables.guardar_datos_dataframe(self.nombre_doc, CreditoGlobal, self.concesionario)

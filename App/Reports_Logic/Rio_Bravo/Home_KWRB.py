@@ -5,17 +5,15 @@
 import sys
 import os
 import shutil
-from PyQt6.QtCore import Qt, QThread, pyqtSignal, QPoint
+from PyQt6.QtCore import Qt, QThread, pyqtSignal, QPointF
 from ..globalModulesShare.resources import *
-from PyQt6 import  *
 from PyQt6.QtWidgets import *
 from PyQt6.QtGui import QIcon, QPixmap
-from datetime import *
 from webbrowser import *
 from ..globalModulesShare.ContenedorVariables import Variables
 from ..globalModulesShare.Inicio_FechaMovimiento import *
 from .KenworthConnect import *
-from .InicialClassObjetivos import *
+from ..globalModulesShare.InicialClassObjetivos import *
 from ..ventanaspy.V_KWRB import *
 from ..globalModulesShare.Home_rutas import *
 from ..globalModulesShare.mensajes_alertas import Mensajes_Alertas
@@ -97,7 +95,7 @@ class Home_KWRB(QMainWindow):
             elif not os.path.isdir(f'{self.variables.ruta_exitosos_kwrb}'):
                 os.makedirs(f'{self.variables.ruta_exitosos_kwrb}')
             else:
-                return
+                break
 #-------------------------------------------------
     def closeEvent(self, event):
         super().closeEvent(event)

@@ -6,14 +6,19 @@
 import os
 import pandas as pd
 import numpy as np
-from .Variables.ContenedorVariables import Variables
+from ...globalModulesShare.ContenedorVariables import Variables
+from ...globalModulesShare.ConcesionariosModel import Concesionarios
 class BackOrder(Variables):
     def __init__(self):
         super().__init__()
         # obtenemos el path.
         # leemos el archivo.
+        self.concesionario = Concesionarios().concesionarioSonora
+
+        self.variables = Variables()
         self.nombre_doc = 'BOS.xlsx'
-        path = os.path.join(Variables().ruta_Trabajo,self.nombre_doc)
+
+        path = os.path.join(self.variables.ruta_Trabajos_kwsonora,self.nombre_doc)
         df = pd.read_excel(path, sheet_name='Hoja2')
         df = df.replace(to_replace=';', value='-', regex=True)
         # copiamos el dataframe
@@ -27,7 +32,7 @@ class BackOrder(Variables):
             value = 'BO' + df2['num'].map(str),
             allow_duplicates = True
         )
-        df2['FechaHoy'] = Variables().date_movement_config_document()
+        df2['FechaHoy'] = self.variables.date_movement_config_document()
 
         self.columnas_fecha = df2.select_dtypes(include=['datetime64']).columns
         # formatear las columnas de fecha para trabajar con ellas.
@@ -66,8 +71,5 @@ class BackOrder(Variables):
         df_resta_fechas.columns = df_resta_fechas.columns.str.replace('_', ' ')
 
         # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
-        if (os.path.basename(Variables().comprobar_reporte_documento_rutas(self.nombre_doc)).split(".")[1] == self.nombre_doc.split(".")[1]):
-            df_resta_fechas.to_excel(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), index=False )
-        else:
-            df_resta_fechas.to_csv(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), encoding="utf-8", index=False )
+        self.variables.guardar_datos_dataframe(self.nombre_doc, df_resta_fechas, self.concesionario)
 

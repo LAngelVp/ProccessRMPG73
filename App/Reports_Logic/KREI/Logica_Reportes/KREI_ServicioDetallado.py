@@ -5,9 +5,17 @@
 import os
 import pandas as pd
 from ...globalModulesShare.ContenedorVariables import Variables
+from ...globalModulesShare.ConcesionariosModel import Concesionarios
 class ServicioDetalladoKWESTEKREI(Variables):
+
+    def __init__(self):
+        super().__init__()
+        self.concesionario = Concesionarios().concesionarioKREI
+        self.variables = Variables()
+
     def ServicioDetalladoKWESTE_KREI(self):
-        path = os.path.join(Variables().ruta_Trabajo,"SDEKREI.xlsx")
+        self.nombre_doc = "SDEKREI.xlsx"
+        path = os.path.join(self.variables.ruta_Trabajos_krei,self.nombre_doc)
         df = pd.read_excel(path, sheet_name='Hoja2')
         df = df.replace(to_replace=';', value='-', regex=True)
 
@@ -22,7 +30,7 @@ class ServicioDetalladoKWESTEKREI(Variables):
             )
         
         df["Columna_Fantasma2"] = ""
-        df["Fecha_Movimiento"] = Variables().date_movement_config_document()
+        df["Fecha_Movimiento"] = self.variables.date_movement_config_document()
         # NOTE Creamos la columna con la fecha actual
         
         df.insert(
@@ -54,10 +62,12 @@ class ServicioDetalladoKWESTEKREI(Variables):
         columnas_bol=df.select_dtypes(include=bool).columns.tolist()
         df[columnas_bol] = df[columnas_bol].astype(str)
 
-        df.to_excel(os.path.join(Variables().ruta_procesados,f'KREI_ServicioDetallado_ESTE_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+        # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
+        self.variables.guardar_datos_dataframe(self.nombre_doc, df, self.concesionario)
 
     def ServicioDetalladoKWSUR_KREI(self):
-        path = os.path.join(Variables().ruta_Trabajo,"SDSKREI.xlsx")
+        self.nombre_doc = "SDSKREI.xlsx"
+        path = os.path.join(self.variables.ruta_Trabajos_krei,self.nombre_doc)
         df = pd.read_excel(path, sheet_name='Hoja2')
         df = df.replace(to_replace=';', value='-', regex=True)
 
@@ -73,7 +83,7 @@ class ServicioDetalladoKWESTEKREI(Variables):
             )
         
         df["Columna_Fantasma2"] = ""
-        df["Fecha_Movimiento"] = Variables().date_movement_config_document()
+        df["Fecha_Movimiento"] = self.variables.date_movement_config_document()
         # NOTE Creamos la columna con la fecha actual
         
         df.insert(
@@ -105,4 +115,5 @@ class ServicioDetalladoKWESTEKREI(Variables):
         columnas_bol=df.select_dtypes(include=bool).columns.tolist()
         df[columnas_bol] = df[columnas_bol].astype(str)
 
-        df.to_excel(os.path.join(Variables().ruta_procesados,f'KREI_ServicioDetallado_SUR_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+        # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
+        self.variables.guardar_datos_dataframe(self.nombre_doc, df, self.concesionario)

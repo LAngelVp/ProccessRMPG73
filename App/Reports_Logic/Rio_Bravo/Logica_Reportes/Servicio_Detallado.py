@@ -8,9 +8,10 @@ from ...globalModulesShare.ContenedorVariables import Variables
 from ...globalModulesShare.ConcesionariosModel import Concesionarios
 class ServioDetallado(Variables):
     def __init__(self):
-        self.nombre_doc = "SDR.xlsx"
         self.concesionario = Concesionarios().concesionarioRioBravo
-        path = os.path.join(Variables().ruta_Trabajos_kwrb, self.nombre_doc)
+        self.variables = Variables()
+        self.nombre_doc = "SDR.xlsx"
+        path = os.path.join(self.variables.ruta_Trabajos_kwrb, self.nombre_doc)
         df = pd.read_excel(path, sheet_name='Hoja2')
         df = df.replace(to_replace=';', value='-', regex=True)
         # NOTE CREAMOS LAS 5 COLUMNAS DESPUES DE "CLIENTE"
@@ -198,7 +199,7 @@ class ServioDetallado(Variables):
         df_Final.insert(
                 loc = 10,
                 column = 'Fecha Movimiento',
-                value = Variables().date_movement_config_document(),
+                value = self.variables.date_movement_config_document(),
                 allow_duplicates = False
             )
         for column_title in df_Final:
@@ -236,4 +237,4 @@ class ServioDetallado(Variables):
         df_Final[columnas_bol] = df_Final[columnas_bol].astype(str)
         
         # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
-        Variables().guardar_datos_dataframe(self.nombre_doc, df_Final, self.concesionario)
+        self.variables.guardar_datos_dataframe(self.nombre_doc, df_Final, self.concesionario)

@@ -9,12 +9,17 @@ import os
 import pandas as pd
 from datetime import *
 import numpy as np
-from .Variables.ContenedorVariables import Variables
+from ...globalModulesShare.ContenedorVariables import Variables
+from ...globalModulesShare.ConcesionariosModel import Concesionarios
 class OrdenesDeServicio(Variables):
     def __init__(self):
         super().__init__()
         self.nombre_doc = 'OSS.xlsx'
-        path = os.path.join(Variables().ruta_Trabajo,self.nombre_doc)
+        self.concesionario = Concesionarios().concesionarioSonora
+
+        self.variables = Variables()
+
+        path = os.path.join(self.variables.ruta_Trabajos_kwsonora,self.nombre_doc)
         
         df = pd.read_excel(path, sheet_name="Hoja2")
         df = df.replace(to_replace=';', value='-', regex=True)
@@ -88,7 +93,4 @@ class OrdenesDeServicio(Variables):
         claficicacion_tipo_servicio[columnas_bol] = claficicacion_tipo_servicio[columnas_bol].astype(str)
 
         # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
-        if (os.path.basename(Variables().comprobar_reporte_documento_rutas(self.nombre_doc)).split(".")[1] == self.nombre_doc.split(".")[1]):
-            claficicacion_tipo_servicio.to_excel(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), index=False )
-        else:
-            claficicacion_tipo_servicio.to_csv(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), encoding="utf-8", index=False )
+        self.variables.guardar_datos_dataframe(self.nombre_doc, claficicacion_tipo_servicio, self.concesionario)

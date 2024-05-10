@@ -347,7 +347,7 @@ class Home_KWESTE(QMainWindow, QDialog):
         
 
 # CLASE DEL HILO----------------------
-class trabajohilo(QThread, Variables):
+class trabajohilo(QThread):
 # agregamos una variable de tipo señal
     signal = pyqtSignal()
     signalDocumentosErroneos = pyqtSignal(str)

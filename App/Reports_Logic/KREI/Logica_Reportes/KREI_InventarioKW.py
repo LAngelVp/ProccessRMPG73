@@ -5,10 +5,18 @@
 import os
 import pandas as pd
 from ...globalModulesShare.ContenedorVariables import Variables
+from ...globalModulesShare.ConcesionariosModel import Concesionarios
 class InventarioKWESTEKREI(Variables):
+
+    def __init__(self):
+        super().__init__()
+        self.concesionario = Concesionarios().concesionarioKREI
+        self.variables = Variables()
+
     def InventarioKWESTE_KREI(self):
         #obtenemos el archivo
-        path = os.path.join(Variables().ruta_Trabajo,'ICEKREI.xlsx')
+        self.nombre_doc = 'ICEKREI.xlsx'
+        path = os.path.join(self.variables.ruta_Trabajos_krei,self.nombre_doc)
         #leer el documento con pandas
         df = pd.read_excel(path, sheet_name="Hoja2")
         #reemplazar el ";" de los registros que lo contengan por un "-"
@@ -37,16 +45,17 @@ class InventarioKWESTEKREI(Variables):
                 pass
 
         # columna del mes actual
-        df2["Mes"] = Variables().nombre_mes_actual_abreviado()
+        df2["Mes"] = self.variables.nombre_mes_actual_abreviado()
 
         columnas_bol=df2.select_dtypes(include=bool).columns.tolist()
         df2[columnas_bol] = df2[columnas_bol].astype(str)
 
-        df2.to_excel(os.path.join(Variables().ruta_procesados,f'KREI_InventarioCosteado_KWESTE_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+        # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
+        self.variables.guardar_datos_dataframe(self.nombre_doc, df2, self.concesionario)
     
     def InventarioKWSUR_KREI(self):
         #obtenemos el archivo
-        path = os.path.join(Variables().ruta_Trabajo,'ICSKREI.xlsx')
+        path = os.path.join(self.variables.ruta_Trabajos_krei,'ICSKREI.xlsx')
         #leer el documento con pandas
         df = pd.read_excel(path, sheet_name="Hoja2")
         #reemplazar el ";" de los registros que lo contengan por un "-"
@@ -75,9 +84,10 @@ class InventarioKWESTEKREI(Variables):
                 pass
             
         # columna del mes actual
-        df2["Mes"] = Variables().nombre_mes_actual_abreviado()
+        df2["Mes"] = self.variables.nombre_mes_actual_abreviado()
 
         columnas_bol=df2.select_dtypes(include=bool).columns.tolist()
         df2[columnas_bol] = df2[columnas_bol].astype(str)
 
-        df2.to_excel(os.path.join(Variables().ruta_procesados,f'KREI_InventarioCosteado_KWSUR_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+        # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
+        self.variables.guardar_datos_dataframe(self.nombre_doc, df2, self.concesionario)

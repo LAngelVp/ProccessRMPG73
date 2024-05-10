@@ -5,11 +5,15 @@
 import os
 import pandas as pd
 from datetime import *
-from .Variables.ContenedorVariables import Variables
+from ...globalModulesShare.ContenedorVariables import Variables
+from ...globalModulesShare.ConcesionariosModel import Concesionarios
 class ResultadosFinancieros(Variables):
 
     def __init__(self):
         super().__init__()
+        self.concesionario = Concesionarios().concesionarioSonora
+
+        self.variables = Variables()
         # FUNCION PARA OBTENER EL DEPARTAMENTO
             
         # CREAMOS UN ARRAY CON EL NOMBRE DE LAS COLUMNAS QUE VAMOS A OCUPAR DEL DATAFRAME ORIGINAL
@@ -44,7 +48,7 @@ class ResultadosFinancieros(Variables):
 
         # OBTENEMOS LA RUTA DEL ARCHIVO Y PARSEAMOS SU CONTENIDO Y SUS CABECERAS.
         self.nombre_doc = 'RFS.xlsx'
-        path = os.path.join(Variables().ruta_Trabajo,self.nombre_doc)
+        path = os.path.join(self.variables.ruta_Trabajos_kwsonora,self.nombre_doc)
         df = pd.read_excel(path, sheet_name='Hoja2')
         df = df.replace(to_replace=';', value='-', regex=True)
         df.columns = df.columns.str.replace(" ", "_")
@@ -65,9 +69,8 @@ class ResultadosFinancieros(Variables):
         df_unidades_facturadas_ordenado = df_unidades_facturadas[columnas]
 
         if (len(df_unidades_facturadas_ordenado) == 0):
-            # GUARDAMOS EL ARCHIVO
             # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
-            Variables().guardar_datos_dataframe(self.nombre_doc, df_unidades_facturadas_ordenado)
+            self.variables.guardar_datos_dataframe(self.nombre_doc, df_unidades_facturadas_ordenado, self.concesionario)
 
         else:
 
@@ -101,7 +104,7 @@ class ResultadosFinancieros(Variables):
             df_unidades_facturadas_ordenado["Modelo"] = col_modelo
 
 
-            df_unidades_facturadas_ordenado["Fecha"] = Variables().date_movement_config_document().replace(day=1)
+            df_unidades_facturadas_ordenado["Fecha"] = self.variables.date_movement_config_document().replace(day=1)
             df_unidades_facturadas_ordenado["Ciudad"] = "Pendiente"
             df_unidades_facturadas_ordenado["Estado"] = "Pendiente"
 
@@ -124,9 +127,8 @@ class ResultadosFinancieros(Variables):
             columnas_bol=df_unidades_facturadas_ordenado.select_dtypes(include=bool).columns.tolist()
             df_unidades_facturadas_ordenado[columnas_bol] = df_unidades_facturadas_ordenado[columnas_bol].astype(str)
 
-            # GUARDAMOS EL ARCHIVO
             # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
-            Variables().guardar_datos_dataframe(self.nombre_doc, df_unidades_facturadas_ordenado)
+        self.variables.guardar_datos_dataframe(self.nombre_doc, df_unidades_facturadas_ordenado, self.concesionario)
 
     def obtenerDepartamento(self, valor):
         currentYear = datetime.now().year

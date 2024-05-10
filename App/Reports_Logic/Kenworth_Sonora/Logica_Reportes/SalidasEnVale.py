@@ -5,12 +5,16 @@
 import os
 import pandas as pd
 from datetime import *
-from .Variables.ContenedorVariables import Variables
+from ...globalModulesShare.ContenedorVariables import Variables
+from ...globalModulesShare.ConcesionariosModel import Concesionarios
 class SalidasEnVale(Variables):
         def __init__(self):
             super().__init__()
+            self.concesionario = Concesionarios().concesionarioSonora
+
+            self.variables = Variables()
             self.nombre_doc = 'SVS.xlsx'
-            path = os.path.join(Variables().ruta_Trabajo,self.nombre_doc)
+            path = os.path.join(self.variables.ruta_Trabajos_kwsonora,self.nombre_doc)
             df = pd.read_excel(path, sheet_name="Hoja2")
             # NOTE Guardamos una copia del documeto en una variable, haciendo uso de el en memoria para no gastar almacenamiento.
             #  SOLO TOMAMOS LAS COLUMNAS QUE VAMOS A UTILIZAR
@@ -35,7 +39,4 @@ class SalidasEnVale(Variables):
             df_format1[columnas_bol] = df_format1[columnas_bol].astype(str)
             
             # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
-            if (os.path.basename(Variables().comprobar_reporte_documento_rutas(self.nombre_doc)).split(".")[1] == self.nombre_doc.split(".")[1]):
-                df_format1.to_excel(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), index=False )
-            else:
-                df_format1.to_csv(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), encoding="utf-8", index=False )
+            self.variables.guardar_datos_dataframe(self.nombre_doc, df_format1, self.concesionario)

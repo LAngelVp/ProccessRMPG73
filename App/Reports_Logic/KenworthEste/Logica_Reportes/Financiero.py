@@ -10,8 +10,9 @@ from ...globalModulesShare.ConcesionariosModel import Concesionarios
 class ResultadosFinancieros(Variables):
     def __init__(self):
         # FUNCION PARA OBTENER EL DEPARTAMENTO
-        self.nombre_doc = 'RFE.xlsx'
         self.concesionario = Concesionarios().concesionarioEste
+        self.variables = Variables()
+        self.nombre_doc = 'RFE.xlsx'
         # CREAMOS UN ARRAY CON EL NOMBRE DE LAS COLUMNAS QUE VAMOS A OCUPAR DEL DATAFRAME ORIGINAL
         # ESTE ARRAY SE VA A OCUPAR MAS ADELANTE PARA CREAR EL DATAFRAME FINAL.
             
@@ -44,7 +45,7 @@ class ResultadosFinancieros(Variables):
 
         # OBTENEMOS LA RUTA DEL ARCHIVO Y PARSEAMOS SU CONTENIDO Y SUS CABECERAS.
         
-        path = os.path.join(Variables().ruta_Trabajos_kwe,self.nombre_doc)
+        path = os.path.join(self.variables.ruta_Trabajos_kwe,self.nombre_doc)
         df = pd.read_excel(path, sheet_name='Hoja2')
         df = df.replace(to_replace=';', value='-', regex=True)
         df.columns = df.columns.str.replace(" ", "_")
@@ -67,7 +68,7 @@ class ResultadosFinancieros(Variables):
         if (len(df_unidades_facturadas_ordenado) == 0):
             # GUARDAMOS EL ARCHIVO
             # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
-            Variables().guardar_datos_dataframe(self.nombre_doc, df_unidades_facturadas_ordenado, self.concesionario)
+            self.variables.guardar_datos_dataframe(self.nombre_doc, df_unidades_facturadas_ordenado, self.concesionario)
 
         else:
             # df_unidades_facturadas_ordenado.insert(
@@ -91,11 +92,11 @@ class ResultadosFinancieros(Variables):
             df_unidades_facturadas_ordenado["Numarticulo"] = col_numero_articulo
             df_unidades_facturadas_ordenado["Modelo"] = col_modelo
 
-            df_unidades_facturadas_ordenado["Fecha"] = Variables().date_movement_config_document()
+            df_unidades_facturadas_ordenado["Fecha"] = self.variables.date_movement_config_document()
             df_unidades_facturadas_ordenado["Ciudad"] = ""
             df_unidades_facturadas_ordenado["Estado"] = ""
             df_unidades_facturadas_ordenado["Status"] = ""
-            df_unidades_facturadas_ordenado["Mes"] = Variables().nombre_mes()
+            df_unidades_facturadas_ordenado["Mes"] = self.variables.nombre_mes()
             df_unidades_facturadas_ordenado["Latitud"] = ""
             df_unidades_facturadas_ordenado["Longitud"] = ""
 
@@ -157,7 +158,7 @@ class ResultadosFinancieros(Variables):
             df_unidades_facturadas_ordenado[columnas_bol] = df_unidades_facturadas_ordenado[columnas_bol].astype(str)
 
             # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
-            Variables().guardar_datos_dataframe(self.nombre_doc, df_unidades_facturadas_ordenado, self.concesionario)
+            self.variables.guardar_datos_dataframe(self.nombre_doc, df_unidades_facturadas_ordenado, self.concesionario)
         
     def obtenerDepartamento(self, valor):
             currentYear = datetime.now().year

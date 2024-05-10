@@ -61,7 +61,7 @@ class PrincipalWindow(QMainWindow):
         if not os.path.exists(self.variables.global_route_project):
             os.mkdir(self.variables.global_route_project)
         else:
-            if not os.path.exists(Variables().help_directory):
+            if not os.path.exists(self.variables.help_directory):
                 os.mkdir(self.variables.help_directory)
             else:
                 pass

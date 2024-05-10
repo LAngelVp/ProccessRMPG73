@@ -11,10 +11,11 @@ class InventarioCosteado(Variables):
     def __init__(self):
         pass
         #obtenemos el archivo
+        self.concesionario = Concesionarios().concesionarioRioBravo
+        self.variables = Variables()
         self.nombre_doc = 'ICR.xlsx'
         self.nombre_doc2 = 'ICDR.xlsx'
-        self.concesionario = Concesionarios().concesionarioRioBravo
-        path = os.path.join(Variables().ruta_Trabajos_kwrb,self.nombre_doc)
+        path = os.path.join(self.variables.ruta_Trabajos_kwrb,self.nombre_doc)
         #leer el documento con pandas
         df = pd.read_excel(path, sheet_name="Hoja2")
         #reemplazar el ";" de los registros que lo contengan por un "-"
@@ -25,7 +26,7 @@ class InventarioCosteado(Variables):
         #obtener solo las celdas que vamos a trabajar.
         df2 = df[df.columns[0:33]].copy()
         #insertar la columna de fecha actual, con el fin de sacar la antiguedad.
-        df2.insert(loc=27,column="Fecha_Hoy",value=Variables().date_movement_config_document(), allow_duplicates=False)
+        df2.insert(loc=27,column="Fecha_Hoy",value=self.variables.date_movement_config_document(), allow_duplicates=False)
         #iterar en las cabeceras del dataframe para obtener las columnas de fecha.
         for column_title in df2:
             if ("Fecha" in column_title):
@@ -77,7 +78,7 @@ class InventarioCosteado(Variables):
         df_inventarioCosteado[columnas_bol] = df_inventarioCosteado[columnas_bol].astype(str)
 
         # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
-        Variables().guardar_datos_dataframe(self.nombre_doc, df_inventarioCosteado, self.concesionario)
+        self.variables.guardar_datos_dataframe(self.nombre_doc, df_inventarioCosteado, self.concesionario)
 
         #--------------------------------------------------------------
         # INVENTARIO COSTEADO POR DIA
@@ -88,7 +89,7 @@ class InventarioCosteado(Variables):
         df_inventarioCosteadoxDia["Fecha Entrada"] = pd.to_datetime(df_inventarioCosteadoxDia["Fecha Entrada"], errors="coerce")
         df_inventarioCosteadoxDia["Fecha Entrada"] = df_inventarioCosteadoxDia["Fecha Entrada"].dt.strftime("%d/%m/%Y")
         df_inventarioCosteadoxDia.drop(["Antigüedad","ClasDias"],axis=1,inplace=True)
-        df_inventarioCosteadoxDia["Fecha_Dias"] = Variables().date_movement_config_document()
+        df_inventarioCosteadoxDia["Fecha_Dias"] = self.variables.date_movement_config_document()
         df_inventarioCosteadoxDia["ClasSF"] = ""
         
         #mandar a llamar a la clasificacion por tipoDocumento.
@@ -103,13 +104,13 @@ class InventarioCosteado(Variables):
         df_inventarioCosteadoxDia["Fecha_Dias"] = df_inventarioCosteadoxDia["Fecha_Dias"].dt.strftime("%m/%d/%Y")
 
         #comment creamos la columna de mes
-        df_inventarioCosteadoxDia["Mes"] = Variables().nombre_mes_actual_abreviado()
+        df_inventarioCosteadoxDia["Mes"] = self.variables.nombre_mes_actual_abreviado()
 
         columnas_bol=df_inventarioCosteadoxDia.select_dtypes(include=bool).columns.tolist()
         df_inventarioCosteadoxDia[columnas_bol] = df_inventarioCosteadoxDia[columnas_bol].astype(str)
 
         # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
-        Variables().guardar_datos_dataframe(self.nombre_doc2, df_inventarioCosteadoxDia, self.concesionario)
+        self.variables.guardar_datos_dataframe(self.nombre_doc2, df_inventarioCosteadoxDia, self.concesionario)
 
     #clasificar ls registros conforme a su antiguedad.
     #Creamos la funcion para encapsular el procedimiento.

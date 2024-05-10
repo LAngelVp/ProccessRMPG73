@@ -10,9 +10,10 @@ from ...globalModulesShare.ConcesionariosModel import Concesionarios
 class SeguimientoCores(Variables):
     def __init__(self):
         super().__init__()
-        self.nombre_doc = 'SCE.xlsx'
         self.concesionario = Concesionarios().concesionarioEste
-        path = os.path.join(Variables().ruta_Trabajos_kwe,self.nombre_doc)
+        self.variables = Variables()
+        self.nombre_doc = 'SCE.xlsx'
+        path = os.path.join(self.variables.ruta_Trabajos_kwe,self.nombre_doc)
         df = pd.read_excel(path, sheet_name='Hoja2')
         df = df.replace(to_replace=';', value='-', regex=True)
 
@@ -24,7 +25,7 @@ class SeguimientoCores(Variables):
         columna_FechaRecEnSucProcCores = df_SeguimientoCores.pop("FechaRecEnSucProcCores")
         df_SeguimientoCores.insert(6, "FechaRecEnSucProcCores", columna_FechaRecEnSucProcCores)
 
-        df_SeguimientoCores.insert(7,"Fecha Hoy", Variables().date_movement_config_document(), allow_duplicates=False)
+        df_SeguimientoCores.insert(7,"Fecha Hoy", self.variables.date_movement_config_document(), allow_duplicates=False)
 
         Antiguedad = df_SeguimientoCores.apply(self.OperacionAntiguedad, axis = 1)
 
@@ -47,7 +48,7 @@ class SeguimientoCores(Variables):
         df_SeguimientoCores['Antigüedad'] = pd.to_numeric(df_SeguimientoCores['Antigüedad'].dt.days, downcast='integer')
 
         # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
-        Variables().guardar_datos_dataframe(self.nombre_doc, df_SeguimientoCores, self.concesionario)
+        self.variables.guardar_datos_dataframe(self.nombre_doc, df_SeguimientoCores, self.concesionario)
 
     def EstadoFactura(self, row):
         if pd.notna(row["FechaFactura"]):

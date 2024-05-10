@@ -5,16 +5,20 @@
 import os
 import pandas as pd
 from datetime import *
-from .Variables.ContenedorVariables import Variables
+from ...globalModulesShare.ContenedorVariables import Variables
+from ...globalModulesShare.ConcesionariosModel import Concesionarios
 class TrabajosPorEstado(Variables):
     def __init__(self):
         super().__init__()
+        self.concesionario = Concesionarios().concesionarioSonora
+
+        self.variables = Variables()
         # ESTOS ARRAYS SON DE APOYO PARA LA CLASIFICACION DE LOS CLIENTES
         array_Garantia = ["KENWORTH MEXICANA", "PACCAR PARTS MEXICO", "DISTRIBUIDORA MEGAMAK"]
         array_PLM = ["PACCAR FINANCIAL MEXICO", "PACLEASE MEXICANA"]
         #------------------------------------------------------
         self.nombre_doc = 'TES.xlsx'
-        path = os.path.join(Variables().ruta_Trabajo,self.nombre_doc)
+        path = os.path.join(self.variables.ruta_Trabajos_kwsonora,self.nombre_doc)
 
         df = pd.read_excel(path, sheet_name="Hoja2")
         df = df.replace(to_replace=';', value='-', regex=True)
@@ -66,7 +70,7 @@ class TrabajosPorEstado(Variables):
             else:
                 pass
         
-        Antiguedad = Variables().fecha_hoy - Completo["Fecha_Trabajo"]
+        Antiguedad = self.variables.fecha_hoy - Completo["Fecha_Trabajo"]
 
         Completo.insert(loc = 3,column = 'Antigüedad',value = Antiguedad,allow_duplicates = False)
         Completo['Antigüedad'] = pd.to_numeric(Completo['Antigüedad'].dt.days, downcast='integer')
@@ -86,11 +90,7 @@ class TrabajosPorEstado(Variables):
         Completo[columnas_bol] = Completo[columnas_bol].astype(str)
 
         # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
-        if (os.path.basename(Variables().comprobar_reporte_documento_rutas(self.nombre_doc)).split(".")[1] == self.nombre_doc.split(".")[1]):
-            Completo.to_excel(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), index=False )
-        else:
-            Completo.to_csv(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), encoding="utf-8", index=False )
-
+        self.variables.guardar_datos_dataframe(self.nombre_doc, Completo, self.concesionario)
 
     # CREAMOS LA FUNCION PARA LAS CLASIFICACIONES POR NUMERO DE ORDEN
     def SinTramitar(self, row):

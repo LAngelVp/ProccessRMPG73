@@ -13,6 +13,8 @@ from ...globalModulesShare.ContenedorVariables import Variables
 from ...globalModulesShare.ConcesionariosModel import Concesionarios
 class OrdenesServicio(Variables):
     def __init__(self):
+        self.concesionario = Concesionarios().concesionarioRioBravo
+        self.variables = Variables()
         exceptoKenworth=["KENWORTH MEXICANA", "KENWORTH DEL ESTE"]
         registroos_tallerMovil = ['TM', 'Taller Movil']
         registroos_exceptoTipoServicio = ['Rescate Avalado','Rescate Carretero','TM', 'Taller Movil']
@@ -20,8 +22,7 @@ class OrdenesServicio(Variables):
         
         self.nombre_doc = 'OSR.xlsx'
         self.nombre_doc1 = 'OSR1.xlsx'
-        self.concesionario = Concesionarios().concesionarioRioBravo
-        path = os.path.join(Variables().ruta_Trabajos_kwrb,self.nombre_doc)
+        path = os.path.join(self.variables.ruta_Trabajos_kwrb,self.nombre_doc)
 
         # FIXME OBTENEMOS EL DOCUMENTO
         df = pd.read_excel(path, sheet_name='Hoja2')
@@ -117,4 +118,4 @@ class OrdenesServicio(Variables):
         df_clasificadoPorTiposervicio = df_clasificadoPorTiposervicio.iloc[:,:ultima_columna + 1]
 
         # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
-        Variables().guardar_datos_dataframe(self.nombre_doc, df_clasificadoPorTiposervicio, self.concesionario)
+        self.variables.guardar_datos_dataframe(self.nombre_doc, df_clasificadoPorTiposervicio, self.concesionario)

@@ -5,11 +5,12 @@
 import os
 import pandas as pd
 from ...globalModulesShare.ContenedorVariables import Variables
+from ...globalModulesShare.ConcesionariosModel import Concesionarios
 class ResultadosFinancierosKREI(Variables):
     def __init__(self) -> None:
         super().__init__()
-        pathEste = os.path.join(Variables().ruta_Trabajo,'RFEKREI.xlsx')
-        pathSur = os.path.join(Variables().ruta_Trabajo,'RFSKREI.xlsx')
+        self.concesionario = Concesionarios().concesionarioKREI
+        self.variables = Variables()
 
         self.columnas = [
             "Numarticulo",
@@ -38,15 +39,11 @@ class ResultadosFinancierosKREI(Variables):
             "Vendedor"
         ]
 
-        if os.path.exists(pathEste):
-            self.ReporteFinancieroKWESTE_KREI(pathEste)
-        elif os.path.exists(pathSur):
-            self.ReporteFinancieroKWSUR_KREI(pathSur)
-        else:
-            pass
-    def ReporteFinancieroKWESTE_KREI(self, PATH):
+    def ReporteFinancieroKWESTE_KREI(self):
+        self.nombre_doc = 'RFEKREI.xlsx'
+        path = os.path.join(self.variables.ruta_Trabajos_krei, self.nombre_doc)
         # LEEMOS EL DOCUMENTO
-        df = pd.read_excel(PATH, sheet_name="Hoja2")
+        df = pd.read_excel(path, sheet_name="Hoja2")
         df.columns = df.columns.str.replace(" ", "_")
         
         # creamos la tabla pivote, con el fin de obtener las unidades facturadas
@@ -100,7 +97,7 @@ class ResultadosFinancierosKREI(Variables):
                 allow_duplicates = True
             )
 
-            Fecha = Variables().date_movement_config_document()
+            Fecha = self.variables.date_movement_config_document()
 
             df_unidades_facturadas_ordenado.insert(
                 loc = 26,
@@ -124,12 +121,15 @@ class ResultadosFinancierosKREI(Variables):
 
             df_unidades_facturadas_ordenado.columns = df_unidades_facturadas_ordenado.columns.str.replace("_", " ")
 
-            df_unidades_facturadas_ordenado.to_excel(os.path.join(Variables().ruta_procesados,f'KREI_ResultadosFinancieros_KWESTE_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+            # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
+            self.variables.guardar_datos_dataframe(self.nombre_doc, df_unidades_facturadas_ordenado, self.concesionario)
 
 
-    def ReporteFinancieroKWSUR_KREI(self, PATH):
+    def ReporteFinancieroKWSUR_KREI(self):
+        self.nombre_doc = 'RFSKREI.xlsx'
+        path = os.path.join(self.variables.ruta_Trabajos_krei, self.nombre_doc)
         # LEEMOS EL DOCUMENTO
-        df = pd.read_excel(PATH, sheet_name="Hoja2")
+        df = pd.read_excel(path, sheet_name="Hoja2")
         df.columns = df.columns.str.replace(" ", "_")
         
         # creamos la tabla pivote, con el fin de obtener las unidades facturadas
@@ -183,7 +183,7 @@ class ResultadosFinancierosKREI(Variables):
                 allow_duplicates = True
             )
 
-            Fecha = Variables().date_movement_config_document()
+            Fecha = self.variables.date_movement_config_document()
 
             df_unidades_facturadas_ordenado.insert(
                 loc = 26,
@@ -207,11 +207,12 @@ class ResultadosFinancierosKREI(Variables):
 
             df_unidades_facturadas_ordenado.columns = df_unidades_facturadas_ordenado.columns.str.replace("_", " ")
 
-            df_unidades_facturadas_ordenado.to_excel(os.path.join(Variables().ruta_procesados,f'KREI_ResultadosFinancieros_KWSUR_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+            # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
+            self.variables.guardar_datos_dataframe(self.nombre_doc, df_unidades_facturadas_ordenado, self.concesionario)
 
 
     def obtenerDepartamento(self,valor):
-            currentYear = Variables().fecha_hoy.year
+            currentYear = self.variables.fecha_hoy.year
             if (valor < currentYear):
                 return "SEMINUEVAS"
             else:

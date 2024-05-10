@@ -5,14 +5,20 @@
 import os
 import pandas as pd
 from datetime import *
-from .Variables.ContenedorVariables import Variables
+from ...globalModulesShare.ContenedorVariables import Variables
+from ...globalModulesShare.ConcesionariosModel import Concesionarios
 class InventarioCosteado(Variables):
     def __init__(self):
         super().__init__()
         #obtenemos el archivo
         self.nombre_doc = 'ICS.xlsx'
         self.nombre_doc2 = 'ICDS.xlsx'
-        path = os.path.join(Variables().ruta_Trabajo,self.nombre_doc)
+        
+        self.concesionario = Concesionarios().concesionarioSonora
+
+        self.variables = Variables()
+
+        path = os.path.join(self.variables.ruta_Trabajos_kwsonora,self.nombre_doc)
         #leer el documento con pandas
         df = pd.read_excel(path, sheet_name="Hoja2")
         #reemplazar el ";" de los registros que lo contengan por un "-"
@@ -23,7 +29,7 @@ class InventarioCosteado(Variables):
         #obtener solo las celdas que vamos a trabajar.
         df2 = df[df.columns[0:33]].copy()
         #insertar la columna de fecha actual, con el fin de sacar la antiguedad.
-        df2.insert(loc=28,column="Fecha_Hoy",value=Variables().date_movement_config_document(), allow_duplicates=False)
+        df2.insert(loc=28,column="Fecha_Hoy",value=self.variables.date_movement_config_document(), allow_duplicates=False)
         #iterar en las cabeceras del dataframe para obtener las columnas de fecha.
         for column_title in df2:
             if ("Fecha" in column_title):
@@ -71,10 +77,7 @@ class InventarioCosteado(Variables):
         df_inventarioCosteado = df2.copy()
         #exportamos el dataframe del inventario costeado.
         # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
-        if (os.path.basename(Variables().comprobar_reporte_documento_rutas(self.nombre_doc)).split(".")[1] == self.nombre_doc.split(".")[1]):
-            df_inventarioCosteado.to_excel(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), index=False )
-        else:
-            df_inventarioCosteado.to_csv(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), encoding="utf-8", index=False )
+        self.variables.guardar_datos_dataframe(self.nombre_doc, df_inventarioCosteado, self.concesionario)
 
         #--------------------------------------------------------------
         # INVENTARIO COSTEADO POR DIA
@@ -85,7 +88,7 @@ class InventarioCosteado(Variables):
         df_inventarioCosteadoxDia["Fecha Entrada"] = pd.to_datetime(df_inventarioCosteadoxDia["Fecha Entrada"], errors="coerce")
         df_inventarioCosteadoxDia["Fecha Entrada"] = df_inventarioCosteadoxDia["Fecha Entrada"].dt.strftime("%d/%m/%Y")
         df_inventarioCosteadoxDia.drop(["Antigüedad","ClasDias"],axis=1,inplace=True)
-        df_inventarioCosteadoxDia["Fecha_Dias"] = Variables().date_movement_config_document()
+        df_inventarioCosteadoxDia["Fecha_Dias"] = self.variables.date_movement_config_document()
         df_inventarioCosteadoxDia["ClasSF"] = ""
 
         #mandar a llamar a la clasificacion por tipoDocumento.
@@ -97,17 +100,14 @@ class InventarioCosteado(Variables):
         #creamoa la columna de marca
         # df_inventarioCosteadoxDia["Marca"] = ""
         # #creamos la del mes
-        # df_inventarioCosteadoxDia["Mes"] = Variables().nombre_mes_actual_abreviado()
+        # df_inventarioCosteadoxDia["Mes"] = self.variables.nombre_mes_actual_abreviado()
 
         #convertir la fecha a formato "dia/mes/año"
         df_inventarioCosteadoxDia["Fecha_Dias"] = pd.to_datetime(df_inventarioCosteadoxDia["Fecha_Dias"], errors="coerce")
         df_inventarioCosteadoxDia["Fecha_Dias"] = df_inventarioCosteadoxDia["Fecha_Dias"].dt.strftime("%d/%m/%Y")
 
         # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
-        if (os.path.basename(Variables().comprobar_reporte_documento_rutas(self.nombre_doc2)).split(".")[1] == self.nombre_doc2.split(".")[1]):
-            df_inventarioCosteadoxDia.to_excel(Variables().comprobar_reporte_documento_rutas(self.nombre_doc2), index=False )
-        else:
-            df_inventarioCosteadoxDia.to_csv(Variables().comprobar_reporte_documento_rutas(self.nombre_doc2), encoding="utf-8", index=False )
+        self.variables.guardar_datos_dataframe(self.nombre_doc2, df_inventarioCosteadoxDia, self.concesionario)
 
 #clasificar ls registros conforme a su antiguedad.
 #Creamos la funcion para encapsular el procedimiento.

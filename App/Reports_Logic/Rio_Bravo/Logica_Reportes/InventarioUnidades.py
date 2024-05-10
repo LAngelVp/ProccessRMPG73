@@ -9,11 +9,12 @@ from ...globalModulesShare.ContenedorVariables import Variables
 from ...globalModulesShare.ConcesionariosModel import Concesionarios
 class InventarioUnidades():
     def __init__(self):
+        self.concesionario = Concesionarios().concesionarioRioBravo
+        self.variables = Variables()
         self.nombre_doc = 'IUR.xlsx'
         
-        self.concesionario = Concesionarios().concesionarioRioBravo
         print("Hola")
-        path = os.path.join(Variables().ruta_Trabajos_kwrb,self.nombre_doc)
+        path = os.path.join(self.variables.ruta_Trabajos_kwrb,self.nombre_doc)
         df = pd.read_excel(path, sheet_name="Hoja2")
         df1 = df.copy()
         df1.columns = df1.columns.str.replace(" ", "_")
@@ -44,7 +45,7 @@ class InventarioUnidades():
         df1.columns = df1.columns.str.replace("_", " ")
 
         # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
-        Variables().guardar_datos_dataframe(self.nombre_doc, df1, self.concesionario)
+        self.variables.guardar_datos_dataframe(self.nombre_doc, df1, self.concesionario)
         
 
     def ClasificacionTipoInv(self, valor):

@@ -10,17 +10,18 @@ class Refacciones(Variables):
     def __init__(self):
 
 #COMMENT: APARTADO DE DOCUMENTOS DE APOYO
+        self.concesionario = Concesionarios().concesionarioEste
+        self.variables = Variables()
 
         self.nombre_doc = 'RE.xlsx'
-        self.concesionario = Concesionarios().concesionarioEste
 
-        self.j = Variables().clasificacion_vendedores_departamentos_refacciones()
-        self.c = Variables().clasificacion_tamaño_clientes_refacciones()
-        self.m = Variables().marcas_refacciones_fun()
+        self.j = self.variables.clasificacion_vendedores_departamentos_refacciones()
+        self.c = self.variables.clasificacion_tamaño_clientes_refacciones()
+        self.m = self.variables.marcas_refacciones_fun()
 
 
 #COMMENT: LEER EL DOCUMENTO
-        path = os.path.join(Variables().ruta_Trabajos_kwe,self.nombre_doc)
+        path = os.path.join(self.variables.ruta_Trabajos_kwe,self.nombre_doc)
         df = pd.read_excel(path, sheet_name='Hoja2')
         df = df.replace(to_replace=';', value='-', regex=True)
 
@@ -144,7 +145,7 @@ class Refacciones(Variables):
         a.insert(67, "Columna_movimiento", columna_movimiento)
 
         # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
-        Variables().guardar_datos_dataframe(self.nombre_doc, a, self.concesionario)
+        self.variables.guardar_datos_dataframe(self.nombre_doc, a, self.concesionario)
 
 
 #SEPARATOR ---------------------------------------------------------------------------------

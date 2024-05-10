@@ -12,14 +12,15 @@ from ...globalModulesShare.ConcesionariosModel import Concesionarios
 class TrabajosPorEstado(Variables):
     def __init__(self):
         super().__init__()
+        self.concesionario = Concesionarios().concesionarioEste
+        self.variables = Variables()
         # ESTOS ARRAYS SON DE APOYO PARA LA CLASIFICACION DE LOS CLIENTES
         array_Garantia = ["KENWORTH MEXICANA", "PACCAR PARTS MEXICO", "DISTRIBUIDORA MEGAMAK"]
         array_PLM = ["PACCAR FINANCIAL MEXICO", "PACLEASE MEXICANA"]
 
         self.nombre_doc = 'TEE.xlsx'
-        self.concesionario = Concesionarios().concesionarioEste
 
-        path = os.path.join(Variables().ruta_Trabajos_kwe,self.nombre_doc)
+        path = os.path.join(self.variables.ruta_Trabajos_kwe,self.nombre_doc)
 
         df = pd.read_excel(path, sheet_name="Hoja2")
         df = df.replace(to_replace=';', value='-', regex=True)
@@ -77,17 +78,17 @@ class TrabajosPorEstado(Variables):
 
         for column_name in Completo.columns:
             if "Fecha" in column_name:
-                Completo = Variables().global_date_format_america(Completo, column_name)
+                Completo = self.variables.global_date_format_america(Completo, column_name)
             else:
                 pass
         
-        Antiguedad = (Variables().date_movement_config_document() - Completo["Fecha_Trabajo"]).apply(lambda x : x.days)
+        Antiguedad = (self.variables.date_movement_config_document() - Completo["Fecha_Trabajo"]).apply(lambda x : x.days)
 
         Completo.insert(loc = 3,column = 'Antigüedad',value = Antiguedad,allow_duplicates = False)
 
         for column_name in Completo.columns:
             if "Fecha" in column_name:
-                Completo = Variables().global_date_format_dmy_mexican(Completo, column_name)
+                Completo = self.variables.global_date_format_dmy_mexican(Completo, column_name)
             else:
                 pass
 
@@ -97,7 +98,7 @@ class TrabajosPorEstado(Variables):
         Completo[columnas_bol] = Completo[columnas_bol].astype(str)
 
         # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
-        Variables().guardar_datos_dataframe(self.nombre_doc, Completo, self.concesionario)
+        self.variables.guardar_datos_dataframe(self.nombre_doc, Completo, self.concesionario)
 
 
     # CREAMOS LA FUNCION PARA LAS CLASIFICACIONES POR NUMERO DE ORDEN

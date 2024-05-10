@@ -5,13 +5,17 @@
 import os
 import pandas as pd
 from ...globalModulesShare.ContenedorVariables import Variables
+from ...globalModulesShare.ConcesionariosModel import Concesionarios
 class  OrdenesServicioKWESTEKREI(Variables):
     def __init__(self):
+        self.concesionario = Concesionarios().concesionarioKREI
+        self.variables = Variables()
         self.array_Garantia = ["KENWORTH MEXICANA", "PACCAR PARTS MEXICO", "DISTRIBUIDORA MEGAMAK"]
         self.array_PLM = ["PACCAR FINANCIAL MEXICO", "PACLEASE MEXICANA"]
         self.array_excepto_clientes = ["KENWORTH","PACCAR PARTS MEXICO", "PACCAR FINANCIAL MEXICO", "PACLEASE MEXICANA", "DISTRIBUIDORA MEGAMAK", "SEGUROS", "SEGURO", "GRUPO NACIONAL PROVINCIAL"]
     def OrdenesKWESTE_KREI(self):
-        path = os.path.join(Variables().ruta_Trabajo,'OSEKREI.xlsx')
+        self.nombre_doc = 'OSEKREI.xlsx'
+        path = os.path.join(self.variables.ruta_Trabajo, self.nombre_doc)
         dfKWESTE = pd.read_excel(path, sheet_name="Hoja2")
         dfKWESTE = dfKWESTE.replace(to_replace = ";", value = "_", regex = True)
         # remplazamos los espacios en los titulos por cuestiones de normatividad
@@ -43,7 +47,6 @@ class  OrdenesServicioKWESTEKREI(Variables):
                 except:
                     pass
 
-
         dfKWESTE = dfKWESTE.rename(columns={ 'Número_Orden': 'num', 'Unidad':'UNI', 'Subtotal_Ref_Sin_Facturar':'sub' })
         dfKWESTE.insert(loc = 0,column = 'OS',value = 'OS',allow_duplicates = False)
         dfKWESTE.insert(loc = 2, column = 'Num Orden', value = dfKWESTE["OS"].map(str) + "" + dfKWESTE["num"].map(str), allow_duplicates = False)
@@ -72,10 +75,12 @@ class  OrdenesServicioKWESTEKREI(Variables):
         columnas_bol=dfKWESTE.select_dtypes(include=bool).columns.tolist()
         dfKWESTE[columnas_bol] = dfKWESTE[columnas_bol].astype(str)
 
-        dfKWESTE.to_excel(os.path.join(Variables().ruta_procesados,f'KREI_OrdenesDeServicio_KWESTE_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+        # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
+        self.variables.guardar_datos_dataframe(self.nombre_doc, dfKWESTE, self.concesionario)
     
     def OrdenesKWSUR_KREI(self):
-        path = os.path.join(Variables().ruta_Trabajo,'OSSKREI.xlsx')
+        self.nombre_doc = 'OSSKREI.xlsx'
+        path = os.path.join(self.variables.ruta_Trabajo, self.nombre_doc)
         dfKWS = pd.read_excel(path, sheet_name="Hoja2")
         dfKWSUR = dfKWS.replace(to_replace = ";", value = "_", regex = True)
         # remplazamos los espacios en los titulos por cuestiones de normatividad
@@ -137,4 +142,5 @@ class  OrdenesServicioKWESTEKREI(Variables):
         columnas_bol=dfKWSUR.select_dtypes(include=bool).columns.tolist()
         dfKWSUR[columnas_bol] = dfKWSUR[columnas_bol].astype(str)
 
-        dfKWSUR.to_excel(os.path.join(Variables().ruta_procesados,f'KREI_OrdenesDeServicio_KWSUR_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+        # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
+        self.variables.guardar_datos_dataframe(self.nombre_doc, dfKWSUR, self.concesionario)

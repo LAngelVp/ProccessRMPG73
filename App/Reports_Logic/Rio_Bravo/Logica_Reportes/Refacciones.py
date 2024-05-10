@@ -12,9 +12,10 @@ from ...globalModulesShare.ConcesionariosModel import Concesionarios
 
 class Refacciones(Variables):
     def __init__(self):
-        self.nombre_doc = 'RR.xlsx'
         self.concesionario = Concesionarios().concesionarioRioBravo
-        path = os.path.join(Variables().ruta_Trabajos_kwrb, self.nombre_doc)
+        self.variables = Variables()
+        self.nombre_doc = 'RR.xlsx'
+        path = os.path.join(self.variables.ruta_Trabajos_kwrb, self.nombre_doc)
 
         df = pd.read_excel(path, sheet_name='Hoja2')
         df = df.replace(to_replace=';', value='-', regex=True)
@@ -51,7 +52,7 @@ class Refacciones(Variables):
         df[columnas_bol] = df[columnas_bol].astype(str)
 
         # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
-        Variables().guardar_datos_dataframe(self.nombre_doc, df, self.concesionario)
+        self.variables.guardar_datos_dataframe(self.nombre_doc, df, self.concesionario)
 
 
     def Clasificacion_departamentos_refacciones(self, valor_sucursal, valor_departamento_documento):

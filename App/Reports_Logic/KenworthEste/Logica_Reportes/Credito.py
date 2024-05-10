@@ -10,10 +10,11 @@ from ...globalModulesShare.ConcesionariosModel import Concesionarios
 class Credito(Variables):
     def __init__(self):
         # obtenemos el path del archivo
+        self.concesionario = Concesionarios().concesionarioEste
+        self.variables = Variables()
         self.nombre_doc = 'CE.xlsx'
         self.nombre_doc2 = "CEG.xlsx"
-        self.concesionario = Concesionarios().concesionarioEste
-        path =  os.path.join(Variables().ruta_Trabajos_kwe,self.nombre_doc)
+        path =  os.path.join(self.variables.ruta_Trabajos_kwe,self.nombre_doc)
         # leer el documento.
         df = pd.read_excel(path, sheet_name="Hoja2")
         # obtenemos las columnas que se van a utilizar
@@ -72,13 +73,13 @@ class Credito(Variables):
         df2[columnas_bol] = df2[columnas_bol].astype(str)
 
 # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
-        Variables().guardar_datos_dataframe(self.nombre_doc, df2, self.concesionario)
+        self.variables.guardar_datos_dataframe(self.nombre_doc, df2, self.concesionario)
 
 
         
         CreditoGlobal = df2.copy()
         CreditoGlobal.drop(["Clasificacion","Semana", "Estado Vencimiento"], axis=1, inplace=True)
-        CreditoGlobal["Mes"] = Variables().nombre_mes_actual_abreviado()
+        CreditoGlobal["Mes"] = self.variables.nombre_mes_actual_abreviado()
         
 # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
-        Variables().guardar_datos_dataframe(self.nombre_doc2, CreditoGlobal, self.concesionario)
+        self.variables.guardar_datos_dataframe(self.nombre_doc2, CreditoGlobal, self.concesionario)

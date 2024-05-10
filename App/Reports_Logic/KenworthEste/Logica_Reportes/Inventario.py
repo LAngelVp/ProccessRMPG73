@@ -9,12 +9,14 @@ from ...globalModulesShare.ContenedorVariables import Variables
 from ...globalModulesShare.ConcesionariosModel import Concesionarios
 class Inventario(Variables):
     def __init__(self):
-        self.m = Variables().marcas_refacciones_fun()
+        self.variables = Variables()
+        self.concesionario = Concesionarios().concesionarioEste
+        self.m = self.variables.marcas_refacciones_fun()
+
         #obtenemos el archivo
         self.nombre_doc = 'ICE.xlsx'
         self.nombre_doc2 = 'ICDE.xlsx'
-        self.concesionario = Concesionarios().concesionarioEste
-        path = os.path.join(Variables().ruta_Trabajos_kwe,self.nombre_doc)
+        path = os.path.join(self.variables.ruta_Trabajos_kwe,self.nombre_doc)
         #leer el documento con pandas
         df = pd.read_excel(path, sheet_name="Hoja2")
         #reemplazar el ";" de los registros que lo contengan por un "-"
@@ -25,11 +27,11 @@ class Inventario(Variables):
         #obtener solo las celdas que vamos a trabajar.
         df2 = df[df.columns[0:33]].copy()
         #insertar la columna de fecha actual, con el fin de sacar la antiguedad.
-        df2.insert(loc=27,column="Fecha_Hoy",value=Variables().date_movement_config_document(), allow_duplicates=False)
+        df2.insert(loc=27,column="Fecha_Hoy",value=self.variables.date_movement_config_document(), allow_duplicates=False)
         #iterar en las cabeceras del dataframe para obtener las columnas de fecha.
         for column_name in df2.columns:
             if "Fecha" in column_name:
-                df2 = Variables().global_date_format_america(df2, column_name)
+                df2 = self.variables.global_date_format_america(df2, column_name)
             else:
                 pass
         #crear la columna que contendra el valor de la antiguedad.
@@ -56,9 +58,9 @@ class Inventario(Variables):
         #cambiamos el formato de la columna de la "Fecha Entrada".
         for column_name in df2.columns:
             if "Fecha Entrada" in column_name:
-                df2 = Variables().global_date_format_mdy_america(df2, column_name)
+                df2 = self.variables.global_date_format_mdy_america(df2, column_name)
             elif "Fecha" in column_name:
-                df2 = Variables().global_date_format_dmy_mexican(df2, column_name)
+                df2 = self.variables.global_date_format_dmy_mexican(df2, column_name)
 
 
         #eliminar las columnas no necesarias.
@@ -66,7 +68,7 @@ class Inventario(Variables):
         #mandar el dataframe a una variable.
         df_inventarioCosteado = df2.copy()
         # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
-        Variables().guardar_datos_dataframe(self.nombre_doc, df_inventarioCosteado, self.concesionario)
+        self.variables.guardar_datos_dataframe(self.nombre_doc, df_inventarioCosteado, self.concesionario)
 
 #         #--------------------------------------------------------------
 #         # INVENTARIO COSTEADO POR DIA
@@ -75,12 +77,12 @@ class Inventario(Variables):
         df_inventarioCosteadoxDia = df2.copy()
         #eliminar columnas que no se ocuparan.
         # df_inventarioCosteadoxDia["Fecha Entrada"] = pd.to_datetime(df_inventarioCosteadoxDia["Fecha Entrada"])
-        df_inventarioCosteadoxDia= Variables().global_date_format_america(df_inventarioCosteadoxDia, "Fecha Entrada")
-        df_inventarioCosteadoxDia= Variables().global_date_format_dmy_mexican(df_inventarioCosteadoxDia, "Fecha Entrada")
+        df_inventarioCosteadoxDia= self.variables.global_date_format_america(df_inventarioCosteadoxDia, "Fecha Entrada")
+        df_inventarioCosteadoxDia= self.variables.global_date_format_dmy_mexican(df_inventarioCosteadoxDia, "Fecha Entrada")
         
         # df_inventarioCosteadoxDia["Fecha Entrada"] = df_inventarioCosteadoxDia["Fecha Entrada"].dt.strftime("%d/%m/%Y")
         df_inventarioCosteadoxDia.drop(["ClasDias"],axis=1,inplace=True)
-        df_inventarioCosteadoxDia["Fecha_Dias"] = Variables().date_movement_config_document()
+        df_inventarioCosteadoxDia["Fecha_Dias"] = self.variables.date_movement_config_document()
         df_inventarioCosteadoxDia["ClasSF"] = ""
 
         
@@ -101,14 +103,14 @@ class Inventario(Variables):
             axis=1,
         )
         #creamos la del mes
-        df_inventarioCosteadoxDia["Mes"] = Variables().nombre_mes_actual_abreviado()
+        df_inventarioCosteadoxDia["Mes"] = self.variables.nombre_mes_actual_abreviado()
 
         #convertir la fecha a formato "dia/mes/año"
         df_inventarioCosteadoxDia["Fecha_Dias"] = pd.to_datetime(df_inventarioCosteadoxDia["Fecha_Dias"], errors="coerce")
         df_inventarioCosteadoxDia["Fecha_Dias"] = df_inventarioCosteadoxDia["Fecha_Dias"].dt.strftime("%m/%d/%Y")
 
         # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
-        Variables().guardar_datos_dataframe(self.nombre_doc, df_inventarioCosteadoxDia, self.concesionario)
+        self.variables.guardar_datos_dataframe(self.nombre_doc, df_inventarioCosteadoxDia, self.concesionario)
 
     # clasificar ls registros conforme a su antiguedad.
     # Creamos la funcion para encapsular el procedimiento.

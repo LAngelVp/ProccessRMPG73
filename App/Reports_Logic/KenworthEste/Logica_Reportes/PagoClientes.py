@@ -13,15 +13,16 @@ class PagoClientes(Variables):
         super().__init__()
         #obtenemos el parth.
         #leemos el documento.
-        self.ruta = Variables().customerPaymentGoals
+        self.concesionario = Concesionarios().concesionarioEste
+        self.variables = Variables()
+        self.ruta = self.variables.customerPaymentGoals
         
 
         self.columnas_objetivo = []
         self.objetivos = pd.DataFrame()
         self.nombre_doc = 'PCE.xlsx'
-        self.concesionario = Concesionarios().concesionarioEste
 
-        path = os.path.join(Variables().ruta_Trabajos_kwe,self.nombre_doc)
+        path = os.path.join(self.variables.ruta_Trabajos_kwe,self.nombre_doc)
         df = pd.read_excel(path, sheet_name='Hoja2')
         df = df.replace(to_replace=';', value='-', regex=True)
         #copiamos la data para no afectar la original.
@@ -39,13 +40,13 @@ class PagoClientes(Variables):
         df.insert(
             loc=4,
             column='Fecha_Movimiento',
-            value=Variables().date_movement_config_document(),
+            value=self.variables.date_movement_config_document(),
             allow_duplicates=True
         )
         df.insert(
             loc=5,
             column='Mes',
-            value= Variables().nombre_mes(),
+            value= self.variables.nombre_mes(),
             allow_duplicates=True
         )
 
@@ -60,9 +61,9 @@ class PagoClientes(Variables):
             elif (df[nombre_columna].dtypes == "float64"):
                 self.objetivos[nombre_columna] = ['0.0']
             elif (nombre_columna == "Mes"):
-                self.objetivos[nombre_columna] = Variables().nombre_mes()
+                self.objetivos[nombre_columna] = self.variables.nombre_mes()
             elif (df[nombre_columna].dtypes == "datetime64[ns]") and (nombre_columna == "Fecha_Pago") or (nombre_columna == "Fecha_Movimiento"):
-                self.objetivos[nombre_columna] = [Variables().date_movement_config_document()]
+                self.objetivos[nombre_columna] = [self.variables.date_movement_config_document()]
             else:
                 self.objetivos[nombre_columna] = ['']
                 
@@ -125,4 +126,4 @@ class PagoClientes(Variables):
         df_completo["Area"] = "Pago Clientes"
 
         # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
-        Variables().guardar_datos_dataframe(self.nombre_doc, df_completo, self.concesionario)
+        self.variables.guardar_datos_dataframe(self.nombre_doc, df_completo, self.concesionario)

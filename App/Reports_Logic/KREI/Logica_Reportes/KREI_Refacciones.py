@@ -5,9 +5,15 @@
 import os
 import pandas as pd
 from ...globalModulesShare.ContenedorVariables import Variables
+from ...globalModulesShare.ConcesionariosModel import Concesionarios
 class RefaccionesKWESTEKREI(Variables):
+    def __init__(self):
+        super().__init__()
+        self.concesionario = Concesionarios().concesionarioKREI
+        self.variables = Variables()
     def RefaccionesKWESTE_KREI(self):
-        path = os.path.join(Variables().ruta_Trabajo,'REKREI.xlsx')
+        self.nombre_doc = 'REKREI.xlsx'
+        path = os.path.join(self.variables.ruta_Trabajos_krei, self.nombre_doc)
         # NOTE Leer el archivo
         df = pd.read_excel(path, sheet_name='Hoja2')
         df = df.replace(to_replace=';', value='-', regex=True)
@@ -34,9 +40,13 @@ class RefaccionesKWESTEKREI(Variables):
         columnas_bol=df_nuevo.select_dtypes(include=bool).columns.tolist()
         df_nuevo[columnas_bol] = df_nuevo[columnas_bol].astype(str)
 
-        df_nuevo.to_excel(os.path.join(Variables().ruta_procesados,f'KREI_Refacciones_KWESTE_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+        # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
+        self.variables.guardar_datos_dataframe(self.nombre_doc, df_nuevo, self.concesionario)
+
+
     def RefaccionesKWSUR_KREI(self):
-        path = os.path.join(Variables().ruta_Trabajo,'RSKREI.xlsx')
+        self.nombre_doc = 'RSKREI.xlsx'
+        path = os.path.join(self.variables.ruta_Trabajos_krei, self.nombre_doc)
         # NOTE Leer el archivo
         df = pd.read_excel(path, sheet_name='Hoja2')
         df = df.replace(to_replace=';', value='-', regex=True)
@@ -62,4 +72,5 @@ class RefaccionesKWESTEKREI(Variables):
         columnas_bol=df_nuevo.select_dtypes(include=bool).columns.tolist()
         df_nuevo[columnas_bol] = df_nuevo[columnas_bol].astype(str)
 
-        df_nuevo.to_excel(os.path.join(Variables().ruta_procesados,f'KREI_Refacciones_KWSUR_RMPG_{Variables().FechaExternsionGuardar()}.xlsx'), index=False)
+        # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
+        self.variables.guardar_datos_dataframe(self.nombre_doc, df_nuevo, self.concesionario)

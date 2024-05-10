@@ -5,13 +5,18 @@
 import os
 import pandas as pd
 from datetime import *
-from .Variables.ContenedorVariables import Variables
+from ...globalModulesShare.ContenedorVariables import Variables
+from ...globalModulesShare.ConcesionariosModel import Concesionarios
 class Credito(Variables):
     def __init__(self):
         super().__init__()
         # obtenemos el path del archivo
         self.nombre_doc = 'CS.xlsx'
-        path =  os.path.join(Variables().ruta_Trabajo,self.nombre_doc)
+        self.concesionario = Concesionarios().concesionarioSonora
+
+        self.variables = Variables()
+
+        path =  os.path.join(self.variables.ruta_Trabajos_kwsonora,self.nombre_doc)
         # leer el documento.
         df = pd.read_excel(path, sheet_name="Hoja2")
         # obtenemos las columnas que se van a utilizar
@@ -63,19 +68,13 @@ class Credito(Variables):
         
 
         # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
-        if (os.path.basename(Variables().comprobar_reporte_documento_rutas(self.nombre_doc)).split(".")[1] == self.nombre_doc.split(".")[1]):
-            df2.to_excel(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), index=False )
-        else:
-            df2.to_csv(Variables().comprobar_reporte_documento_rutas(self.nombre_doc), encoding="utf-8", index=False )
+        self.variables.guardar_datos_dataframe(self.nombre_doc, df2, self.concesionario)
 
 
-        self.nombre_doc2 = 'CRG.xlsx'
+        self.nombre_doc = 'CSG.xlsx'
         CreditoGlobal = df2.copy()
         CreditoGlobal.drop(["Clasificacion","Semana"], axis=1, inplace=True)
-        CreditoGlobal["Mes"] = Variables().nombre_mes_actual_abreviado()
+        CreditoGlobal["Mes"] = self.variables.nombre_mes_actual_abreviado()
 
         # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
-        if (os.path.basename(Variables().comprobar_reporte_documento_rutas(self.nombre_doc2)).split(".")[1] == self.nombre_doc2.split(".")[1]):
-            CreditoGlobal.to_excel(Variables().comprobar_reporte_documento_rutas(self.nombre_doc2), index=False )
-        else:
-            CreditoGlobal.to_csv(Variables().comprobar_reporte_documento_rutas(self.nombre_doc2), encoding="utf-8", index=False )
+        self.variables.guardar_datos_dataframe(self.nombre_doc, CreditoGlobal, self.concesionario)

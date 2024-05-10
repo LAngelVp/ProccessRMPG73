@@ -11,9 +11,10 @@ from ...globalModulesShare.ConcesionariosModel import Concesionarios
 class OrdenesDeServicio(Variables):
     def __init__(self):
         super().__init__()
-        self.nombre_doc = 'OSE.xlsx'
         self.concesionario = Concesionarios().concesionarioEste
-        path = os.path.join(Variables().ruta_Trabajo,self.nombre_doc)
+        self.variables = Variables()
+        self.nombre_doc = 'OSE.xlsx'
+        path = os.path.join(self.variables.ruta_Trabajo,self.nombre_doc)
         
         df = pd.read_excel(path, sheet_name="Hoja2")
         df = df.replace(to_replace=';', value='-', regex=True)
@@ -135,7 +136,7 @@ class OrdenesDeServicio(Variables):
         Completo[columnas_bol] = Completo[columnas_bol].astype(str)
 
         # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
-        Variables().guardar_datos_dataframe(self.nombre_doc, Completo, self.concesionario)
+        self.variables.guardar_datos_dataframe(self.nombre_doc, Completo, self.concesionario)
 
     # CREAMOS LA FUNCION PARA LAS CLASIFICACIONES POR NUMERO DE ORDEN
     def FiltroPorNumeroOrden(self, row):

@@ -6,18 +6,19 @@ import sys
 import os
 import json
 from PyQt6.QtGui import QIcon, QPixmap, QMouseEvent
+from .resources import *
 from ..ventanaspy.V_AgregarObjetivos import *
 from PyQt6.QtWidgets import *
 from PyQt6 import *
-from ..globalModulesShare.resources import *
-from .Logica_Reportes.Variables.ContenedorVariables import Variables
- 
-class ClassPrincipalObjPagos(QMainWindow, Variables):
+from .ContenedorVariables import Variables
+
+class ClassPrincipalObjPagos(QMainWindow):
     def __init__(self):
         super(ClassPrincipalObjPagos, self).__init__()
+        self.variables = Variables()
         Icon_aceptar = QIcon(":/Source/comprobado.png")
-        self.rutaJSON = Variables().ruta_deapoyo
-        self.jsonObjetivos = "JsonObjetivos.json"
+        self.rutaJSON = self.variables.help_directory
+        self.jsonObjetivos = self.variables.customerPaymentGoals
         self.rutaJsonCompleta = os.path.join(self.rutaJSON,self.jsonObjetivos)
         self.UI = Ui_MainWindow()
         self.UI.setupUi(self)
@@ -27,6 +28,7 @@ class ClassPrincipalObjPagos(QMainWindow, Variables):
         self.UI.btn_Aceptar.clicked.connect(self.ComprobarCheck)
         self.mostrar_Sucursales()
         self.UI.CB_Sucursales.activated.connect(self.seleccionarSucursal)
+
 #_--------------------------------------------    
 # COMPROBAMOS LA EXISTENCIA DEL DOCUMENTO.
     def comprobarSiExisteJsonPagos(self, ruta):
@@ -34,12 +36,16 @@ class ClassPrincipalObjPagos(QMainWindow, Variables):
             pass
         else: 
             self.crearDocumento(ruta) # SI NO EXISTE
+
+
 #---------------------------------------------
 # CREAMOS EL DOCUMENTO.
     def crearDocumento(self, ruta):
         datos_nuevos = []
         with open(ruta, "w") as docu:
             json.dump(datos_nuevos, docu, indent=4)
+
+
 #-------------------------------------------
 # COMPROBAMOS QUE ESTE SELECCIONADO UN RADIO BOTON PARA REALIZAR LAS ACCIONES
     def ComprobarCheck(self):
@@ -51,6 +57,11 @@ class ClassPrincipalObjPagos(QMainWindow, Variables):
             self.EliminarObjeto()
         else:
             QMessageBox.information(self, "Advertencia", "Ningún botón de opción está marcado.")
+
+
+    def limpiarCampos(self):
+        sucursal = self.UI.LE_Sucursal.clear()
+        objetivo = self.UI.LE_Objetivo.clear()
 #--------------------------------------------
 # AGREGAR
     def AgregarObjeto(self):
@@ -61,7 +72,10 @@ class ClassPrincipalObjPagos(QMainWindow, Variables):
             self.escribirDocumento(datos, sucursal, objetivo)
         else:
             QMessageBox.information(self, "Advertencia", "El objetivo debe de ser numerico.")
+        self.limpiarCampos()
         self.mostrar_Sucursales()
+
+
 #--------------------------------------------
 # MODIFICAR
 
@@ -71,6 +85,8 @@ class ClassPrincipalObjPagos(QMainWindow, Variables):
         for obj in sucursal:
             nom_sucursal = obj["Sucursal"]
             self.UI.CB_Sucursales.addItem(nom_sucursal)
+
+
 #-------------------------------------------
 # MODIFICAR SUCURSALES
 
@@ -86,6 +102,7 @@ class ClassPrincipalObjPagos(QMainWindow, Variables):
                     continue
         else:
             QMessageBox.information(self, "Advertencia", "El objetivo debe de ser numerico.")
+        self.limpiarCampos()
         self.guardarDocumento(json)
     
         
@@ -99,6 +116,7 @@ class ClassPrincipalObjPagos(QMainWindow, Variables):
         json_data = [item for item in json if item["Sucursal"] != sucursal_a_eliminar]
 
         # Guardar los cambios en el archivo JSON
+        self.limpiarCampos()
         self.guardarDocumento(json_data)
         self.mostrar_Sucursales()
 
@@ -113,6 +131,8 @@ class ClassPrincipalObjPagos(QMainWindow, Variables):
             if (nombre_s == elemento):
                 self.UI.LE_Sucursal.setText(nombre_s)
                 self.UI.LE_Objetivo.setText(obj_s)
+
+                
 #-------------------------------------------
 # FUNCIONES DE ABRIR Y ESCRIBIR EL DOCUMENTO
 #_------------------------------------------
@@ -121,13 +141,15 @@ class ClassPrincipalObjPagos(QMainWindow, Variables):
     def abrirDocumento(self):
         with open(self.rutaJsonCompleta, "r") as documento:
             self.datos_existentes = json.load(documento)
-        return self.datos_existentes
+            datos_ordenados = sorted(self.datos_existentes, key=lambda x: x["Sucursal"])
+        return datos_ordenados
     
 # ESCRIBIR
     def escribirDocumento(self, matriz, sucursal, objetivo):
         matriz.append({"Sucursal": sucursal, "Objetivo": objetivo})
         with open(self.rutaJsonCompleta, "w") as docu:
             json.dump(matriz, docu, indent=4)
+        
 
     def guardarDocumento(self, json_data):
         with open(self.rutaJsonCompleta, 'w') as file:

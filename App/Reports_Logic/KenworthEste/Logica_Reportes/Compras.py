@@ -12,11 +12,12 @@ from ...globalModulesShare.ConcesionariosModel import Concesionarios
 class Compras(Variables):
     def __init__(self):
         super().__init__()
+        self.variables = Variables()
+        self.concesionario = Concesionarios().concesionarioEste
         # obtenemos la ruta del documento.
         # leemos el archivo.
         self.nombre_doc = 'CDE.xlsx'
-        self.concesionario = Concesionarios().concesionarioEste
-        path = os.path.join(Variables().ruta_Trabajos_kwe,self.nombre_doc)
+        path = os.path.join(self.variables.ruta_Trabajos_kwe,self.nombre_doc)
         df = pd.read_excel(path, sheet_name='Hoja2')
         df = df.replace(to_replace=';', value='-', regex=True)
 
@@ -29,11 +30,11 @@ class Compras(Variables):
         # formateamos las columnas de fecha a trabajar, para poder hacer operaciones 
         for column_name in df2.columns:
             if "Fecha" in column_name:
-                df2 = Variables().global_date_format_america(df2, column_name)
+                df2 = self.variables.global_date_format_america(df2, column_name)
             else:
                 pass
 
-        df2["Fecha_Hoy"] =  Variables().date_movement_config_document()
+        df2["Fecha_Hoy"] =  self.variables.date_movement_config_document()
 
         antiguedad = (df2['Fecha Captura'] - df2['Fecha Docto.']).apply(lambda x : x.days)
         antiguedad_factura = (df2['Fecha_Hoy'] - df2['Fecha Docto.']).apply(lambda x : x.days)
@@ -62,7 +63,7 @@ class Compras(Variables):
                 pass
 
         # creamos la columna de Mes al final del documento
-        df2["Mes"] = df2["Fecha Docto."].apply(lambda x:Variables().nombre_mes_base_columna(x))
+        df2["Mes"] = df2["Fecha Docto."].apply(lambda x:self.variables.nombre_mes_base_columna(x))
 
         # devolver las columnas de tipo fecha al formato "dia,mes,año"
         # EXCEPTO...
@@ -70,7 +71,7 @@ class Compras(Variables):
         # su formato debe de ser "mes,dia,año"
         for column_name in df2.columns:
             if "Fecha" in column_name:
-                df2 = Variables().global_date_format_dmy_mexican(df2, column_name)
+                df2 = self.variables.global_date_format_dmy_mexican(df2, column_name)
             else:
                 pass
 
@@ -79,4 +80,4 @@ class Compras(Variables):
         df2[columnas_bol] = df2[columnas_bol].astype(str)
     
         # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
-        Variables().guardar_datos_dataframe(self.nombre_doc, df2, self.concesionario)
+        self.variables.guardar_datos_dataframe(self.nombre_doc, df2, self.concesionario)

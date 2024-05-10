@@ -6,23 +6,26 @@ from PyQt6.QtCore import Qt, QThread, pyqtSignal, pyqtSlot
 from PyQt6.QtWidgets import *
 from PyQt6.QtGui import QIcon, QPixmap, QMouseEvent
 from ..ventanaspy.V_KWSonora import *
-from .InicialClassObjetivos import *
-from .Inicio_FechaMovimiento import *
+from ..globalModulesShare.InicialClassObjetivos import *
+from ..globalModulesShare.Inicio_FechaMovimiento import *
 from webbrowser import *
 import subprocess
-from .Logica_Reportes.Variables.ContenedorVariables import Variables
+from ..globalModulesShare.ContenedorVariables import Variables
 from .Kenworth_Connect import *
-from .Home_rutas import *
+from ..globalModulesShare.Home_rutas import *
 from ..globalModulesShare.mensajes_alertas import Mensajes_Alertas
 
-class Home_KenworthSonora(QMainWindow, Variables):
+class Home_KenworthSonora(QMainWindow):
     closed = pyqtSignal()
     def __init__(self):
         super(Home_KenworthSonora,self).__init__()
         self.ui = Ui_Kenworth_Sonora()
         self.ui.setupUi(self)
-        self.setWindowFlags(self.windowFlags() | Qt.FramelessWindowHint) # comment_line quitamos la barra superior
-        self.setAttribute(Qt.WA_TranslucentBackground)
+
+        self.variables = Variables()
+
+        self.setWindowFlags(self.windowFlags() | Qt.WindowType.FramelessWindowHint) # comment_line quitamos la barra superior
+        self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
         # comment llamamos el metodo de creacion de carpetas
         self.Creacion_Carpetas()
         # comment variables a las rutas de los iconos e imagenes
@@ -95,9 +98,9 @@ class Home_KenworthSonora(QMainWindow, Variables):
 
     def abrir_ruta_errores(self):
 
-        options = QFileDialog.Options()
-        options |= QFileDialog.ReadOnly
-        file_path, _ = QFileDialog.getOpenFileNames(self, 'Abrir Archivo Excel', Variables().ruta_errores, 'Excel Archivos (*.xlsx);; CSV Archivos (*.csv)',options=options)
+        options = QFileDialog().options()
+        options |= QFileDialog.Option.ReadOnly
+        file_path, _ = QFileDialog.getOpenFileNames(self, 'Abrir Archivo Excel', self.variables.ruta_errores_kwsonora, 'Excel Archivos (*.xlsx);; CSV Archivos (*.csv)',options=options)
         
         if file_path:
             try:
@@ -108,9 +111,9 @@ class Home_KenworthSonora(QMainWindow, Variables):
         self.Show_Data_Trabajos()
         self.Show_Data_Procesado()
     def abrir_ruta_originales(self):
-        options = QFileDialog.Options()
-        options |= QFileDialog.ReadOnly
-        file_path, _ = QFileDialog.getOpenFileNames(self, 'Abrir Archivo Excel', Variables().ruta_origina, 'Excel Archivos (*.xlsx);; CSV Archivos (*.csv)',options=options)
+        options = QFileDialog().options()
+        options |= QFileDialog.Option.ReadOnly
+        file_path, _ = QFileDialog.getOpenFileNames(self, 'Abrir Archivo Excel', self.variables.ruta_original_kwsonora, 'Excel Archivos (*.xlsx);; CSV Archivos (*.csv)',options=options)
         
         if file_path:
             try:
@@ -121,9 +124,9 @@ class Home_KenworthSonora(QMainWindow, Variables):
         self.Show_Data_Trabajos()
         self.Show_Data_Procesado()
     def abrir_ruta_procesados(self):
-        options = QFileDialog.Options()
-        options |= QFileDialog.ReadOnly
-        file_path, _ = QFileDialog.getOpenFileNames(self, 'Abrir Archivo Excel', Variables().ruta_procesados, 'Excel Archivos (*.xlsx);; CSV Archivos (*.csv)',options=options)
+        options = QFileDialog().options()
+        options |= QFileDialog.Option.ReadOnly
+        file_path, _ = QFileDialog.getOpenFileNames(self, 'Abrir Archivo Excel', self.variables.ruta_exitosos_kwsonora, 'Excel Archivos (*.xlsx);; CSV Archivos (*.csv)',options=options)
         
         if file_path:
             try:
@@ -138,7 +141,7 @@ class Home_KenworthSonora(QMainWindow, Variables):
         Mensajes_Alertas(
             "Trabajos Terminados",
             "Todos los trabajos que se comenzaron fueron insertados por el proceso lógico del sistema.",
-            QMessageBox.Information,
+            QMessageBox.Icon.Information,
             None,
             botones=[
                 ("Aceptar", self.Aceptar_callback)
@@ -154,8 +157,8 @@ class Home_KenworthSonora(QMainWindow, Variables):
     def mensajeArchivoErroneo(self, mensaje):
         Mensajes_Alertas(
             "Errores durante el proceso",
-            f'Los documentos que no se lograron procesar son:\n{mensaje}\nLa ruta de los errores es:\n {Variables().ruta_error}',
-            QMessageBox.Critical,
+            f'Los documentos que no se lograron procesar son:\n{mensaje}\nLa ruta de los errores es:\n {self.variables.ruta_errores_kwsonora}',
+            QMessageBox.Icon.Critical,
             "Cuando el sistema muestra un error como este, existen algunos factores que se tienen que tomar en cuenta:\n1.- El nombre del documento no tiene la nomenclatura correcta.\n2.- El documento original no contiene las columnas a trabajar o su contendo es incorrecto.\n3.- EL documento no es el correcto o esta corrupto.",
             botones=[
                 ("Aceptar", self.Aceptar_callback)
@@ -177,70 +180,59 @@ class Home_KenworthSonora(QMainWindow, Variables):
 #--------------------------------------------
 #-------------------------------------------------------
 # EVENTOS DEL MOUSE
-    def mousePressEvent(self, event: QMouseEvent):
-        if event.button() == Qt.LeftButton:
-            self.drag_start_position = event.globalPos() - self.frameGeometry().topLeft()
-        self.Show_Data_Trabajos()
-        self.Show_Data_Procesado()
-    def mouseMoveEvent(self, event: QMouseEvent):
-        if event.buttons() == Qt.LeftButton:
-            self.move(event.globalPos() - self.drag_start_position)
-        self.Show_Data_Trabajos()
-        self.Show_Data_Procesado()
+    def mousePressEvent(self, event):
+        if event.buttons() & Qt.MouseButton.LeftButton:
+            self.drag_start_position = event.globalPosition() - QPointF(self.pos())
+    
+    def mouseMoveEvent(self, event):
+        if event.buttons() & Qt.MouseButton.LeftButton:
+            if self.drag_start_position is not None:
+                new_pos = event.globalPosition() - self.drag_start_position
+                self.move(new_pos.toPoint())
     # Apartado de funciones
     #-------------------------
     # mostrar el contenido de la carpeta en la tabla de trabajos.
     def Show_Data_Trabajos(self):
-        archivos_para_mostrar = os.listdir(Variables().ruta_Trabajo)
+        archivos_para_mostrar = os.listdir(self.variables.ruta_Trabajos_kwsonora)
         self.ui.Tabla_Cola.setRowCount(len(archivos_para_mostrar))
         self.ui.Tabla_Cola.setColumnCount(1)
         self.ui.Tabla_Cola.setHorizontalHeaderLabels(["Nombre del archivo"])
         for fila, archivo in enumerate(archivos_para_mostrar):
             elemento = QTableWidgetItem(archivo)
-            elemento.setFlags(QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled)  # Bloqueamos la edición
+            elemento.setFlags(QtCore.Qt.ItemFlag.ItemIsSelectable | QtCore.Qt.ItemFlag.ItemIsEnabled)  # Bloqueamos la edición
             elemento.setForeground(QtGui.QColor(0, 0, 0))
             self.ui.Tabla_Cola.setItem(fila, 0, elemento)
-            # font = QtGui.QFont()
-            # font.setPointSize(30)  # Establece el tamaño de la letra a 14 puntos
-            # elemento.setFont(font)
-        # self.ui.Tabla_Cola.setColumnWidth(0, 415)
         header = self.ui.Tabla_Cola.horizontalHeader()
-        header.setSectionResizeMode(0, QtWidgets.QHeaderView.Stretch)
+        header.setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeMode.Stretch)
 
     # mostrar el contenido de la carpeta en la tabla de trabajos.
     def Show_Data_Procesado(self):
-        archivos_para_mostrar = os.listdir(Variables().ruta_procesados)
+        archivos_para_mostrar = os.listdir(self.variables.ruta_exitosos_kwsonora)
         self.ui.Tabla_Procesado.setRowCount(len(archivos_para_mostrar))
         self.ui.Tabla_Procesado.setColumnCount(1)
         self.ui.Tabla_Procesado.setHorizontalHeaderLabels(["Nombre del archivo"])
         for fila, archivo in enumerate(archivos_para_mostrar):
             elemento = QTableWidgetItem(archivo)
-            elemento.setFlags(QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled)  # Bloqueamos la edición
+            elemento.setFlags(QtCore.Qt.ItemFlag.ItemIsSelectable | QtCore.Qt.ItemFlag.ItemIsEnabled)  # Bloqueamos la edición
             elemento.setForeground(QtGui.QColor(0, 0, 0))
             self.ui.Tabla_Procesado.setItem(fila, 0, elemento)
-            # font = QtGui.QFont()
-            # font.setPointSize(30)  # Establece el tamaño de la letra a 14 puntos
-            # elemento.setFont(font)
-        # self.ui.Tabla_Procesado.setColumnWidth(0, 415)
         header = self.ui.Tabla_Procesado.horizontalHeader()
-        header.setSectionResizeMode(0, QtWidgets.QHeaderView.Stretch)
+        header.setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeMode.Stretch)
 
 
     def Creacion_Carpetas(self):
-        directorio = os.listdir(Variables().directorio_raiz)
+        directorio = os.listdir(self.variables.global_route_project)
         for i in directorio:
-            if not os.path.exists(f'{Variables().ruta_Trabajo}'):
-                os.makedirs(f'{Variables().ruta_Trabajo}')
-            elif not os.path.exists(f'{Variables().ruta_origina}'):
-                os.makedirs(f'{Variables().ruta_origina}')
-            elif not os.path.isdir(f'{Variables().ruta_error}'):
-                os.makedirs(f'{Variables().ruta_error}')
-            elif not os.path.isdir(f'{Variables().ruta_procesados}'):
-                os.makedirs(f'{Variables().ruta_procesados}')
-            elif not os.path.isdir(f'{Variables().ruta_deapoyo}'):
-                os.makedirs(f'{Variables().ruta_deapoyo}')
+            if not os.path.exists(f'{self.variables.ruta_Trabajos_kwsonora}'):
+                os.makedirs(f'{self.variables.ruta_Trabajos_kwsonora}')
+            elif not os.path.exists(f'{self.variables.ruta_original_kwsonora}'):
+                os.makedirs(f'{self.variables.ruta_original_kwsonora}')
+            elif not os.path.isdir(f'{self.variables.ruta_errores_kwsonora}'):
+                os.makedirs(f'{self.variables.ruta_errores_kwsonora}')
+            elif not os.path.isdir(f'{self.variables.ruta_exitosos_kwsonora}'):
+                os.makedirs(f'{self.variables.ruta_exitosos_kwsonora}')
             else:
-                pass
+                break
     # cerrar la ventana
     def Cerrar(self):
         self.close()
@@ -254,16 +246,16 @@ class Home_KenworthSonora(QMainWindow, Variables):
         self.Creacion_Carpetas()
         self.Show_Data_Trabajos()
         self.Show_Data_Procesado()
-        ubicacion_carga = os.chdir(Variables().directorio_raiz)
-        options = QFileDialog.Options()
+        ubicacion_carga = os.chdir(self.variables.root_directory_system)
+        options = QFileDialog().options()
         # options |= QFileDialog.DontUseNativeDialog  # Evitar el uso del diálogo nativo del sistema operativo (opcional)
-        options |= QFileDialog.ReadOnly  # Permite abrir los archivos solo en modo lectura (opcional)
-        options |= QFileDialog.HideNameFilterDetails  # Ocultar detalles del filtro (opcional)
-        options |= QFileDialog.DontResolveSymlinks  # No resolver enlaces simbólicos (opcional)
+        options |= QFileDialog.Option.ReadOnly  # Permite abrir los archivos solo en modo lectura (opcional)
+        options |= QFileDialog.Option.HideNameFilterDetails  # Ocultar detalles del filtro (opcional)
+        options |= QFileDialog.Option.DontResolveSymlinks  # No resolver enlaces simbólicos (opcional)
 
         selected_filter = "Hojas de Excel (*.xlsx);;Todos los archivos (*)"
         
-        if os.path.isdir(Variables().ruta_Trabajo) == True:
+        if os.path.isdir(self.variables.ruta_Trabajos_kwsonora) == True:
             try:
                 file_names, filter_selected = QFileDialog.getOpenFileNames(
                     self,
@@ -273,11 +265,11 @@ class Home_KenworthSonora(QMainWindow, Variables):
                     options=options
                 )
                 for nombre_archivo in file_names:
-                    shutil.move(nombre_archivo, Variables().ruta_Trabajo)
+                    shutil.move(nombre_archivo, self.variables.ruta_Trabajos_kwsonora)
             except:
                 pass
         else:
-            os.makedirs(Variables().ruta_Trabajo)
+            os.makedirs(self.variables.ruta_Trabajos_kwsonora)
             try:
                 file_names, filter_selected = QFileDialog.getOpenFileNames(
                     self,
@@ -287,7 +279,7 @@ class Home_KenworthSonora(QMainWindow, Variables):
                     options=options
                 )
                 for nombre_archivo in file_names:
-                    shutil.move(nombre_archivo, Variables().ruta_Trabajo)
+                    shutil.move(nombre_archivo, self.variables.ruta_Trabajos_kwsonora)
             except:
                 pass
         self.Show_Data_Trabajos()
@@ -302,11 +294,11 @@ class Home_KenworthSonora(QMainWindow, Variables):
         self.Hilo.start()
 
     def eliminar(self):
-        carpeta_contenido_eliminar = os.listdir(Variables().ruta_procesados)
+        carpeta_contenido_eliminar = os.listdir(self.variables.ruta_exitosos_kwsonora)
         for archivo in carpeta_contenido_eliminar:
             if (len(carpeta_contenido_eliminar) != 0):
                 try:
-                    archivo_completo = os.path.join(Variables().ruta_procesados, archivo)
+                    archivo_completo = os.path.join(self.variables.ruta_exitosos_kwsonora, archivo)
                     os.remove(archivo_completo)
                 except:
                     pass
@@ -315,7 +307,7 @@ class Home_KenworthSonora(QMainWindow, Variables):
     # eliminamos los trabajos realizados de la carpeta de exitosos.
     def RemoveProcessed(self):
         self.Creacion_Carpetas()
-        ruta_trabajos_procesados = os.listdir(Variables().ruta_procesados)
+        ruta_trabajos_procesados = os.listdir(self.variables.ruta_exitosos_kwsonora)
         if (len(ruta_trabajos_procesados) == 0):
             Mensajes_Alertas(None,None,None,None,botones=[("Aceptar", self.Aceptar_callback)]).Eliminar_vacio
         else:
@@ -327,7 +319,7 @@ class Home_KenworthSonora(QMainWindow, Variables):
         self.Mensaje_Ayuda = Mensajes_Alertas(
             "Información de Ayuda",
             'Si tienes problemas con la aplicación debido a que no sabes como guardar tus archivos de excel para que puedan ser transformados.\nPuedes ver el manual de usuario dando click en el boton de "Ver"',
-            QMessageBox.Information,  # Aquí se pasa el tipo de ícono
+            QMessageBox.Icon.Information,  # Aquí se pasa el tipo de ícono
             None,
             botones = [
                 ("Aceptar", self.Aceptar_callback),
@@ -339,16 +331,21 @@ class Home_KenworthSonora(QMainWindow, Variables):
         pass
 
     def Ayuda_callback(self):
-        open_new(Variables().pdf)
+        open_new(self.variables.pdf)
 
 # CLASE DEL HILO----------------------
-class trabajohilo(QThread, Variables):
+class trabajohilo(QThread):
 # agregamos una variable de tipo señal
     signal = pyqtSignal()
     signalDocumentosErroneos = pyqtSignal(str)
     signalShowTrabajos = pyqtSignal()
     signalShowProcesados = pyqtSignal()
     signalNombreArchivo =  pyqtSignal(str)
+
+    def __init__(self):
+        super().__init__()
+        self.variables = Variables()
+
 
     def run(self):
         array_errores = []
@@ -371,7 +368,7 @@ class trabajohilo(QThread, Variables):
         }
         #-----------------------------------------------
         while True:
-            carpeta_de_trabajos = os.listdir(Variables().ruta_Trabajo)
+            carpeta_de_trabajos = os.listdir(self.variables.ruta_Trabajos_kwsonora)
             if not carpeta_de_trabajos:
                 nombre_documento = ""
                 self.signalNombreArchivo.emit(nombre_documento)
@@ -415,24 +412,24 @@ class trabajohilo(QThread, Variables):
 #--------------------------------------------------
 # COMPROBAR SI EXISTE EL DOCUMENTO ORIGINAL EN EL DESTINO
     def Comprobacion_Originales(self, file_name):
-        ruta_origen = os.path.join(Variables().ruta_Trabajo, file_name)
-        destino_archivoOriginal = os.path.join(Variables().ruta_origina, file_name)
+        ruta_origen = os.path.join(self.variables.ruta_Trabajos_kwsonora, file_name)
+        destino_archivoOriginal = os.path.join(self.variables.ruta_original_kwsonora, file_name)
         if not os.path.exists(destino_archivoOriginal):
-            shutil.move(ruta_origen, Variables().ruta_origina)
+            shutil.move(ruta_origen, self.variables.ruta_original_kwsonora)
         else:
             os.remove(destino_archivoOriginal)
-            shutil.move(ruta_origen, Variables().ruta_origina)
+            shutil.move(ruta_origen, self.variables.ruta_original_kwsonora)
 #--------------------------------------------------
 #--------------------------------------------------
 # COMPRROBAR SI EXISTE EL DOCUMENTO ERRONEO EN EL DESTINO
     def Comprobacion_Errores(self, file_name):
-        ruta_origen = os.path.join(Variables().ruta_Trabajo, file_name)
-        destino_archivoOriginal = os.path.join(Variables().ruta_error, file_name)
+        ruta_origen = os.path.join(self.variables.ruta_Trabajos_kwsonora, file_name)
+        destino_archivoOriginal = os.path.join(self.variables.ruta_errores_kwsonora, file_name)
         if not os.path.exists(destino_archivoOriginal):
-            shutil.move(ruta_origen, Variables().ruta_error)
+            shutil.move(ruta_origen, self.variables.ruta_errores_kwsonora)
         else:
             os.remove(destino_archivoOriginal)
-            shutil.move(ruta_origen, Variables().ruta_error)
+            shutil.move(ruta_origen, self.variables.ruta_errores_kwsonora)
 #--------------------------------------------------------
 
 

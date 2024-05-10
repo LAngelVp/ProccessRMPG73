@@ -10,17 +10,18 @@ from ...globalModulesShare.ConcesionariosModel import Concesionarios
 
 class ServicioDetallado(Variables):
     def __init__(self):
+        self.concesionario = Concesionarios().concesionarioEste
+        self.variables = Variables()
         #COMMENT: VARIABLE AUXIALIARES PARA EL CODIGO
         self.nombre_doc = "SDE.xlsx"
-        self.concesionario = Concesionarios().concesionarioEste
         self.clientes_plm = ["PACCAR FINANCIAL MEXICO", "PACLEASE MEXICANA"]
         self.clientes_garantia = ["KENWORTH MEXICANA", "PACCAR PARTS MEXICO", "DISTRIBUIDORA MEGAMAK"]
         self.columnas_after_cliente = ['ObjRefacc','ObjUBTRef','ObjMO', 'ObjUTBMO', 'Clasificacion Cliente']
 
         #COMMENT: LECTURA DE ARCHIVOS
-        self.json_vendedores = Variables().vendedores_y_depas_este_servicio()
+        self.json_vendedores = self.variables.vendedores_y_depas_este_servicio()
 
-        path = os.path.join(Variables().ruta_Trabajos_kwe,self.nombre_doc)
+        path = os.path.join(self.variables.ruta_Trabajos_kwe,self.nombre_doc)
         d = pd.read_excel(path, sheet_name='Hoja2')
 
         #COMMENT: CREAR COLUMNAS DE OBJETIVOS Y CLASIFICACION CLENTE
@@ -124,8 +125,8 @@ class ServicioDetallado(Variables):
         d[columnas_booleanas] = d[columnas_booleanas].astype(str)
 
         #COMMENT: INSERTAR COLUMNAS DE FECHA
-        d.insert(10,"Fecha Movimiento",Variables().date_movement_config_document(),allow_duplicates=False)
-        d.insert(11,"Mes",Variables().nombre_mes(),allow_duplicates=False)
+        d.insert(10,"Fecha Movimiento",self.variables.date_movement_config_document(),allow_duplicates=False)
+        d.insert(11,"Mes",self.variables.nombre_mes(),allow_duplicates=False)
 
         #COMMENT: RECORRER COLUMNAS DE FECHA PARA TRANSFORMAR
         for i in d:
@@ -154,7 +155,7 @@ class ServicioDetallado(Variables):
 #//////////////////////////////////////////////////////////////////////////////////////
 
         # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
-        Variables().guardar_datos_dataframe(self.nombre_doc, d, self.concesionario)
+        self.variables.guardar_datos_dataframe(self.nombre_doc, d, self.concesionario)
 
 #//////////////////////////////////////////////////////////////////////////////////////
     #COMMENT_FUNCTION: FUNCION PARA CONCATENAR UNIDAD

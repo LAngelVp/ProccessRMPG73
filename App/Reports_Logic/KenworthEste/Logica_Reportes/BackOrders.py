@@ -11,9 +11,11 @@ class BackOrders(Variables):
     def __init__(self):
         # obtenemos el path.
         # leemos el archivo.
-        self.nombre_doc = 'BOE.xlsx'
         self.concesionario = Concesionarios().concesionarioEste
-        path = os.path.join(Variables().ruta_Trabajos_kwe,self.nombre_doc)
+        self.variables = Variables()
+        
+        self.nombre_doc = 'BOE.xlsx'
+        path = os.path.join(self.variables.ruta_Trabajos_kwe,self.nombre_doc)
         df = pd.read_excel(path, sheet_name='Hoja2')
 
 
@@ -30,11 +32,11 @@ class BackOrders(Variables):
             allow_duplicates = True
         )
         
-        df2['Fecha_Hoy'] = Variables().date_movement_config_document()
+        df2['Fecha_Hoy'] = self.variables.date_movement_config_document()
 
         for column_name in df2.columns:
             if "Fecha" in column_name:
-                df2 = Variables().global_date_format_dmy_mexican(df2, column_name)
+                df2 = self.variables.global_date_format_dmy_mexican(df2, column_name)
             else:
                 pass
 
@@ -51,7 +53,7 @@ class BackOrders(Variables):
 
         for column_name in df_resta_fechas.columns:
             if "Fecha" in column_name:
-                df_resta_fechas = Variables().global_date_format_dmy_mexican(df_resta_fechas, column_name)
+                df_resta_fechas = self.variables.global_date_format_dmy_mexican(df_resta_fechas, column_name)
             else:
                 pass
         
@@ -68,4 +70,4 @@ class BackOrders(Variables):
         df_resta_fechas.columns = df_resta_fechas.columns.str.replace('_', ' ')
 
         # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
-        Variables().guardar_datos_dataframe(self.nombre_doc, df_resta_fechas, self.concesionario)
+        self.variables.guardar_datos_dataframe(self.nombre_doc, df_resta_fechas, self.concesionario)

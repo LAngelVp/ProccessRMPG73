@@ -12,9 +12,10 @@ class BackOrder(Variables):
     def __init__(self):
         # obtenemos el path.
         # leemos el archivo.
-        self.nombre_doc = "BOR.xlsx"
         self.concesionario = Concesionarios().concesionarioRioBravo
-        path = os.path.join(Variables().ruta_Trabajos_kwrb,self.nombre_doc)
+        self.variables = Variables()
+        self.nombre_doc = "BOR.xlsx"
+        path = os.path.join(self.variables.ruta_Trabajos_kwrb,self.nombre_doc)
 
         try:
             df = pd.read_excel(path, sheet_name='Hoja2')
@@ -32,7 +33,7 @@ class BackOrder(Variables):
             value = 'BO' + df2['num'].map(str),
             allow_duplicates = True
         )
-        df2['FechaHoy'] = Variables().date_movement_config_document()
+        df2['FechaHoy'] = self.variables.date_movement_config_document()
 
         self.columnas_fecha = df2.select_dtypes(include=['datetime64']).columns
         
@@ -71,4 +72,4 @@ class BackOrder(Variables):
         df_resta_fechas.columns = df_resta_fechas.columns.str.replace('_', ' ')
         
         # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
-        Variables().guardar_datos_dataframe(self.nombre_doc, df_resta_fechas, self.concesionario)
+        self.variables.guardar_datos_dataframe(self.nombre_doc, df_resta_fechas, self.concesionario)
