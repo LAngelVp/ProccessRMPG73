@@ -40,8 +40,8 @@ class Vendedores(QWidget):
         self.ui.Vendedores_Refacciones.setCurrentIndex(0)
         self.setWindowTitle("Clasificación de Vendedores")
         self.setWindowIcon(QIcon(":/Source/LOGO_KREI_3.ico"))
-        self.ui.tabla_vendedoresrefacciones.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch) #COMMENTLINE: AMPLIAMOS LAS COLUMNAS AL ESPACIO DEL CONTENEDOR DE LA TABLA.
-        self.ui.tabla_vendedoresrefacciones_servicio.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch) #COMMENTLINE: AMPLIAMOS LAS COLUMNAS AL ESPACIO DEL CONTENEDOR DE LA TABLA.
+        self.ui.tabla_vendedoresrefacciones.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch) #COMMENTLINE: AMPLIAMOS LAS COLUMNAS AL ESPACIO DEL CONTENEDOR DE LA TABLA.
+        self.ui.tabla_vendedoresrefacciones_servicio.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch) #COMMENTLINE: AMPLIAMOS LAS COLUMNAS AL ESPACIO DEL CONTENEDOR DE LA TABLA.
         self.ui.btn_aceptar_vendedores.clicked.connect(self.comprobar_evento) #COMMENTLINE: CONECTAMOS LA FUNCION AL BOTON DE ACTUALIZAR.
         self.ui.rb_agregar.toggled.connect(self.id_blanco) #COMMENTLINE: CONECTAMOS EL RADIOBUTTOM AL METODO PARA PONER EN BLANCO EL CAMPO DE ID.
         self.ui.rb_agregar_servicio.toggled.connect(self.id_blanco) #COMMENTLINE: CONECTAMOS EL RADIOBUTTOM AL METODO PARA PONER EN BLANCO EL CAMPO DE ID.
@@ -75,7 +75,7 @@ class Vendedores(QWidget):
         try:
             self.ui.ledit_idservicio.setText(id)
             id_objeto = {"id" : id}
-            elementos = creacion_json(self.variables.ruta_deapoyo, self.variables.nombre_documento_clasificacion_vendedores_servicio,id_objeto).obtener_datos_json_por_id
+            elementos = creacion_json(self.variables.help_directory, self.variables.nombre_documento_clasificacion_vendedores_servicio_kwe,id_objeto).obtener_datos_json_por_id
             self.ui.ledit_nombrevendedor_servicio.setText(elementos["Vendedor"])
             self.ui.ledit_depaventa_servicio.setText(elementos["Depa_Venta"])
             self.ui.ledit_depa_servicio.setText(elementos["Depa"])
@@ -97,7 +97,7 @@ class Vendedores(QWidget):
         try:
             self.ui.ledit_idrefacciones.setText(id)
             id_objeto = {"id" : id}
-            elementos = creacion_json(self.variables.ruta_deapoyo, self.variables.nombre_documento_clasificacion_vendedores_refacciones,id_objeto).obtener_datos_json_por_id
+            elementos = creacion_json(self.variables.help_directory, self.variables.nombre_documento_clasificacion_vendedores_refacciones_kwe,id_objeto).obtener_datos_json_por_id
             self.ui.ledit_nombrevendedor.setText(elementos["vendedor"])
             self.ui.ledit_sucursal.setText(elementos["sucursal"])
             self.ui.ledit_cargo.setText(elementos["jerarquia"])
@@ -110,7 +110,7 @@ class Vendedores(QWidget):
 #COMMENT: METODO PARA ACTUALIZAR LAS TABLAS
     def Actualizar_tablas(self, index = 0):
         if (self.obtener_tab_activo() == 0):
-            self.datos_json = creacion_json(self.variables.ruta_deapoyo, self.variables.nombre_documento_clasificacion_vendedores_refacciones).comprobar_existencia
+            self.datos_json = creacion_json(self.variables.help_directory, self.variables.nombre_documento_clasificacion_vendedores_refacciones_kwe).comprobar_existencia
             self.ui.tabla_vendedoresrefacciones.clearContents()
             self.ui.tabla_vendedoresrefacciones.setRowCount(0)
 
@@ -123,9 +123,9 @@ class Vendedores(QWidget):
                 for columna in range(self.ui.tabla_vendedoresrefacciones.columnCount()):
                     celda = self.ui.tabla_vendedoresrefacciones.item(fila, columna)
                     if celda:
-                        celda.setFlags(celda.flags() & ~Qt.ItemIsEditable)
+                        celda.setFlags(celda.flags() & ~Qt.ItemFlag.ItemIsEditable)
         elif (self.obtener_tab_activo() == 1):
-            self.datos_json = creacion_json(self.variables.ruta_deapoyo, self.variables.nombre_documento_clasificacion_vendedores_servicio).comprobar_existencia
+            self.datos_json = creacion_json(self.variables.help_directory, self.variables.nombre_documento_clasificacion_vendedores_servicio_kwe).comprobar_existencia
             self.ui.tabla_vendedoresrefacciones_servicio.clearContents()
             self.ui.tabla_vendedoresrefacciones_servicio.setRowCount(0)
 
@@ -138,7 +138,7 @@ class Vendedores(QWidget):
                 for columna in range(self.ui.tabla_vendedoresrefacciones_servicio.columnCount()):
                     celda = self.ui.tabla_vendedoresrefacciones_servicio.item(fila, columna)
                     if celda:
-                        celda.setFlags(celda.flags() & ~Qt.ItemIsEditable)
+                        celda.setFlags(celda.flags() & ~Qt.ItemFlag.ItemIsEditable)
 #{{{{{{{{{{{{{{{{{{}}}}}}}}}}}}}}}}}}
 
 #COMMENT: OBTENEMOS EL INDICE DE LA PESTAÑA
@@ -243,12 +243,13 @@ class Vendedores(QWidget):
 #COMMENT:CLASE PARA LA LOGICA DE LA PESTAÑA DE REFACCIONES
 class funciones_vendedores_refacciones(Variables):
     def __init__(self):
-        self.direccion_documento = os.path.join(self.variables.ruta_deapoyo,self.variables.nombre_documento_clasificacion_vendedores_refacciones)
+        self.variables = Variables()
+        self.direccion_documento = os.path.join(self.variables.help_directory,self.variables.nombre_documento_clasificacion_vendedores_refacciones_kwe)
         
 
     def actualizar_vendedores_refacciones(self,indice, nombre, sucursal,departamento_venta,departamento,cargo):
         id = {"id" : indice}
-        datos_anteriores = creacion_json(self.variables.ruta_deapoyo, self.variables.nombre_documento_clasificacion_vendedores_refacciones,id).obtener_datos_json_por_id
+        datos_anteriores = creacion_json(self.variables.help_directory, self.variables.nombre_documento_clasificacion_vendedores_refacciones_kwe,id).obtener_datos_json_por_id
         if datos_anteriores:
             datos_nuevos = {
                 "id" : id["id"],
@@ -258,7 +259,7 @@ class funciones_vendedores_refacciones(Variables):
                 "departamento": departamento,
                 "jerarquia": cargo
             }
-            creacion_json(self.variables.ruta_deapoyo, self.variables.nombre_documento_clasificacion_vendedores_refacciones,id).actualizar_datos(datos_nuevos)
+            creacion_json(self.variables.help_directory, self.variables.nombre_documento_clasificacion_vendedores_refacciones_kwe,id).actualizar_datos(datos_nuevos)
 
     def agregar_vendedores_refacciones(self,nombre = None,sucursal=None,depaventa=None,depa=None,cargo=None):
         objeto = {
@@ -268,22 +269,23 @@ class funciones_vendedores_refacciones(Variables):
             "departamento" : depa,
             "jerarquia" : cargo
         }
-        creacion_json(self.variables.ruta_deapoyo, self.variables.nombre_documento_clasificacion_vendedores_refacciones, objeto).agregar_json
+        creacion_json(self.variables.help_directory, self.variables.nombre_documento_clasificacion_vendedores_refacciones_kwe, objeto).agregar_json
         
     
     def eliminar_vendedores_refacciones(self, indice):
         elemento_eliminar = {"id" : indice}
-        creacion_json(self.variables.ruta_deapoyo, self.variables.nombre_documento_clasificacion_vendedores_refacciones,elemento_eliminar).eliminar_datos_json
+        creacion_json(self.variables.help_directory, self.variables.nombre_documento_clasificacion_vendedores_refacciones_kwe,elemento_eliminar).eliminar_datos_json
 
 
 class funciones_vendedores_servicio(Variables):
     def __init__(self):
-        self.direccion_documento = os.path.join(self.variables.ruta_deapoyo,self.variables.nombre_documento_clasificacion_vendedores_servicio)
+        self.variables = Variables()
+        self.direccion_documento = os.path.join(self.variables.help_directory,self.variables.nombre_documento_clasificacion_vendedores_servicio_kwe)
         #COMMENT: COMPROBAR LA EXISTENCIA DE LOS DOCUMENTOS        
         
-    def actualizar_vendedores_servicio(self,indice, nombre, sucursal,departamento_venta,departamento,cargo):
+    def actualizar_vendedores_servicio(self,indice, nombre,departamento_venta,departamento):
         id = {"id" : indice}
-        datos_anteriores = creacion_json(self.variables.ruta_deapoyo, self.variables.nombre_documento_clasificacion_vendedores_servicio,id).obtener_datos_json_por_id
+        datos_anteriores = creacion_json(self.variables.help_directory, self.variables.nombre_documento_clasificacion_vendedores_servicio_kwe,id).obtener_datos_json_por_id
         if datos_anteriores:
             datos_nuevos = {
                 "id" : id["id"],
@@ -291,17 +293,17 @@ class funciones_vendedores_servicio(Variables):
                 "Depa_Venta": departamento_venta,
                 "Depa": departamento
             }
-            creacion_json(self.variables.ruta_deapoyo, self.variables.nombre_documento_clasificacion_vendedores_servicio,id).actualizar_datos(datos_nuevos)
+            creacion_json(self.variables.help_directory, self.variables.nombre_documento_clasificacion_vendedores_servicio_kwe,id).actualizar_datos(datos_nuevos)
     def agregar_vendedores_servicio(self,nombre = None,depaventa=None,depa=None):
         objeto = {
             "Vendedor" : nombre,
             "Depa_Venta" : depaventa,
             "Depa" : depa
         }
-        creacion_json(self.variables.ruta_deapoyo, self.variables.nombre_documento_clasificacion_vendedores_servicio, objeto).agregar_json
+        creacion_json(self.variables.help_directory, self.variables.nombre_documento_clasificacion_vendedores_servicio_kwe, objeto).agregar_json
     def eliminar_vendedores_servicio(self, indice):
         elemento_eliminar = {"id" : indice}
-        creacion_json(self.variables.ruta_deapoyo, self.variables.nombre_documento_clasificacion_vendedores_servicio,elemento_eliminar).eliminar_datos_json
+        creacion_json(self.variables.help_directory, self.variables.nombre_documento_clasificacion_vendedores_servicio_kwe,elemento_eliminar).eliminar_datos_json
 
 
 
