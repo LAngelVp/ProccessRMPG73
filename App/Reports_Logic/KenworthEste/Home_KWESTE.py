@@ -14,7 +14,7 @@ from webbrowser import *
 from ..globalModulesShare.ContenedorVariables import Variables
 from ..globalModulesShare.Inicio_FechaMovimiento import *
 from .KenworthConnect import *
-from .InicialClassObjetivos import *
+from ..globalModulesShare.InicialClassObjetivos import *
 from ..ventanaspy.V_KWESTE import *
 from ..globalModulesShare.Home_rutas import *
 from .Vendedores import *

@@ -2,8 +2,8 @@ import os
 import json
 import random
 import string
-from PyQt6.QtWidgets import QMessageBox, QPushButton
-import pandas as pd
+from PyQt6.QtWidgets import QMessageBox
+from .mensajes_alertas import Mensajes_Alertas
 class creacion_json():
     def __init__(self, ruta = None, nombre = None, objeto = None): #comment : ingresamos la ruta del documento y el objeto a crear.
         super().__init__()
@@ -13,6 +13,11 @@ class creacion_json():
         self.objeto = objeto
         self.__contenido_vacio_json = []
 
+
+
+    def deleteDocument(self, documento):
+        os.remove(documento)
+        self.comprobar_existencia
 #comment: comprueba si existe un documento
     @property
     def comprobar_existencia(self):
@@ -21,14 +26,26 @@ class creacion_json():
                 with open(self.direccion, "r",encoding='utf-8') as documento:
                     self.documento_existe = json.load(documento)
             except FileNotFoundError:
-                print("EL DOCUMENTO NO PUEDE ABRIRSE")
-                # raise
-            except ValueError as error:
-                print(
-                    "El documento se encontraba dañado, por lo que se procedio a crear de nuevo"
+                Mensajes_Alertas(
+                    "Documento no encontrado",
+                    "El documento no se encuentra existente en el sistema",
+                    QMessageBox.Icon.Warning,
+                    None,
+                    botones = [
+                        ("Construir" , self.aceptarCallback)
+                        # ("Construir" , self.buildDocument(self.direccion))
+                    ]
                 )
-                os.remove(self.direccion)
-                self.comprobar_existencia
+            except ValueError as error:
+                Mensajes_Alertas(
+                    "Documento dañado",
+                    "El documento se encuentra afectado debido a una mal estructura, por lo que si aceptas este sera eliminado",
+                    QMessageBox.Icon.Warning,
+                    None,
+                    botones = [
+                        ("Entendido" , self.deleteDocument(self.direccion))
+                    ]
+                )
         else:
             self.documento_existe = self.__contenido_vacio_json
             with open(self.direccion, "w", encoding='utf-8') as documento:
@@ -42,7 +59,7 @@ class creacion_json():
     @property
     def agregar_json(self):
         self.comprobar_existencia
-        self.longitud = 15
+        self.longitud = 6
         self.cadena = string.ascii_letters+string.digits
         self.id = ''.join(random.choices(self.cadena, k=self.longitud))
 
@@ -53,7 +70,6 @@ class creacion_json():
 
             self.comprobar_existencia.extend(self.__contenido_vacio_json)
 
-            
             self.sobre_escribir_json(self.documento_existe)
         except Exception as e:
             print(e)
@@ -92,14 +108,3 @@ class creacion_json():
     def sobre_escribir_json(self,documento):
         with open(self.direccion, "w", encoding='utf-8') as archivo:
             json.dump(documento, archivo, indent=4, ensure_ascii=False)
-
-
-    def Mensaje(self, mensaje, titulo, icono = QMessageBox.information, botones = [QMessageBox.StandardButton.Ok]):
-        msg_box = QMessageBox()
-        msg_box.setWindowTitle(titulo)
-        msg_box.setIcon(icono)
-        msg_box.setText(mensaje)
-        for boton in botones:
-            if isinstance(boton, QPushButton):
-                msg_box.addButton(boton)
-        return msg_box.exec_()

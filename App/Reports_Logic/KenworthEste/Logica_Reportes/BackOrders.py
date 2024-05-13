@@ -59,7 +59,6 @@ class BackOrders(Variables):
         
         columnas_bol=df_resta_fechas.select_dtypes(include=bool).columns.tolist()
         df_resta_fechas[columnas_bol] = df_resta_fechas[columnas_bol].astype(str)
-        # df_resta_fechas['Antigüedad'] = pd.to_numeric(df_resta_fechas['Antigüedad'].dt.days, downcast='integer')
 
         for column in df_resta_fechas['Antigüedad']:
             if (column < (0)):
