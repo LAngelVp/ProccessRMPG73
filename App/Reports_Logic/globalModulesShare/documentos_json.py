@@ -13,7 +13,8 @@ class creacion_json():
         self.objeto = objeto
         self.__contenido_vacio_json = []
 
-
+    def Aceptar_callback(self):
+        pass
 
     def deleteDocument(self, documento):
         os.remove(documento)
@@ -72,7 +73,15 @@ class creacion_json():
 
             self.sobre_escribir_json(self.documento_existe)
         except Exception as e:
-            print(e)
+            Mensajes_Alertas(
+                    "Error",
+                    f"Hubo un error al ingresar los datos.\n{e}",
+                    QMessageBox.Icon.Warning,
+                    None,
+                    botones=[
+                        ("Aceptar", self.Aceptar_callback)
+                    ]
+                ).mostrar
 
     
     @property

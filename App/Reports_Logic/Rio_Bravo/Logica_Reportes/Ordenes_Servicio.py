@@ -86,7 +86,7 @@ class OrdenesServicio(Variables):
         df_clasificadoPorTiposervicio.insert(21, "Subtotal Ref Sin Facturar", columna)
         
         total_os_pde_fact = df[["MO", "CM", "TOT", "Subtotal Ref Sin Facturar"]].sum(axis=1)
-        print (total_os_pde_fact.sum())
+        
         df_clasificadoPorTiposervicio.insert(
             loc=25,
             column = 'Total OS Pde Fact',

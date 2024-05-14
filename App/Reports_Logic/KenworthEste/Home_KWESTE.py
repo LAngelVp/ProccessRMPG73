@@ -122,7 +122,15 @@ class Home_KWESTE(QMainWindow, QDialog):
                 for path in file_path:
                     subprocess.Popen(['start', 'excel', path], shell=True)
             except Exception as e:
-                print("Error al abrir el archivo con Excel:", e)
+                Mensajes_Alertas(
+                    "Error",
+                    f"Error al abrir el documento.\n{e}",
+                    QMessageBox.Icon.Warning,
+                    None,
+                    botones=[
+                        ("Aceptar", self.Aceptar_callback)
+                    ]
+                ).mostrar
         self.Show_Data_Trabajos()
         self.Show_Data_Procesado()
     def abrir_ruta_originales(self):
@@ -135,7 +143,15 @@ class Home_KWESTE(QMainWindow, QDialog):
                 for path in file_path:
                     subprocess.Popen(['start', 'excel', path], shell=True)
             except Exception as e:
-                print("Error al abrir el archivo con Excel:", e)
+                Mensajes_Alertas(
+                    "Error",
+                    f"Error al abrir el documento.\n{e}",
+                    QMessageBox.Icon.Warning,
+                    None,
+                    botones=[
+                        ("Aceptar", self.Aceptar_callback)
+                    ]
+                ).mostrar
         self.Show_Data_Trabajos()
         self.Show_Data_Procesado()
     def abrir_ruta_procesados(self):
@@ -148,7 +164,15 @@ class Home_KWESTE(QMainWindow, QDialog):
                 for path in file_path:
                     subprocess.Popen(['start', 'excel', path], shell=True)
             except Exception as e:
-                print("Error al abrir el archivo con Excel:", e)
+                Mensajes_Alertas(
+                    "Error",
+                    f"Error al abrir el documento.\n{e}",
+                    QMessageBox.Icon.Warning,
+                    None,
+                    botones=[
+                        ("Aceptar", self.Aceptar_callback)
+                    ]
+                ).mostrar
 
         self.Show_Data_Trabajos()
         self.Show_Data_Procesado()

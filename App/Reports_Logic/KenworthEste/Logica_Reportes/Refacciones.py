@@ -168,7 +168,6 @@ class Refacciones(Variables):
         departamento = "Rescates"
         departamento_venta = f"{departamento} {nombre_sucursal}"
         if "RESC" in str(valor_centro_costos):
-            # print(departamento + " " + valor_centro_costos)
             return departamento_venta, departamento
         else:
             return depa_venta, depa

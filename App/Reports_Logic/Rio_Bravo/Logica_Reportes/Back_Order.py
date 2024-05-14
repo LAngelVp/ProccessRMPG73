@@ -37,7 +37,7 @@ class BackOrder(Variables):
 
         for column_name in df2.columns:
             if "Fecha" in column_name:
-                df2 = self.variables.global_date_format_dmy_mexican(df2, column_name)
+                df2 = self.variables.global_date_format_america(df2, column_name)
             else:
                 pass
         

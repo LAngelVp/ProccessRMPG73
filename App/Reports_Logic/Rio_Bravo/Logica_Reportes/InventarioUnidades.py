@@ -13,7 +13,7 @@ class InventarioUnidades():
         self.variables = Variables()
         self.nombre_doc = 'IUR.xlsx'
         
-        print("Hola")
+
         path = os.path.join(self.variables.ruta_Trabajos_kwrb,self.nombre_doc)
         df = pd.read_excel(path, sheet_name="Hoja2")
         df1 = df.copy()

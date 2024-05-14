@@ -186,7 +186,6 @@ class ServicioDetallado(Variables):
         departamento_venta = "Rescates"
         departamento = f"{departamento_venta} {nombre_sucursal}"
         if "RESC" in valor_centro_costos:
-            # print(departamento + " " + valor_centro_costos)
             return departamento_venta, departamento
         else:
             return depa_venta, depa

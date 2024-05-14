@@ -70,7 +70,6 @@ class Vendedores(QWidget):
         if columna == 0:
             id = self.ui.tabla_vendedoresrefacciones_servicio.item(fila, columna - 0).text()
         else:
-            print("Error en la selección")
             pass
         try:
             self.ui.ledit_idservicio.setText(id)
@@ -92,7 +91,6 @@ class Vendedores(QWidget):
         if columna == 0:
             id = self.ui.tabla_vendedoresrefacciones.item(fila, columna - 0).text()
         else:
-            print("Error en la selección")
             pass
         try:
             self.ui.ledit_idrefacciones.setText(id)

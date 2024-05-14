@@ -23,7 +23,7 @@ class OrdenesDeServicio(Variables):
 
         # ESTOS ARRAYS SON DE APOYO PARA LA CLASIFICACION DE LOS CLIENTES
         array_Garantia = ["KENWORTH MEXICANA", "PACCAR PARTS MEXICO", "DISTRIBUIDORA MEGAMAK"]
-        array_PLM = ["PACCAR FINANCIAL MEXICO", "PACLEASE MEXICANA"]
+        array_PLM = ["PACCAR FINANCIAL MEXICO", "PACLEASE MEXICANA"] 
 
         # CREAMOS LA COLUMNA DE CLASIFICACION CLIENTE
         df2.insert(loc=5,column="Clasificacion_Cliente",value="CLIENTES GENERALES", allow_duplicates = False)

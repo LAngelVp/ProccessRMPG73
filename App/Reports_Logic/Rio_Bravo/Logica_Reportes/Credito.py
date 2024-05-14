@@ -58,7 +58,6 @@ class Credito(Variables):
         
         # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
         self.variables.guardar_datos_dataframe(self.nombre_doc, df_complete, self.concesionario)
-        print(12)
         
         self.nombre_doc2 = 'CRG.xlsx'
         CreditoGlobal = df_complete.copy()
