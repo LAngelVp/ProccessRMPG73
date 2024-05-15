@@ -381,8 +381,8 @@ class trabajohilo(QThread):
     def __init__(self):
         super().__init__()
         self.variables = Variables()
-# COMENZAR EL PROCESO DE TRABAJO.
-    # HILO DEL TRABAJO DE "RIO BRAVO"
+
+
     def run(self):
         array_errores = []
         #---------------------------------------

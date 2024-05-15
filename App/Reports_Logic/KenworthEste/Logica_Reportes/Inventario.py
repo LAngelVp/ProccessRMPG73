@@ -104,35 +104,35 @@ class Inventario(Variables):
         )
         #creamos la del mes
         df_inventarioCosteadoxDia["Mes"] = self.variables.nombre_mes_actual_abreviado()
-        print("fechas")
+
         #convertir la fecha a formato "dia/mes/año"
         df_inventarioCosteadoxDia= self.variables.global_date_format_america(df_inventarioCosteadoxDia, "Fecha_Dias")
-        print(0)
+
         df_inventarioCosteadoxDia= self.variables.global_date_format_mdy_america(df_inventarioCosteadoxDia, "Fecha_Dias")
         #comment : vamos a crear la columna de ClassAlmacen
 
         df_inventarioCosteadoxDia["ClassAlmacen"] = "Inventario"
 
-        df_inventarioCosteadoxDia.insert(13, "ClassAlmacen", df_inventarioCosteadoxDia.pop("ClassAlmacen"))
-        print(1)
+        df_inventarioCosteadoxDia.insert(12, "ClassAlmacen", df_inventarioCosteadoxDia.pop("ClassAlmacen"))
+
         df_inventarioCosteadoxDia.loc[df_inventarioCosteadoxDia["Almacén"].str.contains("Infant"), "ClassAlmacen"] = "Infant Care"
 
-        print(3)
+
         df_inventarioCosteadoxDia.loc[df_inventarioCosteadoxDia["Almacén"].str.contains("MX"), "ClassAlmacen"] = "MX"
-        print(4)
+
         df_inventarioCosteadoxDia.loc[df_inventarioCosteadoxDia["Almacén"].str.contains("KW45/55"), "ClassAlmacen"] = "Inventario de Seguridad"
-        print(5)
+
         df_inventarioCosteadoxDia.loc[df_inventarioCosteadoxDia["Almacén"].str.contains("Servicio Express"), "ClassAlmacen"] = "Servicio Express"
-        print(6)
+
         df_inventarioCosteadoxDia.loc[(df_inventarioCosteadoxDia["Almacén"].str.contains("Rescates")) | 
                                      (df_inventarioCosteadoxDia["Almacén"].str.contains("Rescate")), "ClassAlmacen"] = "Rescates"
-        print(7)
+
 
         df_inventarioCosteadoxDia.loc[(df_inventarioCosteadoxDia["Almacén"].str.contains("Consigna")) | 
                                      ( df_inventarioCosteadoxDia["Almacén"].str.contains("Consignas")), "ClassAlmacen"] = "Consignas"
 
         # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
-        self.variables.guardar_datos_dataframe(self.nombre_doc, df_inventarioCosteadoxDia, self.concesionario)
+        self.variables.guardar_datos_dataframe(self.nombre_doc2, df_inventarioCosteadoxDia, self.concesionario)
 
     # clasificar ls registros conforme a su antiguedad.
     # Creamos la funcion para encapsular el procedimiento.

@@ -29,6 +29,9 @@
 }
 *[objectName *=&quot;btn_manejoventana&quot;]{
 	background-color: transparent;
+}
+*[objectName *=&quot;txt&quot;]{
+	background-color: rgb(255, 255, 255);
 }</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
@@ -56,9 +59,9 @@
       <property name="geometry">
        <rect>
         <x>290</x>
-        <y>50</y>
-        <width>261</width>
-        <height>181</height>
+        <y>60</y>
+        <width>231</width>
+        <height>161</height>
        </rect>
       </property>
       <property name="minimumSize">
@@ -69,25 +72,25 @@
       </property>
       <property name="styleSheet">
        <string notr="true">#w_login{
-	background-color: rgb(204, 204, 204);
+background-color: qconicalgradient(cx:1, cy:0, angle:113.6, stop:0.0397727 rgba(237, 237, 237, 255), stop:0.585227 rgba(117, 117, 117, 255));
 	box-shadow: 5px 5px 50px rgba(0, 0, 0, 20);
 }</string>
       </property>
       <widget class="QLabel" name="label">
        <property name="geometry">
         <rect>
-         <x>50</x>
-         <y>20</y>
+         <x>30</x>
+         <y>15</y>
          <width>171</width>
          <height>23</height>
         </rect>
        </property>
        <property name="font">
         <font>
-         <family>Lucida Sans Typewriter</family>
-         <pointsize>12</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
+         <family>Albertus Extra Bold</family>
+         <pointsize>14</pointsize>
+         <weight>50</weight>
+         <bold>false</bold>
         </font>
        </property>
        <property name="text">
@@ -101,16 +104,19 @@
        <property name="geometry">
         <rect>
          <x>20</x>
-         <y>60</y>
-         <width>221</width>
+         <y>50</y>
+         <width>191</width>
          <height>25</height>
         </rect>
        </property>
        <property name="font">
         <font>
-         <family>Lucida Sans</family>
+         <family>Albertus Extra Bold</family>
          <pointsize>8</pointsize>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -123,14 +129,14 @@
        <property name="geometry">
         <rect>
          <x>20</x>
-         <y>100</y>
-         <width>221</width>
+         <y>90</y>
+         <width>191</width>
          <height>25</height>
         </rect>
        </property>
        <property name="font">
         <font>
-         <family>Lucida Sans</family>
+         <family>Albertus Extra Bold</family>
          <pointsize>8</pointsize>
         </font>
        </property>
@@ -147,8 +153,8 @@
       <widget class="QPushButton" name="btn_aceptar_ingreso">
        <property name="geometry">
         <rect>
-         <x>60</x>
-         <y>140</y>
+         <x>40</x>
+         <y>124</y>
          <width>141</width>
          <height>31</height>
         </rect>
@@ -161,7 +167,7 @@
        </property>
        <property name="font">
         <font>
-         <family>Arial</family>
+         <family>Albertus Medium</family>
          <pointsize>10</pointsize>
          <weight>75</weight>
          <bold>true</bold>

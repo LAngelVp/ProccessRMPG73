@@ -82,6 +82,7 @@ class Home_KenworthSonora(QMainWindow):
     def closeEvent(self, event):
         super().closeEvent(event)
         self.closed.emit()
+        
 
 
     def direcciones_envio(self):
@@ -312,10 +313,10 @@ class Home_KenworthSonora(QMainWindow):
     # REALIZAR PROCESO
     # HILO DEL TRABAJO DE " KWESTE "
     def ComenzarProceso(self):
-        # if self.Hilo.isRunning():
-        #     self.Hilo.requestInterruption()
-        # else:
-        self.Hilo.start()
+        if self.Hilo.isRunning():
+            self.Hilo.requestInterruption()
+        else:
+            self.Hilo.start()
 
     def eliminar(self):
         carpeta_contenido_eliminar = os.listdir(self.variables.ruta_exitosos_kwsonora)

@@ -306,10 +306,10 @@ class Home_KREI(QMainWindow, QDialog):
     # REALIZAR PROCESO
     # HILO DEL TRABAJO DE " KWESTE "
     def ComenzarProceso(self):
-        # if self.Hilo.isRunning():
-        #     self.Hilo.requestInterruption()
-        # else:
-        self.Hilo.start()
+        if self.Hilo.isRunning():
+            self.Hilo.requestInterruption()
+        else:
+            self.Hilo.start()
 
     def eliminar(self):
         carpeta_contenido_eliminar = os.listdir(self.variables.ruta_exitosos_krei)

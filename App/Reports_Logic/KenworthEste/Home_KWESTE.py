@@ -327,10 +327,10 @@ class Home_KWESTE(QMainWindow, QDialog):
     # REALIZAR PROCESO
     # HILO DEL TRABAJO DE " KWESTE "
     def ComenzarProceso(self):
-        # if self.Hilo.isRunning():
-        #     self.Hilo.requestInterruption()
-        # else:
-        self.Hilo.start()
+        if self.Hilo.isRunning():
+            self.Hilo.requestInterruption()
+        else:
+            self.Hilo.start()
 
     def eliminar(self):
         carpeta_contenido_eliminar = os.listdir(self.variables.ruta_exitosos_kwe)
@@ -473,4 +473,4 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
     Ventana = Home_KWESTE()
     Ventana.show()
-    sys.exit(app.exec_())
+    sys.exit(app.exec())
