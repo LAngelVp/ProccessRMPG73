@@ -15,7 +15,7 @@ class  OrdenesServicioKWESTEKREI(Variables):
         self.array_excepto_clientes = ["KENWORTH","PACCAR PARTS MEXICO", "PACCAR FINANCIAL MEXICO", "PACLEASE MEXICANA", "DISTRIBUIDORA MEGAMAK", "SEGUROS", "SEGURO", "GRUPO NACIONAL PROVINCIAL"]
     def OrdenesKWESTE_KREI(self):
         self.nombre_doc = 'OSEKREI.xlsx'
-        path = os.path.join(self.variables.ruta_Trabajo, self.nombre_doc)
+        path = os.path.join(self.variables.ruta_Trabajos_krei, self.nombre_doc)
         dfKWESTE = pd.read_excel(path, sheet_name="Hoja2")
         dfKWESTE = dfKWESTE.replace(to_replace = ";", value = "_", regex = True)
         # remplazamos los espacios en los titulos por cuestiones de normatividad
@@ -32,19 +32,11 @@ class  OrdenesServicioKWESTEKREI(Variables):
         #dfKWESTE.loc[~dfKWESTE["Cliente"].str.contains("|".join(array_excepto_clientes)), "Clasificacion_Cliente"] = "CLIENTES GENERALES"
 
         # ponemos todas las columnas de fecha en formato fecha
-        for i in dfKWESTE:
-            if ("fecha" in i.lower()):
-                try:
-                    dfKWESTE[i] = pd.to_datetime(dfKWESTE[i], errors = "coerce")
-                except:
-                    pass
-
-        # FORMATEAMOS LAS COLUMNAS DE FECHA
-        for i in dfKWESTE:
-            if ("fecha" in i.lower()):
-                try:
-                    dfKWESTE[i] = dfKWESTE[i].dt.strftime("%d/%m/%Y")
-                except:
+        for column_name in dfKWESTE.columns:
+                if "fecha" in column_name.lower():
+                    dfKWESTE = self.variables.global_date_format_america(dfKWESTE, column_name)
+                    dfKWESTE = self.variables.global_date_format_dmy_mexican(dfKWESTE, column_name)
+                else:
                     pass
 
         dfKWESTE = dfKWESTE.rename(columns={ 'Número_Orden': 'num', 'Unidad':'UNI', 'Subtotal_Ref_Sin_Facturar':'sub' })
@@ -80,7 +72,7 @@ class  OrdenesServicioKWESTEKREI(Variables):
     
     def OrdenesKWSUR_KREI(self):
         self.nombre_doc = 'OSSKREI.xlsx'
-        path = os.path.join(self.variables.ruta_Trabajo, self.nombre_doc)
+        path = os.path.join(self.variables.ruta_Trabajos_krei, self.nombre_doc)
         dfKWS = pd.read_excel(path, sheet_name="Hoja2")
         dfKWSUR = dfKWS.replace(to_replace = ";", value = "_", regex = True)
         # remplazamos los espacios en los titulos por cuestiones de normatividad
@@ -98,19 +90,11 @@ class  OrdenesServicioKWESTEKREI(Variables):
         #dfKWSUR.loc[dfKWSUR["Cliente"].str.contains("|".join(array_excepto_clientes)), "Clasificacion_Cliente"] = "CLIENTES GENERALES"
 
         # ponemos todas las columnas de fecha en formato fecha
-        for i in dfKWSUR:
-            if ("fecha" in i.lower()):
-                try:
-                    dfKWSUR[i] = pd.to_datetime(dfKWSUR[i], errors = "coerce")
-                except:
-                    pass
-
-        # FORMATEAMOS LAS COLUMNAS DE FECHA
-        for i in dfKWSUR:
-            if ("fecha" in i.lower()):
-                try:
-                    dfKWSUR[i] = dfKWSUR[i].dt.strftime("%d/%m/%Y")
-                except:
+        for column_name in dfKWSUR.columns:
+                if "fecha" in column_name.lower():
+                    dfKWSUR = self.variables.global_date_format_america(dfKWSUR, column_name)
+                    dfKWSUR = self.variables.global_date_format_dmy_mexican(dfKWSUR, column_name)
+                else:
                     pass
 
 

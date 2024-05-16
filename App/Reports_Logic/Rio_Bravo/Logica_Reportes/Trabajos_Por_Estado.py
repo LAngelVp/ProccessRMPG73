@@ -55,7 +55,7 @@ class TrabajosPorEstado(Variables):
         claficicacion_tipo_servicio.insert(loc = 3,column = "Fecha_Hoy",value = self.variables.date_movement_config_document(),allow_duplicates = False)
 
         for column_name in claficicacion_tipo_servicio.columns:
-            if "Fecha" in column_name:
+            if "fecha" in column_name.lower():
                 claficicacion_tipo_servicio = self.variables.global_date_format_america(claficicacion_tipo_servicio, column_name)
             else:
                 pass
@@ -67,7 +67,7 @@ class TrabajosPorEstado(Variables):
 
 
         for column_name in claficicacion_tipo_servicio.columns:
-            if "Fecha" in column_name:
+            if "fecha" in column_name.lower():
                 claficicacion_tipo_servicio = self.variables.global_date_format_dmy_mexican(claficicacion_tipo_servicio, column_name)
             else:
                 pass

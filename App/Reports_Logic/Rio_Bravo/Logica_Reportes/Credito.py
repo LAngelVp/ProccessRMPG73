@@ -44,14 +44,13 @@ class Credito(Variables):
         # EXCEPTO...
         # Las columnas de "fecha documento y fecha factura",
         # su formato debe de ser "mes,dia,año"
-        for column_title in df_complete:
-            if ('Fecha' in column_title):
-                try:
-                    df_complete[column_title] = (df_complete[column_title].dt.strftime('%d/%m/%Y'))
-                except:
-                    pass
+        for column_name in df_complete.columns:
+            if "fecha" in column_name.lower():
+                df_complete = self.variables.global_date_format_america(df_complete, column_name)
+                df_complete = self.variables.global_date_format_dmy_mexican(df_complete, column_name)
             else:
                 pass
+    
         columnas_bol=df_complete.select_dtypes(include=bool).columns.tolist()
         df_complete[columnas_bol] = df_complete[columnas_bol].astype(str)
 

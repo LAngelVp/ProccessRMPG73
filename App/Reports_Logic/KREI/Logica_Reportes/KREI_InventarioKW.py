@@ -26,23 +26,12 @@ class InventarioKWESTEKREI(Variables):
 
         df2.insert(0,"Concesionario","KW ESTE", allow_duplicates=False)
 
-        for column_title in df2:
-            if ("Fecha" in column_title):
-                try:
-                    df2[column_title] = pd.to_datetime(df2[column_title], errors="coerce")
-                except:
-                    pass
-            else:
-                pass
-        #cambiamos el formato de la columna de la "Fecha Entrada".
-        for i in df2:
-            try:
-                if ("Fecha" in i):
-                    df2[i] = df2[i].dt.strftime("%d/%m/%Y")                    
+        for column_name in df2.columns:
+                if "fecha" in column_name.lower():
+                    df2 = self.variables.global_date_format_america(df2, column_name)
+                    df2 = self.variables.global_date_format_dmy_mexican(df2, column_name)
                 else:
                     pass
-            except:
-                pass
 
         # columna del mes actual
         df2["Mes"] = self.variables.nombre_mes_actual_abreviado()
@@ -66,23 +55,12 @@ class InventarioKWESTEKREI(Variables):
 
         df2.insert(0,"Concesionario","KW SUR", allow_duplicates=False)
 
-        for column_title in df2:
-            if ("Fecha" in column_title):
-                try:
-                    df2[column_title] = pd.to_datetime(df2[column_title], errors="coerce")
-                except:
-                    pass
-            else:
-                pass
-        #cambiamos el formato de la columna de la "Fecha Entrada".
-        for i in df2:
-            try:
-                if ("Fecha" in i):
-                    df2[i] = df2[i].dt.strftime("%d/%m/%Y")                    
+        for column_name in df2.columns:
+                if "fecha" in column_name.lower():
+                    df2 = self.variables.global_date_format_america(df2, column_name)
+                    df2 = self.variables.global_date_format_dmy_mexican(df2, column_name)
                 else:
                     pass
-            except:
-                pass
             
         # columna del mes actual
         df2["Mes"] = self.variables.nombre_mes_actual_abreviado()

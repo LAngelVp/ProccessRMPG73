@@ -14,10 +14,6 @@ class ResultadosFinancieros(Variables):
         self.concesionario = Concesionarios().concesionarioSonora
 
         self.variables = Variables()
-        # FUNCION PARA OBTENER EL DEPARTAMENTO
-            
-        # CREAMOS UN ARRAY CON EL NOMBRE DE LAS COLUMNAS QUE VAMOS A OCUPAR DEL DATAFRAME ORIGINAL
-        # ESTE ARRAY SE VA A OCUPAR MAS ADELANTE PARA CREAR EL DATAFRAME FINAL.
             
         columnas = [
             "Sucursal",
@@ -65,7 +61,7 @@ class ResultadosFinancieros(Variables):
         
         # excluimos las cotizaciones
         df_unidades_facturadas = df_pivote.query("cantidad == 1").copy()
-
+        print(0)
         df_unidades_facturadas_ordenado = df_unidades_facturadas[columnas]
 
         if (len(df_unidades_facturadas_ordenado) == 0):
@@ -111,16 +107,15 @@ class ResultadosFinancieros(Variables):
     # TERMINAMOS DE INSERTAR COLUMNAS ------------------
 
             # FORMATEAMOS LAS COLUMNAS DE FECHA
-
-            for i in df_unidades_facturadas_ordenado:
-                if ("fecha" in i.lower()):
-                    try:
-                        df_unidades_facturadas_ordenado[i] = pd.to_datetime(df_unidades_facturadas_ordenado[i], errors="coerce")
-                        df_unidades_facturadas_ordenado[i] = df_unidades_facturadas_ordenado[i].dt.strftime("%d/%m/%Y")
-                    except:
-                        continue
+            print(1)
+            for column_name in df_unidades_facturadas_ordenado.columns:
+                if "fecha" in column_name.lower():
+                    print(2)
+                    df_unidades_facturadas_ordenado = self.variables.global_date_format_america(df_unidades_facturadas_ordenado, column_name)
+                    print(3)
+                    df_unidades_facturadas_ordenado = self.variables.global_date_format_dmy_mexican(df_unidades_facturadas_ordenado, column_name)
                 else:
-                    continue
+                    pass
 
             # BUSCAMOS COLUMNAS QUE SEAN DE TIPO BOOLEANO, SI LAS ENCUENTRA, QUE LAS CONVIERTA EN CADENA.
 
@@ -128,7 +123,7 @@ class ResultadosFinancieros(Variables):
             df_unidades_facturadas_ordenado[columnas_bol] = df_unidades_facturadas_ordenado[columnas_bol].astype(str)
 
             # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
-        self.variables.guardar_datos_dataframe(self.nombre_doc, df_unidades_facturadas_ordenado, self.concesionario)
+            self.variables.guardar_datos_dataframe(self.nombre_doc, df_unidades_facturadas_ordenado, self.concesionario)
 
     def obtenerDepartamento(self, valor):
         currentYear = datetime.now().year

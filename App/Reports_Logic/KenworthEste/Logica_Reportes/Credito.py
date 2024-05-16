@@ -35,12 +35,11 @@ class Credito(Variables):
         df2.loc[(df2["Cliente"].str.contains('SEGUROS')) | (df2["Cliente"].str.contains('SEGURO')) | (df2["Cliente"] == 'GRUPO NACIONAL PROVINCIAL'), "Clasificacion" ]= "SEGUROS"
         df2.loc[~df2["Cliente"].str.contains("|".join(array_excepto_clientes)), "Clasificacion"] = "CLIENTES GENERALES"
         # ponemos todas las columnas de fecha en formato fecha
-        for i in df2:
-            if ("fecha" in i.lower()):
-                try:
-                    df2[i] = pd.to_datetime(df2[i], errors = "coerce")
-                except:
-                    pass
+        for column_name in df2.columns:
+            if "fecha" in column_name.lower():
+                df2 = self.variables.global_date_format_america(df2, column_name)
+            else:
+                pass
 
         # CREAMOS LA COLUMNA DE SEMANA
         valor_loc = 1
@@ -50,12 +49,11 @@ class Credito(Variables):
             valor_loc +=1
 
         # FORMATEAMOS LAS COLUMNAS DE FECHA
-        for i in df2:
-            if ("fecha" in i.lower()):
-                try:
-                    df2[i] = df2[i].dt.strftime("%d/%m/%Y")
-                except:
-                    pass
+        for column_name in df2.columns:
+            if "fecha" in column_name.lower():
+                df2 = self.variables.global_date_format_dmy_mexican(df2, column_name)
+            else:
+                pass
 
         # creamos la columna de estado vencimiento
         df2["Estado_Vencimiento"] = ""

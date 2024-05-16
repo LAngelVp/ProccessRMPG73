@@ -35,8 +35,8 @@ class BackOrders(Variables):
         df2['Fecha_Hoy'] = self.variables.date_movement_config_document()
 
         for column_name in df2.columns:
-            if "Fecha" in column_name:
-                df2 = self.variables.global_date_format_dmy_mexican(df2, column_name)
+            if "fecha" in column_name.lower():
+                df2 = self.variables.global_date_format_america(df2, column_name)
             else:
                 pass
 
@@ -52,7 +52,7 @@ class BackOrders(Variables):
         df_resta_fechas.drop(['Folio','Fecha_Hoy','Unidad_Relacionada', 'num'], axis=1, inplace=True)
 
         for column_name in df_resta_fechas.columns:
-            if "Fecha" in column_name:
+            if "fecha" in column_name.lower():
                 df_resta_fechas = self.variables.global_date_format_dmy_mexican(df_resta_fechas, column_name)
             else:
                 pass

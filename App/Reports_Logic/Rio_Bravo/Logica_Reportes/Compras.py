@@ -21,7 +21,7 @@ class Compras(Variables):
         # copiamos el data original.
         df2 = df.copy()
         for column_name in df2.columns:
-            if "Fecha" in column_name:
+            if "fecha" in column_name.lower():
                 df2 = self.variables.global_date_format_america(df2, column_name)
             else:
                 pass
@@ -74,7 +74,7 @@ class Compras(Variables):
         # Las columnas de "fecha documento y fecha factura",
         # su formato debe de ser "mes,dia,año"
         for column_name in df2.columns:
-            if "Fecha" in column_name:
+            if "fecha" in column_name.lower():
                 df2 = self.variables.global_date_format_dmy_mexican(df2, column_name)
             else:
                 pass

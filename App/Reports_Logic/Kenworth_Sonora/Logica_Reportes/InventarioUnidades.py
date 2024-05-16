@@ -31,15 +31,12 @@ class InventarioUnidades(Variables):
         
         df1["TipoInv"] = df1["Tipo_Docto."].apply(lambda x:self.ClasificacionTipoInv(x))
         
-        for i in df1:
-            try:
-                if ("f." in i.lower()):
-                    df1[i] = pd.to_datetime(df1[i], errors="coerce")
-                    df1[i] = df1[i].dt.strftime("%d/%m/%Y")
-                else:
-                    continue
-            except:
-                continue
+        for column_name in df1.columns:
+            if "fecha" in column_name.lower():
+                df1 = self.variables.global_date_format_america(df1, column_name)
+                df1 = self.variables.global_date_format_dmy_mexican(df1, column_name)
+            else:
+                pass
 
         df1.drop(["Año_Modelo"], axis=1, inplace=True)
         columnas_bol=df1.select_dtypes(include=bool).columns.tolist()

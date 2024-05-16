@@ -14,7 +14,7 @@ class OrdenesDeServicio(Variables):
         self.concesionario = Concesionarios().concesionarioEste
         self.variables = Variables()
         self.nombre_doc = 'OSE.xlsx'
-        path = os.path.join(self.variables.ruta_Trabajo,self.nombre_doc)
+        path = os.path.join(self.variables.ruta_Trabajos_kwe,self.nombre_doc)
         
         df = pd.read_excel(path, sheet_name="Hoja2")
         df = df.replace(to_replace=';', value='-', regex=True)
@@ -70,9 +70,11 @@ class OrdenesDeServicio(Variables):
         claficicacion_tipo_servicio.insert(6,"Clasificacion_Venta",Clasificacion_Venta,allow_duplicates=False)
         
 
-        for i in claficicacion_tipo_servicio:
-            if ("fecha" in i.lower()):
-                claficicacion_tipo_servicio[i] = pd.to_datetime(claficicacion_tipo_servicio[i] , errors = 'coerce')
+        for column_name in claficicacion_tipo_servicio.columns:
+                if "fecha" in column_name.lower():
+                    claficicacion_tipo_servicio = self.variables.global_date_format_america(claficicacion_tipo_servicio, column_name)
+                else:
+                    pass
         
         # TOMAMOS LA DATA QUE VAMOS A TRABAJAR CON LA FECHA A PARTIR DEL 2020
         df_FechaOrden = claficicacion_tipo_servicio[claficicacion_tipo_servicio['Fecha_Orden'] >= '2020-06-01']
@@ -125,12 +127,11 @@ class OrdenesDeServicio(Variables):
 
         Completo.columns = Completo.columns.str.replace('_', ' ')
 
-        for col_fecha in Completo:
-            if ("fecha" in col_fecha.lower()):
-                try:
-                    Completo[col_fecha] = Completo[col_fecha].dt.strftime("%d/%m/%Y")
-                except:
-                    pass
+        for column_name in Completo.columns:
+            if "fecha" in column_name.lower():
+                Completo = self.variables.global_date_format_dmy_mexican(Completo, column_name)
+            else:
+                pass
         
         columnas_bol=Completo.select_dtypes(include=bool).columns.tolist()
         Completo[columnas_bol] = Completo[columnas_bol].astype(str)

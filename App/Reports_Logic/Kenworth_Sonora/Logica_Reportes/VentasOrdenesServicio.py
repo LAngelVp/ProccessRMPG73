@@ -38,11 +38,11 @@ class VentasServicio(Variables):
         
         df[['Departamento Venta', 'Depa']] = df.apply(lambda fila : pd.Series(self.clasificacion_departamentos(fila["Sucursal"], fila["Vendedor"])), axis=1)
 
-        for i in df:
-            if ('fecha' in i.lower()):
-                try:
-                    df[i] = pd.to_datetime(df[i], format='%d/%m/%Y', errors='coerce').dt.strftime('%d/%m/%Y')
-                except:
+        for column_name in df.columns:
+                if "fecha" in column_name.lower():
+                    df = self.variables.global_date_format_america(df, column_name)
+                    df = self.variables.global_date_format_dmy_mexican(df, column_name)
+                else:
                     pass
 
         #COMMENT:OBTENEMOS LAS COLUMNAS BOOL A STR

@@ -23,14 +23,13 @@ class Refacciones(Variables):
         df.drop(['% Margen', 'Meta Ventas Por Vendedor', 'Meta Margen Por Vendedor', 'Meta Cantidad Por Vendedor', 'Meta Ventas Por Sucursal', 'Meta Margen Por Sucursal', 'Meta Cantidad Por Sucursal', '% Comisión Por Margen', '% Comisión Por Ventas', 'Comisión Por Margen', 'Comisión Por Ventas', 'EsBonificacion', 'IdUsuario', 'IdPaquete', 'Paquete', 'Descripción Paquete', 'Cantidad Paquete', 'Subtotal Paquete', 'Potencial Total', 'Tipo de Cambio del día', 'OCCliente', '% Margen Sin Descuento'], axis=1, inplace=True)
 
         df = df[df.columns[0:93]].copy()
-
-        self.columnas_fecha = df.select_dtypes(include=['datetime64']).columns
         
-        for column_title in self.columnas_fecha:
-            try:
-                df[column_title] = pd.to_datetime(df[column_title], format='%d/%m/%Y', errors = 'coerce').dt.strftime('%d/%m/%Y')
-            except:
-                pass
+        for column_name in df.columns:
+                if "fecha" in column_name.lower():
+                    df = self.variables.global_date_format_america(df, column_name)
+                    df = self.variables.global_date_format_dmy_mexican(df, column_name)
+                else:
+                    pass
         
         df["Departamento Venta"], df["Depa"] = zip(*df.apply(lambda fila: self.Clasificacion_departamentos_refacciones(fila["Sucursal"], fila["DepartamentoDocto"]), axis=1))
 
@@ -45,8 +44,6 @@ class Refacciones(Variables):
         df.drop(['Número Factura','Serie Factura'], axis=1, inplace=True)
 
         df.insert(loc=3, column="Número Factura", value=column_bill_number, allow_duplicates=False)
-
-        #-------------
         
         columnas_bol=df.select_dtypes(include=bool).columns.tolist()
         df[columnas_bol] = df[columnas_bol].astype(str)

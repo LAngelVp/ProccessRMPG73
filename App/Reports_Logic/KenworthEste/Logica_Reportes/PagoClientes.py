@@ -70,12 +70,12 @@ class PagoClientes(Variables):
         
         DataFrameConObjetivo = pd.concat([df, self.objetivos], join="inner")
 
-        for i in DataFrameConObjetivo:
-            if ("Fecha" in i):
-                DataFrameConObjetivo[i] = pd.to_datetime(DataFrameConObjetivo[i] , errors = 'coerce')
-                DataFrameConObjetivo[i] = DataFrameConObjetivo[i].dt.strftime("%d/%m/%Y")
-            else:
-                continue
+        for column_name in DataFrameConObjetivo.columns:
+                if "fecha" in column_name.lower():
+                    DataFrameConObjetivo = self.variables.global_date_format_america(DataFrameConObjetivo, column_name)
+                    DataFrameConObjetivo = self.variables.global_date_format_dmy_mexican(DataFrameConObjetivo, column_name)
+                else:
+                    pass
         
 
         # Recorremos todo el contenido de la columna de "Cuenta Bancaria".

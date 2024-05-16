@@ -14,8 +14,8 @@ class PagosClientes(Variables):
         self.variables = Variables()
 
         self.nombre_doc = 'PCR.xlsx'
-        self.ruta = os.path.join(self.variables.ruta_deapoyo, "JsonObjetivos.json")
-        
+        self.ruta = self.variables.customerPaymentGoals
+    
 
         self.columnas_objetivo = []
         self.objetivos = pd.DataFrame()
@@ -204,15 +204,12 @@ class PagosClientes(Variables):
 
         data = self.fila_objetivo(d)
 
-        for fecha in data:
-            if ("Fecha" in fecha):
-                try:
-                    data[fecha] = pd.to_datetime(data[fecha] , errors = 'coerce')
-                    data[fecha] = (data[fecha].dt.strftime('%d/%m/%Y'))
-                except:
+        for column_name in data.columns:
+                if "fecha" in column_name.lower():
+                    data = self.variables.global_date_format_america(data, column_name)
+                    data = self.variables.global_date_format_dmy_mexican(data, column_name)
+                else:
                     pass
-            else:
-                pass
 
         columnas_bol=data.select_dtypes(include=bool).columns.tolist()
         data[columnas_bol] = data[columnas_bol].astype(str)

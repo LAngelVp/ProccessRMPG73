@@ -142,15 +142,12 @@ class ResultadosFinancieros(Variables):
 
             # FORMATEAMOS LAS COLUMNAS DE FECHA
 
-            for i in df_unidades_facturadas_ordenado:
-                if ("fecha" in i.lower()):
-                    try:
-                        df_unidades_facturadas_ordenado[i] = pd.to_datetime(df_unidades_facturadas_ordenado[i], errors="coerce")
-                        df_unidades_facturadas_ordenado[i] = df_unidades_facturadas_ordenado[i].dt.strftime("%d/%m/%Y")
-                    except:
-                        continue
+            for column_name in df_unidades_facturadas_ordenado.columns:
+                if "fecha" in column_name.lower():
+                    df_unidades_facturadas_ordenado = self.variables.global_date_format_america(df_unidades_facturadas_ordenado, column_name)
+                    df_unidades_facturadas_ordenado = self.variables.global_date_format_dmy_mexican(df_unidades_facturadas_ordenado, column_name)
                 else:
-                    continue
+                    pass
 
             # BUSCAMOS COLUMNAS QUE SEAN DE TIPO BOOLEANO, SI LAS ENCUENTRA, QUE LAS CONVIERTA EN CADENA.
 

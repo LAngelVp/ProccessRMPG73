@@ -37,12 +37,12 @@ class PagosDeClientes(Variables):
             value=self.variables.date_movement_config_document(),
             allow_duplicates=True
         )
-        for i in df:
-            if ("Fecha" in i):
-                df[i] = pd.to_datetime(df[i] , errors = 'coerce')
-                df[i] = df[i].dt.strftime("%d/%m/%Y")
+        for column_name in df.columns:
+            if "fecha" in column_name.lower():
+                df = self.variables.global_date_format_america(df, column_name)
+                df = self.variables.global_date_format_dmy_mexican(df, column_name)
             else:
-                continue
+                pass
         
         
         # Recorremos todo el contenido de la columna de "Cuenta Bancaria".

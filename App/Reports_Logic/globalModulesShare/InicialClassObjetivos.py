@@ -13,13 +13,11 @@ from PyQt6 import *
 from .ContenedorVariables import Variables
 from .documentos_json import creacion_json
 from .mensajes_alertas import Mensajes_Alertas
-from .ConcesionariosModel import Concesionarios
 
 class ClassPrincipalObjPagos(QMainWindow):
     def __init__(self):
         super(ClassPrincipalObjPagos, self).__init__()
         self.variables = Variables()
-        self.concesionarios = Concesionarios()
 
         self.ruta = self.variables.help_directory
         self.nameJson = self.variables.customerPaymentGoals
@@ -86,8 +84,7 @@ class ClassPrincipalObjPagos(QMainWindow):
         if (objetivo.isnumeric()):
             objectContain = {
                 'nombre' : sucursal,
-                'objetivo' : objetivo,
-                'concesionario' : self.concesionarios.concesionarioEste
+                'objetivo' : objetivo
             }
             creacion_json(self.ruta, self.nameJson, objectContain).agregar_json
         else:

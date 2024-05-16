@@ -100,14 +100,12 @@ class OrdenesServicio(Variables):
         df_clasificadoPorTiposervicio = df_clasificadoPorTiposervicio.rename(columns={'CL':'Clasificacion Cliente','Tipop':'Tipo Servicio'})
         
 
-        for column_title in df_clasificadoPorTiposervicio:
-            if ('Fecha' in column_title):
-                try:
-                    df_clasificadoPorTiposervicio[column_title] = (df_clasificadoPorTiposervicio[column_title].dt.strftime('%d/%m/%Y'))
-                except:
+        for column_name in df_clasificadoPorTiposervicio.columns:
+                if "fecha" in column_name.lower():
+                    df_clasificadoPorTiposervicio = self.variables.global_date_format_america(df_clasificadoPorTiposervicio, column_name)
+                    df_clasificadoPorTiposervicio = self.variables.global_date_format_dmy_mexican(df_clasificadoPorTiposervicio, column_name)
+                else:
                     pass
-            else:
-                pass
         
             
         columnas_bol=df_clasificadoPorTiposervicio.select_dtypes(include=bool).columns.tolist()

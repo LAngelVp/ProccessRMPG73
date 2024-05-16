@@ -48,14 +48,12 @@ class ServicioDetalladoKWESTEKREI(Variables):
         df.drop(['Hora Docto.','NO','U','Fecha Cancelación','Fecha Inicio Garantía','Fecha Fin Garantía','Id. Paquete','Paquete','Descripción Paquete','Cantidad Paquete',"Subtotal Paquete",'Saldo'], axis=1, inplace=True)
 
         # NOTE INTENTAMOS HACER LOS CAMBIOS DE FORMATO PARA LAS FECHAS EN PYTHON
-        for column_title in df:
-            if ('Fecha' in column_title):
-                try:
-                    df[column_title] = (df[column_title].dt.strftime('%d/%m/%Y'))
-                except:
+        for column_name in df.columns:
+                if "fecha" in column_name.lower():
+                    df = self.variables.global_date_format_america(df, column_name)
+                    df = self.variables.global_date_format_dmy_mexican(df, column_name)
+                else:
                     pass
-            else:
-                pass
         
         df.insert(0,"Concesionario", "ESTE", allow_duplicates=False)
 
@@ -101,14 +99,12 @@ class ServicioDetalladoKWESTEKREI(Variables):
         df.drop(['Hora Docto.','NO','U','Fecha Cancelación','Fecha Inicio Garantía','Fecha Fin Garantía','Id. Paquete','Paquete','Descripción Paquete','Cantidad Paquete',"Subtotal Paquete",'Saldo'], axis=1, inplace=True)
 
         # NOTE INTENTAMOS HACER LOS CAMBIOS DE FORMATO PARA LAS FECHAS EN PYTHON
-        for column_title in df:
-            if ('Fecha' in column_title):
-                try:
-                    df[column_title] = (df[column_title].dt.strftime('%d/%m/%Y'))
-                except:
+        for column_name in df.columns:
+                if "fecha" in column_name.lower():
+                    df = self.variables.global_date_format_america(df, column_name)
+                    df = self.variables.global_date_format_dmy_mexican(df, column_name)
+                else:
                     pass
-            else:
-                pass
 
         df.insert(0,"Concesionario", "SUR", allow_duplicates=False)
 

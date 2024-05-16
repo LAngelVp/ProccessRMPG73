@@ -23,18 +23,11 @@ class CreditoKWESTEKREI(Variables):
 
         df2.insert(0,"Concesionario","KW ESTE", allow_duplicates=False)
 
-        for i in df2:
-            if ("fecha" in i.lower()):
-                try:
-                    df2[i] = pd.to_datetime(df2[i], errors = "coerce")
-                except:
-                    pass
-
-        for i in df2:
-            if ("fecha" in i.lower()):
-                try:
-                    df2[i] = df2[i].dt.strftime("%d/%m/%Y")
-                except:
+        for column_name in df2.columns:
+                if "fecha" in column_name.lower():
+                    df2 = self.variables.global_date_format_america(df2, column_name)
+                    df2 = self.variables.global_date_format_dmy_mexican(df2, column_name)
+                else:
                     pass
 
         # columna del mes actual
@@ -58,18 +51,11 @@ class CreditoKWESTEKREI(Variables):
 
         df2.insert(0,"Concesionario","KW SUR", allow_duplicates=False)
         
-        for i in df2:
-            if ("fecha" in i.lower()):
-                try:
-                    df2[i] = pd.to_datetime(df2[i], errors = "coerce")
-                except:
-                    pass
-
-        for i in df2:
-            if ("fecha" in i.lower()):
-                try:
-                    df2[i] = df2[i].dt.strftime("%d/%m/%Y")
-                except:
+        for column_name in df2.columns:
+                if "fecha" in column_name.lower():
+                    df2 = self.variables.global_date_format_america(df2, column_name)
+                    df2 = self.variables.global_date_format_dmy_mexican(df2, column_name)
+                else:
                     pass
         
         # columna del mes actual

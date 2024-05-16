@@ -24,14 +24,12 @@ class SalidasVale(Variables):
 
 
         # NOTE Le damos formato a las columnas de fecha. Inidcando que solo queremos el formato [dia/mes/año]
-        for column_title in df_format1:
-            if ("Fecha" in column_title):
-                try:
-                    df_format1[column_title] = (df_format1[column_title].dt.strftime('%d/%m/%Y'))
-                except:
+        for column_name in df_format1.columns:
+                if "fecha" in column_name.lower():
+                    df_format1 = self.variables.global_date_format_america(df_format1, column_name)
+                    df_format1 = self.variables.global_date_format_dmy_mexican(df_format1, column_name)
+                else:
                     pass
-            else:
-                pass
 
         # NOTE Guardamos el documento como archivo CSV en la ruta indicada, con una codificacion de salida de "UTF-8", para poder ser detectados los caracteres especiales en cualquier idioma.
         # NOTE También le indicamos que no queremos el id de las columnas.

@@ -66,7 +66,7 @@ class TrabajosPorEstado(Variables):
         Completo.insert(loc = 3,column = "Fecha_Hoy",value = self.variables.date_movement_config_document(),allow_duplicates = False)
 
         for column_name in Completo.columns:
-            if "Fecha" in column_name:
+            if "fecha" in column_name.lower():
                 Completo = self.variables.global_date_format_america(Completo, column_name)
             else:
                 pass
@@ -76,7 +76,7 @@ class TrabajosPorEstado(Variables):
         Completo.insert(loc = 3,column = 'Antigüedad',value = Antiguedad,allow_duplicates = False)
 
         for column_name in Completo.columns:
-            if "Fecha" in column_name:
+            if "fecha" in column_name.lower():
                 Completo = self.variables.global_date_format_dmy_mexican(Completo, column_name)
             else:
                 pass

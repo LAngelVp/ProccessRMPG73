@@ -62,7 +62,9 @@ class ResultadosFinancierosKREI(Variables):
         df_unidades_facturadas_ordenado = df_unidades_facturadas[self.columnas]
 
         if (len(df_unidades_facturadas_ordenado) == 0):
-            return
+            # GUARDAMOS EL ARCHIVO
+            # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
+            self.variables.guardar_datos_dataframe(self.nombre_doc, df_unidades_facturadas_ordenado, self.concesionario)
             
         else:
             df_unidades_facturadas_ordenado.insert(
@@ -106,15 +108,12 @@ class ResultadosFinancierosKREI(Variables):
                 allow_duplicates = True
             )
 
-            for i in df_unidades_facturadas_ordenado:
-                if ("fecha" in i.lower()):
-                    try:
-                        df_unidades_facturadas_ordenado[i] = pd.to_datetime(df_unidades_facturadas_ordenado[i], errors="coerce")
-                        df_unidades_facturadas_ordenado[i] = df_unidades_facturadas_ordenado[i].dt.strftime("%d/%m/%Y")
-                    except:
-                        continue
+            for column_name in df_unidades_facturadas_ordenado.columns:
+                if "fecha" in column_name.lower():
+                    df_unidades_facturadas_ordenado = self.variables.global_date_format_america(df_unidades_facturadas_ordenado, column_name)
+                    df_unidades_facturadas_ordenado = self.variables.global_date_format_dmy_mexican(df_unidades_facturadas_ordenado, column_name)
                 else:
-                    continue
+                    pass
 
             columnas_bol=df_unidades_facturadas_ordenado.select_dtypes(include=bool).columns.tolist()
             df_unidades_facturadas_ordenado[columnas_bol] = df_unidades_facturadas_ordenado[columnas_bol].astype(str)
@@ -148,7 +147,9 @@ class ResultadosFinancierosKREI(Variables):
         df_unidades_facturadas_ordenado = df_unidades_facturadas[self.columnas]
 
         if (len(df_unidades_facturadas_ordenado) == 0):
-            return
+            # GUARDAMOS EL ARCHIVO
+            # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
+            self.variables.guardar_datos_dataframe(self.nombre_doc, df_unidades_facturadas_ordenado, self.concesionario)
             
         else:
             df_unidades_facturadas_ordenado.insert(
@@ -192,15 +193,12 @@ class ResultadosFinancierosKREI(Variables):
                 allow_duplicates = True
             )
 
-            for i in df_unidades_facturadas_ordenado:
-                if ("fecha" in i.lower()):
-                    try:
-                        df_unidades_facturadas_ordenado[i] = pd.to_datetime(df_unidades_facturadas_ordenado[i], errors="coerce")
-                        df_unidades_facturadas_ordenado[i] = df_unidades_facturadas_ordenado[i].dt.strftime("%d/%m/%Y")
-                    except:
-                        continue
+            for column_name in df_unidades_facturadas_ordenado.columns:
+                if "fecha" in column_name.lower():
+                    df_unidades_facturadas_ordenado = self.variables.global_date_format_america(df_unidades_facturadas_ordenado, column_name)
+                    df_unidades_facturadas_ordenado = self.variables.global_date_format_dmy_mexican(df_unidades_facturadas_ordenado, column_name)
                 else:
-                    continue
+                    pass
 
             columnas_bol=df_unidades_facturadas_ordenado.select_dtypes(include=bool).columns.tolist()
             df_unidades_facturadas_ordenado[columnas_bol] = df_unidades_facturadas_ordenado[columnas_bol].astype(str)

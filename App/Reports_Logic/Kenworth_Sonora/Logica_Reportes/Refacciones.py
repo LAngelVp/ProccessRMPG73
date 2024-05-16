@@ -131,12 +131,12 @@ class Refacciones(Variables):
         df.loc[(df["Vendedor"] == "CARROCERIA HERMOSILLO") & (df["Sucursal"] == "Hermosillo"),"Departamento Venta"] = "Carroceria Hermosillo"
         df.loc[(df["Vendedor"] == "CARROCERIA HERMOSILLO") & (df["Sucursal"] == "Hermosillo"),"Depa"] = "Carroceria"
 
-        for i in df:
-            if ("fecha" in i.lower()):
-                try:
-                    df[i] = df[i].dt.strftime("%d/%m/%Y")
-                except:
-                    pass
+        for column_name in df.columns:
+            if "fecha" in column_name.lower():
+                df = self.variables.global_date_format_america(df, column_name)
+                df = self.variables.global_date_format_dmy_mexican(df, column_name)
+            else:
+                pass
         
         columnas_bol=df.select_dtypes(include=bool).columns.tolist()
         df[columnas_bol] = df[columnas_bol].astype(str)

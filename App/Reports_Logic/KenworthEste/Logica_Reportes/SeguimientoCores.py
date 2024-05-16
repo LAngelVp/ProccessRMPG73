@@ -35,13 +35,12 @@ class SeguimientoCores(Variables):
 
         df_SeguimientoCores.drop(["TE","TR","FechaRecEnSuc"], axis = 1)
 
-        for i in df_SeguimientoCores:
-            if ("fecha" in i.lower()):
-                df_SeguimientoCores[i] = pd.to_datetime(df_SeguimientoCores[i] , errors = 'coerce')
-                try:
-                    df_SeguimientoCores[i] = df_SeguimientoCores[i].dt.strftime("%d/%m/%Y")
-                except:
-                    pass
+        for column_name in df_SeguimientoCores.columns:
+            if "fecha" in column_name.lower():
+                df_SeguimientoCores = self.variables.global_date_format_america(df_SeguimientoCores, column_name)
+                df_SeguimientoCores = self.variables.global_date_format_dmy_mexican(df_SeguimientoCores, column_name)
+            else:
+                pass
 
         columnas_bol=df_SeguimientoCores.select_dtypes(include=bool).columns.tolist()
         df_SeguimientoCores[columnas_bol] = df_SeguimientoCores[columnas_bol].astype(str)

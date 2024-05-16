@@ -24,17 +24,11 @@ class RefaccionesKWESTEKREI(Variables):
 
         df_nuevo.insert(0,"Concesionario","KW ESTE", allow_duplicates=False)
 
-        for i in df_nuevo:
-            if ("fecha" in i.lower()):
-                try:
-                    df_nuevo[i] = pd.to_datetime(df_nuevo[i], errors = "coerce")
-                except:
-                    pass
-        for i in df_nuevo:
-            if ("fecha" in i.lower()):
-                try:
-                    df_nuevo[i] = df_nuevo[i].dt.strftime("%d/%m/%Y")
-                except:
+        for column_name in df_nuevo.columns:
+                if "fecha" in column_name.lower():
+                    df_nuevo = self.variables.global_date_format_america(df_nuevo, column_name)
+                    df_nuevo = self.variables.global_date_format_dmy_mexican(df_nuevo, column_name)
+                else:
                     pass
         
         columnas_bol=df_nuevo.select_dtypes(include=bool).columns.tolist()
@@ -57,18 +51,13 @@ class RefaccionesKWESTEKREI(Variables):
 
         df_nuevo.insert(0,"Concesionario","KW SUR", allow_duplicates=False)
 
-        for i in df_nuevo:
-            if ("fecha" in i.lower()):
-                try:
-                    df_nuevo[i] = pd.to_datetime(df_nuevo[i], errors = "coerce")
-                except:
+        for column_name in df_nuevo.columns:
+                if "fecha" in column_name.lower():
+                    df_nuevo = self.variables.global_date_format_america(df_nuevo, column_name)
+                    df_nuevo = self.variables.global_date_format_dmy_mexican(df_nuevo, column_name)
+                else:
                     pass
-        for i in df_nuevo:
-            if ("fecha" in i.lower()):
-                try:
-                    df_nuevo[i] = df_nuevo[i].dt.strftime("%d/%m/%Y")
-                except:
-                    pass
+                
         columnas_bol=df_nuevo.select_dtypes(include=bool).columns.tolist()
         df_nuevo[columnas_bol] = df_nuevo[columnas_bol].astype(str)
 

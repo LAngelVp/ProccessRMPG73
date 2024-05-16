@@ -102,14 +102,12 @@ class ServicioDetallado(Variables):
         df.loc[df["Vendedor"] == "CARROCERIA HERMOSILLO", "Depa"] = "Carroceria Hermosillo"
         df.loc[df["Vendedor"] == "TALLER DE CARR. Y PINT.", "Depa"] = "Carroceria Hermosillo"
 
-        for column_title in df:
-            if ('Fecha' in column_title):
-                try:
-                    df[column_title] = (df[column_title].dt.strftime('%d/%m/%Y'))
-                except:
+        for column_name in df.columns:
+                if "fecha" in column_name.lower():
+                    df = self.variables.global_date_format_america(df, column_name)
+                    df = self.variables.global_date_format_dmy_mexican(df, column_name)
+                else:
                     pass
-            else:
-                pass
 
         columnas_bol=df.select_dtypes(include=bool).columns.tolist()
         df[columnas_bol] = df[columnas_bol].astype(str)

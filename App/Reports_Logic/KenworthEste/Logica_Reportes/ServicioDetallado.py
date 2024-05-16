@@ -129,13 +129,12 @@ class ServicioDetallado(Variables):
         d.insert(11,"Mes",self.variables.nombre_mes(),allow_duplicates=False)
 
         #COMMENT: RECORRER COLUMNAS DE FECHA PARA TRANSFORMAR
-        for i in d:
-            if ("fecha" in i.lower()):
-                try:
-                    d[i] = pd.to_datetime(d[i], format='%d/%m/%Y', errors='coerce')
-                    d[i] = d[i].dt.strftime('%d/%m/%Y')
-                except:
-                    continue
+        for column_name in d.columns:
+            if "fecha" in column_name.lower():
+                d = self.variables.global_date_format_america(d, column_name)
+                d = self.variables.global_date_format_dmy_mexican(d, column_name)
+            else:
+                pass
         
         #COMMENT: ELIMINAMOS COLUMNAS
         d.drop(

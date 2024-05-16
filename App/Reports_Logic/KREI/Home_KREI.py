@@ -173,7 +173,7 @@ class Home_KREI(QMainWindow, QDialog):
     def mensajeArchivoErroneo(self, mensaje):
         Mensajes_Alertas(
             "Errores durante el proceso",
-            f'Los documentos que no se lograron procesar son:\n{mensaje}\nLa ruta de los errores es:\n {self.variables.ruta_error}',
+            f'Los documentos que no se lograron procesar son:\n{mensaje}\nLa ruta de los errores es:\n {self.variables.ruta_errores_krei}',
             QMessageBox.Icon.Critical,
             "Cuando el sistema muestra un error como este, existen algunos factores que se tienen que tomar en cuenta:\n1.- El nombre del documento no tiene la nomenclatura correcta.\n2.- El documento original no contiene las columnas a trabajar o su contendo es incorrecto.\n3.- EL documento no es el correcto o esta corrupto.",
             botones=[
@@ -378,8 +378,8 @@ class trabajohilo(QThread):
             "RSKREI.xlsx" : KenworthConnect().RefaccionesKREIKWSUR,
             "SDEKREI.xlsx" : KenworthConnect().ServicioDetalladoKREIKWESTE,
             "SDSKREI.xlsx" : KenworthConnect().ServicioDetalladoKREIKWSUR,
-            "RFEKREI.xlsx" : KenworthConnect().ResultadosFinancierosKREI,
-            "RFSKREI.xlsx" : KenworthConnect().ResultadosFinancierosKREI
+            "RFEKREI.xlsx" : KenworthConnect().ResultadosFinancierosEsteKREI,
+            "RFSKREI.xlsx" : KenworthConnect().ResultadosFinancierosSurKREI
 
         }
         #-----------------------------------------------

@@ -202,14 +202,12 @@ class ServioDetallado(Variables):
                 value = self.variables.date_movement_config_document(),
                 allow_duplicates = False
             )
-        for column_title in df_Final:
-            if ('Fecha' in column_title):
-                try:
-                    df_Final[column_title] = (df_Final[column_title].dt.strftime('%d/%m/%Y'))
-                except:
+        for column_name in df_Final.columns:
+                if "fecha" in column_name.lower():
+                    df_Final = self.variables.global_date_format_america(df_Final, column_name)
+                    df_Final = self.variables.global_date_format_dmy_mexican(df_Final, column_name)
+                else:
                     pass
-            else:
-                pass
 
 
         df_Final.insert(

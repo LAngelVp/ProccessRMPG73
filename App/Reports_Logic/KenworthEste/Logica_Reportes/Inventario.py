@@ -30,7 +30,7 @@ class Inventario(Variables):
         df2.insert(loc=27,column="Fecha_Hoy",value=self.variables.date_movement_config_document(), allow_duplicates=False)
         #iterar en las cabeceras del dataframe para obtener las columnas de fecha.
         for column_name in df2.columns:
-            if "Fecha" in column_name:
+            if "fecha" in column_name.lower():
                 df2 = self.variables.global_date_format_america(df2, column_name)
             else:
                 pass
@@ -57,9 +57,9 @@ class Inventario(Variables):
         df2["ClasDias"] = df2["Antigüedad"].apply(lambda x:self.ClasDias(x))
         #cambiamos el formato de la columna de la "Fecha Entrada".
         for column_name in df2.columns:
-            if "Fecha Entrada" in column_name:
+            if "fecha entrada" in column_name.lower():
                 df2 = self.variables.global_date_format_mdy_america(df2, column_name)
-            elif "Fecha" in column_name:
+            elif "fecha" in column_name.lower():
                 df2 = self.variables.global_date_format_dmy_mexican(df2, column_name)
 
 

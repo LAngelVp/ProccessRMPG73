@@ -60,10 +60,12 @@ class Refacciones(Variables):
         a = a[a.columns[0:93]].copy()
 
 #COMMENT: CONVERTIMOS LA FECHA
-        try:
-            a["Fecha"] = pd.to_datetime(a["Fecha"], format='%d/%m/%Y', errors='coerce').dt.strftime('%m/%d/%Y')
-        except:
-            pass
+        for column_name in a.columns:
+            if "fecha" in column_name.lower():
+                a = self.variables.global_date_format_america(a, column_name)
+                a = self.variables.global_date_format_dmy_mexican(a, column_name)
+            else:
+                pass
 
 #COMMENT: CREAR COLUMNA DE MOVIMIENTO
         a["Columna_movimiento"] = "False"

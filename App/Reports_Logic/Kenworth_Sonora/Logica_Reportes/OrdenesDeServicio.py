@@ -69,9 +69,14 @@ class OrdenesDeServicio(Variables):
         Clasificacion_Venta = claficicacion_tipo_servicio["Clasificacion_Cliente"]
         claficicacion_tipo_servicio.insert(6,"Clasificacion_Venta",Clasificacion_Venta,allow_duplicates=False)
         #iteramos las columnas que contengan en su nombre la palabra fecha para convertir en tipo fecha
-        for i in claficicacion_tipo_servicio:
-            if ("fecha" in i.lower()):
-                claficicacion_tipo_servicio[i] = pd.to_datetime(claficicacion_tipo_servicio[i] , errors = 'coerce')
+
+        for column_name in claficicacion_tipo_servicio.columns:
+            if "fecha" in column_name.lower():
+                claficicacion_tipo_servicio = self.variables.global_date_format_america(claficicacion_tipo_servicio, column_name)
+            else:
+                pass
+
+
         # movemos la columna de "subtotal ref sin facturar" y procedemos hacer la operacion de la columna de total os pde fact
         columna = claficicacion_tipo_servicio.pop("Subtotal_Ref_Sin_Facturar")
         claficicacion_tipo_servicio.insert(21, "Subtotal_Ref_Sin_Facturar", columna)
@@ -82,12 +87,11 @@ class OrdenesDeServicio(Variables):
 
         claficicacion_tipo_servicio.columns = claficicacion_tipo_servicio.columns.str.replace('_', ' ')
 
-        for col_fecha in claficicacion_tipo_servicio:
-            if ("fecha" in col_fecha.lower()):
-                try:
-                    claficicacion_tipo_servicio[col_fecha] = claficicacion_tipo_servicio[col_fecha].dt.strftime("%d/%m/%Y")
-                except:
-                    pass
+        for column_name in claficicacion_tipo_servicio.columns:
+            if "fecha" in column_name.lower():
+                claficicacion_tipo_servicio = self.variables.global_date_format_dmy_mexican(claficicacion_tipo_servicio, column_name)
+            else:
+                pass
         
         columnas_bol=claficicacion_tipo_servicio.select_dtypes(include=bool).columns.tolist()
         claficicacion_tipo_servicio[columnas_bol] = claficicacion_tipo_servicio[columnas_bol].astype(str)
