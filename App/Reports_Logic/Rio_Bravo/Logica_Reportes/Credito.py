@@ -65,4 +65,4 @@ class Credito(Variables):
         CreditoGlobal["Mes"] = self.variables.nombre_mes_actual_abreviado()
 
         # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
-        self.variables.guardar_datos_dataframe(self.nombre_doc, CreditoGlobal, self.concesionario)
+        self.variables.guardar_datos_dataframe(self.nombre_doc2, CreditoGlobal, self.concesionario)

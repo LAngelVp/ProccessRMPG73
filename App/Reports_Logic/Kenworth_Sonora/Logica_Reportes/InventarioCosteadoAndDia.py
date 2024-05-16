@@ -31,16 +31,13 @@ class InventarioCosteado(Variables):
         #insertar la columna de fecha actual, con el fin de sacar la antiguedad.
         df2.insert(loc=28,column="Fecha_Hoy",value=self.variables.date_movement_config_document(), allow_duplicates=False)
         #iterar en las cabeceras del dataframe para obtener las columnas de fecha.
-        for column_title in df2:
-            if ("Fecha" in column_title):
-                try:
-                    df2[column_title] = pd.to_datetime(df2[column_title], errors="coerce")
-                except:
-                    pass
+        for column_name in df2.columns:
+            if "Fecha" in column_name:
+                df2 = self.variables.global_date_format_america(df2, column_name)
             else:
                 pass
         #crear la columna que contendra el valor de la antiguedad.
-        Antiguedad = df2["Fecha_Hoy"] - df2["Fecha Entrada"]    #variable de la operacion.
+        Antiguedad = (df2["Fecha_Hoy"] - df2["Fecha Entrada"]).apply(lambda x : x.days)  #variable de la operacion.
         df2.insert(loc=29,column="Antigüedad",value=Antiguedad,allow_duplicates=False)
         #convertir la columna deantiguedad en numero.
         df2["Antigüedad"] = pd.to_numeric(df2["Antigüedad"].dt.days,downcast="integer")
@@ -61,16 +58,11 @@ class InventarioCosteado(Variables):
         #mandar a llamar la funcion dentro de una consulta.
         df2["ClasDias"] = df2["Antigüedad"].apply(lambda x:self.ClasDias(x))
         #cambiamos el formato de la columna de la "Fecha Entrada".
-        for i in df2:
-            try:
-                if ("Fecha Entrada" in i):
-                    df2[i] = df2[i].dt.strftime("%m/%d/%Y")
-                elif ("Fecha" in i and "Fecha Entrada" not in i):
-                    df2[i] = df2[i].dt.strftime("%d/%m/%Y")
-                else:
-                    pass
-            except:
-                pass
+        for column_name in df2.columns:
+            if "Fecha Entrada" in column_name:
+                df2 = self.variables.global_date_format_mdy_america(df2, column_name)
+            elif "Fecha" in column_name:
+                df2 = self.variables.global_date_format_dmy_mexican(df2, column_name)
         #eliminar las columnas no necesarias.
         df2.drop(["Fecha_Hoy"], axis=1, inplace=True)
         #mandar el dataframe a una variable.
@@ -85,8 +77,8 @@ class InventarioCosteado(Variables):
         #realizamos ahora el inventario costeado por dia.
         df_inventarioCosteadoxDia = df2.copy()
         #eliminar columnas que no se ocuparan.
-        df_inventarioCosteadoxDia["Fecha Entrada"] = pd.to_datetime(df_inventarioCosteadoxDia["Fecha Entrada"], errors="coerce")
-        df_inventarioCosteadoxDia["Fecha Entrada"] = df_inventarioCosteadoxDia["Fecha Entrada"].dt.strftime("%d/%m/%Y")
+        df_inventarioCosteadoxDia= self.variables.global_date_format_america(df_inventarioCosteadoxDia, "Fecha Entrada")
+        df_inventarioCosteadoxDia= self.variables.global_date_format_dmy_mexican(df_inventarioCosteadoxDia, "Fecha Entrada")
         df_inventarioCosteadoxDia.drop(["Antigüedad","ClasDias"],axis=1,inplace=True)
         df_inventarioCosteadoxDia["Fecha_Dias"] = self.variables.date_movement_config_document()
         df_inventarioCosteadoxDia["ClasSF"] = ""
@@ -103,8 +95,9 @@ class InventarioCosteado(Variables):
         # df_inventarioCosteadoxDia["Mes"] = self.variables.nombre_mes_actual_abreviado()
 
         #convertir la fecha a formato "dia/mes/año"
-        df_inventarioCosteadoxDia["Fecha_Dias"] = pd.to_datetime(df_inventarioCosteadoxDia["Fecha_Dias"], errors="coerce")
-        df_inventarioCosteadoxDia["Fecha_Dias"] = df_inventarioCosteadoxDia["Fecha_Dias"].dt.strftime("%d/%m/%Y")
+        df_inventarioCosteadoxDia= self.variables.global_date_format_america(df_inventarioCosteadoxDia, "Fecha_Dias")
+
+        df_inventarioCosteadoxDia= self.variables.global_date_format_mdy_america(df_inventarioCosteadoxDia, "Fecha_Dias")
 
         # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
         self.variables.guardar_datos_dataframe(self.nombre_doc2, df_inventarioCosteadoxDia, self.concesionario)

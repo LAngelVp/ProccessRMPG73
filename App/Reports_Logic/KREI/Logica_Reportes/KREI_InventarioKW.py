@@ -54,8 +54,9 @@ class InventarioKWESTEKREI(Variables):
         self.variables.guardar_datos_dataframe(self.nombre_doc, df2, self.concesionario)
     
     def InventarioKWSUR_KREI(self):
+        self.nombre_doc = 'ICSKREI.xlsx'
         #obtenemos el archivo
-        path = os.path.join(self.variables.ruta_Trabajos_krei,'ICSKREI.xlsx')
+        path = os.path.join(self.variables.ruta_Trabajos_krei, self.nombre_doc)
         #leer el documento con pandas
         df = pd.read_excel(path, sheet_name="Hoja2")
         #reemplazar el ";" de los registros que lo contengan por un "-"

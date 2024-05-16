@@ -81,7 +81,7 @@ class TrabajosPorEstado(Variables):
         self.variables.guardar_datos_dataframe(self.nombre_doc, claficicacion_tipo_servicio, self.concesionario)
 
     # CREAMOS LA FUNCION PARA LAS CLASIFICACIONES POR NUMERO DE ORDEN
-    def SinTramitar(self, row):
+    def SinTramitar(self, row): 
         if row["Clasificacion_Cliente"] == "GARANTIA" and row["Estado_Trabajo"] not in ["Cancelado", "Facturado"] and pd.isna(row["Estado_Reclamo"]):
             return "Sin Tramitar"
         else:

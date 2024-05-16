@@ -25,26 +25,25 @@ class Compras(Variables):
         df2 = df.copy()
         # cambiamos el nombre de las columnas con las que
         # vamos a realizar las operaciones.
-        df2.rename(columns={ 'Fecha Docto.': 'FD', 'Fecha Captura':'FC'}, inplace=True)
         # insertamos la columna del dia actual.
         # dentro de la funcion, en el valor, le estamos diciendo a python que inserte la variable de fecha,
         # pero formateada en dia,mes, año.
-        df2.insert(
-            loc = 5,
-            column = "Hoy",
-            value = self.variables.date_movement_config_document(),
-            allow_duplicates = False
-        )
-        # formateamos las columnas de fecha a trabajar, para poder hacer operaciones 
-        df2['FD'] = pd.to_datetime(df2.FD, format='%d/%m/%Y')
-        df2['FC'] = pd.to_datetime(df2.FC, format='%d/%m/%Y')
-        df2['Hoy'] = pd.to_datetime(df2.Hoy, format='%d/%m/%Y')
+
+        for column_name in df2.columns:
+            if "Fecha" in column_name:
+                df2 = self.variables.global_date_format_america(df2, column_name)
+            else:
+                pass
+        df2["Fecha_Hoy"] =  self.variables.date_movement_config_document()
+
+        antiguedad = (df2['Fecha Captura'] - df2['Fecha Docto.']).apply(lambda x : x.days)
+        antiguedad_factura = (df2['Fecha_Hoy'] - df2['Fecha Docto.']).apply(lambda x : x.days)
         # insertamos la columna de antigüedad, con la resta del 
         # fecha factura - fecha documento.
         df2.insert(
             loc = 6,
             column = 'Antigüedad',
-            value = df2['FC'] - df2['FD'],
+            value = antiguedad,
             allow_duplicates = False
         )
         # insertamos la columna de "Antigüedad Factura", con la resta,
@@ -52,7 +51,7 @@ class Compras(Variables):
         df2.insert(
             loc = 7,
             column = 'Antigüedad Fact',
-            value = df2['Hoy'] - df2['FD'],
+            value = antiguedad_factura,
             allow_duplicates = False
         )
         
@@ -60,8 +59,6 @@ class Compras(Variables):
         # procedemos a formatear la columna de antigüedad a tipo Entero,
         # con el objetivo de poder condicionar la iteracion de la columna,
         # como se muestra en el bucle [1] de la funcion "Antiguedad".
-        df2['Antigüedad'] = pd.to_numeric(df2['Antigüedad'].dt.days, downcast='integer')
-        df2['Antigüedad Fact'] = pd.to_numeric(df2['Antigüedad Fact'].dt.days, downcast='integer')
 
         # Bucle [1].
         # En esta funcion iteramos toda la columna de "Antigüedad",
@@ -75,22 +72,20 @@ class Compras(Variables):
                 pass
         # devolvemos al nombre original.
             
-        df2["Mes"] = df2["FD"].apply(lambda x:self.variables.nombre_mes_base_columna_month_year(x))
+        df2["Mes"] = df2["Fecha Docto."].apply(lambda x:self.variables.nombre_mes_base_columna_month_year(x))
         
-        df2.rename(columns={ 'FD':'Fecha Docto.', 'FC':'Fecha Captura'}, inplace=True)
         
 
-        df2.drop(['Folio','Hoy'], axis=1, inplace=True)
+        df2.drop(['Folio','Fecha_Hoy'], axis=1, inplace=True)
         columnas_bol=df2.select_dtypes(include=bool).columns.tolist()
         df2[columnas_bol] = df2[columnas_bol].astype(str)
 
-        self.columnas_fecha = df2.select_dtypes(include=['datetime64']).columns
         # formatear las columnas de fecha para trabajar con ellas.
-        for column_title in self.columnas_fecha:
-                try:
-                    df2[column_title] = df2[column_title].dt.strftime('%d/%m/%Y')
-                except:
-                    pass
+        for column_name in df2.columns:
+            if "Fecha" in column_name:
+                df2 = self.variables.global_date_format_dmy_mexican(df2, column_name)
+            else:
+                pass
 
         # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
         self.variables.guardar_datos_dataframe(self.nombre_doc, df2, self.concesionario)

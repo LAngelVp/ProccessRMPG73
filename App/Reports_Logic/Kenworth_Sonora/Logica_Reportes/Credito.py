@@ -73,7 +73,7 @@ class Credito(Variables):
 
         self.nombre_doc = 'CSG.xlsx'
         CreditoGlobal = df2.copy()
-        CreditoGlobal.drop(["Clasificacion","Semana"], axis=1, inplace=True)
+        CreditoGlobal.drop(["Clasificacion","Semana"], axis=1, inplace=True) 
         CreditoGlobal["Mes"] = self.variables.nombre_mes_actual_abreviado()
 
         # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
