@@ -60,7 +60,7 @@ class creacion_json():
     @property
     def agregar_json(self):
         self.comprobar_existencia
-        self.longitud = 6
+        self.longitud = 15
         self.cadena = string.ascii_letters+string.digits
         self.id = ''.join(random.choices(self.cadena, k=self.longitud))
 

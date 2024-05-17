@@ -116,7 +116,6 @@ class ClassPrincipalObjPagos(QMainWindow):
                     "id" : keyId["id"],
                     "nombre" : new_sucursal,
                     "objetivo" : new_obj,
-                    "concesionario" : self.concesionarios.concesionarioEste
                 }
                 creacion_json(self.ruta, self.nameJson, keyId).actualizar_datos(datos_nuevos)
         else:

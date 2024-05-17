@@ -218,8 +218,8 @@ class PagosClientes(Variables):
             try:
                 df_json = pd.read_json(self.ruta)
                 for indice, fila in df_json.iterrows():
-                    sucursal_json = fila["Sucursal"]
-                    objetivo_json = fila["Objetivo"]
+                    sucursal_json = fila["nombre"]
+                    objetivo_json = fila["objetivo"]
 
                     # Verificar si la sucursal del JSON coincide con la sucursal en df
 

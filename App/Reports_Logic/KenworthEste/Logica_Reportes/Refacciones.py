@@ -63,7 +63,7 @@ class Refacciones(Variables):
         for column_name in a.columns:
             if "fecha" in column_name.lower():
                 a = self.variables.global_date_format_america(a, column_name)
-                a = self.variables.global_date_format_dmy_mexican(a, column_name)
+                a = self.variables.global_date_format_mdy_america(a, column_name)
             else:
                 pass
 

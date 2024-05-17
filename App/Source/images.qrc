@@ -1,7 +1,0 @@
-<RCC>
-  <qresource prefix="imgs">
-    <file>kreilogo.jpg</file>
-    <file>LOGO_KREI.png</file>
-    <file>LOGOKREI.png</file>
-  </qresource>
-</RCC>
