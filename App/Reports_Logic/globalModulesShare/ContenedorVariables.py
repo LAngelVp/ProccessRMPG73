@@ -127,9 +127,9 @@ class Variables:
         self.docu =None
         self.docu_nombre = None
         for index, fila in archivo.iterrows():
-            if (fila["Nombre_documento"] == nombre):
-                self.docu_nombre = fila["Nombre_documento"]
-                self.docu = str(fila["Ruta_destino_documento"])
+            if (fila["nombre"] == nombre):
+                self.docu_nombre = fila["nombre"]
+                self.docu = str(fila["path"])
                 break
         if (self.docu is not None) | (self.docu_nombre == nombre):
             return os.path.join(self.docu,nombre_arreglado_csv)
