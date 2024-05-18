@@ -5,6 +5,8 @@
 import sys
 import os
 from .globalModulesShare.resources import *
+from .globalModulesShare.icono import *
+
 from PyQt6 import  *
 from PyQt6.QtCore import Qt, QPointF
 from PyQt6.QtWidgets import QMainWindow
@@ -29,7 +31,7 @@ class PrincipalWindow(QMainWindow):
         self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
         self.setWindowTitle("Menu de Sucursales")
         # self.ui.centralwidget.setStyleSheet("background-color:rgb(255, 255, 255);")
-        self.ui.imgPrincipalMenu.setPixmap(QPixmap(":/Source/LOGO_KREI.png"))
+        self.ui.imgPrincipalMenu.setPixmap(QPixmap(":/Source/DevRous2.png"))
         self.setWindowIcon(QIcon(":/Source/LOGO_KREI_3.ico"))
         self.ui.btc_btc_cerrar.setIcon(QIcon(":Source/Icon_Close.png"))
         self.ui.btc_btc_minimizar.setIcon(QIcon(":Source/Icon_Minimize.png"))

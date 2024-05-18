@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>320</width>
+    <width>280</width>
     <height>450</height>
    </rect>
   </property>
@@ -21,13 +21,13 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>320</width>
+    <width>280</width>
     <height>450</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>320</width>
+    <width>280</width>
     <height>450</height>
    </size>
   </property>
@@ -68,7 +68,7 @@ height:35px;
 	border-radius:4px;
 }
 [objectName^=&quot;btn_btn&quot;]{
-	background-color: rgb(153, 153, 153);
+	background-color: rgb(57, 86, 213);
 	color: rgb(0, 0, 0);
 	color: rgb(0, 0, 0);
 	border-radius:8px;
@@ -266,6 +266,12 @@ border-radius:8px;
        </item>
        <item row="0" column="0">
         <widget class="QPushButton" name="btn_btn_kwrb">
+         <property name="maximumSize">
+          <size>
+           <width>250</width>
+           <height>35</height>
+          </size>
+         </property>
          <property name="font">
           <font>
            <pointsize>-1</pointsize>
@@ -377,8 +383,8 @@ border-radius:8px;
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>320</width>
-     <height>30</height>
+     <width>280</width>
+     <height>21</height>
     </rect>
    </property>
   </widget>

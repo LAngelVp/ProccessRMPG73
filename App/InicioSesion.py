@@ -7,6 +7,7 @@ from Reports_Logic.globalModulesShare.resources import *
 from Front.inicio_sesion import UI_Inicio_Sesion
 from Reports_Logic.globalModulesShare.mensajes_alertas import Mensajes_Alertas
 from Reports_Logic.Home import PrincipalWindow
+import Reports_Logic.globalModulesShare.icono as icono
 
 class InicioSesion(QWidget):
     def __init__(self) -> None:
@@ -17,7 +18,7 @@ class InicioSesion(QWidget):
         self.setWindowIcon(QIcon(":/Source/LOGO_KREI_3.ico"))
         self.setWindowFlags(self.windowFlags() | Qt.WindowType.FramelessWindowHint)
         self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
-        self.ui.label_2.setPixmap(QPixmap(":/Source/LOGO_KREI.png"))
+        self.ui.label_2.setPixmap(QPixmap(":/Source/DevRous2.png"))
         self.ui.label_2.setScaledContents(True)
         self.ui.btn_manejoventana_2.setIcon(QIcon(":Source/Icon_Close.png"))
         self.ui.btn_manejoventana.setIcon(QIcon(":Source/Icon_Minimize.png"))
