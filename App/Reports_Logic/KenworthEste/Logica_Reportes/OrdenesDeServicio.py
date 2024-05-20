@@ -75,7 +75,7 @@ class OrdenesDeServicio(Variables):
                     claficicacion_tipo_servicio = self.variables.global_date_format_america(claficicacion_tipo_servicio, column_name)
                 else:
                     pass
-        
+        print(1)
         # TOMAMOS LA DATA QUE VAMOS A TRABAJAR CON LA FECHA A PARTIR DEL 2020
         df_FechaOrden = claficicacion_tipo_servicio[claficicacion_tipo_servicio['Fecha_Orden'] >= '2020-06-01']
 
@@ -126,13 +126,15 @@ class OrdenesDeServicio(Variables):
         Completo['Total OS Pde Fact'] = Completo['Total OS Pde Fact'].astype(float).fillna(0)
 
         Completo.columns = Completo.columns.str.replace('_', ' ')
+        print(2)
 
         for column_name in Completo.columns:
             if "fecha" in column_name.lower():
                 Completo = self.variables.global_date_format_dmy_mexican(Completo, column_name)
+                print(Completo[column_name].dtype)
             else:
                 pass
-        
+        print(3)
         columnas_bol=Completo.select_dtypes(include=bool).columns.tolist()
         Completo[columnas_bol] = Completo[columnas_bol].astype(str)
 

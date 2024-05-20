@@ -4,21 +4,20 @@
 #########################
 import sys
 import os
-from .globalModulesShare.resources import *
-from .globalModulesShare.icono import *
-
+from Reports_Logic.globalModulesShare.resources import *
+from Reports_Logic.globalModulesShare.icono import *
 from PyQt6 import  *
 from PyQt6.QtCore import Qt, QPointF
 from PyQt6.QtWidgets import QMainWindow
 from PyQt6.QtGui import QIcon, QPixmap
 # comment importamos concesionarios
-from .Rio_Bravo.Home_KWRB import *
-from .KenworthEste.Home_KWESTE import *
-from .KREI.Home_KREI import *
-from .Kenworth_Sonora.Home_KWSonora import *
+from Reports_Logic.Rio_Bravo.Home_KWRB import *
+from Reports_Logic.KenworthEste.Home_KWESTE import *
+from Reports_Logic.KREI.Home_KREI import *
+from Reports_Logic.Kenworth_Sonora.Home_KWSonora import *
 #-----------
-from .globalModulesShare.ContenedorVariables import Variables
-from .ventanaspy.VPrincipal import Ui_VPrincipal 
+from Reports_Logic.globalModulesShare.ContenedorVariables import Variables
+from Reports_Logic.ventanaspy.VPrincipal import Ui_VPrincipal 
 from Front.inicio_sesion import UI_Inicio_Sesion
 
 class PrincipalWindow(QMainWindow):

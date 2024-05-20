@@ -8,6 +8,7 @@ from datetime import *
 from webbrowser import *
 import calendar
 import pandas as pd
+import arrow
 import locale
 
 locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
@@ -175,35 +176,41 @@ class Variables:
     
     def global_date_format_america(self, data, name_column=None):
         if name_column in data.columns:
-            if data[name_column].dtype == "datetime64[ns]":
-                data[name_column] = pd.to_datetime(data[name_column],errors="coerce").dt.date
+            if pd.api.types.is_datetime64_any_dtype(data[name_column]):
+                data[name_column] = pd.to_datetime(data[name_column], format = '%Y/%m/%d').dt.date
                 data[name_column] = data[name_column].astype('datetime64[ns]')
             else:
                 try:
-                    data[name_column] = pd.to_datetime(data[name_column], format='%d/%m/%Y')
+                    # comment : ESTAS FECHAS NO DEBEN DE OCUPARSE PARA OPERACIONES, SUS AÑOS NO ESTAN EN EL RANGO
+                    data[name_column] = data[name_column].apply(lambda x: arrow.get(x).naive.strftime('%d/%m/%Y') if pd.notna(x) else None)
+                    data[name_column] = data[name_column].astype(str).fillna('')
+                    fecha, horas = zip(*data[name_column].str.split(' ', expand=True))
+                    data[name_column] = data[fecha].apply(lambda x: '/'.join(x.split('-')[::-1]) if x else '').fillna('')
                 except:
-                    try:
-                        data[name_column] = pd.to_datetime(data[name_column], format='%m/%d/%Y')
-                    except:
-                        try:
-                            data[name_column] = pd.to_datetime(data[name_column], format='%Y/%m/%d')
-                        except:
-                            pass
+                    pass
         return data
     
     def global_date_format_mdy_america(self, data, name_column=None):
-        if data[name_column].dtype == "datetime64[ns]":
-            try:
-                data[name_column] = pd.to_datetime(data[name_column], errors="coerce").dt.strftime("%m/%d/%Y")
-            except:
+        if name_column in data.columns:
+            if pd.api.types.is_datetime64_any_dtype(data[name_column]):
+                    try:
+                        data[name_column] = pd.to_datetime(data[name_column], format = '%m/%d/%Y').dt.date
+                        data[name_column] = data[name_column].apply(lambda x: x.strftime('%m/%d/%Y') if pd.notnull(x) else '')
+                    except Error as e:
+                        pass
+            else:
                 pass
         return data
     
     def global_date_format_dmy_mexican(self, data, name_column=None):
-        if data[name_column].dtype == "datetime64[ns]":
-            try:
-                data[name_column] = pd.to_datetime(data[name_column], errors="coerce").dt.strftime("%d/%m/%Y")
-            except:
+        if name_column in data.columns:
+            if pd.api.types.is_datetime64_any_dtype(data[name_column]):
+                    try:
+                        data[name_column] = pd.to_datetime(data[name_column], format = '%d/%m/%Y').dt.date
+                        data[name_column] = data[name_column].apply(lambda x: x.strftime('%d/%m/%Y') if pd.notnull(x) else '')
+                    except Error as e:
+                        pass
+            else:
                 pass
         return data
 #-----------------------------------------------------------
