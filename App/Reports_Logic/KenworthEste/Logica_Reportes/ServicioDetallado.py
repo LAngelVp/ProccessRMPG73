@@ -135,7 +135,7 @@ class ServicioDetallado(Variables):
                 d = self.variables.global_date_format_dmy_mexican(d, column_name)
             else:
                 pass
-        
+
         #COMMENT: ELIMINAMOS COLUMNAS
         d.drop(
             [
