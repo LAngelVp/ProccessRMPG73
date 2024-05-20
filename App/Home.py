@@ -6,10 +6,6 @@ import sys
 import os
 from Reports_Logic.globalModulesShare.resources import *
 from Reports_Logic.globalModulesShare.icono import *
-<<<<<<< HEAD
-=======
-
->>>>>>> 71ff28941302144cae0fa841bbe723699774cb6f
 from PyQt6 import  *
 from PyQt6.QtCore import Qt, QPointF
 from PyQt6.QtWidgets import QMainWindow
