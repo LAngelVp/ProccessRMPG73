@@ -50,14 +50,13 @@ class BackOrders(Variables):
         df_nat = df2.query("Fecha_Alta_FC == ['NaT']").copy()
         df_nat["Antigüedad"] = (df_nat["Fecha_Hoy"] - df_nat["Fecha_Alta"])
 
-        columnas = []
-        for dates in df2.columns:
-            if 'fecha' in dates.lower():
-                columnas.append(dates)
-        print(columnas)
+        # columnas = []
+        # for dates in df2.columns:
+        #     if 'fecha' in dates.lower():
+        #         columnas.append(dates)
+        # print(columnas)
+
         # fechas = df2[columnas]
-        fechas = df_no_nat['Antigüedad'].dtype
-        print(fechas)
 
         df_resta_fechas = pd.concat([df_no_nat, df_nat], join="inner")
 
@@ -65,7 +64,6 @@ class BackOrders(Variables):
         df_resta_fechas.drop(
             ["Folio", "Fecha_Hoy", "Unidad_Relacionada", "num"], axis=1, inplace=True
         )
-        print(1)
 
         for column_name in df_resta_fechas.columns:
             if "fecha" in column_name.lower():
@@ -74,12 +72,11 @@ class BackOrders(Variables):
                 )
             else:
                 pass
-        print(2)
         df_resta_fechas.columns = df_resta_fechas.columns.str.replace("_", " ")
-        print(2.2)
+        
         df_resta_fechas["Antigüedad"] = pd.to_timedelta(df_resta_fechas["Antigüedad"])
         df_resta_fechas["Antigüedad"] = df_resta_fechas["Antigüedad"].dt.days
-        print(df_resta_fechas["Antigüedad"])
+
         df_resta_fechas["Antigüedad"] = df_resta_fechas["Antigüedad"].apply(self.convertir_a_cero)
 
         columnas_bol = df_resta_fechas.select_dtypes(include=bool).columns.tolist()

@@ -42,19 +42,24 @@ class Credito(Variables):
                 pass
 
         # CREAMOS LA COLUMNA DE SEMANA
+        print(1)
+        for i in df2.columns:
+            if "fecha" in i.lower():
+                print(df2[i].dtype)
+
         valor_loc = 1
         for columna in df2:
             if ("fecha_vencimiento" == columna.lower()):
                 df2.insert(loc=valor_loc, column="Semana", value = "S-" + (df2["Fecha_Vencimiento"].dt.isocalendar().week).map(str), allow_duplicates=False)
             valor_loc +=1
-
+        print(2)
         # FORMATEAMOS LAS COLUMNAS DE FECHA
         for column_name in df2.columns:
             if "fecha" in column_name.lower():
                 df2 = self.variables.global_date_format_dmy_mexican(df2, column_name)
             else:
                 pass
-
+        print(3)
         # creamos la columna de estado vencimiento
         df2["Estado_Vencimiento"] = ""
 
