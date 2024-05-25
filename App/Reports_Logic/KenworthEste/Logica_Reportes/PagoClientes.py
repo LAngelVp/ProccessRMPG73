@@ -73,7 +73,9 @@ class PagoClientes(Variables):
         for column_name in DataFrameConObjetivo.columns:
                 if "fecha" in column_name.lower():
                     DataFrameConObjetivo = self.variables.global_date_format_america(DataFrameConObjetivo, column_name)
+                    print(DataFrameConObjetivo[column_name].dtype)
                     DataFrameConObjetivo = self.variables.global_date_format_dmy_mexican(DataFrameConObjetivo, column_name)
+                    print(DataFrameConObjetivo[column_name].dtype)
                 else:
                     pass
         
@@ -125,5 +127,5 @@ class PagoClientes(Variables):
 
         df_completo["Area"] = "Pago Clientes"
 
-        # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
-        self.variables.guardar_datos_dataframe(self.nombre_doc, df_completo, self.concesionario)
+        # # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
+        # self.variables.guardar_datos_dataframe(self.nombre_doc, df_completo, self.concesionario)

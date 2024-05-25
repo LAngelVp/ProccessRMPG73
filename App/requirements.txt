@@ -4,4 +4,4 @@ openpyxl
 PyQt6
 PyInstaller
 virtualenv
-arrow
+python-dateutil

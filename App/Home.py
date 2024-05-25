@@ -33,7 +33,7 @@ class PrincipalWindow(QMainWindow):
         self.ui.imgPrincipalMenu.setPixmap(QPixmap(":/Source/DevRous2.png"))
         self.setWindowIcon(QIcon(":/Source/LOGO_KREI_3.ico"))
         self.ui.btc_btc_cerrar.setIcon(QIcon(":Source/Icon_Close.png"))
-        self.ui.btc_btc_minimizar.setIcon(QIcon(":Source/Icon_Minimize.png"))
+        self.ui.btc_btc_minimizar.setIcon(QIcon(":Source/Icon_Minimize.png")) 
         self.ui.panel_encabezado.setStyleSheet("margin-top:5px;")
 
     #     self.ventanas_abiertas = {}

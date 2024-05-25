@@ -29,7 +29,7 @@ class InventarioUnidades():
         
         df1["TipoInv"] = df1["Tipo_Docto."].apply(lambda x:self.ClasificacionTipoInv(x))
         for column_name in df1.columns:
-                if "fecha" in column_name.lower():
+                if "f." in column_name.lower():
                     df1 = self.variables.global_date_format_america(df1, column_name)
                     df1 = self.variables.global_date_format_dmy_mexican(df1, column_name)
                 else:
