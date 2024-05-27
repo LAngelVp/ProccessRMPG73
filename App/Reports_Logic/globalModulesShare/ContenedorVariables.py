@@ -10,6 +10,7 @@ import calendar
 import pandas as pd
 import locale
 from dateutil import parser
+from openpyxl import *
 
 locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
 class Variables:
@@ -144,7 +145,7 @@ class Variables:
 #comment: save document    
     def guardar_datos_dataframe(self, nombre_documento, dataframe, concesionario = None):
         if (os.path.basename(self.comprobar_reporte_documento_rutas(nombre_documento, concesionario)).split(".")[1] == nombre_documento.split(".")[1]):
-                dataframe.to_excel(self.comprobar_reporte_documento_rutas(nombre_documento, concesionario), index=False )
+                dataframe.to_excel(self.comprobar_reporte_documento_rutas(nombre_documento, concesionario), engine='openpyxl', index=False )
         else:
             dataframe.to_csv(self.comprobar_reporte_documento_rutas(nombre_documento, concesionario), encoding="utf-8", index=False )
 

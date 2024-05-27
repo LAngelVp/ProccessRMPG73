@@ -73,9 +73,7 @@ class PagoClientes(Variables):
         for column_name in DataFrameConObjetivo.columns:
                 if "fecha" in column_name.lower():
                     DataFrameConObjetivo = self.variables.global_date_format_america(DataFrameConObjetivo, column_name)
-                    print(DataFrameConObjetivo[column_name].dtype)
                     DataFrameConObjetivo = self.variables.global_date_format_dmy_mexican(DataFrameConObjetivo, column_name)
-                    print(DataFrameConObjetivo[column_name].dtype)
                 else:
                     pass
         

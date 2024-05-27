@@ -50,14 +50,6 @@ class BackOrders(Variables):
         df_nat = df2.query("Fecha_Alta_FC == ['NaT']").copy()
         df_nat["Antigüedad"] = (df_nat["Fecha_Hoy"] - df_nat["Fecha_Alta"])
 
-        # columnas = []
-        # for dates in df2.columns:
-        #     if 'fecha' in dates.lower():
-        #         columnas.append(dates)
-        # print(columnas)
-
-        # fechas = df2[columnas]
-
         df_resta_fechas = pd.concat([df_no_nat, df_nat], join="inner")
 
         # cambiamos el formato de las columnas de fecha a trabajar.

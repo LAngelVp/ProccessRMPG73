@@ -44,10 +44,11 @@ class BackOrder(Variables):
         # cambiamos el titulo de las columnas a trabajar.
 
         df_no_nat = df2.query("Fecha_Alta_FC != ['NaT']").copy()
-        df_no_nat["Antigüedad"] = (df_no_nat["Fecha_Hoy"] - df_no_nat["Fecha_Alta_FC"]).apply(lambda x : x.days)
+        df_no_nat["Antigüedad"] = (df_no_nat["Fecha_Hoy"] - df_no_nat["Fecha_Alta_FC"])
 
         df_nat = df2.query("Fecha_Alta_FC == ['NaT']").copy()
-        df_nat["Antigüedad"] = (df_nat["Fecha_Hoy"] - df_nat["Fecha_Alta"]).apply(lambda x : x.days)
+        df_nat["Antigüedad"] = (df_nat["Fecha_Hoy"] - df_nat["Fecha_Alta"])
+
         df_resta_fechas = pd.concat([df_no_nat, df_nat], join="inner")
         
         
@@ -61,16 +62,22 @@ class BackOrder(Variables):
             else:
                 pass
         
+        df_resta_fechas["Antigüedad"] = pd.to_timedelta(df_resta_fechas["Antigüedad"])
+        df_resta_fechas["Antigüedad"] = df_resta_fechas["Antigüedad"].dt.days
+
+        df_resta_fechas["Antigüedad"] = df_resta_fechas["Antigüedad"].apply(self.convertir_a_cero)
+        
         columnas_bol=df_resta_fechas.select_dtypes(include=bool).columns.tolist()
         df_resta_fechas[columnas_bol] = df_resta_fechas[columnas_bol].astype(str)
 
-        for column in df_resta_fechas['Antigüedad']:
-            if (column < (0)):
-                df_resta_fechas['Antigüedad'] = df_resta_fechas['Antigüedad'].replace(column,0)
-            else:
-                pass
         df_resta_fechas.columns = df_resta_fechas.columns.str.replace('_', ' ')
 
         # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
         self.variables.guardar_datos_dataframe(self.nombre_doc, df_resta_fechas, self.concesionario)
+
+    def convertir_a_cero(self, valor):
+        if valor < 0:
+            return 0
+        else:
+            return valor
 

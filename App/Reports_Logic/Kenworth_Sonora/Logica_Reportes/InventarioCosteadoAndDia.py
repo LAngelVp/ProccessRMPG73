@@ -38,7 +38,7 @@ class InventarioCosteado(Variables):
                 pass
         #crear la columna que contendra el valor de la antiguedad.
         Antiguedad = (df2["Fecha_Hoy"] - df2["Fecha Entrada"]).apply(lambda x : x.days)  #variable de la operacion.
-        df2.insert(loc=29,column="Antigüedad",value=Antiguedad,allow_duplicates=False)
+        df2.insert(loc=28,column="Antigüedad",value=Antiguedad,allow_duplicates=False)
         #convertir la columna deantiguedad en numero.
         #ordenar el dataframe de manera descendente conforme a la columna de antiguedad.
         df2 = df2.sort_values(by=["Antigüedad"],ascending=True)

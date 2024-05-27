@@ -4,20 +4,20 @@
 #########################
 import sys
 import os
-from Reports_Logic.globalModulesShare.resources import *
-from Reports_Logic.globalModulesShare.icono import *
+from .globalModulesShare.resources import *
+from .globalModulesShare.icono import *
 from PyQt6 import  *
 from PyQt6.QtCore import Qt, QPointF
 from PyQt6.QtWidgets import QMainWindow
 from PyQt6.QtGui import QIcon, QPixmap
 # comment importamos concesionarios
-from Reports_Logic.Rio_Bravo.Home_KWRB import *
-from Reports_Logic.KenworthEste.Home_KWESTE import *
-from Reports_Logic.KREI.Home_KREI import *
-from Reports_Logic.Kenworth_Sonora.Home_KWSonora import *
+from .Rio_Bravo.Home_KWRB import *
+from .KenworthEste.Home_KWESTE import *
+from .KREI.Home_KREI import *
+from .Kenworth_Sonora.Home_KWSonora import *
 #-----------
-from Reports_Logic.globalModulesShare.ContenedorVariables import Variables
-from Reports_Logic.ventanaspy.VPrincipal import Ui_VPrincipal 
+from .globalModulesShare.ContenedorVariables import Variables
+from .ventanaspy.VPrincipal import Ui_VPrincipal 
 from Front.inicio_sesion import UI_Inicio_Sesion
 
 class PrincipalWindow(QMainWindow):
@@ -43,6 +43,7 @@ class PrincipalWindow(QMainWindow):
         self.ui.btn_btn_kwkrei.clicked.connect(self.abrirkwkrei)
         self.ui.btn_btn_kwsonora.clicked.connect(self.abrirkwsonora)
         self.ui.btc_btc_cerrar.clicked.connect(self.cerrar)
+        self.ui.btc_btc_minimizar.clicked.connect(self.minimizar)
 
     
     def cerrar(self):
@@ -60,42 +61,6 @@ class PrincipalWindow(QMainWindow):
     def abrirkwsonora(self):
         self.ventana = Home_KenworthSonora()
         self.ventana.show()
-
-
-    #     self.ui.btn_btn_kwrb.clicked.connect(lambda: self.abrir_ventana("Rio Bravo", Home_KWRB))
-    #     self.ui.btn_btn_kweste.clicked.connect(lambda: self.abrir_ventana("Kenworth del Este", Home_KWESTE))
-    #     self.ui.btn_btn_kwkrei.clicked.connect(lambda: self.abrir_ventana("KREI", Home_KREI))
-    #     self.ui.btn_btn_kwsonora.clicked.connect(lambda: self.abrir_ventana("Kenworth Sonora", Home_KenworthSonora))
-
-
-    #     self.ui.btc_btc_cerrar.clicked.connect(self.cerrar)
-    #     self.ui.btc_btc_minimizar.clicked.connect(self.minimizar)
-
-    #     self.createProjectDirectory()
-
-    # def abrir_ventana(self, titulo, clase_ventana):
-    #     if clase_ventana.__name__ not in self.ventanas_abiertas:
-    #         ventana = clase_ventana()
-    #         ventana.setWindowTitle(titulo)
-    #         ventana.show()
-    #         self.ventanas_abiertas[clase_ventana.__name__] = ventana
-    #         ventana.closed.connect(lambda: self.ventanas_abiertas.pop(clase_ventana.__name__))
-
-    #     else:
-    #         QMessageBox.warning(self, "Advertencia", f"Ya hay una ventana de {titulo} abierta.")
-
-    # def createProjectDirectory(self):
-    #     if not os.path.exists(self.variables.global_route_project):
-    #         os.mkdir(self.variables.global_route_project)
-    #     else:
-    #         if not os.path.exists(self.variables.help_directory):
-    #             os.mkdir(self.variables.help_directory)
-    #         else:
-    #             pass
-
-
-    def cerrar(self):
-        self.close()
 
     def minimizar(self):
         self.showMinimized()

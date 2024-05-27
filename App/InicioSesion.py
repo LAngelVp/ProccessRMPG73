@@ -6,7 +6,7 @@ from PyQt6.QtGui import *
 from Reports_Logic.globalModulesShare.resources import *
 from Front.inicio_sesion import UI_Inicio_Sesion
 from Reports_Logic.globalModulesShare.mensajes_alertas import Mensajes_Alertas
-from Home import PrincipalWindow
+from Reports_Logic.Home import PrincipalWindow
 import Reports_Logic.globalModulesShare.icono as icono
 
 class InicioSesion(QWidget):

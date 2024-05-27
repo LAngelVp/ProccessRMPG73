@@ -27,6 +27,12 @@ class SeguimientoCores(Variables):
 
         df_SeguimientoCores.insert(7,"Fecha Hoy", self.variables.date_movement_config_document(), allow_duplicates=False)
 
+        for column_name in df_SeguimientoCores.columns:
+            if "fecha" in column_name.lower():
+                df_SeguimientoCores = self.variables.global_date_format_america(df_SeguimientoCores, column_name)
+            else:
+                pass
+
         Antiguedad = df_SeguimientoCores.apply(self.OperacionAntiguedad, axis = 1)
 
         df_SeguimientoCores.insert(8,"Antigüedad", Antiguedad, allow_duplicates=False)
@@ -37,13 +43,13 @@ class SeguimientoCores(Variables):
 
         for column_name in df_SeguimientoCores.columns:
             if "fecha" in column_name.lower():
-                df_SeguimientoCores = self.variables.global_date_format_america(df_SeguimientoCores, column_name)
                 df_SeguimientoCores = self.variables.global_date_format_dmy_mexican(df_SeguimientoCores, column_name)
             else:
                 pass
 
         columnas_bol=df_SeguimientoCores.select_dtypes(include=bool).columns.tolist()
         df_SeguimientoCores[columnas_bol] = df_SeguimientoCores[columnas_bol].astype(str)
+
         df_SeguimientoCores['Antigüedad'] = pd.to_numeric(df_SeguimientoCores['Antigüedad'].dt.days, downcast='integer')
 
         # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO

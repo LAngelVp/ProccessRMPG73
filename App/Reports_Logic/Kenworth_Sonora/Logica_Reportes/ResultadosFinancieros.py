@@ -61,7 +61,7 @@ class ResultadosFinancieros(Variables):
         
         # excluimos las cotizaciones
         df_unidades_facturadas = df_pivote.query("cantidad == 1").copy()
-        print(0)
+
         df_unidades_facturadas_ordenado = df_unidades_facturadas[columnas]
 
         if (len(df_unidades_facturadas_ordenado) == 0):
@@ -107,12 +107,9 @@ class ResultadosFinancieros(Variables):
     # TERMINAMOS DE INSERTAR COLUMNAS ------------------
 
             # FORMATEAMOS LAS COLUMNAS DE FECHA
-            print(1)
             for column_name in df_unidades_facturadas_ordenado.columns:
                 if "fecha" in column_name.lower():
-                    print(2)
                     df_unidades_facturadas_ordenado = self.variables.global_date_format_america(df_unidades_facturadas_ordenado, column_name)
-                    print(3)
                     df_unidades_facturadas_ordenado = self.variables.global_date_format_dmy_mexican(df_unidades_facturadas_ordenado, column_name)
                 else:
                     pass

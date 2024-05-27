@@ -20,23 +20,17 @@ class Compras(Variables):
         df = df.replace(to_replace=';', value='-', regex=True)
         # copiamos el data original.
         df2 = df.copy()
+
+        df2["Fecha_Hoy"] =  self.variables.date_movement_config_document()
+
         for column_name in df2.columns:
             if "fecha" in column_name.lower():
                 df2 = self.variables.global_date_format_america(df2, column_name)
             else:
                 pass
-        # insertamos la columna del dia actual.
-        # dentro de la funcion, en el valor, le estamos diciendo a python que inserte la variable de fecha,
-        # pero formateada en dia,mes, año.
 
-        df2.insert(
-            loc = 6,
-            column = "Fecha_Hoy",
-            value = self.variables.date_movement_config_document(),
-            allow_duplicates = False
-        )
-        antiguedad = (df2['Fecha Captura'] - df2['Fecha Docto.']).apply(lambda x : x.days)
-        antiguedad_factura = (df2['Fecha_Hoy'] - df2['Fecha Docto.']).apply(lambda x : x.days)
+        antiguedad = (df2['Fecha Captura'] - df2['Fecha Docto.'])
+        antiguedad_factura = (df2['Fecha_Hoy'] - df2['Fecha Docto.'])
         # insertamos la columna de antigüedad, con la resta del 
         # fecha factura - fecha documento.
         df2.insert(
@@ -54,34 +48,35 @@ class Compras(Variables):
             allow_duplicates = False
         )
 
+        df2["Antigüedad"] = pd.to_timedelta(df2["Antigüedad"])
+        df2["Antigüedad"] = df2["Antigüedad"].dt.days
 
-        # Bucle [1].
-        # En esta funcion iteramos toda la columna de "Antigüedad",
-        # aplicando una condicion.
-        # SI, el contenido es menos a 0, remplazara dicho contenido por un 0.
-        # SI NO, ignorará el contenido y continuara su ciclo. 
-        for index, valor in df2["Antigüedad"].items():
-            if (valor < 0):
-                try:
-                    df2.loc[index,"Antigüedad"] = 0
-                except:
-                    pass
-            else:
-                pass
+        df2["Antigüedad Fact"] = pd.to_timedelta(df2["Antigüedad Fact"])
+        df2["Antigüedad Fact"] = df2["Antigüedad Fact"].dt.days
+ 
+        df2["Antigüedad"] = df2["Antigüedad"].apply(lambda x : self.convertir_a_cero(x))
 
-        # devolver las columnas de tipo fecha al formato "dia,mes,año"
-        # EXCEPTO...
-        # Las columnas de "fecha documento y fecha factura",
-        # su formato debe de ser "mes,dia,año"
+        df2["Antigüedad Fact"] = df2["Antigüedad Fact"].apply(lambda x : self.convertir_a_cero(x))
+
+        
+
+        df2.drop(['Folio','Fecha_Hoy'], axis=1, inplace=True)
+        columnas_bol=df2.select_dtypes(include=bool).columns.tolist()
+        df2[columnas_bol] = df2[columnas_bol].astype(str)
+        
         for column_name in df2.columns:
             if "fecha" in column_name.lower():
                 df2 = self.variables.global_date_format_dmy_mexican(df2, column_name)
             else:
                 pass
-        df2.drop(['Folio','Fecha_Hoy'], axis=1, inplace=True)
-        columnas_bol=df2.select_dtypes(include=bool).columns.tolist()
-        df2[columnas_bol] = df2[columnas_bol].astype(str)
+
+        dfCompleto = df2.copy()
 
         # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
-        self.variables.guardar_datos_dataframe(self.nombre_doc, df2, self.concesionario)
-        
+        self.variables.guardar_datos_dataframe(self.nombre_doc, dfCompleto, self.concesionario)
+
+    def convertir_a_cero(self, valor):
+        if valor < 0:
+            return 0
+        else:
+            return valor
