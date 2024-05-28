@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>280</width>
+    <width>320</width>
     <height>450</height>
    </rect>
   </property>
@@ -21,13 +21,13 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>280</width>
+    <width>320</width>
     <height>450</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>280</width>
+    <width>320</width>
     <height>450</height>
    </size>
   </property>
@@ -46,7 +46,6 @@
   </property>
   <property name="styleSheet">
    <string notr="true">#VPrincipal{
-background-color: rgb(255, 255, 255);
 min-height:450px;
 min-width: 320px;
 max-height: 450px;
@@ -63,12 +62,12 @@ width:35px;
 height:35px;
 }
 [objectName^=&quot;btc_btc&quot;]:hover{
-	background-color: rgb(209, 209, 209);
+background-color: rgb(64, 150, 216);
 	color: rgb(0, 0, 0);
 	border-radius:4px;
 }
 [objectName^=&quot;btn_btn&quot;]{
-	background-color: rgb(57, 86, 213);
+background-color: rgb(64, 150, 216);
 	color: rgb(0, 0, 0);
 	color: rgb(0, 0, 0);
 	border-radius:8px;
@@ -78,7 +77,7 @@ height:35px;
 	max-width: 280px;
 }
 [objectName^=&quot;btn_btn&quot;]:hover{
-	background-color: rgb(163, 163, 163);
+background-color: rgb(69, 163, 235);
 	color: rgb(0, 0, 0);
 }
 #panel_encabezado{
@@ -268,7 +267,7 @@ border-radius:8px;
         <widget class="QPushButton" name="btn_btn_kwrb">
          <property name="maximumSize">
           <size>
-           <width>250</width>
+           <width>280</width>
            <height>35</height>
           </size>
          </property>
@@ -383,7 +382,7 @@ border-radius:8px;
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>280</width>
+     <width>320</width>
      <height>21</height>
     </rect>
    </property>

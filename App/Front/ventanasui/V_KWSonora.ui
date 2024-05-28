@@ -42,7 +42,7 @@ width:35px;
 height:35px;
 }
 [objectName^=&quot;btc_btc&quot;]:hover{
-	background-color: rgb(209, 209, 209);
+background-color: rgb(64, 150, 216);
 	color: rgb(0, 0, 0);
 	border-radius:4px;
 }
@@ -56,13 +56,13 @@ height:35px;
 	font-size: 20px;
 }
 [objectName^=&quot;btn_btn&quot;]{
-	background-color: rgb(145, 145, 145);
+background-color: rgb(64, 150, 216);
 	border-radius:4px;
 	color: rgb(0, 0, 0);
 	height:35px;
 }
 [objectName^=&quot;btn_btn&quot;]:hover{
-	background-color:  rgb(209, 209, 209);
+background-color: rgb(69, 163, 235);
 }
 #menuBar{
 background-color: rgb(255, 255, 255);
@@ -316,8 +316,6 @@ border-top-right-radius: 10px;
              <font>
               <family>Arial</family>
               <pointsize>-1</pointsize>
-              <weight>75</weight>
-              <bold>true</bold>
              </font>
             </property>
             <property name="text">
@@ -355,8 +353,6 @@ border-top-right-radius: 10px;
              <font>
               <family>Arial</family>
               <pointsize>-1</pointsize>
-              <weight>75</weight>
-              <bold>true</bold>
              </font>
             </property>
             <property name="text">
@@ -777,7 +773,7 @@ border-top-right-radius: 10px;
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>25</height>
+     <height>20</height>
     </rect>
    </property>
    <property name="font">

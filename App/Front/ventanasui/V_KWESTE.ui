@@ -42,7 +42,7 @@ width:35px;
 height:35px;
 }
 [objectName^=&quot;btc_btc&quot;]:hover{
-	background-color: rgb(209, 209, 209);
+background-color: rgb(64, 150, 216);
 	color: rgb(0, 0, 0);
 	border-radius:4px;
 }
@@ -56,13 +56,13 @@ height:35px;
 	font-size: 20px;
 }
 [objectName^=&quot;btn_btn&quot;]{
-	background-color: rgb(145, 145, 145);
+background-color: rgb(64, 150, 216);
 	border-radius:4px;
 	color: rgb(0, 0, 0);
 	height:35px;
 }
 [objectName^=&quot;btn_btn&quot;]:hover{
-	background-color:  rgb(209, 209, 209);
+background-color: rgb(69, 163, 235);
 }
 #menuBar{
 background-color: rgb(255, 255, 255);

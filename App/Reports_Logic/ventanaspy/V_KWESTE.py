@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'V_KWESTE.ui'
+# Form implementation generated from reading ui file 'c:\Users\Angel Rodriguez\LUIS_ANGEL_VALLEJO\programakw\App\Front\ventanasui\V_KWESTE.ui'
 #
 # Created by: PyQt6 UI code generator 6.7.0
 #
@@ -31,7 +31,7 @@ class Ui_Kenworth_del_Este(object):
 "height:35px;\n"
 "}\n"
 "[objectName^=\"btc_btc\"]:hover{\n"
-"    background-color: rgb(209, 209, 209);\n"
+"background-color: rgb(64, 150, 216);\n"
 "    color: rgb(0, 0, 0);\n"
 "    border-radius:4px;\n"
 "}\n"
@@ -45,13 +45,13 @@ class Ui_Kenworth_del_Este(object):
 "    font-size: 20px;\n"
 "}\n"
 "[objectName^=\"btn_btn\"]{\n"
-"    background-color: rgb(145, 145, 145);\n"
+"background-color: rgb(64, 150, 216);\n"
 "    border-radius:4px;\n"
 "    color: rgb(0, 0, 0);\n"
 "    height:35px;\n"
 "}\n"
 "[objectName^=\"btn_btn\"]:hover{\n"
-"    background-color:  rgb(209, 209, 209);\n"
+"background-color: rgb(69, 163, 235);\n"
 "}\n"
 "#menuBar{\n"
 "background-color: rgb(255, 255, 255);\n"
@@ -84,7 +84,7 @@ class Ui_Kenworth_del_Este(object):
         self.horizontalLayout_11.setObjectName("horizontalLayout_11")
         self.lblLogoKWESTE = QtWidgets.QLabel(parent=self.WLogo)
         self.lblLogoKWESTE.setText("")
-        self.lblLogoKWESTE.setPixmap(QtGui.QPixmap("../Source/KWESTE.png"))
+        self.lblLogoKWESTE.setPixmap(QtGui.QPixmap("c:\\Users\\Angel Rodriguez\\LUIS_ANGEL_VALLEJO\\programakw\\App\\Front\\ventanasui\\../Source/KWESTE.png"))
         self.lblLogoKWESTE.setScaledContents(True)
         self.lblLogoKWESTE.setObjectName("lblLogoKWESTE")
         self.horizontalLayout_11.addWidget(self.lblLogoKWESTE)
@@ -102,7 +102,7 @@ class Ui_Kenworth_del_Este(object):
         self.btc_btc_Minimizar.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         self.btc_btc_Minimizar.setText("")
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("../Source/Icon_Minimize.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Angel Rodriguez\\LUIS_ANGEL_VALLEJO\\programakw\\App\\Front\\ventanasui\\../Source/Icon_Minimize.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         self.btc_btc_Minimizar.setIcon(icon)
         self.btc_btc_Minimizar.setIconSize(QtCore.QSize(30, 30))
         self.btc_btc_Minimizar.setObjectName("btc_btc_Minimizar")
@@ -112,7 +112,7 @@ class Ui_Kenworth_del_Este(object):
         self.btc_btc_Cerrar.setMouseTracking(True)
         self.btc_btc_Cerrar.setText("")
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("../Source/Icon_Close.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        icon1.addPixmap(QtGui.QPixmap("c:\\Users\\Angel Rodriguez\\LUIS_ANGEL_VALLEJO\\programakw\\App\\Front\\ventanasui\\../Source/Icon_Close.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         self.btc_btc_Cerrar.setIcon(icon1)
         self.btc_btc_Cerrar.setIconSize(QtCore.QSize(30, 30))
         self.btc_btc_Cerrar.setObjectName("btc_btc_Cerrar")
@@ -136,7 +136,7 @@ class Ui_Kenworth_del_Este(object):
         self.txt_cola.setMaximumSize(QtCore.QSize(16777215, 20))
         font = QtGui.QFont()
         font.setFamily("Arial")
-        font.setPointSize(12)
+        font.setPointSize(-1)
         self.txt_cola.setFont(font)
         self.txt_cola.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.txt_cola.setObjectName("txt_cola")
@@ -156,7 +156,7 @@ class Ui_Kenworth_del_Este(object):
         self.txt_procesado.setMaximumSize(QtCore.QSize(16777215, 20))
         font = QtGui.QFont()
         font.setFamily("Arial")
-        font.setPointSize(12)
+        font.setPointSize(-1)
         self.txt_procesado.setFont(font)
         self.txt_procesado.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.txt_procesado.setObjectName("txt_procesado")
@@ -318,7 +318,7 @@ class Ui_Kenworth_del_Este(object):
         self.btn_btn_Ayuda.setLocale(QtCore.QLocale(QtCore.QLocale.Language.Spanish, QtCore.QLocale.Country.Nicaragua))
         self.btn_btn_Ayuda.setText("")
         icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap("../Source/Icon_Help.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        icon2.addPixmap(QtGui.QPixmap("c:\\Users\\Angel Rodriguez\\LUIS_ANGEL_VALLEJO\\programakw\\App\\Front\\ventanasui\\../Source/Icon_Help.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         self.btn_btn_Ayuda.setIcon(icon2)
         self.btn_btn_Ayuda.setIconSize(QtCore.QSize(32, 32))
         self.btn_btn_Ayuda.setObjectName("btn_btn_Ayuda")

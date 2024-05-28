@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'V_KWSonora.ui'
+# Form implementation generated from reading ui file 'c:\Users\Angel Rodriguez\LUIS_ANGEL_VALLEJO\programakw\App\Front\ventanasui\V_KWSonora.ui'
 #
 # Created by: PyQt6 UI code generator 6.7.0
 #
@@ -31,7 +31,7 @@ class Ui_Kenworth_Sonora(object):
 "height:35px;\n"
 "}\n"
 "[objectName^=\"btc_btc\"]:hover{\n"
-"    background-color: rgb(209, 209, 209);\n"
+"background-color: rgb(64, 150, 216);\n"
 "    color: rgb(0, 0, 0);\n"
 "    border-radius:4px;\n"
 "}\n"
@@ -45,13 +45,13 @@ class Ui_Kenworth_Sonora(object):
 "    font-size: 20px;\n"
 "}\n"
 "[objectName^=\"btn_btn\"]{\n"
-"    background-color: rgb(145, 145, 145);\n"
+"background-color: rgb(64, 150, 216);\n"
 "    border-radius:4px;\n"
 "    color: rgb(0, 0, 0);\n"
 "    height:35px;\n"
 "}\n"
 "[objectName^=\"btn_btn\"]:hover{\n"
-"    background-color:  rgb(209, 209, 209);\n"
+"background-color: rgb(69, 163, 235);\n"
 "}\n"
 "#menuBar{\n"
 "background-color: rgb(255, 255, 255);\n"
@@ -88,7 +88,7 @@ class Ui_Kenworth_Sonora(object):
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.lblLogoKWS = QtWidgets.QLabel(parent=self.W_Logo)
         self.lblLogoKWS.setText("")
-        self.lblLogoKWS.setPixmap(QtGui.QPixmap("../Source/Logo_KWSonora.png"))
+        self.lblLogoKWS.setPixmap(QtGui.QPixmap("c:\\Users\\Angel Rodriguez\\LUIS_ANGEL_VALLEJO\\programakw\\App\\Front\\ventanasui\\../Source/Logo_KWSonora.png"))
         self.lblLogoKWS.setScaledContents(True)
         self.lblLogoKWS.setObjectName("lblLogoKWS")
         self.verticalLayout_2.addWidget(self.lblLogoKWS)
@@ -106,7 +106,7 @@ class Ui_Kenworth_Sonora(object):
         self.btc_btc_Minimizar.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         self.btc_btc_Minimizar.setText("")
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("../Source/Icon_Minimize.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Angel Rodriguez\\LUIS_ANGEL_VALLEJO\\programakw\\App\\Front\\ventanasui\\../Source/Icon_Minimize.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         self.btc_btc_Minimizar.setIcon(icon)
         self.btc_btc_Minimizar.setIconSize(QtCore.QSize(30, 30))
         self.btc_btc_Minimizar.setObjectName("btc_btc_Minimizar")
@@ -116,7 +116,7 @@ class Ui_Kenworth_Sonora(object):
         self.btc_btc_Cerrar.setMouseTracking(True)
         self.btc_btc_Cerrar.setText("")
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("../Source/Icon_Close.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        icon1.addPixmap(QtGui.QPixmap("c:\\Users\\Angel Rodriguez\\LUIS_ANGEL_VALLEJO\\programakw\\App\\Front\\ventanasui\\../Source/Icon_Close.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         self.btc_btc_Cerrar.setIcon(icon1)
         self.btc_btc_Cerrar.setIconSize(QtCore.QSize(30, 30))
         self.btc_btc_Cerrar.setObjectName("btc_btc_Cerrar")
@@ -140,9 +140,7 @@ class Ui_Kenworth_Sonora(object):
         self.txt_Cola.setMaximumSize(QtCore.QSize(16777215, 20))
         font = QtGui.QFont()
         font.setFamily("Arial")
-        font.setPointSize(12)
-        font.setBold(True)
-        font.setWeight(75)
+        font.setPointSize(-1)
         self.txt_Cola.setFont(font)
         self.txt_Cola.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.txt_Cola.setObjectName("txt_Cola")
@@ -162,9 +160,7 @@ class Ui_Kenworth_Sonora(object):
         self.txt_Procesado.setMaximumSize(QtCore.QSize(16777215, 20))
         font = QtGui.QFont()
         font.setFamily("Arial")
-        font.setPointSize(12)
-        font.setBold(True)
-        font.setWeight(75)
+        font.setPointSize(-1)
         self.txt_Procesado.setFont(font)
         self.txt_Procesado.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.txt_Procesado.setObjectName("txt_Procesado")
@@ -326,7 +322,7 @@ class Ui_Kenworth_Sonora(object):
         self.btn_btn_Ayuda.setLocale(QtCore.QLocale(QtCore.QLocale.Language.Spanish, QtCore.QLocale.Country.Nicaragua))
         self.btn_btn_Ayuda.setText("")
         icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap("../Source/Icon_Help.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        icon2.addPixmap(QtGui.QPixmap("c:\\Users\\Angel Rodriguez\\LUIS_ANGEL_VALLEJO\\programakw\\App\\Front\\ventanasui\\../Source/Icon_Help.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         self.btn_btn_Ayuda.setIcon(icon2)
         self.btn_btn_Ayuda.setIconSize(QtCore.QSize(32, 32))
         self.btn_btn_Ayuda.setObjectName("btn_btn_Ayuda")
@@ -335,7 +331,7 @@ class Ui_Kenworth_Sonora(object):
         self.verticalLayout.addWidget(self.W_Pie)
         Kenworth_Sonora.setCentralWidget(self.W_Principal)
         self.menuBar = QtWidgets.QMenuBar(parent=Kenworth_Sonora)
-        self.menuBar.setGeometry(QtCore.QRect(0, 0, 800, 25))
+        self.menuBar.setGeometry(QtCore.QRect(0, 0, 800, 20))
         font = QtGui.QFont()
         font.setFamily("Arial")
         font.setPointSize(8)

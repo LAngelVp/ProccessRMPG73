@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'c:\Users\OEM\Documents\projects\KENWORT_DEL_ESTE\programakw\App\Front\ventanasui\VPrincipal.ui'
+# Form implementation generated from reading ui file 'c:\Users\Angel Rodriguez\LUIS_ANGEL_VALLEJO\programakw\App\Front\ventanasui\VPrincipal.ui'
 #
 # Created by: PyQt6 UI code generator 6.7.0
 #
@@ -13,21 +13,20 @@ class Ui_VPrincipal(object):
     def setupUi(self, VPrincipal):
         VPrincipal.setObjectName("VPrincipal")
         VPrincipal.setEnabled(True)
-        VPrincipal.resize(280, 450)
+        VPrincipal.resize(320, 450)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Preferred, QtWidgets.QSizePolicy.Policy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(VPrincipal.sizePolicy().hasHeightForWidth())
         VPrincipal.setSizePolicy(sizePolicy)
-        VPrincipal.setMinimumSize(QtCore.QSize(280, 450))
-        VPrincipal.setMaximumSize(QtCore.QSize(280, 450))
+        VPrincipal.setMinimumSize(QtCore.QSize(320, 450))
+        VPrincipal.setMaximumSize(QtCore.QSize(320, 450))
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("c:\\Users\\OEM\\Documents\\projects\\KENWORT_DEL_ESTE\\programakw\\App\\Front\\ventanasui\\Source/KWE.ico"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Angel Rodriguez\\LUIS_ANGEL_VALLEJO\\programakw\\App\\Front\\ventanasui\\Source/KWE.ico"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         VPrincipal.setWindowIcon(icon)
         VPrincipal.setLayoutDirection(QtCore.Qt.LayoutDirection.LeftToRight)
         VPrincipal.setAutoFillBackground(False)
         VPrincipal.setStyleSheet("#VPrincipal{\n"
-"background-color: rgb(255, 255, 255);\n"
 "min-height:450px;\n"
 "min-width: 320px;\n"
 "max-height: 450px;\n"
@@ -44,12 +43,12 @@ class Ui_VPrincipal(object):
 "height:35px;\n"
 "}\n"
 "[objectName^=\"btc_btc\"]:hover{\n"
-"    background-color: rgb(209, 209, 209);\n"
+"background-color: rgb(64, 150, 216);\n"
 "    color: rgb(0, 0, 0);\n"
 "    border-radius:4px;\n"
 "}\n"
 "[objectName^=\"btn_btn\"]{\n"
-"    background-color: rgb(57, 86, 213);\n"
+"background-color: rgb(64, 150, 216);\n"
 "    color: rgb(0, 0, 0);\n"
 "    color: rgb(0, 0, 0);\n"
 "    border-radius:8px;\n"
@@ -59,7 +58,7 @@ class Ui_VPrincipal(object):
 "    max-width: 280px;\n"
 "}\n"
 "[objectName^=\"btn_btn\"]:hover{\n"
-"    background-color: rgb(163, 163, 163);\n"
+"background-color: rgb(69, 163, 235);\n"
 "    color: rgb(0, 0, 0);\n"
 "}\n"
 "#panel_encabezado{\n"
@@ -148,7 +147,7 @@ class Ui_VPrincipal(object):
         self.btn_btn_kwkrei.setObjectName("btn_btn_kwkrei")
         self.gridLayout_3.addWidget(self.btn_btn_kwkrei, 2, 0, 1, 1)
         self.btn_btn_kwrb = QtWidgets.QPushButton(parent=self.panel_btn_sucursales)
-        self.btn_btn_kwrb.setMaximumSize(QtCore.QSize(250, 35))
+        self.btn_btn_kwrb.setMaximumSize(QtCore.QSize(280, 35))
         font = QtGui.QFont()
         font.setPointSize(-1)
         font.setBold(True)
@@ -171,7 +170,7 @@ class Ui_VPrincipal(object):
         self.btc_btc_cerrar.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         self.btc_btc_cerrar.setText("")
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("c:\\Users\\OEM\\Documents\\projects\\KENWORT_DEL_ESTE\\programakw\\App\\Front\\ventanasui\\../../../../../Downloads/rutas.svg"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        icon1.addPixmap(QtGui.QPixmap("c:\\Users\\Angel Rodriguez\\LUIS_ANGEL_VALLEJO\\programakw\\App\\Front\\ventanasui\\../../../../../Downloads/rutas.svg"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         self.btc_btc_cerrar.setIcon(icon1)
         self.btc_btc_cerrar.setIconSize(QtCore.QSize(28, 28))
         self.btc_btc_cerrar.setObjectName("btc_btc_cerrar")
@@ -187,7 +186,7 @@ class Ui_VPrincipal(object):
         self.gridLayout_2.addItem(spacerItem1, 3, 0, 1, 1)
         VPrincipal.setCentralWidget(self.panel_principal)
         self.menuBar = QtWidgets.QMenuBar(parent=VPrincipal)
-        self.menuBar.setGeometry(QtCore.QRect(0, 0, 280, 21))
+        self.menuBar.setGeometry(QtCore.QRect(0, 0, 320, 21))
         self.menuBar.setObjectName("menuBar")
         VPrincipal.setMenuBar(self.menuBar)
 
