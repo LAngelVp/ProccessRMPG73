@@ -55,7 +55,7 @@ class PagoClientes(Variables):
             if (df[nombre_columna].dtypes == "object") and (nombre_columna == "Usuario_Aplicó"):
                 self.objetivos[nombre_columna] = ['DANIA VARGAS ROSAS']
             elif (df[nombre_columna].dtypes == "object") and (nombre_columna == "Vendedor"):
-                self.objetivos[nombre_columna] = ['Objetivo']
+                self.objetivos[nombre_columna] = ['Objetivo KWESTE']
             elif (df[nombre_columna].dtypes == "int64"):
                 self.objetivos[nombre_columna] = ['0']
             elif (df[nombre_columna].dtypes == "float64"):
@@ -126,4 +126,4 @@ class PagoClientes(Variables):
         df_completo["Area"] = "Pago Clientes"
 
         # # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
-        # self.variables.guardar_datos_dataframe(self.nombre_doc, df_completo, self.concesionario)
+        self.variables.guardar_datos_dataframe(self.nombre_doc, df_completo, self.concesionario)

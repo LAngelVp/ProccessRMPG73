@@ -177,9 +177,15 @@ class Variables:
     
     def parse_date_safe(self, date_str):
         try:
-            parsed_date = parser.parse(date_str)
-            parsed_date2 = str(parsed_date.date())
-            return parser.parse(parsed_date2)
+            # Parsear la cadena a un objeto datetime
+            parsed_date = parser.parse(date_str, dayfirst=True)
+            if parsed_date:
+                # Obtener solo la parte de la fecha (eliminando hora, minuto y segundo)
+                date_only = parsed_date.date()
+                datetime_with_midnight = parser.parse(str(date_only))
+                return datetime_with_midnight
+            else:
+                return None
         except (parser.ParserError, TypeError, ValueError):
             return None
         
@@ -190,21 +196,12 @@ class Variables:
             if pd.api.types.is_datetime64_any_dtype(data[name_column]):
                 try:
                     data[name_column] = pd.to_datetime(data[name_column]).dt.date
-                    data[name_column] = pd.to_datetime(data[name_column])
+                    data[name_column] = pd.to_datetime(data[name_column], dayfirst=True)
                 except:
-                    data[name_column] = data[name_column].astype(str)
-                    data[name_column] = [parser.parse(date_str) if not pd.isnull(date_str) else date_str for date_str in data[name_column]]
-                    data[name_column] = data[name_column].apply(lambda x: x.date())
-                    data[name_column] = [parser.parse(date_str) if not pd.isnull(date_str) else date_str for date_str in data[name_column]]
+                    pass
             elif pd.api.types.is_object_dtype(data[name_column]):
                     data[name_column] = data[name_column].astype(str)
-                    try:
-                        data[name_column] = [parser.parse(date_str) if not pd.isnull(date_str) else date_str for date_str in data[name_column]]
-                        data[name_column] = data[name_column].apply(lambda x: x.date())
-                        data[name_column] = data[name_column].astype(str)
-                        data[name_column] = [parser.parse(date_str) if not pd.isnull(date_str) else date_str for date_str in data[name_column]]
-                    except:
-                        data[name_column] = data[name_column].apply(self.parse_date_safe)
+                    data[name_column] = data[name_column].apply(self.parse_date_safe)
             else:
                 pass
         return data

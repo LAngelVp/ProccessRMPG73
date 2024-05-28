@@ -128,6 +128,8 @@ class ServicioDetallado(Variables):
         d.insert(10,"Fecha Movimiento",self.variables.date_movement_config_document(),allow_duplicates=False)
         d.insert(11,"Mes",self.variables.nombre_mes(),allow_duplicates=False)
 
+        
+
         #COMMENT: RECORRER COLUMNAS DE FECHA PARA TRANSFORMAR
         for column_name in d.columns:
             if "fecha" in column_name.lower():
