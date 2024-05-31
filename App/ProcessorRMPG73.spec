@@ -22,7 +22,7 @@ exe = EXE(
     a.binaries,
     a.datas,
     [],
-    name='DaProcessRMPG73',
+    name='ProcessorRMPG73',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
