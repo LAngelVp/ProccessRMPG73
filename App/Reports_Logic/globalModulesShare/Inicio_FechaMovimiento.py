@@ -16,6 +16,9 @@ class Home_DateMovement(QWidget):
         self.ui.setupUi(self)
         self.setWindowIcon(QIcon(":/Source/LOGO_KREI_3.ico"))
         self.setWindowTitle('Fecha Movimiento')
+
+        if not os.path.exists(Variables().help_directory):
+            os.makedirs(Variables().help_directory, exist_ok=True)
         
 
         # comment Colocamos la fecha actual a la caja de Fecha

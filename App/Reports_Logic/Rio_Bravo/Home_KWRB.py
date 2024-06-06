@@ -78,24 +78,31 @@ class Home_KWRB(QMainWindow):
         
         self.Creacion_Carpetas()
 
-        Home_DateMovement()
+        
         self.Show_Data_Trabajos()
         self.Show_Data_Procesado()
     # -------------------------------------------------
 # CREAR CARPETAS DE TRABAJO
     def Creacion_Carpetas(self):
-        directorio = os.listdir(self.variables.global_route_project)
-        while directorio:
-            if not os.path.exists(f'{self.variables.ruta_Trabajos_kwrb}'):
-                os.makedirs(f'{self.variables.ruta_Trabajos_kwrb}')
-            elif not os.path.exists(f'{self.variables.ruta_original_kwrb}'):
-                os.makedirs(f'{self.variables.ruta_original_kwrb}')
-            elif not os.path.isdir(f'{self.variables.ruta_errores_kwrb}'):
-                os.makedirs(f'{self.variables.ruta_errores_kwrb}')
-            elif not os.path.isdir(f'{self.variables.ruta_exitosos_kwrb}'):
-                os.makedirs(f'{self.variables.ruta_exitosos_kwrb}')
-            else:
-                break
+        # Rutas de las carpetas que se deben verificar/crear
+        rutas_a_verificar = [
+            self.variables.ruta_Trabajos_kwrb,
+            self.variables.ruta_original_kwrb,
+            self.variables.ruta_errores_kwrb,
+            self.variables.ruta_exitosos_kwrb
+        ]
+        
+        # Verificar si todas las carpetas ya existen
+        todas_existen = all(os.path.exists(ruta) for ruta in rutas_a_verificar)
+        
+        if todas_existen:
+            print("Todas las carpetas necesarias ya existen, no se realizará ninguna acción.")
+        else:
+            # Crear las carpetas que no existan
+            for ruta in rutas_a_verificar:
+                if not os.path.exists(ruta):
+                    os.makedirs(ruta, exist_ok=True)
+            print("Las carpetas necesarias han sido creadas.")
 #-------------------------------------------------
     def closeEvent(self, event):
         super().closeEvent(event)
@@ -121,6 +128,7 @@ class Home_KWRB(QMainWindow):
 #-----------------------------------------------------
 
     def abrir_ruta_errores(self):
+        self.Creacion_Carpetas()
         options = QFileDialog().options()
         options |= QFileDialog.Option.ReadOnly
         file_path, _ = QFileDialog.getOpenFileNames(self, 'Abrir Archivo Excel', self.variables.ruta_errores_kwrb, 'Excel Archivos (*.xlsx);; CSV Archivos (*.csv)',options=options)
@@ -142,6 +150,7 @@ class Home_KWRB(QMainWindow):
         self.Show_Data_Trabajos()
         self.Show_Data_Procesado()
     def abrir_ruta_originales(self):
+        self.Creacion_Carpetas()
         options = QFileDialog().options()
         options |= QFileDialog.Option.ReadOnly
         file_path, _ = QFileDialog.getOpenFileNames(self, 'Abrir Archivo Excel', self.variables.ruta_original_kwrb, 'Excel Archivos (*.xlsx);; CSV Archivos (*.csv)',options=options)
@@ -163,6 +172,7 @@ class Home_KWRB(QMainWindow):
         self.Show_Data_Trabajos()
         self.Show_Data_Procesado()
     def abrir_ruta_procesados(self):
+        self.Creacion_Carpetas()
         options = QFileDialog().options()
         options |= QFileDialog.Option.ReadOnly
         file_path, _ = QFileDialog.getOpenFileNames(self, 'Abrir Archivo Excel', self.variables.ruta_exitosos_kwrb, 'Excel Archivos (*.xlsx);; CSV Archivos (*.csv)',options=options)

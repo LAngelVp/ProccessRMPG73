@@ -8,10 +8,12 @@ from Front.inicio_sesion import UI_Inicio_Sesion
 from Reports_Logic.globalModulesShare.mensajes_alertas import Mensajes_Alertas
 from Reports_Logic.Home import PrincipalWindow
 import Reports_Logic.globalModulesShare.icono as icono
+from Reports_Logic.globalModulesShare.ContenedorVariables import *
 
 class InicioSesion(QWidget):
     def __init__(self) -> None:
         super().__init__()
+        self.variables = Variables()
         self.ui = UI_Inicio_Sesion()
         self.ui.setupUi(self)
         self.setWindowTitle("Inicio de Sesión")
@@ -30,6 +32,7 @@ class InicioSesion(QWidget):
         self.ui.btn_manejoventana_2.clicked.connect(self.cerrar)
         self.ui.btn_manejoventana.clicked.connect(self.minimizar)
 
+        self.variables.create_root_directory()
 
     def cerrar(self):
         self.close()

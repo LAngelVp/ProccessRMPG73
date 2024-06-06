@@ -35,8 +35,6 @@ class PrincipalWindow(QMainWindow):
         self.ui.btc_btc_cerrar.setIcon(QIcon(":Source/Icon_Close.png"))
         self.ui.btc_btc_minimizar.setIcon(QIcon(":Source/Icon_Minimize.png")) 
         self.ui.panel_encabezado.setStyleSheet("margin-top:5px;")
-
-    #     self.ventanas_abiertas = {}
         
         self.ui.btn_btn_kwrb.clicked.connect(self.abrirkwrb)
         self.ui.btn_btn_kweste.clicked.connect(self.abrirkweste)
@@ -44,6 +42,11 @@ class PrincipalWindow(QMainWindow):
         self.ui.btn_btn_kwsonora.clicked.connect(self.abrirkwsonora)
         self.ui.btc_btc_cerrar.clicked.connect(self.cerrar)
         self.ui.btc_btc_minimizar.clicked.connect(self.minimizar)
+
+        if not os.path.exists(Variables().help_directory):
+            os.makedirs(Variables().help_directory, exist_ok=True)
+        else:
+            pass
 
     
     def cerrar(self):

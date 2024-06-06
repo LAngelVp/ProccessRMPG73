@@ -28,7 +28,7 @@ class Variables:
         self.separador = os.sep
 #-----------------------------------------------------------
 #comment: global folder
-        self.folder_global = 'KWDataProcessRMPG73'
+        self.folder_global = 'ProcessRMPG73'
 #comment: folder name branch
         self.folder_name_kwrb = 'RMPG_ConcesionarioKenworthRioBravo'
         self.folder_name_kwe = 'RMPG_ConcesionarioKenworthdelEste'
@@ -113,7 +113,18 @@ class Variables:
         self.pdf = 'https://docs.google.com/document/d/1-TeaeWdGAXUGls18b_hH6qG-Ur1PqDznsWS8X9FPD_M/edit?usp=sharing' #NOTE Direccion en donde se encuentra el archivo de apoyo
 
 
-#-----------------------------------------------------------
+#--------------------------------------------------------
+#comment: create root directory
+    def create_root_directory(self):
+        try:
+            if not os.path.exists(self.global_route_project):
+                os.mkdir(self.global_route_project)
+            else:
+                print("La ruta raiz existe")
+        except:
+            pass
+        return self.global_route_project
+
 #comment: reading documents
     #* lectura de la fecha movimiento 
     def date_movement_config_document(self):

@@ -98,7 +98,7 @@ class Home_KenworthSonora(QMainWindow):
         self.ventana_obj.show()
 
     def abrir_ruta_errores(self):
-
+        self.Creacion_Carpetas()
         options = QFileDialog().options()
         options |= QFileDialog.Option.ReadOnly
         file_path, _ = QFileDialog.getOpenFileNames(self, 'Abrir Archivo Excel', self.variables.ruta_errores_kwsonora, 'Excel Archivos (*.xlsx);; CSV Archivos (*.csv)',options=options)
@@ -120,6 +120,7 @@ class Home_KenworthSonora(QMainWindow):
         self.Show_Data_Trabajos()
         self.Show_Data_Procesado()
     def abrir_ruta_originales(self):
+        self.Creacion_Carpetas()
         options = QFileDialog().options()
         options |= QFileDialog.Option.ReadOnly
         file_path, _ = QFileDialog.getOpenFileNames(self, 'Abrir Archivo Excel', self.variables.ruta_original_kwsonora, 'Excel Archivos (*.xlsx);; CSV Archivos (*.csv)',options=options)
@@ -141,6 +142,7 @@ class Home_KenworthSonora(QMainWindow):
         self.Show_Data_Trabajos()
         self.Show_Data_Procesado()
     def abrir_ruta_procesados(self):
+        self.Creacion_Carpetas()
         options = QFileDialog().options()
         options |= QFileDialog.Option.ReadOnly
         file_path, _ = QFileDialog.getOpenFileNames(self, 'Abrir Archivo Excel', self.variables.ruta_exitosos_kwsonora, 'Excel Archivos (*.xlsx);; CSV Archivos (*.csv)',options=options)
@@ -246,18 +248,25 @@ class Home_KenworthSonora(QMainWindow):
 
 
     def Creacion_Carpetas(self):
-        directorio = os.listdir(self.variables.global_route_project)
-        for i in directorio:
-            if not os.path.exists(f'{self.variables.ruta_Trabajos_kwsonora}'):
-                os.makedirs(f'{self.variables.ruta_Trabajos_kwsonora}')
-            elif not os.path.exists(f'{self.variables.ruta_original_kwsonora}'):
-                os.makedirs(f'{self.variables.ruta_original_kwsonora}')
-            elif not os.path.isdir(f'{self.variables.ruta_errores_kwsonora}'):
-                os.makedirs(f'{self.variables.ruta_errores_kwsonora}')
-            elif not os.path.isdir(f'{self.variables.ruta_exitosos_kwsonora}'):
-                os.makedirs(f'{self.variables.ruta_exitosos_kwsonora}')
-            else:
-                break
+        # Rutas de las carpetas que se deben verificar/crear
+        rutas_a_verificar = [
+            self.variables.ruta_Trabajos_kwsonora,
+            self.variables.ruta_original_kwsonora,
+            self.variables.ruta_errores_kwsonora,
+            self.variables.ruta_exitosos_kwsonora
+        ]
+        
+        # Verificar si todas las carpetas ya existen
+        todas_existen = all(os.path.exists(ruta) for ruta in rutas_a_verificar)
+        
+        if todas_existen:
+            print("Todas las carpetas necesarias ya existen, no se realizará ninguna acción.")
+        else:
+            # Crear las carpetas que no existan
+            for ruta in rutas_a_verificar:
+                if not os.path.exists(ruta):
+                    os.makedirs(ruta, exist_ok=True)
+            print("Las carpetas necesarias han sido creadas.")
     # cerrar la ventana
     def Cerrar(self):
         self.close()

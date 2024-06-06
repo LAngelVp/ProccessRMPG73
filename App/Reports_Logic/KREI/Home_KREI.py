@@ -78,7 +78,6 @@ class Home_KREI(QMainWindow, QDialog):
         self.Hilo.signalShowProcesados.connect(self.Show_Data_Procesado)
         
 
-        Home_DateMovement()
         self.Show_Data_Trabajos()
         self.Show_Data_Procesado()
         
@@ -91,6 +90,7 @@ class Home_KREI(QMainWindow, QDialog):
         self.ventana_obj.show()
 
     def abrir_ruta_errores(self):
+        self.Creacion_Carpetas()
         options = QFileDialog().options()
         options |= QFileDialog.Option.ReadOnly
         file_path, _ = QFileDialog.getOpenFileNames(self, 'Abrir Archivo Excel', self.variables.ruta_errores_krei, 'Excel Archivos (*.xlsx);; CSV Archivos (*.csv)',options=options)
@@ -112,6 +112,7 @@ class Home_KREI(QMainWindow, QDialog):
         self.Show_Data_Trabajos()
         self.Show_Data_Procesado()
     def abrir_ruta_originales(self):
+        self.Creacion_Carpetas()
         options = QFileDialog().options()
         options |= QFileDialog.Option.ReadOnly
         file_path, _ = QFileDialog.getOpenFileNames(self, 'Abrir Archivo Excel', self.variables.ruta_original_krei, 'Excel Archivos (*.xlsx);; CSV Archivos (*.csv)',options=options)
@@ -133,6 +134,7 @@ class Home_KREI(QMainWindow, QDialog):
         self.Show_Data_Trabajos()
         self.Show_Data_Procesado()
     def abrir_ruta_procesados(self):
+        self.Creacion_Carpetas()
         options = QFileDialog().options()
         options |= QFileDialog.Option.ReadOnly
         file_path, _ = QFileDialog.getOpenFileNames(self, 'Abrir Archivo Excel', self.variables.ruta_exitosos_krei, 'Excel Archivos (*.xlsx);; CSV Archivos (*.csv)',options=options)
@@ -238,18 +240,26 @@ class Home_KREI(QMainWindow, QDialog):
 
 
     def Creacion_Carpetas(self):
-        directorio = os.listdir(self.variables.global_route_project)
-        while directorio:
-            if not os.path.exists(f'{self.variables.ruta_Trabajos_krei}'):
-                os.makedirs(f'{self.variables.ruta_Trabajos_krei}')
-            elif not os.path.exists(f'{self.variables.ruta_original_krei}'):
-                os.makedirs(f'{self.variables.ruta_original_krei}')
-            elif not os.path.isdir(f'{self.variables.ruta_errores_krei}'):
-                os.makedirs(f'{self.variables.ruta_errores_krei}')
-            elif not os.path.isdir(f'{self.variables.ruta_exitosos_krei}'):
-                os.makedirs(f'{self.variables.ruta_exitosos_krei}')
-            else:
-                break
+        # Rutas de las carpetas que se deben verificar/crear
+        rutas_a_verificar = [
+            self.variables.ruta_Trabajos_krei,
+            self.variables.ruta_original_krei,
+            self.variables.ruta_errores_krei,
+            self.variables.ruta_exitosos_krei
+        ]
+        
+        # Verificar si todas las carpetas ya existen
+        todas_existen = all(os.path.exists(ruta) for ruta in rutas_a_verificar)
+        
+        if todas_existen:
+            print("Todas las carpetas necesarias ya existen, no se realizará ninguna acción.")
+        else:
+            # Crear las carpetas que no existan
+            for ruta in rutas_a_verificar:
+                if not os.path.exists(ruta):
+                    os.makedirs(ruta, exist_ok=True)
+            print("Las carpetas necesarias han sido creadas.")
+
     # cerrar la ventana
     def Cerrar(self):
         self.close()
