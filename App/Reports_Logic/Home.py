@@ -4,6 +4,7 @@
 #########################
 import sys
 import os
+from datetime import datetime
 from .globalModulesShare.resources import *
 from .globalModulesShare.icono import *
 from PyQt6 import  *
@@ -18,6 +19,7 @@ from .Kenworth_Sonora.Home_KWSonora import *
 #-----------
 from .globalModulesShare.ContenedorVariables import Variables
 from .ventanaspy.VPrincipal import Ui_VPrincipal 
+from Reports_Logic.globalModulesShare.documentos_json import creacion_json
 from Front.inicio_sesion import UI_Inicio_Sesion
 
 class PrincipalWindow(QMainWindow):
@@ -47,7 +49,7 @@ class PrincipalWindow(QMainWindow):
             os.makedirs(Variables().help_directory, exist_ok=True)
         else:
             pass
-
+        
     
     def cerrar(self):
         self.close()

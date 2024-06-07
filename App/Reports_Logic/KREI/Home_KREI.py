@@ -77,7 +77,7 @@ class Home_KREI(QMainWindow, QDialog):
         self.Hilo.signalShowTrabajos.connect(self.Show_Data_Trabajos)
         self.Hilo.signalShowProcesados.connect(self.Show_Data_Procesado)
         
-
+        self.variables.actualizar_fecha_movimiento()
         self.Show_Data_Trabajos()
         self.Show_Data_Procesado()
         
@@ -252,13 +252,13 @@ class Home_KREI(QMainWindow, QDialog):
         todas_existen = all(os.path.exists(ruta) for ruta in rutas_a_verificar)
         
         if todas_existen:
-            print("Todas las carpetas necesarias ya existen, no se realizará ninguna acción.")
+            pass
         else:
             # Crear las carpetas que no existan
             for ruta in rutas_a_verificar:
                 if not os.path.exists(ruta):
                     os.makedirs(ruta, exist_ok=True)
-            print("Las carpetas necesarias han sido creadas.")
+            
 
     # cerrar la ventana
     def Cerrar(self):

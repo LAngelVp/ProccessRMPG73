@@ -12,6 +12,8 @@ import locale
 from dateutil import parser
 from openpyxl import *
 
+from .documentos_json import creacion_json
+
 locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
 class Variables:
     def __init__(self):
@@ -129,7 +131,7 @@ class Variables:
     #* lectura de la fecha movimiento 
     def date_movement_config_document(self):
         document = pd.read_json(self.movement_date_document)
-        date_movement = pd.to_datetime(document.loc[0,"Date_Movement"], format="%d/%m/%Y") 
+        date_movement = parser.parse(document.iloc[0]["fecha_movimiento"]) 
         return date_movement
     #* comprobar existencia de rutas para procesar los reportes
     def comprobar_reporte_documento_rutas(self, nombre = None, concesionario = None):
@@ -249,3 +251,26 @@ class Variables:
     def vendedores_y_depas_este_servicio(self):
         documento = pd.read_json(self.nombre_documento_clasificacion_vendedores_servicio_kwe)
         return documento
+    
+#COMMENT: ACTUALIZAMOS LA FECHA MOVIMIENTO A FECHA ACTUAL AL ABRIR LA VENTANA
+    def actualizar_fecha_movimiento(self):
+        fecha_actual = datetime.today().date()
+        objeto_fecha_movimiento = {
+            "fecha_movimiento" : str(fecha_actual)
+        }
+        if os.path.exists(os.path.join(self.help_directory,self.movement_date_document_file)):
+            self.colocar_fecha_actual(fecha_actual)
+        else:
+            creacion_json(self.help_directory,self.movement_date_document_file).comprobar_existencia
+            creacion_json(self.help_directory,self.movement_date_document_file, objeto_fecha_movimiento).agregar_json
+
+    def colocar_fecha_actual(self, nueva_fecha):
+        fecha_antigua = creacion_json(self.help_directory,self.movement_date_document_file).comprobar_existencia
+        id_fecha = fecha_antigua[0]['id']
+        id = {"id" : str(id_fecha)}
+        nueva_fecha_tipada = nueva_fecha
+        nuevo_objeto_fecha = {
+            'id' : id['id'],
+            'fecha_movimiento' : str(nueva_fecha_tipada)
+        }
+        creacion_json(self.help_directory,self.movement_date_document_file,id).actualizar_datos(nuevo_objeto_fecha)

@@ -15,7 +15,7 @@ class InicioSesion(QWidget):
         super().__init__()
         self.variables = Variables()
         self.ui = UI_Inicio_Sesion()
-        self.ui.setupUi(self)
+        self.ui.setupUi(self) 
         self.setWindowTitle("Inicio de Sesión")
         self.setWindowIcon(QIcon(":/Source/LOGO_KREI_3.ico"))
         self.setWindowFlags(self.windowFlags() | Qt.WindowType.FramelessWindowHint)

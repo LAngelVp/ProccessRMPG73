@@ -78,7 +78,7 @@ class Home_KWRB(QMainWindow):
         
         self.Creacion_Carpetas()
 
-        
+        self.variables.actualizar_fecha_movimiento()
         self.Show_Data_Trabajos()
         self.Show_Data_Procesado()
     # -------------------------------------------------
@@ -96,13 +96,12 @@ class Home_KWRB(QMainWindow):
         todas_existen = all(os.path.exists(ruta) for ruta in rutas_a_verificar)
         
         if todas_existen:
-            print("Todas las carpetas necesarias ya existen, no se realizará ninguna acción.")
+            pass
         else:
             # Crear las carpetas que no existan
             for ruta in rutas_a_verificar:
                 if not os.path.exists(ruta):
                     os.makedirs(ruta, exist_ok=True)
-            print("Las carpetas necesarias han sido creadas.")
 #-------------------------------------------------
     def closeEvent(self, event):
         super().closeEvent(event)
