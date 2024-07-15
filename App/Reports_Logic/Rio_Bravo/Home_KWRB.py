@@ -8,7 +8,7 @@ import shutil
 from PyQt6.QtCore import Qt, QThread, pyqtSignal, QPointF
 from ..globalModulesShare.resources import *
 from PyQt6.QtWidgets import *
-from PyQt6.QtGui import QIcon, QPixmap
+from PyQt6.QtGui import QIcon, QPixmap, QBrush, QColor
 from webbrowser import *
 from ..globalModulesShare.ContenedorVariables import Variables
 from ..globalModulesShare.Inicio_FechaMovimiento import *
@@ -347,13 +347,17 @@ class Home_KWRB(QMainWindow):
         self.ventanaRioBravo.Tabla_Cola.setRowCount(len(archivos_para_mostrar))
         self.ventanaRioBravo.Tabla_Cola.setColumnCount(1)
         self.ventanaRioBravo.Tabla_Cola.setHorizontalHeaderLabels(["Nombre del archivo"])
+        self.ventanaRioBravo.Tabla_Cola.setStyleSheet("color:#000000;")
         for fila, archivo in enumerate(archivos_para_mostrar):
             elemento = QTableWidgetItem(archivo)
             elemento.setFlags(QtCore.Qt.ItemFlag.ItemIsSelectable | QtCore.Qt.ItemFlag.ItemIsEnabled)  # Bloqueamos la edición
-            elemento.setForeground(QtGui.QColor(0, 0, 0))
+            elemento.setForeground(QBrush(QColor(0, 0, 0)))
             self.ventanaRioBravo.Tabla_Cola.setItem(fila, 0, elemento)
         header = self.ventanaRioBravo.Tabla_Cola.horizontalHeader()
         header.setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeMode.Stretch)
+        header.setStyleSheet("background-color:#000000; color:#FFFFFF;")
+        verticalHeader = self.ventanaRioBravo.Tabla_Cola.verticalHeader()
+        verticalHeader.setStyleSheet("background-color:#000000; color:#FFFFFF;")
 
 
 
@@ -362,13 +366,17 @@ class Home_KWRB(QMainWindow):
             self.ventanaRioBravo.Tabla_Procesados.setRowCount(len(archivos_para_mostrar))
             self.ventanaRioBravo.Tabla_Procesados.setColumnCount(1)
             self.ventanaRioBravo.Tabla_Procesados.setHorizontalHeaderLabels(["Nombre del archivo"])
+            self.ventanaRioBravo.Tabla_Procesados.setStyleSheet("color:#000000;")
             for fila, archivo in enumerate(archivos_para_mostrar):
                 elemento = QTableWidgetItem(archivo)
                 elemento.setFlags(QtCore.Qt.ItemFlag.ItemIsSelectable | QtCore.Qt.ItemFlag.ItemIsEnabled)  # Bloqueamos la edición
-                elemento.setForeground(QtGui.QColor(0, 0, 0))
+                elemento.setForeground(QBrush(QColor(0, 0, 0)))
                 self.ventanaRioBravo.Tabla_Procesados.setItem(fila, 0, elemento)
             header = self.ventanaRioBravo.Tabla_Procesados.horizontalHeader()
             header.setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeMode.Stretch)
+            header.setStyleSheet("background-color:#000000; color:#FFFFFF;")
+            verticalHeader = self.ventanaRioBravo.Tabla_Procesados.verticalHeader()
+            verticalHeader.setStyleSheet("background-color: #000000; color:#FFFFFF;")
 #--------------------------------------------------
 
 

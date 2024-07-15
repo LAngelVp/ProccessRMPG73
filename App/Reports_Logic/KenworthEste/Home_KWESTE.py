@@ -8,7 +8,7 @@ import shutil
 from ..globalModulesShare.resources import *
 from PyQt6 import QtCore, QtGui, QtWidgets
 from PyQt6.QtWidgets import *
-from PyQt6.QtGui import QIcon, QPixmap, QMouseEvent
+from PyQt6.QtGui import QIcon, QPixmap, QBrush, QColor
 from PyQt6.QtCore import Qt, QThread, pyqtSignal
 from webbrowser import *
 from ..globalModulesShare.ContenedorVariables import Variables
@@ -237,13 +237,18 @@ class Home_KWESTE(QMainWindow, QDialog):
         self.ventKWESTE.Tabla_cola.setRowCount(len(archivos_para_mostrar))
         self.ventKWESTE.Tabla_cola.setColumnCount(1)
         self.ventKWESTE.Tabla_cola.setHorizontalHeaderLabels(["Nombre del archivo"])
+        self.ventKWESTE.Tabla_cola.setStyleSheet("color:#000000;")
         for fila, archivo in enumerate(archivos_para_mostrar):
             elemento = QTableWidgetItem(archivo)
             elemento.setFlags(QtCore.Qt.ItemFlag.ItemIsSelectable | QtCore.Qt.ItemFlag.ItemIsEnabled)  # Bloqueamos la edición
-            elemento.setForeground(QtGui.QColor(0, 0, 0))
+            elemento.setForeground(QBrush(QColor(0, 0, 0)))
             self.ventKWESTE.Tabla_cola.setItem(fila, 0, elemento)
         header = self.ventKWESTE.Tabla_cola.horizontalHeader()
         header.setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeMode.Stretch)
+        header.setStyleSheet("background-color:#000000; color:#FFFFFF;")
+
+        verticalHeader = self.ventKWESTE.Tabla_cola.verticalHeader()
+        verticalHeader.setStyleSheet("background-color:#000000; color:#FFFFFF;")
 
     # mostrar el contenido de la carpeta en la tabla de trabajos.
     def Show_Data_Procesado(self):
@@ -251,13 +256,17 @@ class Home_KWESTE(QMainWindow, QDialog):
         self.ventKWESTE.Tabla_Procesados.setRowCount(len(archivos_para_mostrar))
         self.ventKWESTE.Tabla_Procesados.setColumnCount(1)
         self.ventKWESTE.Tabla_Procesados.setHorizontalHeaderLabels(["Nombre del archivo"])
+        self.ventKWESTE.Tabla_Procesados.setStyleSheet("color:#000000;")
         for fila, archivo in enumerate(archivos_para_mostrar):
             elemento = QTableWidgetItem(archivo)
             elemento.setFlags(QtCore.Qt.ItemFlag.ItemIsSelectable | QtCore.Qt.ItemFlag.ItemIsEnabled)  # Bloqueamos la edición
-            elemento.setForeground(QtGui.QColor(0, 0, 0))
+            elemento.setForeground(QBrush(QColor(0, 0, 0)))
             self.ventKWESTE.Tabla_Procesados.setItem(fila, 0, elemento)
         header = self.ventKWESTE.Tabla_Procesados.horizontalHeader()
         header.setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeMode.Stretch)
+        header.setStyleSheet("background-color:#000000; color:#FFFFFF;")
+        verticalHeader = self.ventKWESTE.Tabla_Procesados.verticalHeader()
+        verticalHeader.setStyleSheet("background-color: #000000; color:#FFFFFF;")
 
 
     def Creacion_Carpetas(self):

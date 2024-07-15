@@ -31,6 +31,10 @@ class InicioSesion(QWidget):
         self.ui.btn_aceptar_ingreso.clicked.connect(self.Ingresar)
         self.ui.btn_manejoventana_2.clicked.connect(self.cerrar)
         self.ui.btn_manejoventana.clicked.connect(self.minimizar)
+        self.ui.txt_usuario.setStyleSheet("color:#000000;")
+        self.ui.txt_usuarioPassword.setStyleSheet("color:#000000;")
+        self.ui.label.setStyleSheet("color:#000000;")
+        
 
         self.variables.create_root_directory()
 
