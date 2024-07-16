@@ -232,9 +232,9 @@ class Home_KenworthSonora(QMainWindow):
             self.ui.Tabla_Cola.setItem(fila, 0, elemento)
         header = self.ui.Tabla_Cola.horizontalHeader()
         header.setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeMode.Stretch)
-        header.setStyleSheet("background-color:#000000; color:#FFFFFF;")
+        header.setStyleSheet("background-color:#4096d8; color:#FFFFFF;")
         verticalHeader = self.ui.Tabla_Cola.verticalHeader()
-        verticalHeader.setStyleSheet("background-color:#000000; color:#FFFFFF;")
+        verticalHeader.setStyleSheet("background-color:#4096d8; color:#FFFFFF;")
 
     # mostrar el contenido de la carpeta en la tabla de trabajos.
     def Show_Data_Procesado(self):
@@ -250,9 +250,9 @@ class Home_KenworthSonora(QMainWindow):
             self.ui.Tabla_Procesado.setItem(fila, 0, elemento)
         header = self.ui.Tabla_Procesado.horizontalHeader()
         header.setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeMode.Stretch)
-        header.setStyleSheet("background-color:#000000; color:#FFFFFF;")
+        header.setStyleSheet("background-color:#4096d8; color:#FFFFFF;")
         verticalHeader = self.ui.Tabla_Procesado.verticalHeader()
-        verticalHeader.setStyleSheet("background-color: #000000; color:#FFFFFF;")
+        verticalHeader.setStyleSheet("background-color: #4096d8; color:#FFFFFF;")
 
 
     def Creacion_Carpetas(self):

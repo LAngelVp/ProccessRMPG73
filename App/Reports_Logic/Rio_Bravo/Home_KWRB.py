@@ -355,9 +355,9 @@ class Home_KWRB(QMainWindow):
             self.ventanaRioBravo.Tabla_Cola.setItem(fila, 0, elemento)
         header = self.ventanaRioBravo.Tabla_Cola.horizontalHeader()
         header.setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeMode.Stretch)
-        header.setStyleSheet("background-color:#000000; color:#FFFFFF;")
+        header.setStyleSheet("background-color:#4096d8; color:#FFFFFF;")
         verticalHeader = self.ventanaRioBravo.Tabla_Cola.verticalHeader()
-        verticalHeader.setStyleSheet("background-color:#000000; color:#FFFFFF;")
+        verticalHeader.setStyleSheet("background-color:#4096d8; color:#FFFFFF;")
 
 
 
@@ -374,9 +374,9 @@ class Home_KWRB(QMainWindow):
                 self.ventanaRioBravo.Tabla_Procesados.setItem(fila, 0, elemento)
             header = self.ventanaRioBravo.Tabla_Procesados.horizontalHeader()
             header.setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeMode.Stretch)
-            header.setStyleSheet("background-color:#000000; color:#FFFFFF;")
+            header.setStyleSheet("background-color:#4096d8; color:#FFFFFF;")
             verticalHeader = self.ventanaRioBravo.Tabla_Procesados.verticalHeader()
-            verticalHeader.setStyleSheet("background-color: #000000; color:#FFFFFF;")
+            verticalHeader.setStyleSheet("background-color: #4096d8; color:#FFFFFF;")
 #--------------------------------------------------
 
 

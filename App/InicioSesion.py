@@ -6,7 +6,7 @@ from PyQt6.QtGui import *
 from Reports_Logic.globalModulesShare.resources import *
 from Front.inicio_sesion import UI_Inicio_Sesion
 from Reports_Logic.globalModulesShare.mensajes_alertas import Mensajes_Alertas
-from Reports_Logic.Home import PrincipalWindow
+from Home import PrincipalWindow
 import Reports_Logic.globalModulesShare.icono as icono
 from Reports_Logic.globalModulesShare.ContenedorVariables import *
 
@@ -26,8 +26,8 @@ class InicioSesion(QWidget):
         self.ui.btn_manejoventana.setIcon(QIcon(":Source/Icon_Minimize.png"))
         self.ui.label.setStyleSheet("font-weight: bold;")
         self.ui.w_login.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=45, xOffset=0, yOffset=0))
-        self.__User__ = "KREI"
-        self.__Password__ = "RMPG73#"
+        self.__User__ = "1"
+        self.__Password__ = "1"
         self.ui.btn_aceptar_ingreso.clicked.connect(self.Ingresar)
         self.ui.btn_manejoventana_2.clicked.connect(self.cerrar)
         self.ui.btn_manejoventana.clicked.connect(self.minimizar)

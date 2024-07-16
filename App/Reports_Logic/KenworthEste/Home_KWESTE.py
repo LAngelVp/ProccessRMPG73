@@ -245,10 +245,10 @@ class Home_KWESTE(QMainWindow, QDialog):
             self.ventKWESTE.Tabla_cola.setItem(fila, 0, elemento)
         header = self.ventKWESTE.Tabla_cola.horizontalHeader()
         header.setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeMode.Stretch)
-        header.setStyleSheet("background-color:#000000; color:#FFFFFF;")
+        header.setStyleSheet("background-color:#4096d8; color:#FFFFFF;")
 
         verticalHeader = self.ventKWESTE.Tabla_cola.verticalHeader()
-        verticalHeader.setStyleSheet("background-color:#000000; color:#FFFFFF;")
+        verticalHeader.setStyleSheet("background-color:#4096d8; color:#FFFFFF;")
 
     # mostrar el contenido de la carpeta en la tabla de trabajos.
     def Show_Data_Procesado(self):
@@ -264,9 +264,9 @@ class Home_KWESTE(QMainWindow, QDialog):
             self.ventKWESTE.Tabla_Procesados.setItem(fila, 0, elemento)
         header = self.ventKWESTE.Tabla_Procesados.horizontalHeader()
         header.setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeMode.Stretch)
-        header.setStyleSheet("background-color:#000000; color:#FFFFFF;")
+        header.setStyleSheet("background-color:#4096d8; color:#FFFFFF;")
         verticalHeader = self.ventKWESTE.Tabla_Procesados.verticalHeader()
-        verticalHeader.setStyleSheet("background-color: #000000; color:#FFFFFF;")
+        verticalHeader.setStyleSheet("background-color: #4096d8; color:#FFFFFF;")
 
 
     def Creacion_Carpetas(self):
@@ -417,7 +417,10 @@ class trabajohilo(QThread):
             "IUE.xlsx" : KenworthConnect().InventarioUnidades,
             "SDE.xlsx" : KenworthConnect().ServicioDetallado,
             "RE.xlsx" : KenworthConnect().Refacciones,
-            "RFE.xlsx" : KenworthConnect().ResultadosFinancieros
+            "RFE.xlsx" : KenworthConnect().ResultadosFinancieros,
+            "CDEFS.xlsx" : KenworthConnect().ComprasDetalladoFactSitic,
+            "NCPDFS.xlsx" : KenworthConnect().NotasCargoProveedor,
+            "NCRFS.xlsx" : KenworthConnect().NcrFactSitic
         }
         #-----------------------------------------------
         while True:

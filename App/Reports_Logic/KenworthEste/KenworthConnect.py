@@ -3,6 +3,7 @@
 # RMPG - LUIS ANGEL VALLEJO PEREZ
 #########################
 # esta clase sera intermediaria entre el front con el back.
+import traceback
 from .Logica_Reportes.Credito import *
 from .Logica_Reportes.Inventario import *
 from .Logica_Reportes.BackOrders import *
@@ -16,6 +17,7 @@ from .Logica_Reportes.InventarioUnidades import *
 from .Logica_Reportes.ServicioDetallado import *
 from .Logica_Reportes.Refacciones import *
 from .Logica_Reportes.Financiero import *
+from .Logica_Reportes.Contabilidad import FactSitic_document, Nota_credito_retenido
 #-----------------------------------
 
 #CLASE
@@ -72,3 +74,15 @@ class KenworthConnect():
     def ResultadosFinancieros(self):
         ResultadosFinancieros()
         
+    # COMPRAS DETALLADO FACTSITIC
+    def ComprasDetalladoFactSitic(self):
+        FactSitic_document().compras_detallado
+    # NOTAS DE CARGO PROVEEDOR FACTSITIC
+    def NotasCargoProveedor(self):
+        FactSitic_document().notas_cargo_proveedor
+    
+    # NCR FACTSITIC
+    def NcrFactSitic(self):
+        Nota_credito_retenido().Ncr
+
+    
