@@ -5,3 +5,4 @@ PyQt6
 PyInstaller
 virtualenv
 python-dateutil
+python-dotenv

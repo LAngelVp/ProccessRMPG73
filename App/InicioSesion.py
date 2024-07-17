@@ -4,9 +4,11 @@ from PyQt6.QtCore import *
 from PyQt6.QtWidgets import *
 from PyQt6.QtGui import *
 from Reports_Logic.globalModulesShare.resources import *
+from Reports_Logic.globalModulesShare import *
+from dotenv import load_dotenv
 from Front.inicio_sesion import UI_Inicio_Sesion
 from Reports_Logic.globalModulesShare.mensajes_alertas import Mensajes_Alertas
-from Home import PrincipalWindow
+from Reports_Logic.Home import PrincipalWindow
 import Reports_Logic.globalModulesShare.icono as icono
 from Reports_Logic.globalModulesShare.ContenedorVariables import *
 
@@ -14,6 +16,8 @@ class InicioSesion(QWidget):
     def __init__(self) -> None:
         super().__init__()
         self.variables = Variables()
+        domains='Reports_Logic/globalModulesShare'
+        load_dotenv(dotenv_path)
         self.ui = UI_Inicio_Sesion()
         self.ui.setupUi(self) 
         self.setWindowTitle("Inicio de Sesión")
@@ -22,12 +26,13 @@ class InicioSesion(QWidget):
         self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
         self.ui.label_2.setPixmap(QPixmap(":/Source/DevRous2.png"))
         self.ui.label_2.setScaledContents(True)
+        dotenv_path = os.path.join(os.path.dirname(__file__), domains, '.env')
         self.ui.btn_manejoventana_2.setIcon(QIcon(":Source/Icon_Close.png"))
         self.ui.btn_manejoventana.setIcon(QIcon(":Source/Icon_Minimize.png"))
         self.ui.label.setStyleSheet("font-weight: bold;")
         self.ui.w_login.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=45, xOffset=0, yOffset=0))
-        self.__User__ = "1"
-        self.__Password__ = "1"
+        self.__User__ = os.getenv('APP_USERNAME')
+        self.__Password__ = os.getenv('APP_PASSWORD')
         self.ui.btn_aceptar_ingreso.clicked.connect(self.Ingresar)
         self.ui.btn_manejoventana_2.clicked.connect(self.cerrar)
         self.ui.btn_manejoventana.clicked.connect(self.minimizar)

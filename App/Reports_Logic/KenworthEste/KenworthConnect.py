@@ -17,7 +17,7 @@ from .Logica_Reportes.InventarioUnidades import *
 from .Logica_Reportes.ServicioDetallado import *
 from .Logica_Reportes.Refacciones import *
 from .Logica_Reportes.Financiero import *
-from .Logica_Reportes.Contabilidad import FactSitic_document, Nota_credito_retenido
+from .Logica_Reportes.Contabilidad import FactSitic_document, Nota_credito_retenido, FactSat_document
 #-----------------------------------
 
 #CLASE
@@ -84,5 +84,12 @@ class KenworthConnect():
     # NCR FACTSITIC
     def NcrFactSitic(self):
         Nota_credito_retenido().Ncr
-
+    
+    # FACTURAS FACTSAT
+    def FacturasFactSat(self):
+        FactSat_document().Facturas
+    
+    # NOTA DE CREDITO FACTSAT
+    def NotaCreditoFactSat(self):
+        FactSat_document().Nota_de_credito
     

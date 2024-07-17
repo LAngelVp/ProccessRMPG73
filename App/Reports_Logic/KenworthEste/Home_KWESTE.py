@@ -420,7 +420,9 @@ class trabajohilo(QThread):
             "RFE.xlsx" : KenworthConnect().ResultadosFinancieros,
             "CDEFS.xlsx" : KenworthConnect().ComprasDetalladoFactSitic,
             "NCPDFS.xlsx" : KenworthConnect().NotasCargoProveedor,
-            "NCRFS.xlsx" : KenworthConnect().NcrFactSitic
+            "NCRFS.xlsx" : KenworthConnect().NcrFactSitic,
+            "FFS.xlsx" : KenworthConnect().FacturasFactSat,
+            "NCFS.xlsx" : KenworthConnect().NotaCreditoFactSat
         }
         #-----------------------------------------------
         while True:

@@ -27,26 +27,19 @@ class Compras(Variables):
         # cambiamos el nombre de las columnas con las que
         # vamos a realizar las operaciones.
         df2["Fecha_Hoy"] =  self.variables.date_movement_config_document()
-        for i in df2.columns:
-            if 'fecha' in i.lower():
-                print(f'{i} {df2[i].dtype}')
 
-        print(df2[['Fecha Docto.','Fecha Captura']])
         # formateamos las columnas de fecha a trabajar, para poder hacer operaciones 
         for column_name in df2.columns:
             if "fecha" in column_name.lower():
                 df2 = self.variables.global_date_format_america(df2, column_name)
             else:
                 pass
-        for i in df2.columns:
-            if 'fecha' in i.lower():
-                print(f'{i} {df2[i].dtype}')
-        print(1)
+
         antiguedad = (df2['Fecha Captura'] - df2['Fecha Docto.'])
-        print(2)
+
 
         antiguedad_factura = (df2['Fecha_Hoy'] - df2['Fecha Docto.'])
-        print(3)
+
 
         df2.insert(
             loc = 5,
