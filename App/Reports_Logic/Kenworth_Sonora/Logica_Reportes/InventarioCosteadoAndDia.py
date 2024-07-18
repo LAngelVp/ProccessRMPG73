@@ -96,7 +96,7 @@ class InventarioCosteado(Variables):
         #convertir la fecha a formato "dia/mes/año"
         df_inventarioCosteadoxDia= self.variables.global_date_format_america(df_inventarioCosteadoxDia, "Fecha_Dias")
 
-        df_inventarioCosteadoxDia= self.variables.global_date_format_mdy_america(df_inventarioCosteadoxDia, "Fecha_Dias")
+        df_inventarioCosteadoxDia= self.variables.global_date_format_dmy_mexican(df_inventarioCosteadoxDia, "Fecha_Dias")
 
         # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
         self.variables.guardar_datos_dataframe(self.nombre_doc2, df_inventarioCosteadoxDia, self.concesionario)

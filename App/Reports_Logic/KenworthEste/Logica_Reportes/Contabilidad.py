@@ -136,7 +136,7 @@ class FactSat_document:
         self.nb_contenido_principal['IMPUESTO LOCAL RETENIDO FINAL'] = self.nb_notas_credito_tiposmonedaMXN['IMPUESTO LOCAL RETENIDO'] + self.nb_notas_credito_tipomonedaDolar['IMPUESTO LOCAL RETENIDO']
         self.nb_contenido_principal['TOTAL FACTURADO FINAL'] = self.nb_notas_credito_tiposmonedaMXN['TOTAL FACTURADO'] + self.nb_notas_credito_tipomonedaDolar['TOTAL FACTURADO']
         # CREAMOS LA COLUMNA DE TIPO = FACTURA.
-        self.nb_contenido_principal["TIPO"] = 'Factura'
+        self.nb_contenido_principal["TIPO"] = 'NotaCredito'
         # RENOMBRAMOS LA COLUMNA DE DESCRIPCION POR SI NO SE LLAMA ASI.
         self.nb_contenido_principal.columns.values[1] = 'DESCRIPCION'
         # ESTRUCTURAMOS EL DOCUMENTO FINAL.

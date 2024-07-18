@@ -5,7 +5,7 @@ a = Analysis(
     ['InicioSesion.py'],
     pathex=[],
     binaries=[],
-    datas=[],
+    datas=[('Reports_Logic/globalModulesShare/.env', 'Reports_Logic/globalModulesShare')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
