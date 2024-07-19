@@ -250,7 +250,7 @@ class PagosClientes(Variables):
                 self.objetivos[nombre_columna] = ['DANIA VARGAS ROSAS']
 
             elif (dataframe_completo[nombre_columna].dtypes == "object") and (nombre_columna == "CLASS_SUCURSAL"):
-                self.objetivos[nombre_columna] = ['Objetivo']
+                self.objetivos[nombre_columna] = ['Objetivo KWRB']
 
             elif (dataframe_completo[nombre_columna].dtypes == "object") and (nombre_columna == "Departamento"):
                 self.objetivos[nombre_columna] = ['KWRB']
