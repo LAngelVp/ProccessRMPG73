@@ -4,6 +4,7 @@
 #########################
 import os
 import pandas as pd
+from ...globalModulesShare.WebScraping import *
 from ...globalModulesShare.ContenedorVariables import Variables
 from ...globalModulesShare.ConcesionariosModel import Concesionarios
 class RefaccionesKWESTEKREI(Variables):
@@ -11,6 +12,10 @@ class RefaccionesKWESTEKREI(Variables):
         super().__init__()
         self.concesionario = Concesionarios().concesionarioKREI
         self.variables = Variables()
+        self.fecha_final = Variables().date_movement_config_document().strftime('%d/%m/%Y')
+        self.fecha_inicial = Variables().date_movement_config_document().replace(day=01).strftime('%d/%m/Y')
+        self.dolares = Web_scraping().obtener_dolares(self.fecha_inicial, self.fecha_final)
+        self.dolares['Fecha'] = self.dolares['Fecha']
     def RefaccionesKWESTE_KREI(self):
         self.nombre_doc = 'REKREI.xlsx'
         path = os.path.join(self.variables.ruta_Trabajos_krei, self.nombre_doc)

@@ -6,3 +6,5 @@ PyInstaller
 virtualenv
 python-dateutil
 python-dotenv
+requests
+beautifulsoup4
