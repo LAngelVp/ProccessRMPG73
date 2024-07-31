@@ -13,6 +13,8 @@ class Web_scraping:
     def __init__(self):
         self.fecha_inicial = ''
         self.fecha_final = ''
+        self.fecha_inicial_df_merge = Variables().date_movement_config_document().replace(day=1)
+        self.fecha_final_df_merge = Variables().date_movement_config_document()
         self.fin_ruta = r"/Reports_Logic/"
         if getattr(sys, 'frozen', False):
             # Ruta en el entorno empaquetado
@@ -61,8 +63,26 @@ class Web_scraping:
             # Convertir la tabla a un DataFrame
             table_html = str(table)
             df = pd.read_html(StringIO(table_html))[0]
+            df.columns = df.iloc[0]
+            df.drop(index=0, inplace=True)
+            df.reset_index(drop=True, inplace=True)
+            df["Fecha"] = pd.to_datetime(df['Fecha'],dayfirst=True)
+            # RANGO COMPLETO DE FECHAS
 
+            rango_completo_fechas = pd.date_range(start=self.fecha_inicial_df_merge, end=self.fecha_final_df_merge, freq='D')
+
+            df_completo_fechas = pd.DataFrame(rango_completo_fechas, columns=['Fecha'])
+            juntar_dos = pd.merge(df_completo_fechas, df, on='Fecha', how='left')
+            # Rellenar los NaN con el valor anterior
+            juntar_dos['Valor'] = juntar_dos['Valor'].fillna(method='ffill')
+            for column_name in juntar_dos.columns:
+                if "fecha" in column_name.lower():
+                    juntar_dos = Variables().global_date_format_america(juntar_dos, column_name)
+                    juntar_dos = Variables().global_date_format_dmy_mexican(juntar_dos, column_name)
+                else:
+                    pass
+            juntar_dos['Valor'] = pd.to_numeric(juntar_dos['Valor'])
             driver.quit()
-            return df
+            return juntar_dos
         else:
             return None
