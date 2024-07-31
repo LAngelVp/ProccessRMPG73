@@ -70,7 +70,7 @@ class ResultadosFinancierosKREI(Variables):
             df_unidades_facturadas_ordenado.insert(
                     loc = 0,
                     column = "Concesionario",
-                    value = "ESTE",
+                    value = "KW ESTE",
                     allow_duplicates=True
                 )
             
@@ -155,7 +155,7 @@ class ResultadosFinancierosKREI(Variables):
             df_unidades_facturadas_ordenado.insert(
                     loc = 0,
                     column = "Concesionario",
-                    value = "SUR",
+                    value = "KW SUR",
                     allow_duplicates=True
                 )
             

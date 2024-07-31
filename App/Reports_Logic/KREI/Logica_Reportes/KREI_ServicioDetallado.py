@@ -55,7 +55,7 @@ class ServicioDetalladoKWESTEKREI(Variables):
                 else:
                     pass
         
-        df.insert(0,"Concesionario", "ESTE", allow_duplicates=False)
+        df.insert(0,"Concesionario", "KW ESTE", allow_duplicates=False)
 
         columnas_bol=df.select_dtypes(include=bool).columns.tolist()
         df[columnas_bol] = df[columnas_bol].astype(str)
@@ -106,7 +106,7 @@ class ServicioDetalladoKWESTEKREI(Variables):
                 else:
                     pass
 
-        df.insert(0,"Concesionario", "SUR", allow_duplicates=False)
+        df.insert(0,"Concesionario", "KW SUR", allow_duplicates=False)
 
         columnas_bol=df.select_dtypes(include=bool).columns.tolist()
         df[columnas_bol] = df[columnas_bol].astype(str)

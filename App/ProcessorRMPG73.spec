@@ -5,7 +5,7 @@ a = Analysis(
     ['InicioSesion.py'],
     pathex=[],
     binaries=[],
-    datas=[('Reports_Logic/globalModulesShare/.env', 'Reports_Logic/globalModulesShare')],
+    datas=[('Reports_Logic/globalModulesShare/.env', 'Reports_Logic/globalModulesShare'), ('chromedriver/chromedriver.exe', 'chromedriver')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},

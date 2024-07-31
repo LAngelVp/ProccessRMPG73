@@ -6,8 +6,9 @@ import pandas as pd
 from bs4 import BeautifulSoup
 from io import StringIO
 import os
-import sys
 from .ContenedorVariables import Variables
+
+
 
 class Web_scraping:
     def __init__(self):
@@ -15,17 +16,9 @@ class Web_scraping:
         self.fecha_final = ''
         self.fecha_inicial_df_merge = Variables().date_movement_config_document().replace(day=1)
         self.fecha_final_df_merge = Variables().date_movement_config_document()
-        self.fin_ruta = r"/Reports_Logic/"
-        if getattr(sys, 'frozen', False):
-            # Ruta en el entorno empaquetado
-            self.driver_folder = os.path.join(sys._MEIPASS, 'chromedriver')
-            self.split_path = self.driver_folder.replace('\\','/').split(self.fin_ruta )[0]
-        else:
-            # Ruta en desarrollo
-            self.driver_folder = os.path.join(os.path.dirname(__file__), 'chromedriver')
-            self.split_path = self.driver_folder.replace('\\','/').split(self.fin_ruta )[0]
-        self.chrome_driver_path = os.path.join(self.split_path,'chromedriver', 'chromedriver.exe')
-        print("Ruta del chromedriver: ", self.chrome_driver_path)
+        self.chrome_driver_path = pd.read_json(os.path.join(Variables().help_directory, 'ruta_driver.json'))
+        self.chrome_driver_path = self.chrome_driver_path['ruta'].iloc[0]
+
 
     def obtener_dolares(self, fecha_inicial, fecha_final):
         self.fecha_inicial = fecha_inicial
@@ -86,3 +79,4 @@ class Web_scraping:
             return juntar_dos
         else:
             return None
+# Web_scraping().obtener_dolares('01/07/2024','31/07/2024')

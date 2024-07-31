@@ -11,11 +11,13 @@ from Reports_Logic.globalModulesShare.mensajes_alertas import Mensajes_Alertas
 from Reports_Logic.Home import PrincipalWindow
 import Reports_Logic.globalModulesShare.icono as icono
 from Reports_Logic.globalModulesShare.ContenedorVariables import *
+from Reports_Logic.globalModulesShare.documentos_json import *
 
 class InicioSesion(QWidget):
     def __init__(self) -> None:
         super().__init__()
         self.variables = Variables()
+        
         domains='Reports_Logic/globalModulesShare'
         self.ui = UI_Inicio_Sesion()
         self.ui.setupUi(self) 
@@ -41,7 +43,18 @@ class InicioSesion(QWidget):
         self.ui.label.setStyleSheet("color:#000000;")
         
 
+        self.ejecuta = os.path.join(os.path.dirname(__file__), 'chromedriver',  'chromedriver.exe')
+        
         self.variables.create_root_directory()
+
+        objeto_driver = {
+            'nombre' : 'chromedriver',
+            'ruta' : self.ejecuta
+        } 
+        if os.path.exists(os.path.join(self.variables.help_directory,"ruta_driver.json")):
+            pass
+        else:
+            creacion_json(self.variables.help_directory,"ruta_driver.json", objeto_driver).agregar_json
 
     def cerrar(self):
         self.close()
