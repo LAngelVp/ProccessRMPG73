@@ -124,7 +124,7 @@ class OrdenesDeServicio(Variables):
         Completo['Total OS Pde Fact'] = Completo['Total OS Pde Fact'].apply(lambda x: '{:.2f}'.format(x))
         Completo['Total OS Pde Fact'] = Completo['Total OS Pde Fact'].astype(float).fillna(0)
 
-        Completo["Cantidad_Trabajos"] = "1"
+        Completo["Cantidad_Trabajos"] = 1
 
         Completo.columns = Completo.columns.str.replace('_', ' ')
 
