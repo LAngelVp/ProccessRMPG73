@@ -6,6 +6,7 @@ import pandas as pd
 from bs4 import BeautifulSoup
 from io import StringIO
 import os
+import sys
 from .ContenedorVariables import Variables
 
 
@@ -14,10 +15,20 @@ class Web_scraping:
     def __init__(self):
         self.fecha_inicial = ''
         self.fecha_final = ''
+        
+        base_path = os.path.dirname(os.path.abspath(__file__))
+
+        self.chromedriver_path = os.path.join(base_path, '..', '..', 'chromedriver', 'chromedriver.exe')
+
+        # Normalizar la ruta para evitar problemas con diferentes sistemas operativos
+        self.chromedriver_path = os.path.normpath(self.chromedriver_path)
+        print(self.chromedriver_path)
+
+        # driver = webdriver.Chrome(executable_path=chromedriver_path)
+
+
         self.fecha_inicial_df_merge = Variables().date_movement_config_document().replace(day=1)
         self.fecha_final_df_merge = Variables().date_movement_config_document()
-        self.chrome_driver_path = pd.read_json(os.path.join(Variables().help_directory, 'ruta_driver.json'))
-        self.chrome_driver_path = self.chrome_driver_path['ruta'].iloc[0]
 
 
     def obtener_dolares(self, fecha_inicial, fecha_final):
@@ -30,7 +41,7 @@ class Web_scraping:
         chrome_options.add_argument("--headless")  # Ejecuta el navegador en modo headless
 
         # Reemplaza con la ruta a tu chromedriver
-        service = Service(self.chrome_driver_path)  
+        service = Service(self.chromedriver_path)  
         driver = webdriver.Chrome(service=service, options=chrome_options)
 
         # Abrir la página
@@ -80,3 +91,4 @@ class Web_scraping:
         else:
             return None
 # Web_scraping().obtener_dolares('01/07/2024','31/07/2024')
+# Web_scraping()
