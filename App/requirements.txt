@@ -8,3 +8,4 @@ python-dateutil
 python-dotenv
 requests
 beautifulsoup4
+selenium
