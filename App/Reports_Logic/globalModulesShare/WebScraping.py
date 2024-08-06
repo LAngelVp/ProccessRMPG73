@@ -6,7 +6,6 @@ import pandas as pd
 from bs4 import BeautifulSoup
 from io import StringIO
 import os
-import sys
 from .ContenedorVariables import Variables
 
 
@@ -23,9 +22,6 @@ class Web_scraping:
         # Normalizar la ruta para evitar problemas con diferentes sistemas operativos
         self.chromedriver_path = os.path.normpath(self.chromedriver_path)
         print(self.chromedriver_path)
-
-        # driver = webdriver.Chrome(executable_path=chromedriver_path)
-
 
         self.fecha_inicial_df_merge = Variables().date_movement_config_document().replace(day=1)
         self.fecha_final_df_merge = Variables().date_movement_config_document()
