@@ -25,11 +25,8 @@ class Refacciones(Variables):
         df = pd.read_excel(path, sheet_name='Hoja2')
         df = df.replace(to_replace=';', value='-', regex=True)
 
-#COMMENT: TRABAJAMOS EN COPIA
-        a = df.copy()
-
 #COMMENT: ELIMINAMOS COLUMNAS
-        a.drop(
+        df.drop(
             [
                 "% Margen",
                 "Meta Ventas Por Vendedor",
@@ -57,7 +54,8 @@ class Refacciones(Variables):
             axis=1,
             inplace=True,
         )
-        a = a[a.columns[0:93]].copy()
+        a = df[df.columns[0:93]].copy()
+        a = pd.concat([a, df['ECommerce']], axis=1)
 
 #COMMENT: CONVERTIMOS LA FECHA
         for column_name in a.columns:
