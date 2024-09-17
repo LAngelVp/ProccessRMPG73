@@ -125,6 +125,15 @@ class OrdenesDeServicio(Variables):
         Completo['Total OS Pde Fact'] = Completo['Total OS Pde Fact'].astype(float).fillna(0)
 
         Completo["Cantidad_Trabajos"] = 1
+        # COLUMNA DE DIAS DE ANTIGUEDAD PS
+        DiasAntigüedadPS = (self.variables.date_movement_config_document() - Completo["Fecha_Pase_Salida"])
+        Completo["Dias Antigüedad PS"]  = DiasAntigüedadPS
+        # CLASIFICACION DE  CLASIFICACION CLIENTE DAF
+        Completo.loc[(Completo["Clasificacion_Cliente"] == "GARANTIA")
+                    & (Completo["Clasificacion_Venta"] == "GARANTIA") 
+                    & (Completo["Tipo_Servicio"] == "DAF Acondicionamientos"), 
+                    ["Clasificacion_Cliente",  "Clasificacion_Venta"]] = ["GARANTIA DAF", "GARANTIA DAF"]
+
 
         Completo.columns = Completo.columns.str.replace('_', ' ')
 
