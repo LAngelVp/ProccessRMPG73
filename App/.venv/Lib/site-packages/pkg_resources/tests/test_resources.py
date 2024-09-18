@@ -1,23 +1,23 @@
-import os
-import sys
-import string
-import platform
 import itertools
+import os
+import platform
+import string
+import sys
 
 import pytest
 from packaging.specifiers import SpecifierSet
 
 import pkg_resources
 from pkg_resources import (
-    parse_requirements,
-    VersionConflict,
-    parse_version,
     Distribution,
     EntryPoint,
     Requirement,
-    safe_version,
-    safe_name,
+    VersionConflict,
     WorkingSet,
+    parse_requirements,
+    parse_version,
+    safe_name,
+    safe_version,
 )
 
 
@@ -817,11 +817,11 @@ class TestNamespaces:
             (pkg1 / '__init__.py').write_text(self.ns_str, encoding='utf-8')
             (pkg2 / '__init__.py').write_text(self.ns_str, encoding='utf-8')
         with pytest.warns(DeprecationWarning, match="pkg_resources.declare_namespace"):
-            import pkg1
+            import pkg1  # pyright: ignore[reportMissingImports] # Temporary package for test
         assert "pkg1" in pkg_resources._namespace_packages
         # attempt to import pkg2 from site-pkgs2
         with pytest.warns(DeprecationWarning, match="pkg_resources.declare_namespace"):
-            import pkg1.pkg2
+            import pkg1.pkg2  # pyright: ignore[reportMissingImports] # Temporary package for test
         # check the _namespace_packages dict
         assert "pkg1.pkg2" in pkg_resources._namespace_packages
         assert pkg_resources._namespace_packages["pkg1"] == ["pkg1.pkg2"]
@@ -862,8 +862,8 @@ class TestNamespaces:
             (subpkg / '__init__.py').write_text(vers_str % number, encoding='utf-8')
 
         with pytest.warns(DeprecationWarning, match="pkg_resources.declare_namespace"):
-            import nspkg.subpkg
-            import nspkg
+            import nspkg  # pyright: ignore[reportMissingImports] # Temporary package for test
+            import nspkg.subpkg  # pyright: ignore[reportMissingImports] # Temporary package for test
         expected = [str(site.realpath() / 'nspkg') for site in site_dirs]
         assert nspkg.__path__ == expected
         assert nspkg.subpkg.__version__ == 1

@@ -137,7 +137,7 @@ def test_install_sdist(package, version, tmp_path, venv_python, setuptools_wheel
     # Use a virtualenv to simulate PEP 517 isolation
     # but install fresh setuptools wheel to ensure the version under development
     env = EXTRA_ENV_VARS.get(package, {})
-    run([*venv_pip, "install", "wheel", "-I", setuptools_wheel])
+    run([*venv_pip, "install", "--force-reinstall", setuptools_wheel])
     run([*venv_pip, "install", *INSTALL_OPTIONS, sdist], env)
 
     # Execute a simple script to make sure the package was installed correctly
@@ -202,13 +202,12 @@ def build_deps(package, sdist_file):
     "Manually" install them, since pip will not install build
     deps with `--no-build-isolation`.
     """
-    import tomli as toml
-
     # delay importing, since pytest discovery phase may hit this file from a
     # testenv without tomli
+    from setuptools.compat.py310 import tomllib
 
     archive = Archive(sdist_file)
-    info = toml.loads(_read_pyproject(archive))
+    info = tomllib.loads(_read_pyproject(archive))
     deps = info.get("build-system", {}).get("requires", [])
     deps += EXTRA_BUILD_DEPS.get(package, [])
     # Remove setuptools from requirements (and deduplicate)

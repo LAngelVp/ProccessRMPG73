@@ -1,41 +1,41 @@
 """Easy install Tests"""
 
-import sys
-import os
-import tempfile
-import site
 import contextlib
-import tarfile
-import logging
-import itertools
-import distutils.errors
 import io
-from typing import NamedTuple
-import zipfile
-import time
-import re
-import subprocess
+import itertools
+import logging
+import os
 import pathlib
+import re
+import site
+import subprocess
+import sys
+import tarfile
+import tempfile
+import time
 import warnings
+import zipfile
 from pathlib import Path
+from typing import NamedTuple
 from unittest import mock
 
 import pytest
 from jaraco import path
 
-from setuptools import sandbox
-from setuptools.sandbox import run_setup
+import pkg_resources
 import setuptools.command.easy_install as ei
+from pkg_resources import Distribution as PRDistribution, normalize_path, working_set
+from setuptools import sandbox
 from setuptools.command.easy_install import PthDistributions
 from setuptools.dist import Distribution
-from pkg_resources import normalize_path, working_set
-from pkg_resources import Distribution as PRDistribution
-from setuptools.tests.server import MockServer, path_to_url
+from setuptools.sandbox import run_setup
 from setuptools.tests import fail_on_ascii
-import pkg_resources
+from setuptools.tests.server import MockServer, path_to_url
 
 from . import contexts
 from .textwrap import DALS
+
+import distutils.errors
 
 
 @pytest.fixture(autouse=True)
@@ -1331,6 +1331,16 @@ class TestCommandSpec:
         cmd = ei.CommandSpec.from_param('/usr/bin/env my-python')
         assert len(cmd) == 2
         assert '"' not in cmd.as_header()
+
+    def test_from_param_raises_expected_error(self) -> None:
+        """
+        from_param should raise its own TypeError when the argument's type is unsupported
+        """
+        with pytest.raises(TypeError) as exc_info:
+            ei.CommandSpec.from_param(object())  # type: ignore[arg-type] # We want a type error here
+        assert (
+            str(exc_info.value) == "Argument has an unsupported type <class 'object'>"
+        ), exc_info.value
 
 
 class TestWindowsScriptWriter:

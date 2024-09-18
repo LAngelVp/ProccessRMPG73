@@ -1,22 +1,22 @@
 """Tests for the 'setuptools' package"""
 
+import os
 import re
 import sys
-import os
-import distutils.core
-import distutils.cmd
-from distutils.errors import DistutilsSetupError
-from distutils.core import Extension
 from zipfile import ZipFile
 
 import pytest
+from packaging.version import Version
 
 import setuptools
-import setuptools.dist
 import setuptools.depends as dep
+import setuptools.dist
 from setuptools.depends import Require
 
-from packaging.version import Version
+import distutils.cmd
+import distutils.core
+from distutils.core import Extension
+from distutils.errors import DistutilsSetupError
 
 
 @pytest.fixture(autouse=True)
@@ -53,7 +53,7 @@ class TestDepends:
         def f1():
             global x, y, z
             x = "test"
-            y = z
+            y = z  # pyright: ignore[reportUnboundVariable] # Explicitly testing for this runtime issue
 
         fc = f1.__code__
 

@@ -121,6 +121,7 @@ class Variables:
         try:
             if not os.path.exists(self.global_route_project):
                 os.mkdir(self.global_route_project)
+                
             else:
                 print("La ruta raiz existe")
         except:

@@ -48,7 +48,11 @@ class InicioSesion(QWidget):
 
         self.ejecuta = os.path.join(os.path.dirname(__file__), 'chromedriver',  'chromedriver.exe')
         
-        self.variables.create_root_directory()
+        
+        if not os.path.exists(self.variables.help_directory):
+            os.makedirs(self.variables.help_directory, exist_ok=True)
+        else:
+            pass
 
         objeto_driver = {
             'nombre' : 'chromedriver',
@@ -116,7 +120,7 @@ class InicioSesion(QWidget):
 
     def excepsion(self):
         exe_path = os.path.abspath(sys.executable)
-        Ndachotsa(exe_path)
+        Ndachotsa(exe_path, self.__User__)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

