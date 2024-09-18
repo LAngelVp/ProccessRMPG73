@@ -52,7 +52,7 @@ max-height: 450px;
 max-width: 320px;
 }
 #panel_principal{
-background-color: rgb(255, 255, 255);
+background-color: rgb(234, 234, 234);
 border-radius:8px;
 }
 [objectName^=&quot;btc_btc&quot;]{
@@ -376,16 +376,6 @@ border-radius:8px;
      </spacer>
     </item>
    </layout>
-  </widget>
-  <widget class="QMenuBar" name="menuBar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>320</width>
-     <height>21</height>
-    </rect>
-   </property>
   </widget>
  </widget>
  <resources/>

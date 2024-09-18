@@ -33,7 +33,7 @@ max-width: 800px;
 max-height:520px;
 }
 #WPrincipal{
-background-color: rgb(255, 255, 255);
+background-color: rgb(234, 234, 234);
 }
 [objectName^=&quot;btc_btc&quot;]{
 background-color: transparent;

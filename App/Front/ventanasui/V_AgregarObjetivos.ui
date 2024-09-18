@@ -39,8 +39,18 @@
     </size>
    </property>
    <property name="styleSheet">
-    <string notr="true">#WPrincipal{
+    <string notr="true">#MainWindow{
 	background-color: rgb(255, 255, 255);
+}
+#WPrincipal{
+	background-color: rgb(255, 255, 255);
+}
+*[objectName *=&quot;lbl_&quot;]{
+color:rgb(0, 0, 0);
+background-color: rgb(255, 255, 255);
+}
+*[objectName *=&quot;RB_&quot;]{
+color:rgb(0, 0, 0);
 }
 #btn_Aceptar{
 	background-color: rgb(230, 230, 230);
@@ -243,7 +253,7 @@ background-color: rgb(203, 203, 203);
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label">
+              <widget class="QLabel" name="lbl_sucursal">
                <property name="font">
                 <font>
                  <family>Arial</family>
@@ -270,7 +280,7 @@ background-color: rgb(203, 203, 203);
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_2">
+              <widget class="QLabel" name="lbl_objetivo">
                <property name="font">
                 <font>
                  <family>Arial</family>

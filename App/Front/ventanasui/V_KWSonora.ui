@@ -32,9 +32,10 @@ min-height:520px;
 max-width: 800px;
 max-height:520px;
 }
-#WPrincipal{
-background-color: rgb(255, 255, 255);
+#W_Principal{
+background-color: rgb(234, 234, 234);
 }
+
 [objectName^=&quot;btc_btc&quot;]{
 background-color: transparent;
 border-radius:none;
@@ -42,7 +43,7 @@ width:35px;
 height:35px;
 }
 [objectName^=&quot;btc_btc&quot;]:hover{
-background-color: rgb(64, 150, 216);
+	background-color: rgb(64, 150, 216);
 	color: rgb(0, 0, 0);
 	border-radius:4px;
 }
@@ -56,7 +57,7 @@ background-color: rgb(64, 150, 216);
 	font-size: 20px;
 }
 [objectName^=&quot;btn_btn&quot;]{
-background-color: rgb(64, 150, 216);
+	background-color: rgb(64, 150, 216);
 	border-radius:4px;
 	color: rgb(0, 0, 0);
 	height:35px;
@@ -69,9 +70,6 @@ background-color: rgb(255, 255, 255);
 color: rgb(0, 0, 0);
 border-top-left-radius: 10px;
 border-top-right-radius: 10px;
-}
-[objectName^=&quot;W_&quot;]{
-	background-color: rgb(255, 255, 255);
 }</string>
   </property>
   <widget class="QWidget" name="W_Principal">
@@ -86,6 +84,9 @@ border-top-right-radius: 10px;
      <width>800</width>
      <height>500</height>
     </size>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <property name="spacing">
@@ -116,6 +117,9 @@ border-top-right-radius: 10px;
         <width>16777215</width>
         <height>50</height>
        </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout">
        <property name="spacing">
@@ -279,6 +283,9 @@ border-top-right-radius: 10px;
         <height>300</height>
        </size>
       </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
       <layout class="QHBoxLayout" name="horizontalLayout_3">
        <property name="spacing">
         <number>0</number>
@@ -385,6 +392,9 @@ border-top-right-radius: 10px;
         <width>16777215</width>
         <height>100</height>
        </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_4">
        <property name="spacing">

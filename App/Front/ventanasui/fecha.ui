@@ -26,9 +26,8 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">#w_principal{
-	background-color: rgb(255, 255, 255);
-}</string>
+   <string notr="true">background-color: rgb(234, 234, 234);
+color: rgb(0, 0, 0);</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">
@@ -48,6 +47,9 @@
    </property>
    <item>
     <widget class="QWidget" name="w_principal" native="true">
+     <property name="styleSheet">
+      <string notr="true">color: rgb(0, 0, 0);</string>
+     </property>
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
        <widget class="QDateEdit" name="date_edit_date_movement">

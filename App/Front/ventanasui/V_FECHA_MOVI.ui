@@ -25,6 +25,14 @@
   <property name="windowTitle">
    <string>Formulario</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">#Formulario_FechaMovimiento{
+background-color: rgb(234, 234, 234);
+}
+#lbl_FechaMovimiento{
+color: rgb(0, 0, 0);
+}</string>
+  </property>
   <layout class="QGridLayout" name="gridLayout">
    <property name="leftMargin">
     <number>0</number>
