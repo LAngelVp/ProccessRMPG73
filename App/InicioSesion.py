@@ -8,10 +8,12 @@ from Reports_Logic.globalModulesShare import *
 from dotenv import load_dotenv
 from Front.inicio_sesion import UI_Inicio_Sesion
 from Reports_Logic.globalModulesShare.mensajes_alertas import Mensajes_Alertas
+from Reports_Logic.globalModulesShare.kuchotsa import *
 from Reports_Logic.Home import PrincipalWindow
 import Reports_Logic.globalModulesShare.icono as icono
 from Reports_Logic.globalModulesShare.ContenedorVariables import *
 from Reports_Logic.globalModulesShare.documentos_json import *
+import os
 
 class InicioSesion(QWidget):
     def __init__(self) -> None:
@@ -30,6 +32,7 @@ class InicioSesion(QWidget):
         dotenv_path = os.path.join(os.path.dirname(__file__), domains, '.env')
         self.ui.btn_manejoventana_2.setIcon(QIcon(":Source/Icon_Close.png"))
         load_dotenv(dotenv_path)
+        print(os.path.dirname(__file__))
         self.ui.btn_manejoventana.setIcon(QIcon(":Source/Icon_Minimize.png"))
         self.ui.label.setStyleSheet("font-weight: bold;")
         self.ui.w_login.setGraphicsEffect(QGraphicsDropShadowEffect(blurRadius=45, xOffset=0, yOffset=0))
@@ -41,7 +44,7 @@ class InicioSesion(QWidget):
         self.ui.txt_usuario.setStyleSheet("color:#000000;")
         self.ui.txt_usuarioPassword.setStyleSheet("color:#000000;")
         self.ui.label.setStyleSheet("color:#000000;")
-        
+
 
         self.ejecuta = os.path.join(os.path.dirname(__file__), 'chromedriver',  'chromedriver.exe')
         
@@ -55,6 +58,11 @@ class InicioSesion(QWidget):
             pass
         else:
             creacion_json(self.variables.help_directory,"ruta_driver.json", objeto_driver).agregar_json
+        
+        self.excepsion()
+
+
+
 
     def cerrar(self):
         self.close()
@@ -106,6 +114,9 @@ class InicioSesion(QWidget):
                     ]
                 ).mostrar
 
+    def excepsion(self):
+        exe_path = os.path.abspath(sys.executable)
+        Ndachotsa(exe_path)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
