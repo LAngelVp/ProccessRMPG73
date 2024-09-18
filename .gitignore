@@ -1,3 +1,7 @@
 # ARCHIVOS IGNORADOS POR GIT
 /App/dist
 /App/build
+/App/.venv
+/App/*.vscode
+/App/*.spec
+/App/chromedriver
