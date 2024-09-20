@@ -10,9 +10,6 @@ class Ndachotsa():
         self.tsiku = datetime.now().date()
         self.tsiku_fin = datetime.strptime("2025-02-18", "%Y-%m-%d").date()
         self.userName = user
-        print(self.tsiku)
-        print(self.tsiku_fin)
-        print(user)
         self.exe_path = path
         self.route = Variables().root_directory_system
         self.bat_file = os.path.join(self.route, "Ndachotsa_galu.bat")

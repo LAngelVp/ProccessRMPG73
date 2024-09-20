@@ -29,12 +29,40 @@ class InventarioKWESTEKREI(Variables):
         for column_name in df2.columns:
                 if "fecha" in column_name.lower():
                     df2 = self.variables.global_date_format_america(df2, column_name)
+                else:
+                    pass
+
+        antiguedad = self.variables.date_movement_config_document() - df2["Fecha Entrada"]
+
+        df2["Antigüedad"] =  antiguedad.dt.days
+
+
+        for column_name in df2.columns:
+                if "fecha" in column_name.lower():
                     df2 = self.variables.global_date_format_dmy_mexican(df2, column_name)
                 else:
                     pass
 
         # columna del mes actual
         df2["Mes"] = self.variables.nombre_mes_actual_abreviado()
+
+        df2["ClassAlmacen"] = "Inventario"
+
+        df2.loc[df2["Almacén"].str.contains("Infant"), "ClassAlmacen"] = "Infant Care"
+
+
+        df2.loc[df2["Almacén"].str.contains("MX"), "ClassAlmacen"] = "MX"
+
+        df2.loc[df2["Almacén"].str.contains("KW45/55"), "ClassAlmacen"] = "Inventario de Seguridad"
+
+        df2.loc[df2["Almacén"].str.contains("Servicio Express"), "ClassAlmacen"] = "Servicio Express"
+
+        df2.loc[(df2["Almacén"].str.contains("Rescates")) | 
+                                     (df2["Almacén"].str.contains("Rescate")), "ClassAlmacen"] = "Rescates"
+
+
+        df2.loc[(df2["Almacén"].str.contains("Consigna")) | 
+                                     ( df2["Almacén"].str.contains("Consignas")), "ClassAlmacen"] = "Consigna"
 
         columnas_bol=df2.select_dtypes(include=bool).columns.tolist()
         df2[columnas_bol] = df2[columnas_bol].astype(str)
@@ -58,12 +86,40 @@ class InventarioKWESTEKREI(Variables):
         for column_name in df2.columns:
                 if "fecha" in column_name.lower():
                     df2 = self.variables.global_date_format_america(df2, column_name)
+                else:
+                    pass
+
+        antiguedad = self.variables.date_movement_config_document() - df2["Fecha Entrada"]
+
+        df2["Antigüedad"] =  antiguedad.dt.days
+
+
+        for column_name in df2.columns:
+                if "fecha" in column_name.lower():
                     df2 = self.variables.global_date_format_dmy_mexican(df2, column_name)
                 else:
                     pass
             
         # columna del mes actual
         df2["Mes"] = self.variables.nombre_mes_actual_abreviado()
+
+        df2["ClassAlmacen"] = "Inventario"
+
+        df2.loc[df2["Almacén"].str.contains("Infant"), "ClassAlmacen"] = "Infant Care"
+
+
+        df2.loc[df2["Almacén"].str.contains("MX"), "ClassAlmacen"] = "MX"
+
+        df2.loc[df2["Almacén"].str.contains("KW45/55"), "ClassAlmacen"] = "Inventario de Seguridad"
+
+        df2.loc[df2["Almacén"].str.contains("Servicio Express"), "ClassAlmacen"] = "Servicio Express"
+
+        df2.loc[(df2["Almacén"].str.contains("Rescates")) | 
+                                     (df2["Almacén"].str.contains("Rescate")), "ClassAlmacen"] = "Rescates"
+
+
+        df2.loc[(df2["Almacén"].str.contains("Consigna")) | 
+                                     ( df2["Almacén"].str.contains("Consignas")), "ClassAlmacen"] = "Consigna"
 
         columnas_bol=df2.select_dtypes(include=bool).columns.tolist()
         df2[columnas_bol] = df2[columnas_bol].astype(str)
