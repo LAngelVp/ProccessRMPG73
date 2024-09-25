@@ -34,7 +34,12 @@ class Web_scraping:
         print("Ruta del dof: ", self.ruta_dof)
         # Configuración del navegador
         chrome_options = Options()
-        chrome_options.add_argument("--headless")  # Ejecuta el navegador en modo headless
+        chrome_options.add_argument("--headless")  # Ejecutar en modo headless
+        chrome_options.add_argument("--disable-gpu")  # Opcional: desactivar la aceleración GPU
+        chrome_options.add_argument("--no-sandbox")  # Opcional: para entornos de Linux
+        chrome_options.add_argument("--disable-dev-shm-usage")  # Opcional: para entornos de Linux
+        chrome_options.add_argument("--window-size=0x0")  # Establecer el tamaño de la ventana
+        chrome_options.add_argument("--log-level=3")
 
         # Reemplaza con la ruta a tu chromedriver
         service = Service(self.chromedriver_path)  
@@ -72,6 +77,7 @@ class Web_scraping:
             rango_completo_fechas = pd.date_range(start=self.fecha_inicial_df_merge, end=self.fecha_final_df_merge, freq='D')
 
             df_completo_fechas = pd.DataFrame(rango_completo_fechas, columns=['Fecha'])
+            
             juntar_dos = pd.merge(df_completo_fechas, df, on='Fecha', how='left')
             # Rellenar los NaN con el valor anterior
             juntar_dos['Valor'] = juntar_dos['Valor'].fillna(method='ffill')
@@ -83,8 +89,10 @@ class Web_scraping:
                     pass
             juntar_dos['Valor'] = pd.to_numeric(juntar_dos['Valor'])
             driver.quit()
+            # print(juntar_dos)
+            # juntar_dos.to_excel("documento.xlsx")
             return juntar_dos
         else:
             return None
-# Web_scraping().obtener_dolares('01/07/2024','31/07/2024')
+# Web_scraping().obtener_dolares('01/09/2024','25/09/2024')
 # Web_scraping()

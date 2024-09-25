@@ -4,6 +4,7 @@
 #########################
 import os
 import pandas as pd
+import  numpy as np
 from datetime import *
 from ...globalModulesShare.ContenedorVariables import Variables
 from ...globalModulesShare.ConcesionariosModel import Concesionarios
@@ -127,9 +128,8 @@ class OrdenesDeServicio(Variables):
         Completo["Cantidad_Trabajos"] = 1
 
         # COLUMNA DE DIAS DE ANTIGUEDAD PS
-        DiasAntigüedadPS = Completo["Fecha_Pase_Salida"] -  Completo["Fecha_Orden"]
 
-        Completo["Dias Antigüedad PS"]  = DiasAntigüedadPS
+        Completo["Dias Antigüedad PS"]  = Completo.apply(self.dia_laboral, axis=1)
 
         # CLASIFICACION DE  CLASIFICACION CLIENTE DAF
         Completo.loc[(Completo["Clasificacion_Cliente"] == "GARANTIA")
@@ -168,3 +168,14 @@ class OrdenesDeServicio(Variables):
                 return row["Clasificacion_Cliente"]
         except:
             pass
+    def dia_laboral(self,fila):
+        fecha_orden = fila["Fecha_Orden"]
+        salida = fila["Fecha_Pase_Salida"]
+        print(f'{fecha_orden} - {salida}')
+        try:
+            if(pd.isnull(fecha_orden) | pd.isnull(salida)):
+                return None
+            return np.busday_count(fecha_orden, salida)
+        except Exception as e:
+            print(e)
+            return None

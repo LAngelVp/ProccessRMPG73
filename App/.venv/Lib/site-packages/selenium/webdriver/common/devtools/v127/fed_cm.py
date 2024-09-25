@@ -136,7 +136,7 @@ def enable(
         disable_rejection_delay: typing.Optional[bool] = None
     ) -> typing.Generator[T_JSON_DICT,T_JSON_DICT,None]:
     '''
-    :param disable_rejection_delay: *(Optional)* Allows callers to disable the promise rejection delay that would normally happen, if this is unimportant to what's being tested. (step 4 of https://fedidcg.github.io/FedCM/#browser-api-rp-sign-in)
+    :param disable_rejection_delay: *(Optional)* Allows callers to disable the promise rejection delay that would normally happen, if this is unimportant to what's being tested. (step 4 of https://w3c-fedid.github.io/FedCM/#browser-api-rp-sign-in)
     '''
     params: T_JSON_DICT = dict()
     if disable_rejection_delay is not None:
