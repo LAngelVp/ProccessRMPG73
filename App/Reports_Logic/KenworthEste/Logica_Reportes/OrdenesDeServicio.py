@@ -129,7 +129,6 @@ class OrdenesDeServicio(Variables):
 
         # COLUMNA DE DIAS DE ANTIGUEDAD PS
 
-        Completo["Dias Antigüedad PS"]  = Completo.apply(self.dia_laboral, axis=1)
 
         # CLASIFICACION DE  CLASIFICACION CLIENTE DAF
         Completo.loc[(Completo["Clasificacion_Cliente"] == "GARANTIA")
@@ -138,8 +137,12 @@ class OrdenesDeServicio(Variables):
                     ["Clasificacion_Cliente",  "Clasificacion_Venta"]] = ["GARANTIA DAF", "GARANTIA DAF"]
 
 
-        Completo.columns = Completo.columns.str.replace('_', ' ')
 
+        Completo["Dias Antigüedad PS"] = Completo.apply(lambda fila: self.dia_laboral(fila), axis=1)
+        Completo['SF Unico OS'] = 0
+
+        Completo.loc[~Completo['Num_Orden'].duplicated(keep=False), 'SF Unico OS'] = 1
+        Completo.loc[Completo['Num_Orden'].duplicated(keep=False) & ~Completo["Num_Orden"].duplicated(keep="first"), 'SF Unico OS'] = 1
 
         for column_name in Completo.columns:
             if "fecha" in column_name.lower():
@@ -147,6 +150,8 @@ class OrdenesDeServicio(Variables):
             else:
                 pass
 
+
+        Completo.columns = Completo.columns.str.replace('_', ' ')
         columnas_bol=Completo.select_dtypes(include=bool).columns.tolist()
         Completo[columnas_bol] = Completo[columnas_bol].astype(str)
 
@@ -171,11 +176,12 @@ class OrdenesDeServicio(Variables):
     def dia_laboral(self,fila):
         fecha_orden = fila["Fecha_Orden"]
         salida = fila["Fecha_Pase_Salida"]
-        print(f'{fecha_orden} - {salida}')
         try:
-            if(pd.isnull(fecha_orden) | pd.isnull(salida)):
-                return None
-            return np.busday_count(fecha_orden, salida)
+            if pd.isna(fecha_orden) or pd.isna(salida):
+                return  None
+            else:
+                rango_fechas = pd.date_range(start=fecha_orden, end=salida, freq='B')
+                dias_laborales = len(rango_fechas)
+                return dias_laborales
         except Exception as e:
-            print(e)
             return None

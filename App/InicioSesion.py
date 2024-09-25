@@ -62,11 +62,7 @@ class InicioSesion(QWidget):
             pass
         else:
             creacion_json(self.variables.help_directory,"ruta_driver.json", objeto_driver).agregar_json
-        
         self.excepsion()
-
-
-
 
     def cerrar(self):
         self.close()
