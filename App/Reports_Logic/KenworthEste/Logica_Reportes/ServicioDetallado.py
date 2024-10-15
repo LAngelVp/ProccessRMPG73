@@ -70,10 +70,10 @@ class ServicioDetallado(Variables):
         d["Vendedor"] = d["Vendedor"].replace("ERICK G TRUJILLO M", "ERICK G TRUJILLO M SC")
 
         #COMMENT: CREAR CLASIFICACION DE MERIDA Y TIPO SERVICIO
-        d.loc[(d["Sucursal"] == "Merida") & (d["Tipo Servicio"].str.contains("Rescate")), "Depa Venta"] = "Rescates"
-        d.loc[(d["Sucursal"] == "Merida") & (d["Tipo Servicio"].str.contains("Rescate")), "Depa"] = "Rescates Merida"
-        d.loc[(d["Sucursal"] == "Merida") & (d["Tipo Servicio"].str.contains("Servicio")), "Depa Venta"] = "Servicio"
-        d.loc[(d["Sucursal"] == "Merida") & (d["Tipo Servicio"].str.contains("Servicio")), "Depa"] = "Servicio Merida"
+        # d.loc[(d["Sucursal"] == "Merida") & (d["Tipo Servicio"].str.contains("Rescate")), "Depa Venta"] = "Rescates"
+        # d.loc[(d["Sucursal"] == "Merida") & (d["Tipo Servicio"].str.contains("Rescate")), "Depa"] = "Rescates Merida"
+        # d.loc[(d["Sucursal"] == "Merida") & (d["Tipo Servicio"].str.contains("Servicio")), "Depa Venta"] = "Servicio"
+        # d.loc[(d["Sucursal"] == "Merida") & (d["Tipo Servicio"].str.contains("Servicio")), "Depa"] = "Servicio Merida"
 
         #COMMENT: FORMALIZAMOS LOS VALORES VACIOS EN CENTRO DE COSTOS
         d['Centro de Costos'].fillna('', inplace=True)

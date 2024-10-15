@@ -64,8 +64,10 @@ class  OrdenesServicioKWESTEKREI(Variables):
         
         dfKWESTE.insert(0,"Concesionario","KW ESTE", allow_duplicates=False)
         dfKWESTE['Cantidad Trabajos'] = 1
+
         columnas_bol=dfKWESTE.select_dtypes(include=bool).columns.tolist()
         dfKWESTE[columnas_bol] = dfKWESTE[columnas_bol].astype(str)
+
 
         # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
         self.variables.guardar_datos_dataframe(self.nombre_doc, dfKWESTE, self.concesionario)

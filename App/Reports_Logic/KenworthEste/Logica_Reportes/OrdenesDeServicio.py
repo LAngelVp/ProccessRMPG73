@@ -15,6 +15,7 @@ class OrdenesDeServicio(Variables):
         self.concesionario = Concesionarios().concesionarioEste
         self.variables = Variables()
         self.nombre_doc = 'OSE.xlsx'
+        self.nombre_docHistorico = 'OSEHISTORICO.xlsx'
         path = os.path.join(self.variables.ruta_Trabajos_kwe,self.nombre_doc)
         
         df = pd.read_excel(path, sheet_name="Hoja2")
@@ -152,11 +153,23 @@ class OrdenesDeServicio(Variables):
 
 
         Completo.columns = Completo.columns.str.replace('_', ' ')
+
         columnas_bol=Completo.select_dtypes(include=bool).columns.tolist()
         Completo[columnas_bol] = Completo[columnas_bol].astype(str)
 
         # COMMENT: COMPROBACION DEL NOMBRE DEL DOCUMENTO PARA GUARDARLO
         self.variables.guardar_datos_dataframe(self.nombre_doc, Completo, self.concesionario)
+
+        Completo_resumido_para_historico = Completo.copy()
+        Completo_resumido_para_historico = Completo_resumido_para_historico[
+            (Completo_resumido_para_historico["Clasificacion Cliente"] != "SEGUROS") &
+            (~Completo_resumido_para_historico["Estado Orden"].isin(["Facturada", "Cancelada"])) &
+            (~Completo_resumido_para_historico["Estado Trabajo"].isin(["Cancelado", "Facturado", ""])) &
+            (Completo_resumido_para_historico["Estado Trabajo"].notna())
+        ]
+        Completo_resumido_para_historico.drop(["Cantidad Trabajos", "Dias Antigüedad PS", "SF Unico OS"], axis = 1, inplace=True)
+
+        self.variables.guardar_datos_dataframe(self.nombre_docHistorico, Completo_resumido_para_historico, self.concesionario)
 
     # CREAMOS LA FUNCION PARA LAS CLASIFICACIONES POR NUMERO DE ORDEN
     def FiltroPorNumeroOrden(self, row):
