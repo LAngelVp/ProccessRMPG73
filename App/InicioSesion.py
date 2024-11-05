@@ -1,3 +1,5 @@
+# DESARROLLADOR
+# LUIS A. PEREZ
 import sys
 from PyQt6 import *
 from PyQt6.QtCore import *
