@@ -115,17 +115,23 @@ class Inventario(Variables):
 
         df_inventarioCosteadoxDia.insert(12, "ClassAlmacen", df_inventarioCosteadoxDia.pop("ClassAlmacen"))
 
-        df_inventarioCosteadoxDia.loc[df_inventarioCosteadoxDia["Almacén"].str.contains("Infant"), "ClassAlmacen"] = "Infant Care"
+        df_inventarioCosteadoxDia.loc[df_inventarioCosteadoxDia["Almacén"].str.contains("Infant"), "ClassAlmacen"] = "Inventario de Seguridad"
 
 
-        df_inventarioCosteadoxDia.loc[df_inventarioCosteadoxDia["Almacén"].str.contains("MX"), "ClassAlmacen"] = "MX"
+        df_inventarioCosteadoxDia.loc[df_inventarioCosteadoxDia["Almacén"].str.contains("MX"), "ClassAlmacen"] = "Inventario de Seguridad"
 
         df_inventarioCosteadoxDia.loc[df_inventarioCosteadoxDia["Almacén"].str.contains("KW45/55"), "ClassAlmacen"] = "Inventario de Seguridad"
+        
+        df_inventarioCosteadoxDia.loc[df_inventarioCosteadoxDia["Almacén"].str.contains("T380"), "ClassAlmacen"] = "Inventario de Seguridad"
+        
+        df_inventarioCosteadoxDia.loc[df_inventarioCosteadoxDia["Almacén"].str.contains("T680"), "ClassAlmacen"] = "Inventario de Seguridad"
+        
+        df_inventarioCosteadoxDia.loc[df_inventarioCosteadoxDia["Almacén"].str.contains("DAF"), "ClassAlmacen"] = "Inventario de Seguridad"
 
-        df_inventarioCosteadoxDia.loc[df_inventarioCosteadoxDia["Almacén"].str.contains("Servicio Express"), "ClassAlmacen"] = "Servicio Express"
+        df_inventarioCosteadoxDia.loc[df_inventarioCosteadoxDia["Almacén"].str.contains("Servicio Express"), "ClassAlmacen"] = "Inventario de Seguridad"
 
         df_inventarioCosteadoxDia.loc[(df_inventarioCosteadoxDia["Almacén"].str.contains("Rescates")) | 
-                                     (df_inventarioCosteadoxDia["Almacén"].str.contains("Rescate")), "ClassAlmacen"] = "Rescates"
+                                     (df_inventarioCosteadoxDia["Almacén"].str.contains("Rescate")), "ClassAlmacen"] = "Inventario de Seguridad"
 
 
         df_inventarioCosteadoxDia.loc[(df_inventarioCosteadoxDia["Almacén"].str.contains("Consigna")) | 

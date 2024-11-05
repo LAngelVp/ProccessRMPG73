@@ -59,6 +59,8 @@ class OrdenesDeServicio(Variables):
 
         #MANDAMOS A LLAMAR A LA FUNCION
         claficicacion_tipo_servicio["Clasificacion_Cliente"] = claficicacion_tipo_servicio.apply(self.FiltroPorNumeroOrden, axis = 1)
+
+        claficicacion_tipo_servicio["Clasificacion_Cliente"] = claficicacion_tipo_servicio.apply(self.filtroOSDAFTemporal, axis=1)
         
         
         claficicacion_tipo_servicio.drop(["Número_Orden","Folio_Cotizaciones"], axis = 1, inplace=True)
@@ -130,14 +132,11 @@ class OrdenesDeServicio(Variables):
 
         # COLUMNA DE DIAS DE ANTIGUEDAD PS
 
-
         # CLASIFICACION DE  CLASIFICACION CLIENTE DAF
         Completo.loc[(Completo["Clasificacion_Cliente"] == "GARANTIA")
                     & (Completo["Clasificacion_Venta"] == "GARANTIA") 
                     & (Completo["Tipo_Servicio"] == "DAF Acondicionamientos"), 
-                    ["Clasificacion_Cliente",  "Clasificacion_Venta"]] = ["GARANTIA DAF", "GARANTIA DAF"]
-
-
+                    ["Clasificacion_Cliente",  "Clasificacion_Venta"]] = ["DAF", "DAF"]
 
         Completo["Dias Antigüedad PS"] = Completo.apply(lambda fila: self.dia_laboral(fila), axis=1)
         Completo['SF Unico OS'] = 0
@@ -150,7 +149,6 @@ class OrdenesDeServicio(Variables):
                 Completo = self.variables.global_date_format_dmy_mexican(Completo, column_name)
             else:
                 pass
-
 
         Completo.columns = Completo.columns.str.replace('_', ' ')
 
@@ -171,6 +169,14 @@ class OrdenesDeServicio(Variables):
 
         self.variables.guardar_datos_dataframe(self.nombre_docHistorico, Completo_resumido_para_historico, self.concesionario)
 
+    def filtroOSDAFTemporal(self, fila):
+        try:
+            if fila["Número_Orden"] in [53856, 54034, 54058, 54098, 54139, 54265] and fila["Sucursal"] == "Veracruz":
+                return "DAF"
+            else:
+                return fila["Clasificacion_Cliente"]
+        except:
+            pass
     # CREAMOS LA FUNCION PARA LAS CLASIFICACIONES POR NUMERO DE ORDEN
     def FiltroPorNumeroOrden(self, row):
         try:

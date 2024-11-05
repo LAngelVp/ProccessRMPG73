@@ -48,17 +48,22 @@ class InventarioKWESTEKREI(Variables):
 
         df2["ClassAlmacen"] = "Inventario"
 
-        df2.loc[df2["Almacén"].str.contains("Infant"), "ClassAlmacen"] = "Infant Care"
+        df2.loc[df2["Almacén"].str.contains("Infant"), "ClassAlmacen"] = "Inventario de Seguridad"
 
-
-        df2.loc[df2["Almacén"].str.contains("MX"), "ClassAlmacen"] = "MX"
+        df2.loc[df2["Almacén"].str.contains("MX"), "ClassAlmacen"] = "Inventario de Seguridad"
+        
+        df2.loc[df2["Almacén"].str.contains("T380"), "ClassAlmacen"] = "Inventario de Seguridad"
+        
+        df2.loc[df2["Almacén"].str.contains("T680"), "ClassAlmacen"] = "Inventario de Seguridad"
+        
+        df2.loc[df2["Almacén"].str.contains("DAF"), "ClassAlmacen"] = "Inventario de Seguridad"
 
         df2.loc[df2["Almacén"].str.contains("KW45/55"), "ClassAlmacen"] = "Inventario de Seguridad"
 
-        df2.loc[df2["Almacén"].str.contains("Servicio Express"), "ClassAlmacen"] = "Servicio Express"
+        df2.loc[df2["Almacén"].str.contains("Servicio Express"), "ClassAlmacen"] = "Inventario de Seguridad"
 
         df2.loc[(df2["Almacén"].str.contains("Rescates")) | 
-                                     (df2["Almacén"].str.contains("Rescate")), "ClassAlmacen"] = "Rescates"
+                                     (df2["Almacén"].str.contains("Rescate")), "ClassAlmacen"] = "Inventario de Seguridad"
 
 
         df2.loc[(df2["Almacén"].str.contains("Consigna")) | 
@@ -105,17 +110,22 @@ class InventarioKWESTEKREI(Variables):
 
         df2["ClassAlmacen"] = "Inventario"
 
-        df2.loc[df2["Almacén"].str.contains("Infant"), "ClassAlmacen"] = "Infant Care"
+        df2.loc[df2["Almacén"].str.contains("Infant"), "ClassAlmacen"] = "Inventario de Seguridad"
 
+        df2.loc[df2["Almacén"].str.contains("T380"), "ClassAlmacen"] = "Inventario de Seguridad"
+        
+        df2.loc[df2["Almacén"].str.contains("T680"), "ClassAlmacen"] = "Inventario de Seguridad"
+        
+        df2.loc[df2["Almacén"].str.contains("DAF"), "ClassAlmacen"] = "Inventario de Seguridad"
 
-        df2.loc[df2["Almacén"].str.contains("MX"), "ClassAlmacen"] = "MX"
+        df2.loc[df2["Almacén"].str.contains("MX"), "ClassAlmacen"] = "Inventario de Seguridad"
 
         df2.loc[df2["Almacén"].str.contains("KW45/55"), "ClassAlmacen"] = "Inventario de Seguridad"
 
-        df2.loc[df2["Almacén"].str.contains("Servicio Express"), "ClassAlmacen"] = "Servicio Express"
+        df2.loc[df2["Almacén"].str.contains("Servicio Express"), "ClassAlmacen"] = "Inventario de Seguridad"
 
         df2.loc[(df2["Almacén"].str.contains("Rescates")) | 
-                                     (df2["Almacén"].str.contains("Rescate")), "ClassAlmacen"] = "Rescates"
+                                     (df2["Almacén"].str.contains("Rescate")), "ClassAlmacen"] = "Inventario de Seguridad"
 
 
         df2.loc[(df2["Almacén"].str.contains("Consigna")) | 

@@ -69,11 +69,11 @@ class ServicioDetallado(Variables):
         #COMMENT:CAMBIAR DE NORBRE EL VENDEDOR
         d["Vendedor"] = d["Vendedor"].replace("ERICK G TRUJILLO M", "ERICK G TRUJILLO M SC")
 
-        #COMMENT: CREAR CLASIFICACION DE MERIDA Y TIPO SERVICIO
-        # d.loc[(d["Sucursal"] == "Merida") & (d["Tipo Servicio"].str.contains("Rescate")), "Depa Venta"] = "Rescates"
-        # d.loc[(d["Sucursal"] == "Merida") & (d["Tipo Servicio"].str.contains("Rescate")), "Depa"] = "Rescates Merida"
-        # d.loc[(d["Sucursal"] == "Merida") & (d["Tipo Servicio"].str.contains("Servicio")), "Depa Venta"] = "Servicio"
-        # d.loc[(d["Sucursal"] == "Merida") & (d["Tipo Servicio"].str.contains("Servicio")), "Depa"] = "Servicio Merida"
+        #COMMENT: CREAR CLASIFICACION DE TUXTLA Y TIPO SERVICIO
+        d.loc[(d["Sucursal"] == "Tuxtla1") & (d["Tipo Servicio"].str.contains("Rescate")), "Depa Venta"] = "Rescates"
+        d.loc[(d["Sucursal"] == "Tuxtla1") & (d["Tipo Servicio"].str.contains("Rescate")), "Depa"] = "Rescates Tuxtla1"
+        d.loc[(d["Sucursal"] == "Tuxtla1") & (d["Tipo Servicio"].str.contains("Servicio")), "Depa Venta"] = "Servicio"
+        d.loc[(d["Sucursal"] == "Tuxtla1") & (d["Tipo Servicio"].str.contains("Servicio")), "Depa"] = "Servicio Tuxtla1"
 
         #COMMENT: FORMALIZAMOS LOS VALORES VACIOS EN CENTRO DE COSTOS
         d['Centro de Costos'].fillna('', inplace=True)
@@ -95,6 +95,9 @@ class ServicioDetallado(Variables):
             ),
             axis=1,
         )
+
+        #COMMENT: CLASIFICAMOS DAF
+        d.loc[(d["Sucursal"] == "Veracruz") & (d["Área"].str.contains("DAF")), ["Clasificacion Cliente", "Depa Venta", "Depa"]] =  ["DAF", "DAF", "DAF"]
 
         #COMMENT: MOVEMOS LAS COLUMNAS DE DEPARTAMENTO
         columna_depaventa = d.pop("Depa Venta")
