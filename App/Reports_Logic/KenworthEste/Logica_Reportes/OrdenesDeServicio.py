@@ -135,7 +135,8 @@ class OrdenesDeServicio(Variables):
         # CLASIFICACION DE  CLASIFICACION CLIENTE DAF
         Completo.loc[(Completo["Clasificacion_Cliente"] == "GARANTIA")
                     & (Completo["Clasificacion_Venta"] == "GARANTIA") 
-                    & (Completo["Tipo_Servicio"] == "DAF Acondicionamientos"), 
+                    & (Completo["Tipo_Servicio"] == "DAF Acondicionamientos")
+                    & (Completo["Sucursal"] == "Veracruz"), 
                     ["Clasificacion_Cliente",  "Clasificacion_Venta"]] = ["DAF", "DAF"]
 
         Completo["Dias Antigüedad PS"] = Completo.apply(lambda fila: self.dia_laboral(fila), axis=1)
