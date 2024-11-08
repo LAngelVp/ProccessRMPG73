@@ -17,12 +17,14 @@ class Refacciones(Variables):
         self.nombre_doc = 'RR.xlsx'
         path = os.path.join(self.variables.ruta_Trabajos_kwrb, self.nombre_doc)
 
-        df = pd.read_excel(path, sheet_name='Hoja2')
-        df = df.replace(to_replace=';', value='-', regex=True)
+        dfa = pd.read_excel(path, sheet_name='Hoja2')
+        dfa = dfa.replace(to_replace=';', value='-', regex=True)
         
-        df.drop(['% Margen', 'Meta Ventas Por Vendedor', 'Meta Margen Por Vendedor', 'Meta Cantidad Por Vendedor', 'Meta Ventas Por Sucursal', 'Meta Margen Por Sucursal', 'Meta Cantidad Por Sucursal', '% Comisión Por Margen', '% Comisión Por Ventas', 'Comisión Por Margen', 'Comisión Por Ventas', 'EsBonificacion', 'IdUsuario', 'IdPaquete', 'Paquete', 'Descripción Paquete', 'Cantidad Paquete', 'Subtotal Paquete', 'Potencial Total', 'Tipo de Cambio del día', 'OCCliente', '% Margen Sin Descuento'], axis=1, inplace=True)
+        dfa.drop(['% Margen', 'Meta Ventas Por Vendedor', 'Meta Margen Por Vendedor', 'Meta Cantidad Por Vendedor', 'Meta Ventas Por Sucursal', 'Meta Margen Por Sucursal', 'Meta Cantidad Por Sucursal', '% Comisión Por Margen', '% Comisión Por Ventas', 'Comisión Por Margen', 'Comisión Por Ventas', 'EsBonificacion', 'IdUsuario', 'IdPaquete', 'Paquete', 'Descripción Paquete', 'Cantidad Paquete', 'Subtotal Paquete', 'Potencial Total', 'Tipo de Cambio del día', 'OCCliente', '% Margen Sin Descuento'], axis=1, inplace=True)
 
-        df = df[df.columns[0:93]].copy()
+        df = dfa[dfa.columns[0:93]].copy()
+        df = pd.concat([df, dfa['ECommerce']], axis=1)
+
         
         for column_name in df.columns:
                 if "fecha" in column_name.lower():
