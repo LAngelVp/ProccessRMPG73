@@ -3,6 +3,8 @@
 ###################
 ################
 import sys
+import socket
+import psutil
 from PyQt6 import *
 from PyQt6.QtCore import *
 from PyQt6.QtWidgets import *
