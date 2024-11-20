@@ -10,6 +10,7 @@ from urllib3.exceptions import InsecureRequestWarning
 
 # import os
 from .ContenedorVariables import Variables
+from .mensajes_alertas import Mensajes_Alertas
 
 
 
@@ -57,11 +58,11 @@ class Web_scraping:
                         juntar_dos['Valor'] = pd.to_numeric(juntar_dos['Valor'])
                         return juntar_dos
                 else:
-                    print("No se encontró la tabla con la clase 'Tabla_borde'.")
+                    return None
             else:
-                print("No se encontró el div con el id 'Tabla_borde'.")
+                return None
         else:
-            print(f"Error al obtener la página: {response.status_code}")
+            return None
 
 # Web_scraping().obtener_dolares('01/11/2024','20/11/2024')
 # Web_scraping()
