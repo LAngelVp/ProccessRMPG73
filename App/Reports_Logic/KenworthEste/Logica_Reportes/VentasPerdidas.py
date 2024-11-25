@@ -65,7 +65,7 @@ class VentasPerdidas(Variables):
                 "Nombre Cliente": ["-", "-"],
                 "Núm. Artículo": ["-", "-"],
                 "Artículo": ["-", "-"],
-                "Motivo": ["-", "-"],
+                "Motivo": ["NO EXIST EN SUCURSAL (MOVTO)", "NO EXIST EN SUCURSAL (MOVTO)"],
                 "Cantidad": [0, 0],
                 "Fecha": [Variables().date_movement_config_document(), Variables().date_movement_config_document()],
                 "Hora": [Variables().date_movement_config_document(), Variables().date_movement_config_document()],
