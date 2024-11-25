@@ -15,7 +15,7 @@ from dotenv import load_dotenv
 from Front.inicio_sesion import UI_Inicio_Sesion
 from Reports_Logic.globalModulesShare.mensajes_alertas import Mensajes_Alertas
 from Reports_Logic.globalModulesShare.kuchotsa import *
-from Home import PrincipalWindow
+from Reports_Logic.Home import PrincipalWindow
 import Reports_Logic.globalModulesShare.icono as icono
 from Reports_Logic.globalModulesShare.ContenedorVariables import *
 from Reports_Logic.globalModulesShare.documentos_json import *
