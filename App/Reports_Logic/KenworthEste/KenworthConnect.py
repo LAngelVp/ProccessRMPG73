@@ -18,6 +18,7 @@ from .Logica_Reportes.ServicioDetallado import *
 from .Logica_Reportes.Refacciones import *
 from .Logica_Reportes.Financiero import *
 from .Logica_Reportes.Contabilidad import FactSitic_document, Nota_credito_retenido, FactSat_document
+from .Logica_Reportes.VentasPerdidas import VentasPerdidas
 #-----------------------------------
 
 #CLASE
@@ -92,4 +93,60 @@ class KenworthConnect():
     # NOTA DE CREDITO FACTSAT
     def NotaCreditoFactSat(self):
         FactSat_document().Nota_de_credito
+        
+    def VentasPerdidasMatriz(self):
+        try:
+            VentasPerdidas().venta_perdida_matriz()
+        except Exception as e:
+            print(f"Error: {e}")
+    def VentasPerdidasTrebol(self):
+        try:
+            VentasPerdidas().venta_perdida_trebol()
+        except Exception as e:
+            print(f"Error: {e}")
+    def VentasPerdidasVeracruz(self):
+        try:
+            VentasPerdidas().venta_perdida_veracruz()
+        except Exception as e:
+            print(f"Error: {e}")
+    def VentasPerdidasOrizaba(self):
+        try:
+            VentasPerdidas().venta_perdida_orizaba()
+        except Exception as e:
+            print(f"Error: {e}")
+    def VentasPerdidasTehuacan(self):
+        try:
+            VentasPerdidas().venta_perdida_tehuacan()
+        except Exception as e:
+            print(f"Error: {e}")
+    def VentasPerdidasVillahermosa(self):
+        try:
+            VentasPerdidas().venta_perdida_villahermosa()
+        except Exception as e:
+            print(f"Error: {e}")
+    def VentasPerdidasCoatzacoalcos(self):
+        try:
+            VentasPerdidas().venta_perdida_coatzacoalcos()
+        except Exception as e:
+            print(f"Error: {e}")
+    def VentasPerdidasMerida(self):
+        try:
+            VentasPerdidas().venta_perdida_merida()
+        except Exception as e:
+            print(f"Error: {e}")
+    def VentasPerdidasOaxaca(self):
+        try:
+            VentasPerdidas().venta_perdida_oaxaca()
+        except Exception as e:
+            print(f"Error: {e}")
+    def VentasPerdidasTuxtla1(self):
+        try:
+            VentasPerdidas().venta_perdida_tuxtla1()
+        except Exception as e:
+            print(f"Error: {e}")
+    def VentasPerdidasTuxtla2(self):
+        try:
+            VentasPerdidas().venta_perdida_tuxtla2()
+        except Exception as e:
+            print(f"Error: {e}")
     

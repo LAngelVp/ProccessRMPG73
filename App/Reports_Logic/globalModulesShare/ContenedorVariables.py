@@ -11,10 +11,11 @@ import pandas as pd
 import locale
 from dateutil import parser
 from openpyxl import *
+import xlrd
 
 from .documentos_json import creacion_json
 
-locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
+
 class Variables:
     def __init__(self):
 
@@ -140,6 +141,7 @@ class Variables:
         archivo = pd.read_json(self.documentSavingPaths)
         nombre_arreglado_csv = f'{concesionario}_{normalName}_RMPG_{self.FechaExternsionGuardar()}.csv'
         nombre_arreglado_xlsx = f'{concesionario}_{normalName}_RMPG_{self.FechaExternsionGuardar()}.xlsx'
+        
         self.docu =None
         self.docu_nombre = None
         for index, fila in archivo.iterrows():
@@ -159,9 +161,14 @@ class Variables:
 #comment: save document    
     def guardar_datos_dataframe(self, nombre_documento, dataframe, concesionario = None):
         if (os.path.basename(self.comprobar_reporte_documento_rutas(nombre_documento, concesionario)).split(".")[1] == nombre_documento.split(".")[1]):
-                dataframe.to_excel(self.comprobar_reporte_documento_rutas(nombre_documento, concesionario), engine='openpyxl', index=False )
+                dataframe.to_excel(self.comprobar_reporte_documento_rutas(nombre_documento, concesionario),engine='openpyxl', index=False )
         else:
             dataframe.to_csv(self.comprobar_reporte_documento_rutas(nombre_documento, concesionario), encoding="utf-8", index=False )
+            
+    def guardar_xls(self, nombre_documento, dataframe, concesionario = None):
+        nombre_arreglado_xlsx = f'{concesionario}_{nombre_documento.split(".")[0]}_RMPG.xlsx'
+        if (concesionario in self.successfulPathDirectory):
+            dataframe.to_excel(os.path.join(self.successfulPathDirectory[concesionario], nombre_arreglado_xlsx), index=False )
 
 #-----------------------------------------------------------
 #comment: functions
@@ -172,6 +179,7 @@ class Variables:
         return fechaPath
     
     def nombre_mes(self):
+        locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
         mes_actual = self.date_movement_config_document().month
         mes_actual_nombre = calendar.month_name[mes_actual].capitalize()
         return mes_actual_nombre

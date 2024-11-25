@@ -422,7 +422,18 @@ class trabajohilo(QThread):
             "NCPDFS.xlsx" : KenworthConnect().NotasCargoProveedor,
             "NCRFS.xlsx" : KenworthConnect().NcrFactSitic,
             "FFS.xlsx" : KenworthConnect().FacturasFactSat,
-            "NCFS.xlsx" : KenworthConnect().NotaCreditoFactSat
+            "NCFS.xlsx" : KenworthConnect().NotaCreditoFactSat,
+            "VPMATRIZ.xls" : KenworthConnect().VentasPerdidasMatriz,
+            "VPTREBOL.xls" : KenworthConnect().VentasPerdidasTrebol,
+            "VPVERACRUZ.xls" : KenworthConnect().VentasPerdidasVeracruz,
+            "VPORIZABA.xls" : KenworthConnect().VentasPerdidasOrizaba,
+            "VPTEHUACAN.xls" : KenworthConnect().VentasPerdidasTehuacan,
+            "VPVILLAHERMOSA.xls" : KenworthConnect().VentasPerdidasVillahermosa,
+            "VPCOATZACOALCOS.xls" : KenworthConnect().VentasPerdidasCoatzacoalcos,
+            "VPMERIDA.xls" : KenworthConnect().VentasPerdidasMerida,
+            "VPTUXTLA1.xls" : KenworthConnect().VentasPerdidasTuxtla1,
+            "VPOAXACA.xls" : KenworthConnect().VentasPerdidasOaxaca,
+            "VPTUXTLA2.xls" : KenworthConnect().VentasPerdidasTuxtla2,
         }
         #-----------------------------------------------
         while True:
