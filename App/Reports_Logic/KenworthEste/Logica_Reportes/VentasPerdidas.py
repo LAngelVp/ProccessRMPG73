@@ -91,7 +91,7 @@ class VentasPerdidas(Variables):
         df_final_vacios = pd.concat(dfs, ignore_index=True)
         hora = pd.to_datetime(df_final_vacios["Hora"])
         df_final_vacios["Hora"] = hora.dt.strftime('%H:%M:%S %p').astype(str)
-        df_final_vacios["Mes"] = df_final_vacios["Fecha"].dt.strftime(f'%b-%y').replace(".","")
+        df_final_vacios["Mes"] = df_final_vacios["Fecha"].dt.strftime(f'%b-%y').replace(".","").lower()
                 
         for column_name in df_final_vacios.columns:
             if "fecha" in column_name.lower():
@@ -102,47 +102,36 @@ class VentasPerdidas(Variables):
     def venta_perdida_matriz(self):
         documento = "VPMATRIZ.xls"
         self.comprobar_documento(documento)
-    
     def venta_perdida_trebol(self):
         documento = "VPTREBOL.xls"
         self.comprobar_documento(documento)
-    
     def venta_perdida_veracruz(self):
         documento = "VPVERACRUZ.xls"
         self.comprobar_documento(documento)
-    
     def venta_perdida_orizaba(self):
         documento = "VPORIZABA.xls"
         self.comprobar_documento(documento)
-    
     def venta_perdida_tehuacan(self):
         documento = "VPTEHUACAN.xls"
         self.comprobar_documento(documento)
-    
     def venta_perdida_villahermosa(self):
         documento = "VPVILLAHERMOSA.xls"
         self.comprobar_documento(documento)
-    
     def venta_perdida_coatzacoalcos(self):
         documento = "VPCOATZACOALCOS.xls"
         self.comprobar_documento(documento)
-    
     def venta_perdida_merida(self):
         documento = "VPMERIDA.xls"
         self.comprobar_documento(documento)
-    
     def venta_perdida_oaxaca(self):
         documento = "VPOAXACA.xls"
         self.comprobar_documento(documento)
-    
     def venta_perdida_tuxtla1(self):
         documento = "VPTUXTLA1.xls"
         self.comprobar_documento(documento)
-    
     def venta_perdida_tuxtla2(self):
         documento = "VPTUXTLA2.xls"
         self.comprobar_documento(documento)
-        
     def comprobar_documento(self, documento):
         self.comprobar_existencia_ventasperdidas()
         ruta_completa = os.path.join(self.ruta_base, documento)
@@ -186,7 +175,7 @@ class VentasPerdidas(Variables):
             if "fecha" in column_name.lower():
                 df = self.variables.global_date_format_america(df, column_name)
 
-        df["Mes"] = df["Fecha"].dt.strftime(f'%b-%y').replace(".","")
+        df["Mes"] = df["Fecha"].dt.strftime(f'%b-%y').replace(".","").lower()
         
         df.insert(0, "VP", 1, allow_duplicates=False)
 

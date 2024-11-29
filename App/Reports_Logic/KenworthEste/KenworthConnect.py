@@ -93,60 +93,26 @@ class KenworthConnect():
     # NOTA DE CREDITO FACTSAT
     def NotaCreditoFactSat(self):
         FactSat_document().Nota_de_credito
-        
     def VentasPerdidasMatriz(self):
-        try:
-            VentasPerdidas().venta_perdida_matriz()
-        except Exception as e:
-            print(f"Error: {e}")
+        VentasPerdidas().venta_perdida_matriz()
     def VentasPerdidasTrebol(self):
-        try:
-            VentasPerdidas().venta_perdida_trebol()
-        except Exception as e:
-            print(f"Error: {e}")
+        VentasPerdidas().venta_perdida_trebol()
     def VentasPerdidasVeracruz(self):
-        try:
-            VentasPerdidas().venta_perdida_veracruz()
-        except Exception as e:
-            print(f"Error: {e}")
+        VentasPerdidas().venta_perdida_veracruz()
     def VentasPerdidasOrizaba(self):
-        try:
-            VentasPerdidas().venta_perdida_orizaba()
-        except Exception as e:
-            print(f"Error: {e}")
+        VentasPerdidas().venta_perdida_orizaba()
     def VentasPerdidasTehuacan(self):
-        try:
-            VentasPerdidas().venta_perdida_tehuacan()
-        except Exception as e:
-            print(f"Error: {e}")
+        VentasPerdidas().venta_perdida_tehuacan()
     def VentasPerdidasVillahermosa(self):
-        try:
-            VentasPerdidas().venta_perdida_villahermosa()
-        except Exception as e:
-            print(f"Error: {e}")
+        VentasPerdidas().venta_perdida_villahermosa()
     def VentasPerdidasCoatzacoalcos(self):
-        try:
-            VentasPerdidas().venta_perdida_coatzacoalcos()
-        except Exception as e:
-            print(f"Error: {e}")
+        VentasPerdidas().venta_perdida_coatzacoalcos()
     def VentasPerdidasMerida(self):
-        try:
-            VentasPerdidas().venta_perdida_merida()
-        except Exception as e:
-            print(f"Error: {e}")
+        VentasPerdidas().venta_perdida_merida()
     def VentasPerdidasOaxaca(self):
-        try:
-            VentasPerdidas().venta_perdida_oaxaca()
-        except Exception as e:
-            print(f"Error: {e}")
+        VentasPerdidas().venta_perdida_oaxaca()
     def VentasPerdidasTuxtla1(self):
-        try:
-            VentasPerdidas().venta_perdida_tuxtla1()
-        except Exception as e:
-            print(f"Error: {e}")
+        VentasPerdidas().venta_perdida_tuxtla1()
     def VentasPerdidasTuxtla2(self):
-        try:
-            VentasPerdidas().venta_perdida_tuxtla2()
-        except Exception as e:
-            print(f"Error: {e}")
+        VentasPerdidas().venta_perdida_tuxtla2()
     

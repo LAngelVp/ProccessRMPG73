@@ -186,7 +186,7 @@ class Variables:
     
     def nombre_mes_actual_abreviado(self):
         mes_actual = self.date_movement_config_document()
-        mes_abreviado = mes_actual.strftime(f'%b-%y').replace(".","")
+        mes_abreviado = mes_actual.strftime(f'%b-%y').replace(".","").lower()
         return mes_abreviado
     
     def fechaHoy(self):
@@ -194,7 +194,7 @@ class Variables:
         return fecha
     
     def nombre_mes_base_columna(self, valor):
-        mes = valor.strftime(f'%b-%y').replace(".","")
+        mes = valor.strftime(f'%b-%y').replace(".","").lower()
         return mes
     
     def parse_date_safe(self, date_str):
