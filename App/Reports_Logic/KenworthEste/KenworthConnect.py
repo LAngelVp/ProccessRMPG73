@@ -92,7 +92,10 @@ class KenworthConnect():
     
     # NOTA DE CREDITO FACTSAT
     def NotaCreditoFactSat(self):
-        FactSat_document().Nota_de_credito
+        try:
+            FactSat_document().Nota_de_credito
+        except Exception as e:
+            print(e)
     def VentasPerdidasMatriz(self):
         VentasPerdidas().venta_perdida_matriz()
     def VentasPerdidasTrebol(self):
@@ -106,7 +109,10 @@ class KenworthConnect():
     def VentasPerdidasVillahermosa(self):
         VentasPerdidas().venta_perdida_villahermosa()
     def VentasPerdidasCoatzacoalcos(self):
-        VentasPerdidas().venta_perdida_coatzacoalcos()
+        try:
+            VentasPerdidas().venta_perdida_coatzacoalcos()
+        except Exception as e:
+            print(e)
     def VentasPerdidasMerida(self):
         VentasPerdidas().venta_perdida_merida()
     def VentasPerdidasOaxaca(self):

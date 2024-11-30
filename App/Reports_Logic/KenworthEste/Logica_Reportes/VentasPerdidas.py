@@ -91,7 +91,7 @@ class VentasPerdidas(Variables):
         df_final_vacios = pd.concat(dfs, ignore_index=True)
         hora = pd.to_datetime(df_final_vacios["Hora"])
         df_final_vacios["Hora"] = hora.dt.strftime('%H:%M:%S %p').astype(str)
-        df_final_vacios["Mes"] = df_final_vacios["Fecha"].dt.strftime(f'%b-%y').replace(".","").lower()
+        df_final_vacios["Mes"] = df_final_vacios["Fecha"].apply(lambda x:self.variables.nombre_mes_base_columna(x))
                 
         for column_name in df_final_vacios.columns:
             if "fecha" in column_name.lower():
@@ -175,7 +175,7 @@ class VentasPerdidas(Variables):
             if "fecha" in column_name.lower():
                 df = self.variables.global_date_format_america(df, column_name)
 
-        df["Mes"] = df["Fecha"].dt.strftime(f'%b-%y').replace(".","").lower()
+        df["Mes"] = df["Fecha"].apply(lambda x:self.variables.nombre_mes_base_columna(x))
         
         df.insert(0, "VP", 1, allow_duplicates=False)
 
