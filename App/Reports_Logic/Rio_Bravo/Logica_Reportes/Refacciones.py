@@ -57,37 +57,37 @@ class Refacciones(Variables):
     def Clasificacion_departamentos_refacciones(self, valor_sucursal, valor_departamento_documento):
         departamento_venta = None
         depa = None
-        if (valor_sucursal.lower() == "matamoros") and (valor_departamento_documento.lower() == "refacciones"):
+        if (valor_sucursal.lower() == "matamoros") and (valor_departamento_documento.lower() == "refacciones") or (valor_departamento_documento.lower() == "venta de unidades nuevas"):
             departamento_venta =  "Mostrador " + valor_sucursal.title()
             depa = "Mostrador"
-        elif (valor_sucursal.lower() == "trp acuña") and (valor_departamento_documento.lower() == "refacciones"):
+        elif (valor_sucursal.lower() == "trp acuña") and (valor_departamento_documento.lower() == "refacciones") or (valor_departamento_documento.lower() == "venta de unidades nuevas"):
             departamento_venta =  "Mostrador TRP Acuña"
             depa = "Mostrador"
-        elif (valor_sucursal.lower() == "poza rica") and (valor_departamento_documento.lower() == "refacciones"):
+        elif (valor_sucursal.lower() == "poza rica") and (valor_departamento_documento.lower() == "refacciones") or (valor_departamento_documento.lower() == "venta de unidades nuevas"):
             departamento_venta =  "Mostrador " + valor_sucursal.title()
             depa = "Mostrador"
-        elif (valor_sucursal.lower() == "nuevo laredo (matriz)") and (valor_departamento_documento.lower() == "refacciones"):
+        elif (valor_sucursal.lower() == "nuevo laredo (matriz)") and (valor_departamento_documento.lower() == "refacciones") or (valor_departamento_documento.lower() == "venta de unidades nuevas"):
             departamento_venta =  "Mostrador NL Matriz"
             depa = "Mostrador"
-        elif (valor_sucursal.lower() == "trp nava") and (valor_departamento_documento.lower() == "refacciones"):
+        elif (valor_sucursal.lower() == "trp nava") and (valor_departamento_documento.lower() == "refacciones") or (valor_departamento_documento.lower() == "venta de unidades nuevas"):
             departamento_venta =  "Mostrador TRP Nava"
             depa = "Mostrador"
-        elif (valor_sucursal.lower() == "valle hermoso") and (valor_departamento_documento.lower() == "refacciones"):
+        elif (valor_sucursal.lower() == "valle hermoso") and (valor_departamento_documento.lower() == "refacciones") or (valor_departamento_documento.lower() == "venta de unidades nuevas"):
             departamento_venta =  "Mostrador " + valor_sucursal.title()
             depa = "Mostrador"
-        elif (valor_sucursal.lower() == "piedras negras") and (valor_departamento_documento.lower() == "refacciones"):
+        elif (valor_sucursal.lower() == "piedras negras") and (valor_departamento_documento.lower() == "refacciones") or (valor_departamento_documento.lower() == "venta de unidades nuevas"):
             departamento_venta =  "Mostrador " + valor_sucursal.title()
             depa = "Mostrador"
-        elif (valor_sucursal.lower() == "trp reynosa") and (valor_departamento_documento.lower() == "refacciones"):
+        elif (valor_sucursal.lower() == "trp reynosa") and (valor_departamento_documento.lower() == "refacciones") or (valor_departamento_documento.lower() == "venta de unidades nuevas"):
             departamento_venta =  "Mostrador TRP Reynosa"
             depa = "Mostrador"
-        elif (valor_sucursal.lower() == "trp nuevo laredo") and (valor_departamento_documento.lower() == "refacciones"):
+        elif (valor_sucursal.lower() == "trp nuevo laredo") and (valor_departamento_documento.lower() == "refacciones") or (valor_departamento_documento.lower() == "venta de unidades nuevas"):
             departamento_venta =  "Mostrador TRP Nuevo Laredo"
             depa = "Mostrador"
-        elif (valor_sucursal.lower() == "nuevo laredo (aeropuerto)") and (valor_departamento_documento.lower() == "refacciones"):
+        elif (valor_sucursal.lower() == "nuevo laredo (aeropuerto)") and (valor_departamento_documento.lower() == "refacciones") or (valor_departamento_documento.lower() == "venta de unidades nuevas"):
             departamento_venta =  "Mostrador NL Aeropuerto"
             depa = "Mostrador"
-        elif (valor_sucursal.lower() == "reynosa") and (valor_departamento_documento.lower() == "refacciones"):
+        elif (valor_sucursal.lower() == "reynosa") and (valor_departamento_documento.lower() == "refacciones") or (valor_departamento_documento.lower() == "venta de unidades nuevas"):
             departamento_venta =  "Mostrador " + valor_sucursal.title()
             depa = "Mostrador"
         

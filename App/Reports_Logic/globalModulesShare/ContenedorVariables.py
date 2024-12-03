@@ -14,7 +14,7 @@ from openpyxl import *
 import xlrd
 
 from .documentos_json import creacion_json
-
+locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
 
 class Variables:
     def __init__(self):
@@ -179,7 +179,6 @@ class Variables:
         return fechaPath
     
     def nombre_mes(self):
-        locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
         mes_actual = self.date_movement_config_document().month
         mes_actual_nombre = calendar.month_name[mes_actual].capitalize()
         return mes_actual_nombre
