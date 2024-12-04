@@ -70,10 +70,12 @@ class ServicioDetallado(Variables):
         d["Vendedor"] = d["Vendedor"].replace("ERICK G TRUJILLO M", "ERICK G TRUJILLO M SC")
 
         #COMMENT: CREAR CLASIFICACION DE TUXTLA Y TIPO SERVICIO
-        d.loc[(d["Sucursal"] == "Tuxtla1") & (d["Tipo Servicio"].str.contains("Rescate")), "Depa Venta"] = "Rescates"
-        d.loc[(d["Sucursal"] == "Tuxtla1") & (d["Tipo Servicio"].str.contains("Rescate")), "Depa"] = "Rescates Tuxtla1"
-        d.loc[(d["Sucursal"] == "Tuxtla1") & (d["Tipo Servicio"].str.contains("Servicio")), "Depa Venta"] = "Servicio"
-        d.loc[(d["Sucursal"] == "Tuxtla1") & (d["Tipo Servicio"].str.contains("Servicio")), "Depa"] = "Servicio Tuxtla1"
+        # d.loc[(d["Sucursal"] == "Tuxtla1") & (d["Tipo Servicio"].str.contains("Rescate")), "Depa Venta"] = "Rescates"
+        # d.loc[(d["Sucursal"] == "Tuxtla1") & (d["Tipo Servicio"].str.contains("Rescate")), "Depa"] = "Rescates Tuxtla1"
+        # d.loc[(d["Sucursal"] == "Tuxtla1") & (d["Tipo Servicio"].str.contains("Servicio")), "Depa Venta"] = "Servicio"
+        # d.loc[(d["Sucursal"] == "Tuxtla1") & (d["Tipo Servicio"].str.contains("Servicio")), "Depa"] = "Servicio Tuxtla1"
+        d.loc[(d["Sucursal"] == "Tuxtla1"), "Depa Venta"] = "Servicio"
+        d.loc[(d["Sucursal"] == "Tuxtla1"), "Depa"] = "Servicio Tuxtla1"
 
         #COMMENT: FORMALIZAMOS LOS VALORES VACIOS EN CENTRO DE COSTOS
         d['Centro de Costos'].fillna('', inplace=True)
